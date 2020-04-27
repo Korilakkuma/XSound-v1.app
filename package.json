@@ -1,0 +1,96 @@
+{
+  "name": "xsound-app",
+  "version": "1.0.0",
+  "engines": {
+    "node": ">=10.19.0 <12.0.0"
+  },
+  "description": "Multifunctional Synthesizer by XSound (Web Audio API Library)",
+  "main": "./assets/app.js",
+  "scripts": {
+    "clean": "rm -rf ./assets/app.* ./assets/vendor.*",
+    "lint:js": "eslint ./src/*.js ./src/**/*.js",
+    "lint:css": "stylelint ./src/*.css ./src/**/*.css",
+    "lint": "run-p lint:js lint:css",
+    "build": "npm run clean && webpack --progress --mode production",
+    "dev": "webpack-dev-server --progress"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix"
+    ],
+    "*.css": [
+      "stylelint --fix"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Korilakkuma/XSound.app.git"
+  },
+  "keywords": [
+    "XSound.app",
+    "XSound",
+    "Web Music",
+    "Web Audio API",
+    "Web MIDI API",
+    "WebRTC"
+  ],
+  "author": "Korilakkuma <rilakkuma.san.xjapan@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Korilakkuma/XSound.app/issues"
+  },
+  "homepage": "https://xsound.app/",
+  "files": [
+    "assets",
+    "index.html",
+    "LICENSE",
+    "package.json",
+    "README.md"
+  ],
+  "dependencies": {
+    "connected-react-router": "^6.8.0",
+    "history": "^4.10.1",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-redux": "^7.2.0",
+    "react-router": "^5.1.2",
+    "react-router-dom": "^5.1.2",
+    "redux": "^4.0.5",
+    "xsound": "^2.19.5"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.34",
+    "@types/react-dom": "^16.9.6",
+    "@typescript-eslint/eslint-plugin": "^2.29.0",
+    "@typescript-eslint/parser": "^2.29.0",
+    "css-loader": "^3.5.2",
+    "eslint": "^5.16.0",
+    "eslint-cli": "^1.1.1",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-standard": "^4.0.1",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.1.7",
+    "mini-css-extract-plugin": "^0.9.0",
+    "npm-run-all": "^4.1.5",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
+    "postcss-easy-import": "^3.0.0",
+    "postcss-loader": "^3.0.0",
+    "stylelint": "^13.3.3",
+    "stylelint-config-standard": "^20.0.0",
+    "ts-loader": "^7.0.1",
+    "typescript": "^3.8.3",
+    "url-loader": "^4.1.0",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
+  }
+}
