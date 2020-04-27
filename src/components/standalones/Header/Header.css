@@ -1,0 +1,261 @@
+.Header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 20;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.Header.-progress {
+  background-color: var(--black);
+  color: var(--assort-color);
+}
+
+.Header.-fadeOut {
+  animation: fade-out-header-animation 1.5s ease 1 normal 0s forwards;
+}
+
+@keyframes fade-out-header-animation {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.Header > div {
+  margin-top: -120px;
+}
+
+.Header__logo {
+  /* for animation */
+  position: relative;
+  z-index: 1;
+  margin: 0 auto;
+
+  /* size of logo */
+  width: 200px;
+  height: 100px;
+  font-size: 36px;
+  text-align: center;
+
+  /* Wait for completing layout */
+
+  /* opacity:0; */
+}
+
+.Header.-fadeIn .Header__logo {
+  animation: fade-in-header-animation 1.5s ease-in 1 normal 0s forwards;
+}
+
+@keyframes fade-in-header-animation {
+  0% {
+    opacity: 0.25;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.Header__logo > img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+
+.Header__logo > img:not(:first-child) {
+  opacity: 0;
+}
+
+.Header.-fadeOut .Header__logo > img:nth-of-type(1) {
+  animation: logo-move-left 3s linear 1 normal 0s forwards;
+}
+
+.Header.-fadeOut .Header__logo > img:nth-of-type(2) {
+  animation: logo-move-left 3s linear 1 normal 0.125s forwards;
+}
+
+.Header.-fadeOut .Header__logo > img:nth-of-type(3) {
+  animation: logo-move-left 3s linear 1 normal 0.25s forwards;
+}
+
+.Header.-fadeOut .Header__logo > img:nth-of-type(4) {
+  animation: logo-move-right 3s linear 1 normal 0s forwards;
+}
+
+.Header.-fadeOut .Header__logo > img:nth-of-type(5) {
+  animation: logo-move-right 3s linear 1 normal 0.125s forwards;
+}
+
+..Header.-fadeOut .Header__logo > img:nth-of-type(6) {
+  animation: logo-move-right 3s linear 1 normal 0.25s forwards;
+}
+
+@keyframes logo-move-left {
+  0% {
+    opacity: 0.5;
+    transform: translateX(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(-12000px);
+  }
+}
+
+@keyframes logo-move-right {
+  0% {
+    opacity: 0.5;
+    transform: translateX(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateX(12000px);
+  }
+}
+
+.Header__intro {
+  margin: 12px auto 24px auto;
+  width: 950px;
+  font-family: "Alike", serif;
+  font-size: 18px;
+  color: var(--assort-color);
+  text-align: left !important;
+  text-shadow: -1px -1px 1px var(--black);
+}
+
+.Header__intro > span {
+  /* for animation */
+  display: block;
+}
+
+.Header.-fadeOut .Header__intro > .Header__moveLeft {
+  animation: line-left-animation 1s ease-out 1 normal 0s;
+}
+
+.Header.-fadeOut .Header__intro > .Header__moveRight {
+  animation: line-right-animation 1s ease-out 1 normal 0s;
+}
+
+.Header__intro > span > strong {
+  font-weight: normal;
+}
+
+@keyframes line-right-animation {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(2500px);
+  }
+}
+
+@keyframes line-left-animation {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-2500px);
+  }
+}
+
+.Header__startButton {
+  /* Wait for loading one-shot audio */
+
+  /* opacity:0; */
+
+  text-align: center;
+}
+
+.Header__startButton > button {
+  display: block;
+  margin: 0 auto;
+  width: 136px;
+  height: 50px;
+
+  /* for Retina Display */
+  background-size: 136px 150px;
+
+  /* CSS Sprite */
+  background-image: url(/assets/images/button-start-application.png);
+  background-position: left top;
+  background-repeat: no-repeat;
+}
+
+.Header__startButton > button:hover {
+  background-position: left center;
+}
+
+.Header__startButton > button:active {
+  background-position: left bottom;
+}
+
+/* Progress Bar */
+.Header__progressWrapper {
+  position: relative;
+  z-index: 1;
+  margin: 12px auto;
+  width: 204px;
+  height: 12px;
+  background-color: var(--base-color);
+  background-image: linear-gradient(to bottom, var(--base-color), var(--assort-color));
+}
+
+.Header__progressMask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  width: 204px;
+  height: 6px;
+  background-color: rgba(255, 255, 255, 0.15);
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.2), var(--transparent));
+}
+
+.Header__progressBar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 0;
+  height: 12px;
+  background-color: var(--assort-color);
+}
+
+.Header__progressBar.-auto {
+  animation: auto-progress-animation 3s ease-in-out infinite normal 0s;
+}
+
+@keyframes auto-progress-animation {
+  0% {
+    width: 0;
+  }
+
+  100% {
+    width: 100%;
+  }
+}
+
+.Header__progressText {
+  font-family: "Alike", serif;
+  font-size: var(--base-font-size);
+  color: var(--assort-color);
+  text-align: center;
+}
