@@ -1,0 +1,40 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint/eslint-plugin"
+  ],
+  "env": {
+    "node": true,
+    "es6": true,
+    "browser": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "standard",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "rules": {
+    "indent": [2, 2, {
+      "ignoredNodes": ["TemplateLiteral"],
+      "SwitchCase": 1,
+    }],
+    "key-spacing": 0,
+    "no-case-declarations": 0,
+    "no-console": 1,
+    "no-constant-condition": 0,
+    "no-else-return": 2,
+    "no-multi-spaces": 0,
+    "no-unneeded-ternary": 0,
+    "no-unused-vars": [1, {"vars": "all", "args": "after-used"}],
+    "no-var": 1,
+    "prefer-promise-reject-errors": 0,
+    "quotes": [2, "single"],
+    "quote-props": 0,
+    "radix": 1,
+    "semi": [2, "always"],
+    "space-before-function-paren": 0,
+    "template-curly-spacing" : 0,
+    "@typescript-eslint/explicit-member-accessibility": 0
+  }
+}
