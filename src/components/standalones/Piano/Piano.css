@@ -1,0 +1,99 @@
+.Piano {
+  position: relative;
+  z-index: 1;
+  margin: 32px auto;
+  width: 1256px;
+  height: 240px;
+  background-image: url(/assets/images/piano-frame-normal.png);
+  background-position: left top;
+  background-repeat: no-repeat;
+
+  /* for Retina Display */
+  background-size: 1256px 240px;
+
+  /* emboss */
+
+  /* box-shadow: 0 0 0 3px var(--black) inset, 0 -1px 5px 9px rgba(17, 17, 17, 0.4); */
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: var(--transparent);
+}
+
+/* Reference | Size of piano keyboard (white) */
+
+/* width : height -> 23 : 150 */
+.Piano__whites {
+  position: absolute;
+  top: 73px;
+  left: 30px;
+  z-index: 2;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  background-color: var(--white);
+}
+
+.Piano__whites > .Piano__keyboard {
+  box-sizing: border-box;
+  cursor: pointer;
+  width: 23px;
+  height: 150px;
+
+  /* for Retina Display */
+  background-size: 23px 300px;
+  background-color: var(--white);
+
+  /* CSS Sprite */
+  background-image: url(/assets/images/piano-keyboard-white.png);
+  background-repeat: no-repeat;
+  background-position: left bottom;
+}
+
+.Piano__whites > .Piano__keyboard.-active {
+  background-position: left top;
+}
+
+/* Reference | Size of piano keyboard (black) */
+
+/* width : height -> 11 : 95 */
+.Piano__blacks {
+  position: absolute;
+  top: 73px;
+  left: 35px;
+  z-index: 3;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  height: 95px;  /* Enable to click keyboard */
+}
+
+.Piano__blacks > .Piano__keyboard {
+  box-sizing: border-box;
+  cursor: pointer;
+  margin-left: 12px;
+  width: 11px;
+  height: 95px;
+
+  /* for Retina Display */
+  background-size: 11px 190px;
+  background-color: var(--black);
+
+  /* CSS Sprite */
+  background-image: url(/assets/images/piano-keyboard-black.png);
+  background-repeat: no-repeat;
+  background-position: left bottom;
+}
+
+.Piano__blacks > .Piano__keyboard.-active {
+  background-position: left top;
+}
+
+.Piano__blacks > .Piano__keyboard.-skip {
+  height: 1px;
+  visibility: hidden;
+  background: none !important;
+  background-color: var(--transparent) !important;
+}
