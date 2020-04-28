@@ -1,0 +1,22 @@
+.ValueController > dt {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-align-items: center;
+  align-items: center;
+  margin: auto;
+  width: 80%;
+}
+
+.ValueController > dt > label {
+  -webkit-flex-grow: 6;
+  flex-grow: 6;
+  font-size: 12px;
+  color: var(--white);
+  text-transform: uppercase;
+}
+
+.ValueController > dd {
+  margin-top: 4px;
+}
