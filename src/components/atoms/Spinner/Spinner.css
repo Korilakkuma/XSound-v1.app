@@ -1,0 +1,27 @@
+.Spinner {
+  cursor: pointer;
+  display: inline-block;
+  border: 2px solid rgba(255, 255, 255, 0.05);
+  padding-left: 8px;
+  width: 40%;
+  color: var(--white);
+  background-color: var(--black);
+  background-image: linear-gradient(to bottom, var(--gray-deep), var(--black));
+  box-shadow:
+    5px 5px 3px     rgba(0, 0, 0, 0.8) inset,     px -3px 3px     rgba(0, 0, 0, 0.5) inset,  
+                2px var(--black)       inset, 0   -1px 1px    2px rgba(0, 0, 0, 0.5);        /* outer (for emboss) */
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: var(--transparent);
+}
+
+.Spinner:focus,
+.Spinner:active {
+  outline-color: var(--assort-color);
+  background-color: var(--base-color);
+  background-image: linear-gradient(to bottom, var(--base-color), var(--assort-color));
+  box-shadow:
+    5px  5px 3px     rgba(0, 0, 0, 0.4) inset,     px -3px 3px rgba(0, 0, 0, 0.2) inset,  
+                 1px rgba(17, 17, 17, 0.75);  /* outer (for emboss) */
+}
