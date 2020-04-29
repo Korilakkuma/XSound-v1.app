@@ -8,8 +8,8 @@
   "main": "./assets/app.js",
   "scripts": {
     "clean": "rm -rf ./assets/app.* ./assets/vendor.*",
-    "lint:js": "eslint ./src/*.js ./src/**/*.js",
-    "lint:css": "stylelint ./src/*.css ./src/**/*.css",
+    "lint:js": "eslint ./src/**/*.{ts,tsx}",
+    "lint:css": "stylelint ./src/**/*.css",
     "lint": "run-p lint:js lint:css",
     "build": "npm run clean && webpack --progress --mode production",
     "dev": "webpack-dev-server --progress"
