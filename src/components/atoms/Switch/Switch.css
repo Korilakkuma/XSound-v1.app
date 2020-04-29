@@ -1,0 +1,37 @@
+.Switch > label {
+  cursor: pointer;
+  display: block;
+  font-family: "Neuton", serif;
+  font-size: 22px;
+  font-weight: lighter;
+  color: var(--assort-color);
+
+  /* Webkit only */
+
+  /*
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-image:-webkit-linear-gradient(to bottom, var(--assort-color), rgba(#b200b2, 1.0) 55%, rgba(#a000a0, 1.0) 50%, rgba(#b700b7, 1.0));
+  */
+}
+
+.Switch > label > span {
+  cursor: pointer;
+  display: inline-block;
+  margin-left: 12px;
+  vertical-align: -12px;
+  width: 58px;
+  height: 34px;
+
+  /* for Retina Display */
+  background-size: 58px 68px;
+
+  /* CSS Sprite */
+  background-image: url(/assets/images/flip-switch.png);
+  background-position: left top;
+  background-repeat: no-repeat;
+}
+
+.Switch.-checked > label > span {
+  background-position: left bottom;
+}
