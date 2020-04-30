@@ -1,0 +1,20 @@
+.Button {
+  display: inline-block;
+
+  /* CSS Sprite */
+  background-position: left bottom;
+  background-repeat: no-repeat;
+}
+
+.Button:hover {
+  background-position: left top;
+}
+
+.Button:active,
+.Button.-active {
+  background-position: left center;
+}
+
+.Button.-active:active {
+  background-position: left bottom;
+}
