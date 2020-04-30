@@ -1,0 +1,22 @@
+.FileUploader > button,
+.FileUploader.-drop > button {
+  box-sizing: border-box;
+  border: 2px solid rgba(255, 255, 255, 0.05);
+  width: 200px;
+  height: 28px;
+  padding: 4px;
+  font-size: 9px;
+  color: var(--white);
+  background-color: var(--black);
+  background-image: linear-gradient(to bottom, var(--gray), var(--black));
+  box-shadow: 0 0 0 2px var(--black) inset, 0 0 1px 3px rgba(0, 0, 0, 0.3);  /* outer (for emboss) */
+}
+
+.FileUploader > button:focus,
+.FileUploader > button:active,
+.FileUploader.-drag > button {
+  border: 2px solid rgba(255, 255, 255, 0.05);
+  background-color: var(--assort-color);
+  background-image: linear-gradient(to bottom, var(--base-color), var(--assort-color));
+  box-shadow: 0 0 0 2px var(--base-color) inset, 0 0 1px 3px rgba(0, 0, 0, 0.3)));  /* outer (for emboss) */
+}
