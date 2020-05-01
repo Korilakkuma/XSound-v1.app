@@ -17,6 +17,14 @@ interface State {
 }
 
 export default class ValueController extends React.Component<Props, State> {
+  static getDerivedStateFromProps(props: Props): State | null {
+    if (props.id === 'audio-fieldset-current-time') {
+      return { value: props.defaultValue };
+    }
+
+    return null;
+  }
+
   constructor(props: Props) {
     super(props);
 
@@ -26,6 +34,14 @@ export default class ValueController extends React.Component<Props, State> {
 
     this.onChange = this.onChange.bind(this);
   }
+
+  // TODO: Use `getDerivedStateFromProps` in React v17+
+  // UNSAFE_componentWillReceiveProps(nextProps: Props): void {
+  //   // HACK
+  //   if (this.props.id === 'audio-fieldset-current-time') {
+  //     this.setState({ value: nextProps.defaultValue });
+  //   }
+  // }
 
   render(): React.ReactNode {
     const { label, id, min, max, step } = this.props;
