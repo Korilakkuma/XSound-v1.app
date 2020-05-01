@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Spacer } from '../../atoms/Spacer';
 import { FileUploader } from '../../atoms/FileUploader';
 import { Button } from '../../atoms/Button';
 import { ValueController } from '../../helpers/ValueController';
@@ -145,6 +146,7 @@ export default class AudioFieldset extends React.Component<Props, State> {
           step={1}
           onChange={this.onChangeCurrentTime}
         />
+        <Spacer space={8} />
         <ValueController
           label="Volume"
           id="audio-fieldset-volume"
@@ -154,6 +156,7 @@ export default class AudioFieldset extends React.Component<Props, State> {
           step={0.05}
           onChange={this.onChangeVolume}
         />
+        <Spacer space={8} />
         <ValueController
           label="Pitch Shifter"
           id="audio-fieldset-pitch"
@@ -163,6 +166,7 @@ export default class AudioFieldset extends React.Component<Props, State> {
           step={0.05}
           onChange={this.onChangePitch}
         />
+        <Spacer space={8} />
         <ValueController
           label="Volca Canceler"
           id="audio-fieldset-vocal-canceler"
