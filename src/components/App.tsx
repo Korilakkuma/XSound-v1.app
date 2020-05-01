@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Header } from './standalones/Header';
+import { AudioFieldset } from './standalones/AudioFieldset';
 import { Piano } from './standalones/Piano';
 import { Footer } from './standalones/Footer';
 import { X } from 'xsound';
@@ -864,6 +865,7 @@ class App extends React.Component<Props, State> {
     return (
       <React.Fragment>
         <Header progress={progress} rate={rate} />
+        <AudioFieldset />
         <Piano currentSoundSource="piano" />
         <Footer />
       </React.Fragment>
