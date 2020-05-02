@@ -113,70 +113,72 @@ export default class AudioFieldset extends React.Component<Props, State> {
     const durationText    = `${('0' + convertedDuration.minutes).slice(-2)} : ${('0' + convertedDuration.seconds).slice(-2)}`;
 
     return (
-      <fieldset className="AudioFieldset">
-        <legend>Audio</legend>
-        <div className="AudioFieldset__selectAudio">
-          <FileUploader
-            label="Upload Audio"
-            accept="audio/*"
-            placeholder="Audio File (wav, ogg, mp3 ... etc)"
-            filename={filename}
-            onChange={this.onChangeFile}
-            onDragEnter={this.onDragEnter}
-            onDragOver={this.onDragOver}
-            onDragLeave={this.onDragLeave}
-            onDrop={this.onDrop}
+      <div className="AudioFieldset">
+        <fieldset>
+          <legend>Audio</legend>
+          <div className="AudioFieldset__selectAudio">
+            <FileUploader
+              label="Upload Audio"
+              accept="audio/*"
+              placeholder="Audio File (wav, ogg, mp3 ... etc)"
+              filename={filename}
+              onChange={this.onChangeFile}
+              onDragEnter={this.onDragEnter}
+              onDragOver={this.onDragOver}
+              onDragLeave={this.onDragLeave}
+              onDrop={this.onDrop}
+            />
+            <Button
+              label={paused ? 'Start Audio' : 'Stop Audio'}
+              image="/assets/images/button-audio.png"
+              width={70}
+              height={33}
+              size="70px 99px"
+              active={!paused}
+              onClick={this.onClick}
+            />
+          </div>
+          <ValueController
+            label={`${currentTimeText} / ${durationText}`}
+            id="audio-fieldset-current-time"
+            defaultValue={Math.floor(currentTime)}
+            min={0}
+            max={duration > 0 ? duration : 0}
+            step={1}
+            onChange={this.onChangeCurrentTime}
           />
-          <Button
-            label={paused ? 'Start Audio' : 'Stop Audio'}
-            image="/assets/images/button-audio.png"
-            width={70}
-            height={33}
-            size="70px 99px"
-            active={!paused}
-            onClick={this.onClick}
+          <Spacer space={8} />
+          <ValueController
+            label="Volume"
+            id="audio-fieldset-volume"
+            defaultValue={volume}
+            min={0}
+            max={1}
+            step={0.05}
+            onChange={this.onChangeVolume}
           />
-        </div>
-        <ValueController
-          label={`${currentTimeText} / ${durationText}`}
-          id="audio-fieldset-current-time"
-          defaultValue={Math.floor(currentTime)}
-          min={0}
-          max={duration > 0 ? duration : 0}
-          step={1}
-          onChange={this.onChangeCurrentTime}
-        />
-        <Spacer space={8} />
-        <ValueController
-          label="Volume"
-          id="audio-fieldset-volume"
-          defaultValue={volume}
-          min={0}
-          max={1}
-          step={0.05}
-          onChange={this.onChangeVolume}
-        />
-        <Spacer space={8} />
-        <ValueController
-          label="Pitch Shifter"
-          id="audio-fieldset-pitch"
-          defaultValue={pitch}
-          min={0.05}
-          max={4}
-          step={0.05}
-          onChange={this.onChangePitch}
-        />
-        <Spacer space={8} />
-        <ValueController
-          label="Volca Canceler"
-          id="audio-fieldset-vocal-canceler"
-          defaultValue={depth}
-          min={0}
-          max={1}
-          step={0.05}
-          onChange={this.onChangeDepth}
-        />
-      </fieldset>
+          <Spacer space={8} />
+          <ValueController
+            label="Pitch Shifter"
+            id="audio-fieldset-pitch"
+            defaultValue={pitch}
+            min={0.05}
+            max={4}
+            step={0.05}
+            onChange={this.onChangePitch}
+          />
+          <Spacer space={8} />
+          <ValueController
+            label="Volca Canceler"
+            id="audio-fieldset-vocal-canceler"
+            defaultValue={depth}
+            min={0}
+            max={1}
+            step={0.05}
+            onChange={this.onChangeDepth}
+          />
+        </fieldset>
+      </div>
     );
   }
 
