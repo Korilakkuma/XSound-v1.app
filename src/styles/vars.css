@@ -11,4 +11,5 @@
   --black-light: #212121;
   --black: #000;
   --transparent: rgba(0, 0, 0, 0);
+  --fieldset-width: 98%;
 }
