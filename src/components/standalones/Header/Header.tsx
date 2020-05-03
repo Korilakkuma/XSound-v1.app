@@ -1,19 +1,17 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
+import { ProgressBar } from '../../atoms/ProgressBar';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Props {
   progress: boolean;
   rate: number;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface State {
   running: boolean;
   animationEnd: boolean;
 }
 
-class Header extends React.Component<Props, State> {
+export default class Header extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
@@ -27,6 +25,8 @@ class Header extends React.Component<Props, State> {
   }
 
   render(): React.ReactNode {
+    const { progress, rate } = this.props;
+
     return (
       <header
         className={`Header${this.props.progress ? ' -progress' : ' -fadeIn'}${this.state.running ? ' -fadeOut' : ''}`}
@@ -66,13 +66,7 @@ class Header extends React.Component<Props, State> {
             <nav className="Header__startButton"><button type="button" aria-label="Start Application" onClick={this.onClick}></button></nav>
           </div>
         </div>
-        <div className="Header__loading" hidden={!this.props.progress}>
-          <p className="Header__progressText">Now Loading ... </p>
-          <div className="Header__progressWrapper">
-            <div className="Header__progressMask" />
-            <div className="Header__progressBar" style={{ width: `${this.props.rate}%` }} />
-          </div>
-        </div>
+        <ProgressBar title="Now Loading ..." progress={progress} rate={rate} auto={false} />
       </header>
     );
   }
@@ -87,5 +81,3 @@ class Header extends React.Component<Props, State> {
     }
   }
 }
-
-export default connect()(Header);
