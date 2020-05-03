@@ -11,7 +11,7 @@
 
 .AudioFieldset > fieldset > legend {
   display: block;
-  margin: 0 auto;
+  margin: 0 auto 8px;
   width: var(--fieldset-width);
   font-family: "Neuton", serif;
   font-size: 22px;

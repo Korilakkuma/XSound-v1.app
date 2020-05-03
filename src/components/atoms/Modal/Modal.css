@@ -49,4 +49,5 @@
 
 .Modal__contents {
   margin: 36px 8px;
+  color: var(--assort-color);
 }

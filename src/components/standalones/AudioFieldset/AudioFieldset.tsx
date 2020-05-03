@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Spacer } from '../../atoms/Spacer';
 import { FileUploader } from '../../atoms/FileUploader';
 import { Button } from '../../atoms/Button';
+import { ProgressBar } from '../../atoms/ProgressBar';
+import { Modal } from '../../atoms/Modal';
 import { ValueController } from '../../helpers/ValueController';
 import { X } from 'xsound';
 
@@ -17,6 +19,7 @@ interface State {
   volume: number;
   pitch: number;
   depth: number;
+  isShowModal: boolean;
 }
 
 export default class AudioFieldset extends React.Component<Props, State> {
@@ -30,7 +33,8 @@ export default class AudioFieldset extends React.Component<Props, State> {
       duration   : 0,
       volume     : 1,
       pitch      : 1,
-      depth      : 0
+      depth      : 0,
+      isShowModal: false
     };
 
     this.onChangeFile = this.onChangeFile.bind(this);
@@ -45,17 +49,21 @@ export default class AudioFieldset extends React.Component<Props, State> {
     this.onChangeVolume      = this.onChangeVolume.bind(this);
     this.onChangePitch       = this.onChangePitch.bind(this);
     this.onChangeDepth       = this.onChangeDepth.bind(this);
+
+    this.onClose = this.onClose.bind(this);
   }
 
   // `X('audio').setup` is not invoked on `componentDidMount`
   componentDidUpdate(): void {
     const decodeCallback = () => {
-      // TODO: Open Modal and Show Progress Bar
-      console.log('Decoding ...');
+      this.setState({ isShowModal: true });
     };
 
     const readyCallback = (buffer: AudioBuffer) => {
-      this.setState({ duration: buffer.duration });
+      this.setState({
+        duration   : buffer.duration,
+        isShowModal: false
+      });
     };
 
     const startCallback = () => {
@@ -103,7 +111,8 @@ export default class AudioFieldset extends React.Component<Props, State> {
       duration,
       volume,
       pitch,
-      depth
+      depth,
+      isShowModal
     } = this.state;
 
     const convertedCurrenTime = X.convertTime(currentTime);
@@ -178,6 +187,9 @@ export default class AudioFieldset extends React.Component<Props, State> {
             onChange={this.onChangeDepth}
           />
         </fieldset>
+        <Modal isShow={isShowModal} hasOverlay={true} title="Decoding ..." onClose={this.onClose}>
+          <ProgressBar title="" progress={true} rate={0} auto={true} />
+        </Modal>
       </div>
     );
   }
@@ -261,5 +273,9 @@ export default class AudioFieldset extends React.Component<Props, State> {
 
   private onChangeDepth(event: React.SyntheticEvent): void {
     X('audio').module('vocalcanceler').param('depth', event.currentTarget.valueAsNumber);
+  }
+
+  private onClose(): void {
+    // Cannot close
   }
 }
