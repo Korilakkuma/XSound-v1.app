@@ -12,7 +12,7 @@ interface Props {
 const Slider: React.SFC<Props> = (props: Props) => {
   const { id, value, min, max, step, onChange } = props;
 
-  const rate  = value / max;
+  const rate  = (value - min) / (max - min);
   const width = rate * 100;
 
   return (
