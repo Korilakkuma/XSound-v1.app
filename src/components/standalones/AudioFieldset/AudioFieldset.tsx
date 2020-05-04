@@ -19,7 +19,15 @@ interface State {
   volume: number;
   pitch: number;
   depth: number;
-  isShowModal: boolean;
+  progress: boolean;
+  loaded: number;
+  total: number;
+  rate: number;
+  errorMessage: string;
+  isShowModalForFileUploadError: boolean;
+  isShowModalForDecodingError: boolean;
+  isShowModalForProgress: boolean;
+  isShowModalForDecoding: boolean;
 }
 
 export default class AudioFieldset extends React.Component<Props, State> {
@@ -27,14 +35,22 @@ export default class AudioFieldset extends React.Component<Props, State> {
     super(props);
 
     this.state = {
-      filename   : '',
-      paused     : true,
-      currentTime: 0,
-      duration   : 0,
-      volume     : 1,
-      pitch      : 1,
-      depth      : 0,
-      isShowModal: false
+      filename                     : '',
+      paused                       : true,
+      currentTime                  : 0,
+      duration                     : 0,
+      volume                       : 1,
+      pitch                        : 1,
+      depth                        : 0,
+      progress                     : false,
+      loaded                       : 0,
+      total                        : 0,
+      rate                         : 0,
+      errorMessage                 : '',
+      isShowModalForFileUploadError: false,
+      isShowModalForDecodingError  : false,
+      isShowModalForProgress       : false,
+      isShowModalForDecoding       : false
     };
 
     this.onChangeFile = this.onChangeFile.bind(this);
@@ -56,13 +72,20 @@ export default class AudioFieldset extends React.Component<Props, State> {
   // `X('audio').setup` is not invoked on `componentDidMount`
   componentDidUpdate(): void {
     const decodeCallback = () => {
-      this.setState({ isShowModal: true });
+      this.setState({
+        progress              : false,
+        loaded                : 0,
+        total                 : 0,
+        rate                  : 0,
+        isShowModalForProgress: false,
+        isShowModalForDecoding: true
+      });
     };
 
     const readyCallback = (buffer: AudioBuffer) => {
       this.setState({
-        duration   : buffer.duration,
-        isShowModal: false
+        duration              : buffer.duration,
+        isShowModalForDecoding: false
       });
     };
 
@@ -93,13 +116,21 @@ export default class AudioFieldset extends React.Component<Props, State> {
       // X('audio').module('analyser').domain('time-overview-R').update(0);
     };
 
+    const errorCallback = (error: Error) => {
+      this.setState({
+        errorMessage               : error.message,
+        isShowModalForDecodingError: true
+      });
+    };
+
     X('audio').setup({
       decode: decodeCallback,
       ready : readyCallback,
       start : startCallback,
       stop  : stopCallback,
       update: updateCallback,
-      ended : endedCallback
+      ended : endedCallback,
+      error : errorCallback
     });
   }
 
@@ -112,7 +143,15 @@ export default class AudioFieldset extends React.Component<Props, State> {
       volume,
       pitch,
       depth,
-      isShowModal
+      progress,
+      loaded,
+      // total,
+      rate,
+      errorMessage,
+      isShowModalForFileUploadError,
+      isShowModalForDecodingError,
+      isShowModalForProgress,
+      isShowModalForDecoding
     } = this.state;
 
     const convertedCurrenTime = X.convertTime(currentTime);
@@ -187,7 +226,17 @@ export default class AudioFieldset extends React.Component<Props, State> {
             onChange={this.onChangeDepth}
           />
         </fieldset>
-        <Modal isShow={isShowModal} hasOverlay={true} title="Decoding ..." onClose={this.onClose}>
+        <Modal isShow={isShowModalForFileUploadError} hasOverlay={true} title="Error" onClose={this.onClose}>
+          {errorMessage}
+        </Modal>
+        <Modal isShow={isShowModalForDecodingError} hasOverlay={true} title="Error" onClose={this.onClose}>
+          {errorMessage}
+        </Modal>
+        <Modal isShow={isShowModalForProgress} hasOverlay={true} title="Progress ..." onClose={this.onClose}>
+          <p>{loaded} bytes ({rate} %)</p>
+          <ProgressBar title="" progress={progress} rate={rate} auto={false} />
+        </Modal>
+        <Modal isShow={isShowModalForDecoding} hasOverlay={true} title="Decoding ..." onClose={this.onClose}>
           <ProgressBar title="" progress={true} rate={0} auto={true} />
         </Modal>
       </div>
@@ -198,17 +247,27 @@ export default class AudioFieldset extends React.Component<Props, State> {
     const options = {
       event   : event.nativeEvent,
       type    : 'ArrayBuffer',
-      success : (event, arrayBuffer) => {
+      success : (event: Event, arrayBuffer: ArrayBuffer) => {
         X('audio').ready(arrayBuffer);
 
         event.currentTarget.value = '';
       },
-      error   : () => {
-        // TODO: Open Modal that shows error message
+      error   : (error: Error) => {
+        this.setState({
+          errorMessage                 : error.message,
+          isShowModalForFileUploadError: true
+        });
       },
-      progress: () => {
-        // TODO: Open Modal and Show Progress Bar
-        console.log('Progress ...');
+      progress: (event: Event) => {
+        const { lengthComputable, loaded, total } = event;
+
+        this.setState({
+          progress              : lengthComputable,
+          loaded                : loaded,
+          total                 : total,
+          rate                  : lengthComputable && (total > 0) ? Math.floor((loaded / total) * 100) : 0,
+          isShowModalForProgress: true
+        });
       }
     };
 
@@ -217,8 +276,10 @@ export default class AudioFieldset extends React.Component<Props, State> {
 
       this.setState({ filename: file.name });
     } catch (error: Error) {
-      // TODO: Open Modal this shows error message
-      console.log(error);
+      this.setState({
+        errorMessage                 : error.message,
+        isShowModalForFileUploadError: true
+      });
     }
   }
 
@@ -276,6 +337,9 @@ export default class AudioFieldset extends React.Component<Props, State> {
   }
 
   private onClose(): void {
-    // Cannot close
+    this.setState({
+      isShowModalForFileUploadError: false,
+      isShowModalForDecodingError  : false
+    });
   }
 }
