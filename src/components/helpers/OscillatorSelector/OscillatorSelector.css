@@ -1,0 +1,85 @@
+.OscillatorSelector {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  align-items: center;
+  margin: 0 auto;
+  width: 238px;
+}
+
+.OscillatorSelector > label {
+  cursor: pointer;
+  display: block;
+  height: 40px;
+
+  /* for Retina Display */
+  background-size: 238px 120px;
+
+  /* CSS Sprite */
+  background-image: url(/assets/images/radio-wave-type.png);
+  background-repeat: no-repeat;
+}
+
+.OscillatorSelector > label > input[type="radio"] {
+  display: none;
+}
+
+.OscillatorSelector__sine {
+  width: 63px;
+  background-position: 0 bottom;
+}
+
+.OscillatorSelector__sine:hover {
+  background-position: 0 top;
+}
+
+.OscillatorSelector__sine:active,
+.OscillatorSelector__sine.-active {
+  background-position: 0 center;
+}
+
+.OscillatorSelector__square {
+  width: 56px;
+  background-position: -63px bottom;
+}
+
+.OscillatorSelector__square:hover {
+  background-position: -63px top;
+}
+
+.OscillatorSelector__square:active,
+.OscillatorSelector__square.-active {
+  background-position: -63px center;
+}
+
+.OscillatorSelector__sawtooth {
+  width: 56px;
+  background-position: -119px bottom;
+}
+
+.OscillatorSelector__sawtooth:hover {
+  background-position: -119px top;
+}
+
+.OscillatorSelector__sawtooth:active,
+.OscillatorSelector__sawtooth.-active {
+  background-position: -119px center;
+}
+
+.OscillatorSelector__triangle {
+  width: 63px;
+  background-position: -175px bottom;
+}
+
+.OscillatorSelector__triangle:hover {
+  background-position: -175px top;
+}
+
+.OscillatorSelector__triangle:active,
+.OscillatorSelector__triangle.-active {
+  background-position: -175px center;
+}
