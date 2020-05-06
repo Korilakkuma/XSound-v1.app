@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Header } from './standalones/Header';
+import { OscillatorFieldset } from './standalones/OscillatorFieldset';
 import { AudioFieldset } from './standalones/AudioFieldset';
 import { Piano } from './standalones/Piano';
 import { Footer } from './standalones/Footer';
@@ -865,8 +866,92 @@ class App extends React.Component<Props, State> {
     return (
       <React.Fragment>
         <Header progress={progress} rate={rate} />
-        <AudioFieldset />
-        <Piano currentSoundSource="piano" />
+        <div style={{ display: 'flex', flexDirection: 'row' }}>
+          <OscillatorFieldset
+            oscillatorNumber={0}
+            label="Oscillator - 1"
+            radioName="oscillator-type-0"
+            defaultState={true}
+            onChangeType={(event: React.SyntheticEvent) => {
+              const type = event.currentTarget.value;
+
+              for (let i = 0, len = X('oscillator').length(); i < len; i++) {
+                X('oscillator').get(i).param('type', type);
+              }
+            }}
+            onChangeState={(event: React.SyntheticEvent) => {
+              const state = event.currentTarget.checked;
+
+              for (let i = 0, len = X('oscillator').length(); i < len; i++) {
+                X('oscillator').get(i).state(state);
+              }
+            }}
+            onChangeVolume={(event: React.SyntheticEvent) => {
+              const volume = event.currentTarget.valueAsNumber;
+
+              for (let i = 0, len = X('oscillator').length(); i < len; i++) {
+                X('oscillator').get(i).param('volume', volume);
+              }
+            }}
+            onChangeOctave={(event: React.SyntheticEvent) => {
+              const octave = event.currentTarget.valueAsNumber;
+
+              for (let i = 0, len = X('oscillator').length(); i < len; i++) {
+                X('oscillator').get(i).param('octave', octave);
+              }
+            }}
+            onChangeFine={(event: React.SyntheticEvent) => {
+              const fine = event.currentTarget.valueAsNumber;
+
+              for (let i = 0, len = X('oscillator').length(); i < len; i++) {
+                X('oscillator').get(i).param('fine', fine);
+              }
+            }}
+          />
+          <OscillatorFieldset
+            oscillatorNumber={1}
+            label="Oscillator - 2"
+            radioName="oscillator-type-1"
+            defaultState={false}
+            onChangeType={(event: React.SyntheticEvent) => {
+              const type = event.currentTarget.value;
+
+              for (let i = 0, len = window.C('oscillator').length(); i < len; i++) {
+                window.C('oscillator').get(i).param('type', type);
+              }
+            }}
+            onChangeState={(event: React.SyntheticEvent) => {
+              const state = event.currentTarget.checked;
+
+              for (let i = 0, len = window.C('oscillator').length(); i < len; i++) {
+                window.C('oscillator').get(i).state(state);
+              }
+            }}
+            onChangeVolume={(event: React.SyntheticEvent) => {
+              const volume = event.currentTarget.valueAsNumber;
+
+              for (let i = 0, len = window.C('oscillator').length(); i < len; i++) {
+                window.C('oscillator').get(i).param('volume', volume);
+              }
+            }}
+            onChangeOctave={(event: React.SyntheticEvent) => {
+              const octave = event.currentTarget.valueAsNumber;
+
+              for (let i = 0, len = window.C('oscillator').length(); i < len; i++) {
+                window.C('oscillator').get(i).param('octave', octave);
+              }
+            }}
+            onChangeFine={(event: React.SyntheticEvent) => {
+              const fine = event.currentTarget.valueAsNumber;
+
+              for (let i = 0, len = window.C('oscillator').length(); i < len; i++) {
+                window.C('oscillator').get(i).param('fine', fine);
+              }
+            }}
+          />
+          <AudioFieldset />
+        </div>
+        <Piano currentSoundSource="oscillator" />
         <Footer />
       </React.Fragment>
     );
