@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { Flexbox } from './atoms/Flexbox';
 import { Header } from './standalones/Header';
 import { OscillatorFieldset } from './standalones/OscillatorFieldset';
 import { AudioFieldset } from './standalones/AudioFieldset';
@@ -864,7 +865,7 @@ class App extends React.Component<Props, State> {
     return (
       <React.Fragment>
         <Header progress={progress} rate={rate} />
-        <div style={{ display: 'flex', flexDirection: 'row' }}>
+        <Flexbox>
           <OscillatorFieldset
             oscillatorNumber={0}
             label="Oscillator - 1"
@@ -948,7 +949,7 @@ class App extends React.Component<Props, State> {
             }}
           />
           <AudioFieldset />
-        </div>
+        </Flexbox>
         <Piano currentSoundSource="oscillator" />
         <Footer />
       </React.Fragment>
