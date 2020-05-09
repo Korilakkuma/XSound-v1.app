@@ -7,8 +7,6 @@ import { Piano } from './standalones/Piano';
 import { Footer } from './standalones/Footer';
 import { X } from 'xsound';
 
-export {};
-
 declare global {
   interface Window {
     C: any;
