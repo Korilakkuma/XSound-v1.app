@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Flexbox } from './atoms/Flexbox';
 import { Header } from './standalones/Header';
 import { OscillatorFieldset } from './standalones/OscillatorFieldset';
+import { EnvelopeGeneratorFieldset } from './standalones/EnvelopeGeneratorFieldset';
 import { AudioFieldset } from './standalones/AudioFieldset';
 import { Piano } from './standalones/Piano';
 import { Footer } from './standalones/Footer';
@@ -707,12 +708,12 @@ function createOneshotSettings(): OneshotSettings[]  {
 
   for (let i = 0; i < NUMBER_OF_ONESHOTS; i++) {
     const setting: OneshotSettings = {
-      buffer : 0,
-      rate   : 1,
-      loop   : false,
-      start  : 0,
-      end    : 0,
-      volume : 1
+      buffer: 0,
+      rate  : 1,
+      loop  : false,
+      start : 0,
+      end   : 0,
+      volume: 1
     };
 
     setting.buffer = getBufferIndex(i);
@@ -723,12 +724,12 @@ function createOneshotSettings(): OneshotSettings[]  {
 
   for (let i = NUMBER_OF_ONESHOTS; i < (NUMBER_OF_ONESHOTS + NUMBER_OF_ONESHOTS); i++) {
     const setting: OneshotSettings = {
-      buffer : 7,
-      rate   : 1,
-      loop   : false,
-      start  : 0,
-      end    : 0,
-      volume : 1
+      buffer: 7,
+      rate  : 1,
+      loop  : false,
+      start : 0,
+      end   : 0,
+      volume: 1
     };
 
     setting.rate = calculateGuitarRate(i);
@@ -738,12 +739,12 @@ function createOneshotSettings(): OneshotSettings[]  {
 
   for (let i = (NUMBER_OF_ONESHOTS + NUMBER_OF_ONESHOTS); i < (NUMBER_OF_ONESHOTS + NUMBER_OF_ONESHOTS + NUMBER_OF_ONESHOTS); i++) {
     const setting: OneshotSettings = {
-      buffer : 8,
-      rate   : 1,
-      loop   : false,
-      start  : 0,
-      end    : 0,
-      volume : 1
+      buffer: 8,
+      rate  : 1,
+      loop  : false,
+      start : 0,
+      end   : 0,
+      volume: 1
     };
 
     setting.rate = calculateElectricGuitarRate(i);
@@ -948,6 +949,7 @@ class App extends React.Component<Props, State> {
               }
             }}
           />
+          <EnvelopeGeneratorFieldset />
           <AudioFieldset />
         </Flexbox>
         <Piano currentSoundSource="oscillator" />
