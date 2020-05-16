@@ -1,0 +1,129 @@
+.RecorderFieldset {
+  margin: 12px 0;
+  padding: 12px 0;
+  width: 20%;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.RecorderFieldset > fieldset {
+  border: none;
+}
+
+.RecorderFieldset > fieldset > legend {
+  display: block;
+  margin: 0 auto 8px;
+  width: var(--fieldset-width);
+  font-family: "Neuton", serif;
+  font-size: 22px;
+  font-weight: lighter;
+  color: var(--assort-color);
+  text-transform: uppercase;
+
+  /* Webkit only */
+
+  /*
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-image:-webkit-linear-gradient(to bottom, var(--assort-color), rgba(#b200b2, 1.0) 55%, rgba(#a000a0, 1.0) 50%, rgba(#b700b7, 1.0));
+  */
+}
+
+.RecorderFieldset__buttons {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  align-items: center;
+  margin: 0 auto;
+  width: 238px;
+}
+
+.RecorderFieldset__controller {
+  width: 63px;
+  height: 40px;
+
+  /* for Retina Display */
+  background-size: 238px 120px;
+
+  /* CSS Sprite */
+  background-image: url(/assets/images/buttons-record.png);
+  background-repeat: no-repeat;
+  background-position: 0 bottom;
+}
+
+.RecorderFieldset__controller:hover {
+  background-position: 0 top;
+}
+
+.RecorderFieldset__controller:active,
+.RecorderFieldset__controller.-active {
+  background-position: 0 center;
+}
+
+.RecorderFieldset__creator {
+  width: 56px;
+  height: 40px;
+
+  /* for Retina Display */
+  background-size: 238px 120px;
+
+  /* CSS Sprite */
+  background-image: url(/assets/images/buttons-record.png);
+  background-repeat: no-repeat;
+  background-position: -63px bottom;
+}
+
+.RecorderFieldset__creator:hover {
+  background-position: -63px top;
+}
+
+.RecorderFieldset__creator:active,
+.RecorderFieldset__creator.-active {
+  background-position: -63px center;
+}
+
+.RecorderFieldset__download {
+  display: inline-block;
+  width: 56px;
+  height: 40px;
+
+  /* for Retina Display */
+  background-size: 238px 120px;
+
+  /* CSS Sprite */
+  background-image: url(/assets/images/buttons-record.png);
+  background-repeat: no-repeat;
+  background-position: -119px bottom;
+}
+
+.RecorderFieldset__download:hover {
+  background-position: -119px top;
+}
+
+.RecorderFieldset__download:active {
+  background-position: -119px center;
+}
+
+.RecorderFieldset__clear {
+  width: 63px;
+  height: 40px;
+
+  /* for Retina Display */
+  background-size: 238px 120px;
+
+  /* CSS Sprite */
+  background-image: url(/assets/images/buttons-record.png);
+  background-repeat: no-repeat;
+  background-position: -175px bottom;
+}
+
+.RecorderFieldset__clear:hover {
+  background-position: -175px top;
+}
+
+.RecorderFieldset__clear:active {
+  background-position: -175px center;
+}
