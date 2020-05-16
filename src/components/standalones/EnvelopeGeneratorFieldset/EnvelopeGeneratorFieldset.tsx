@@ -7,23 +7,13 @@ import { X } from 'xsound';
 interface Props {
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface State {
-  attack: number;
-  decay: number;
-  sustain: number;
-  release: number;
 }
 
 export default class EnvelopeGenerator extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-
-    this.state = {
-      attack : 0.01,
-      decay  : 0.3,
-      sustain: 0.5,
-      release: 1.0
-    };
 
     this.onChangeAttack  = this.onChangeAttack.bind(this);
     this.onChangeDecay   = this.onChangeDecay.bind(this);
@@ -32,8 +22,6 @@ export default class EnvelopeGenerator extends React.Component<Props, State> {
   }
 
   render(): React.ReactNode {
-    const { attack, decay, sustain, release } = this.state;
-
     return (
       <div className="EnvelopeGeneratorFieldset">
         <fieldset>
@@ -41,7 +29,7 @@ export default class EnvelopeGenerator extends React.Component<Props, State> {
           <ValueController
             label="Attack"
             id="envelope-generator-attack"
-            defaultValue={attack}
+            defaultValue={0.01}
             min={0}
             max={1}
             step={0.01}
@@ -51,7 +39,7 @@ export default class EnvelopeGenerator extends React.Component<Props, State> {
           <ValueController
             label="Decay"
             id="envelope-generator-decay"
-            defaultValue={decay}
+            defaultValue={0.3}
             min={0}
             max={1}
             step={0.01}
@@ -61,7 +49,7 @@ export default class EnvelopeGenerator extends React.Component<Props, State> {
           <ValueController
             label="Sutain"
             id="envelope-generator-sustain"
-            defaultValue={sustain}
+            defaultValue={0.5}
             min={0}
             max={1}
             step={0.01}
@@ -71,7 +59,7 @@ export default class EnvelopeGenerator extends React.Component<Props, State> {
           <ValueController
             label="Release"
             id="envelope-generator-release"
-            defaultValue={release}
+            defaultValue={1}
             min={0}
             max={1}
             step={0.01}

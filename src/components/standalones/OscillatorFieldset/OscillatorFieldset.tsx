@@ -16,77 +16,59 @@ interface Props {
   onChangeFine(event: React.SyntheticEvent): void;
 }
 
-interface State {
-  volume: number;
-  octave: number;
-  fine: number;
-}
+const OscillatorFieldset: React.SFC<Props> = (props: Props) => {
+  const {
+    oscillatorNumber,
+    label,
+    radioName,
+    defaultState,
+    onChangeType,
+    onChangeState,
+    onChangeVolume,
+    onChangeOctave,
+    onChangeFine
+  } = props;
 
-export default class OscillatorFieldset extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
+  return (
+    <div className="OscillatorFieldset">
+      <fieldset>
+        <legend>
+          <Switch id={`oscillator-fieldset-state-${oscillatorNumber}`} label={label} defaultChecked={defaultState} onChange={onChangeState} />
+        </legend>
+        <OscillatorSelector radioName={radioName} initialValue="sawtooth" onChange={onChangeType} />
+        <Spacer space={16} />
+        <ValueController
+          label="Volume"
+          id={`oscillator-fieldset-volume-${oscillatorNumber}`}
+          defaultValue={1}
+          min={0}
+          max={1}
+          step={0.05}
+          onChange={onChangeVolume}
+        />
+        <Spacer space={8} />
+        <ValueController
+          label="Octave"
+          id={`oscillator-fieldset-octave-${oscillatorNumber}`}
+          defaultValue={0}
+          min={-4}
+          max={4}
+          step={1}
+          onChange={onChangeOctave}
+        />
+        <Spacer space={8} />
+        <ValueController
+          label="Fine"
+          id={`oscillator-fieldset-fine-${oscillatorNumber}`}
+          defaultValue={0}
+          min={-1200}
+          max={1200}
+          step={1}
+          onChange={onChangeFine}
+        />
+      </fieldset>
+    </div>
+  );
+};
 
-    this.state = {
-      volume: 1,
-      octave: 0,
-      fine  : 0
-    };
-  }
-
-  render(): React.ReactNode {
-    const {
-      oscillatorNumber,
-      label,
-      radioName,
-      defaultState,
-      onChangeType,
-      onChangeState,
-      onChangeVolume,
-      onChangeOctave,
-      onChangeFine
-    } = this.props;
-
-    const { volume, octave, fine } = this.state;
-
-    return (
-      <div className="OscillatorFieldset">
-        <fieldset>
-          <legend>
-            <Switch id={`oscillator-fieldset-state-${oscillatorNumber}`} label={label} defaultChecked={defaultState} onChange={onChangeState} />
-          </legend>
-          <OscillatorSelector radioName={radioName} initialValue="sawtooth" onChange={onChangeType} />
-          <Spacer space={16} />
-          <ValueController
-            label="Volume"
-            id={`oscillator-fieldset-volume-${oscillatorNumber}`}
-            defaultValue={volume}
-            min={0}
-            max={1}
-            step={0.05}
-            onChange={onChangeVolume}
-          />
-          <Spacer space={8} />
-          <ValueController
-            label="Octave"
-            id={`oscillator-fieldset-octave-${oscillatorNumber}`}
-            defaultValue={octave}
-            min={-4}
-            max={4}
-            step={1}
-            onChange={onChangeOctave}
-          />
-          <Spacer space={8} />
-          <ValueController
-            label="Fine"
-            id={`oscillator-fieldset-fine-${oscillatorNumber}`}
-            defaultValue={fine}
-            min={-1200}
-            max={1200}
-            step={1}
-            onChange={onChangeFine}
-          />
-        </fieldset>
-      </div>
-    );
-  }
-}
+export default OscillatorFieldset;

@@ -16,9 +16,6 @@ interface State {
   paused: boolean;
   currentTime: number;
   duration: number;
-  volume: number;
-  pitch: number;
-  depth: number;
   progress: boolean;
   loaded: number;
   total: number;
@@ -39,9 +36,6 @@ export default class AudioFieldset extends React.Component<Props, State> {
       paused                       : true,
       currentTime                  : 0,
       duration                     : 0,
-      volume                       : 1,
-      pitch                        : 1,
-      depth                        : 0,
       progress                     : false,
       loaded                       : 0,
       total                        : 0,
@@ -90,8 +84,8 @@ export default class AudioFieldset extends React.Component<Props, State> {
     };
 
     const startCallback = () => {
-      // X('audio').module('recorder').start();
-      // X('audio').module('session').start();
+      X('audio').module('recorder').start();
+      X('audio').module('session').start();
     };
 
     const stopCallback = () => {
@@ -140,9 +134,6 @@ export default class AudioFieldset extends React.Component<Props, State> {
       paused,
       currentTime,
       duration,
-      volume,
-      pitch,
-      depth,
       progress,
       loaded,
       // total,
@@ -199,7 +190,7 @@ export default class AudioFieldset extends React.Component<Props, State> {
           <ValueController
             label="Volume"
             id="audio-fieldset-volume"
-            defaultValue={volume}
+            defaultValue={1}
             min={0}
             max={1}
             step={0.05}
@@ -209,7 +200,7 @@ export default class AudioFieldset extends React.Component<Props, State> {
           <ValueController
             label="Pitch Shifter"
             id="audio-fieldset-pitch"
-            defaultValue={pitch}
+            defaultValue={1}
             min={0.05}
             max={4}
             step={0.05}
@@ -217,9 +208,9 @@ export default class AudioFieldset extends React.Component<Props, State> {
           />
           <Spacer space={8} />
           <ValueController
-            label="Volca Canceler"
+            label="Vocal Canceler"
             id="audio-fieldset-vocal-canceler"
-            defaultValue={depth}
+            defaultValue={0}
             min={0}
             max={1}
             step={0.05}
