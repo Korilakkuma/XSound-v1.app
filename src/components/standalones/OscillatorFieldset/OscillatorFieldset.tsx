@@ -55,7 +55,7 @@ export default class OscillatorFieldset extends React.Component<Props, State> {
             <Switch id={`oscillator-fieldset-state-${oscillatorNumber}`} label={label} defaultChecked={defaultState} onChange={onChangeState} />
           </legend>
           <OscillatorSelector radioName={radioName} initialValue="sawtooth" onChange={onChangeType} />
-          <Spacer space={8} />
+          <Spacer space={16} />
           <ValueController
             label="Volume"
             id={`oscillator-fieldset-volume-${oscillatorNumber}`}
