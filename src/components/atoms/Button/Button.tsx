@@ -6,12 +6,22 @@ interface Props {
   width: number;
   height: number;
   size: string;
-  ative: boolean;
+  position: string;
+  active: boolean;
   onClick(event: React.SyntheticEvent): void;
 }
 
 const Button: React.SFC<Props> = (props: Props) => {
-  const { label, image, width, height, size, active, onClick } = props;
+  const {
+    label,
+    image,
+    width,
+    height,
+    size,
+    position,
+    active,
+    onClick
+  } = props;
 
   return <button
     type="button"
@@ -21,7 +31,8 @@ const Button: React.SFC<Props> = (props: Props) => {
       width: `${width}px`,
       height: `${height}px`,
       backgroundImage: `url(${image})`,
-      backgroundSize: size
+      backgroundSize: size,
+      backgroundPostion: position
     }}
     onClick={onClick}
   />;
