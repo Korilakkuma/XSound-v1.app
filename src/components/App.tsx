@@ -4,6 +4,7 @@ import { Flexbox } from './atoms/Flexbox';
 import { Header } from './standalones/Header';
 import { OscillatorFieldset } from './standalones/OscillatorFieldset';
 import { EnvelopeGeneratorFieldset } from './standalones/EnvelopeGeneratorFieldset';
+import { RecorderFieldset } from './standalones/RecorderFieldset';
 import { AudioFieldset } from './standalones/AudioFieldset';
 import { Piano } from './standalones/Piano';
 import { Footer } from './standalones/Footer';
@@ -950,6 +951,7 @@ class App extends React.Component<Props, State> {
             }}
           />
           <EnvelopeGeneratorFieldset />
+          <RecorderFieldset sources={sources} />
           <AudioFieldset />
         </Flexbox>
         <Piano currentSoundSource="oscillator" />
