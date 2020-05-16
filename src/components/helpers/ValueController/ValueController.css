@@ -5,8 +5,8 @@
   flex-direction: row;
   -webkit-align-items: center;
   align-items: center;
-  margin: auto;
-  width: 80%;
+  margin: 0 auto;
+  width: var(--fieldset-width);
 }
 
 .ValueController > dt > label {

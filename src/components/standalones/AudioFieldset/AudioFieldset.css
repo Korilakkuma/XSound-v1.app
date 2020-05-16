@@ -1,15 +1,18 @@
 .AudioFieldset {
   margin: 12px 0;
-  border: none;
   padding: 12px 0;
-  width: 25%;
+  width: 20%;
   background-color: rgba(255, 255, 255, 0.05);
 }
 
-.AudioFieldset > legend {
+.AudioFieldset > fieldset {
+  border: none;
+}
+
+.AudioFieldset > fieldset > legend {
   display: block;
   margin: 0 auto;
-  width: 80%;
+  width: var(--fieldset-width);
   font-family: "Neuton", serif;
   font-size: 22px;
   font-weight: lighter;
@@ -34,5 +37,5 @@
   -webkit-align-items: center;
   align-items: center;
   margin: 0 auto 12px;
-  width: 80%;
+  width: var(--fieldset-width);
 }
