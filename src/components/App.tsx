@@ -6,6 +6,7 @@ import { OscillatorFieldset } from './standalones/OscillatorFieldset';
 import { EnvelopeGeneratorFieldset } from './standalones/EnvelopeGeneratorFieldset';
 import { RecorderFieldset } from './standalones/RecorderFieldset';
 import { AudioFieldset } from './standalones/AudioFieldset';
+import { Analyser } from './standalones/Analyser';
 import { Piano } from './standalones/Piano';
 import { Footer } from './standalones/Footer';
 import { X } from 'xsound';
@@ -954,6 +955,7 @@ class App extends React.Component<Props, State> {
           <RecorderFieldset sources={sources} />
           <AudioFieldset />
         </Flexbox>
+        <Analyser sources={sources} />
         <Piano currentSoundSource="oscillator" />
         <Footer />
       </React.Fragment>
