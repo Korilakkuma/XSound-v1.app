@@ -187,6 +187,7 @@ export default class AudioFieldset extends React.Component<Props, State> {
             onChange={this.onChangeCurrentTime}
           />
           <Spacer space={8} />
+          {/*
           <ValueController
             label="Volume"
             id="audio-fieldset-volume"
@@ -196,6 +197,7 @@ export default class AudioFieldset extends React.Component<Props, State> {
             step={0.05}
             onChange={this.onChangeVolume}
           />
+          */}
           <Spacer space={8} />
           <ValueController
             label="Pitch Shifter"
