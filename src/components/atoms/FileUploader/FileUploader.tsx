@@ -63,6 +63,11 @@ export default class FileUploader<Props, State> extends React.Component<Props, S
   private onDragEnter(event: React.SyntheticEvent): void {
     event.preventDefault();
 
+    this.setState({
+      drag: true,
+      drop: false
+    });
+
     this.props.onDragEnter(event);
   }
 
@@ -75,11 +80,21 @@ export default class FileUploader<Props, State> extends React.Component<Props, S
   private onDragLeave(event: React.SyntheticEvent): void {
     event.preventDefault();
 
+    this.setState({
+      drag: false,
+      drop: false
+    });
+
     this.props.onDragLeave(event);
   }
 
   private onDrop(event: React.SyntheticEvent): void {
     event.preventDefault();
+
+    this.setState({
+      drag: false,
+      drop: true
+    });
 
     this.props.onDrop(event);
   }
