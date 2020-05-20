@@ -107,49 +107,56 @@ export default class Analyser extends React.Component<Props, State> {
       }).state(true);
     });
 
+    const params = {
+      shape: 'rect',
+      wave : 'gradient',
+      grad : [
+        { offset: 0, color: 'rgba(0, 128, 255, 1.0)' },
+        { offset: 1, color: 'rgba(0,   0, 255, 1.0)' }
+      ],
+      font : {
+        family: 'Arial',
+        size  : '12px',
+        style : 'normal',
+        weight: 'normal'
+      },
+      width: 0.5,
+      right: 15
+    };
+
+    const dragCallback = (event: Event, startTime: number, endTime: number) => {
+      if (!((event.type === 'mouseup') || (event.type === 'touchend'))) {
+        return;
+      }
+
+      const mode = X('audio').module('analyser').domain('time-overview-L').param('mode');
+
+      if (mode === 'update') {
+        if ((startTime >= 0) && (startTime <= X('audio').param('duration'))) {
+          X('audio').param('currentTime', startTime);
+          X('audio').module('analyser').domain('time-overview-L').update(startTime);
+          X('audio').module('analyser').domain('time-overview-R').update(startTime);
+        }
+      } else if (mode === 'sprite') {
+        X('audio').stop().start(startTime, endTime);
+      }
+    };
+
     X('audio')
       .module('analyser')
       .domain('time-overview-L')
       .setup(this.canvasForTimeOverviewLRef.current)
       .state(true)
-      .param({
-        shape: 'rect',
-        wave : 'gradient',
-        grad : [
-          { offset: 0, color: 'rgba(0, 128, 255, 1.0)' },
-          { offset: 1, color: 'rgba(0,   0, 255, 1.0)' }
-        ],
-        font : {
-          family: 'Arial',
-          size  : '12px',
-          style : 'normal',
-          weight: 'normal'
-        },
-        width: 0.5,
-        right: 15
-      });
+      .param(params)
+      .drag(dragCallback);
 
     X('audio')
       .module('analyser')
       .domain('time-overview-R')
       .setup(this.canvasForTimeOverviewRRef.current)
       .state(true)
-      .param({
-        shape: 'rect',
-        wave : 'gradient',
-        grad : [
-          { offset: 0, color: 'rgba(0, 128, 255, 1.0)' },
-          { offset: 1, color: 'rgba(0,   0, 255, 1.0)' }
-        ],
-        font : {
-          family: 'Arial',
-          size  : '12px',
-          style : 'normal',
-          weight: 'normal'
-        },
-        width: 0.5,
-        right: 15
-      });
+      .param(params)
+      .drag(dragCallback);
   }
 
   render(): React.ReactNode {
