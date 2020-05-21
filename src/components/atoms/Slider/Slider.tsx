@@ -18,7 +18,7 @@ const Slider: React.SFC<Props> = (props: Props) => {
   return (
     <div className="Slider">
       <input type="range" id={id} value={value} min={min} max={max} step={step} onChange={onChange} />
-      <div className="Slider__value" style={{ width: `calc(${width}% - (${rate} * 18px))` }} />
+      <div className="Slider__value" style={{ width: `calc(${width}% - (${rate} * 28px))` }} />
     </div>
   );
 };

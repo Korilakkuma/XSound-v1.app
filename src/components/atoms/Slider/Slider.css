@@ -10,7 +10,7 @@
   outline: none;
   border: 2px solid rgba(255, 255, 255, 0.3);
   border-radius: 4px;
-  width: 96%;
+  width: 97%;
   height: 4px;
   background-color: var(--white);
   background-image: linear-gradient(to bottom, var(--gray-light), var(--black));

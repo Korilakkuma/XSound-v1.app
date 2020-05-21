@@ -9,6 +9,7 @@ interface Props {
   max: number;
   step: number;
   defaultValue: number;
+  width: string;
   onChange(event: React.SyntheticEvent): void;
 }
 
@@ -44,11 +45,11 @@ export default class ValueController extends React.Component<Props, State> {
   // }
 
   render(): React.ReactNode {
-    const { label, id, min, max, step } = this.props;
+    const { label, id, min, max, step, width } = this.props;
     const { value } = this.state;
 
     return (
-      <dl className="ValueController">
+      <dl className="ValueController" style={{ width }}>
         <dt><label htmlFor={id}>{label}</label><Spinner id={id} value={value} min={min} max={max} step={step} onChange={this.onChange} /></dt>
         <dd><Slider value={value} min={min} max={max} step={step} onChange={this.onChange} /></dd>
       </dl>
