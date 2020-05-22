@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
 import { X } from 'xsound';
 
 const indexMap = {
@@ -116,17 +115,15 @@ const blacks = [
   'C3h',  'D3h',  'skip13', 'F3h',  'G3h',  'A3h'
 ];
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Props {
   currentSoundSource: 'oscillator' | 'piano' | 'guitar' | 'electric-guitar' | 'whitenoise' | 'pinknoise' | 'browniannoise';
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface State {
   isSoundStops: boolean[];
 }
 
-class Piano extends React.Component<Props, State> {
+export default class Piano extends React.Component<Props, State> {
   private isDown = false;
 
   constructor(props: Props) {
@@ -326,5 +323,3 @@ class Piano extends React.Component<Props, State> {
     }
   }
 }
-
-export default connect()(Piano);

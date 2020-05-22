@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { connect } from 'react-redux';
 
 const Footer: React.SFC<> = () => {
   return (
@@ -10,4 +9,4 @@ const Footer: React.SFC<> = () => {
   );
 };
 
-export default connect()(Footer);
+export default Footer;
