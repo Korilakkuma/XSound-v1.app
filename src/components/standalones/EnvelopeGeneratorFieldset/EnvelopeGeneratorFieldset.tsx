@@ -47,7 +47,7 @@ export default class EnvelopeGenerator extends React.Component<Props, State> {
           />
           <Spacer space={8} />
           <ValueController
-            label="Sutain"
+            label="Sustain"
             id="envelope-generator-sustain"
             defaultValue={0.5}
             min={0}
