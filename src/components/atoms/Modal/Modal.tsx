@@ -13,7 +13,7 @@ const Modal: React.SFC<Props> = (props: Props) => {
 
   return (
     <div className={`Modal${isShow ? ' -show' : ''}`}>
-      {hasOverlay ? <div className="Modal__overlay" role="button"  onClick={onClose} /> : null}
+      {hasOverlay ? <div className="Modal__overlay" role="button" onClick={onClose} /> : null}
       <div className="Modal__inner">
         <h1 className="Modal__title">{title}</h1>
         <div className="Modal__contents">{children}</div>
