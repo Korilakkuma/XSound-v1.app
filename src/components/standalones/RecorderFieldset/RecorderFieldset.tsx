@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Spacer } from '../../atoms/Spacer';
 import { Select } from '../../atoms/Select';
 import { ValueController } from '../../helpers/ValueController';
+import { SelectableModal } from '../../helpers/SelectableModal';
 import { X } from 'xsound';
 
 interface Props {
@@ -12,6 +13,7 @@ interface State {
   objectURL: string;
   running: boolean;
   creating: boolean;
+  isShowModal: boolean;
 }
 
 const NUMBER_OF_TRACKS = 4;
@@ -44,15 +46,18 @@ export default class RecorderFieldset extends React.Component<Props, State> {
     super(props);
 
     this.state = {
-      objectURL: '',
-      running  : false,
-      creating : false
+      objectURL  : '',
+      running    : false,
+      creating   : false,
+      isShowModal: false
     };
 
-    this.onClickRecordButton   = this.onClickRecordButton.bind(this);
-    this.onClickCreateButton   = this.onClickCreateButton.bind(this);
-    this.onClickDownloadButton = this.onClickDownloadButton.bind(this);
-    this.onClickClearButton    = this.onClickClearButton.bind(this);
+    this.onClickRecordButton     = this.onClickRecordButton.bind(this);
+    this.onClickCreateButton     = this.onClickCreateButton.bind(this);
+    this.onClickDownloadButton   = this.onClickDownloadButton.bind(this);
+    this.onClickClearButton      = this.onClickClearButton.bind(this);
+    this.onClickClearTrack       = this.onClickClearTrack.bind(this);
+    this.onClickCancelClearTrack = this.onClickCancelClearTrack.bind(this);
 
     this.onChangeTrack = this.onChangeTrack.bind(this);
 
@@ -76,7 +81,7 @@ export default class RecorderFieldset extends React.Component<Props, State> {
   }
 
   render(): React.ReactNode {
-    const { objectURL, running, creating } = this.state;
+    const { objectURL, running, creating, isShowModal } = this.state;
 
     return (
       <div className="RecorderFieldset">
@@ -140,6 +145,22 @@ export default class RecorderFieldset extends React.Component<Props, State> {
             onChange={this.onChangeRightChannelGain}
           />
         </fieldset>
+        <SelectableModal
+          isShow={isShowModal}
+          hasOverlay={true}
+          title="Confirmation"
+          first={{
+            label : 'Cancel',
+            action: this.onClickCancelClearTrack
+          }}
+          second={{
+            label : 'OK',
+            action: this.onClickClearTrack
+          }}
+          onClose={this.onClickCancelClearTrack}
+        >
+          <p>Clear Track {this.activeTrack + 1}. OK ?</p>
+        </SelectableModal>
       </div>
     );
   }
@@ -213,11 +234,21 @@ export default class RecorderFieldset extends React.Component<Props, State> {
       return;
     }
 
+    this.setState({ isShowModal: true });
+  }
+
+  private onClickClearTrack(): void {
     this.props.sources.forEach((source: string) => {
       if (source !== 'oscillator') {
         X(source).module('recorder').clear(this.activeTrack);
       }
     });
+
+    this.setState({ isShowModal: false });
+  }
+
+  private onClickCancelClearTrack(): void {
+    this.setState({ isShowModal: false });
   }
 
   private onChangeTrack(event: React.SyntheticEvent): void {
