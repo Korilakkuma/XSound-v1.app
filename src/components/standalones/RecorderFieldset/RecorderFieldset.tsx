@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { createFilename } from '../../../utils';
 import { Spacer } from '../../atoms/Spacer';
 import { Select } from '../../atoms/Select';
 import { ValueController } from '../../helpers/ValueController';
@@ -21,23 +22,6 @@ const NUMBER_OF_TRACKS = 4;
 const CHANNEL = 2;   // Stereo
 const BIT     = 16;  // 16 bit
 const TYPE    = 'objectURL';
-
-function createFilename() {
-  const format = (n: number) => {
-    return (`0${n}`).slice(-2);
-  };
-
-  const date = new Date();
-
-  const y = date.getFullYear();
-  const m = format(date.getMonth() + 1);
-  const d = format(date.getDate());
-  const h = format(date.getHours());
-  const i = format(date.getMinutes());
-  const s = format(date.getSeconds());
-
-  return `record-${y}${m}${d}${h}${i}${s}.wav`;
-}
 
 export default class RecorderFieldset extends React.Component<Props, State> {
   private activeTrack = -1;
@@ -104,7 +88,7 @@ export default class RecorderFieldset extends React.Component<Props, State> {
             </button>
             <a
               href={objectURL}
-              download={objectURL ? createFilename() : null}
+              download={objectURL ? createFilename('record-', '.wav') : null}
               className="RecorderFieldset__download"
               aria-label="Download"
               onClick={this.onClickDownloadButton}
