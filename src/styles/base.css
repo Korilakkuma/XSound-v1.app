@@ -40,7 +40,6 @@ noscript {
 
 .Application {
   margin: 0 auto;
-  width: 98%;
   max-width: 1400px;
   min-width: 1280px;  /* for Piano width */
 }
