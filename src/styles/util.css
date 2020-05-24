@@ -4,6 +4,19 @@
   text-overflow: ellipsis;
 }
 
+.text-gradient {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-image:
+    linear-gradient(
+      to bottom,
+      var(--assort-color),
+      rgba(#b200b2, 1) 55%,
+      rgba(#a000a0, 1) 50%,
+      rgba(#b700b7, 1)
+    );
+}
+
 .image-link:hover,
 .image-link:focus,
 .image-link:active {

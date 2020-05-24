@@ -17,12 +17,4 @@
   font-weight: lighter;
   color: var(--assort-color);
   text-transform: uppercase;
-
-  /* Webkit only */
-
-  /*
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-image:-webkit-linear-gradient(to bottom, var(--assort-color), rgba(#b200b2, 1.0) 55%, rgba(#a000a0, 1.0) 50%, rgba(#b700b7, 1.0));
-  */
 }
