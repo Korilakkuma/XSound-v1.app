@@ -1,0 +1,126 @@
+.MML {
+  padding: 24px 48px;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.MML__editor {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  -webkit-align-items: flex-start;
+  align-items: flex-start;
+}
+
+.MML__editor > dl {
+  width: 100%;
+}
+
+.MML__editor > dl > dt {
+  margin-bottom: 8px;
+  font-size: 12px;
+  color: var(--white);
+}
+
+.MML__editor > dl > dd[contentEditable] {
+  outline: var(--assort-color);
+  padding: var(--base-font-size);
+  height: 8rem;
+  overflow: auto;
+  font-size: var(--base-font-size);
+  color: var(--white);
+  background-color: var(--black);
+  transition: background-color ease 0.6s;
+}
+
+.MML__editor > dl > dd[contentEditable]:focus {
+  background-color: var(--assort-color);
+}
+
+.MML__editor > dl > dd[contentEditable] > span {
+  color: var(--assort-color);
+}
+
+.MML__controllers {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
+  -webkit-align-items: center;
+  align-items: center;
+  margin-top: 24px;
+}
+
+.MML__controller {
+  display: block;
+  width: 63px;
+  height: 40px;
+
+  /* for Retina Display */
+  background-size: 238px 120px;
+
+  /* CSS Sprite */
+  background-image: url(/assets/images/buttons-mml.png);
+  background-repeat: no-repeat;
+  background-position: 0 top;
+}
+
+.MML__controller.-paused {
+  background-position: 0 bottom;
+}
+
+.MML__controller.-paused:hover {
+  background-position: 0 center;
+}
+
+.MML__controller:active {
+  background-position: 0 bottom;
+}
+
+.MML__rewinder {
+  display: block;
+  width: 56px;
+  height: 40px;
+
+  /* for Retina Display */
+  background-size: 238px 120px;
+
+  /* CSS Sprite */
+  background-image: url(/assets/images/buttons-mml.png);
+  background-repeat: no-repeat;
+  background-position: -63px bottom;
+}
+
+.MML__rewinder:hover {
+  background-position: -63px top;
+}
+
+.MML__rewinder:active {
+  background-position: -63px center;
+}
+
+.MML__download {
+  display: block;
+  width: 63px;
+  height: 40px;
+
+  /* for Retina Display */
+  background-size: 238px 120px;
+
+  /* CSS Sprite */
+  background-image: url(/assets/images/buttons-mml.png);
+  background-repeat: no-repeat;
+  background-position: -175px bottom;
+}
+
+.MML__download:hover {
+  background-position: -175px top;
+}
+
+.MML__download:active {
+  background-position: -175px center;
+}
