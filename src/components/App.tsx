@@ -759,6 +759,8 @@ function createOneshotSettings(): OneshotSettings[]  {
 }
 
 class App extends React.Component<Props, State> {
+  private pianoRef: RefObject<Piano> = React.createRef<Piano>();
+
   constructor(props: Props) {
     super(props);
 
@@ -767,7 +769,8 @@ class App extends React.Component<Props, State> {
       rate    : 0
     };
 
-    this.loadRIRs = this.loadRIRs.bind(this);
+    this.setSoundStop = this.setSoundStop.bind(this);
+    this.loadRIRs     = this.loadRIRs.bind(this);
   }
 
   componentDidMount(): void {
@@ -957,11 +960,17 @@ class App extends React.Component<Props, State> {
           <AudioFieldset />
         </Flexbox>
         <Analyser sources={sources} />
-        <MML currentSoundSource="oscillator" />
-        <Piano currentSoundSource="oscillator" />
+        <MML currentSoundSource="oscillator" setSoundStop={this.setSoundStop} />
+        <Piano ref={this.pianoRef} currentSoundSource="oscillator" />
         <Footer />
       </React.Fragment>
     );
+  }
+
+  private setSoundStop(index: number, isStop: boolean): void {
+    if (this.pianoRef.current) {
+      this.pianoRef.current.setSoundStop(index, isStop);
+    }
   }
 
   private loadRIRs(): void {

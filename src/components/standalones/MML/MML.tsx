@@ -17,6 +17,7 @@ interface Sequence {
 
 interface Props {
   currentSoundSource: 'oscillator' | 'piano' | 'guitar' | 'electric-guitar' | 'whitenoise' | 'pinknoise' | 'browniannoise';
+  setSoundStop(index: number, isStop: boolean): void;
 }
 
 interface State {
@@ -110,8 +111,7 @@ export default class MML extends React.Component<Props, State> {
           return;
         }
 
-        // TODO: change keyboard flag to `false`
-        console.log('');
+        this.props.setSoundStop(index, false);
       });
 
       this.setState((prevState: State) => {
@@ -127,8 +127,7 @@ export default class MML extends React.Component<Props, State> {
           return;
         }
 
-        // TODO: change keyboard flag to `false`
-        console.log('');
+        this.props.setSoundStop(index, false);
       });
 
       this.setState((prevState: State) => {
@@ -142,8 +141,7 @@ export default class MML extends React.Component<Props, State> {
           return;
         }
 
-        // TODO: change keyboard flag to `true`
-        console.log('');
+        this.props.setSoundStop(index, true);
       });
     };
 

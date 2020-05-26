@@ -191,6 +191,22 @@ export default class Piano extends React.Component<Props, State> {
     );
   }
 
+  // Ref
+  setSoundStop(index: number, isStop: boolean): void {
+    const isSoundStops = this.state.isSoundStops.slice(0);
+
+    isSoundStops[index] = isStop;
+
+    this.setState({ isSoundStops });
+  }
+
+  // Ref
+  clear(): void {
+    const isSoundStops = this.state.isSoundStops.map(() => true);
+
+    this.setState({ isSoundStops });
+  }
+
   private startSound(event: React.SyntheticEvent): void {
     if (!X.IS_XSOUND || (event.currentTarget as Element).classList.contains('skip')) {
       return;  // skip
