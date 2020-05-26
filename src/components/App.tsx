@@ -769,8 +769,9 @@ class App extends React.Component<Props, State> {
       rate    : 0
     };
 
-    this.setSoundStop = this.setSoundStop.bind(this);
-    this.loadRIRs     = this.loadRIRs.bind(this);
+    this.setSoundStop   = this.setSoundStop.bind(this);
+    this.clearKeyboards = this.clearKeyboards.bind(this);
+    this.loadRIRs       = this.loadRIRs.bind(this);
   }
 
   componentDidMount(): void {
@@ -960,7 +961,7 @@ class App extends React.Component<Props, State> {
           <AudioFieldset />
         </Flexbox>
         <Analyser sources={sources} />
-        <MML currentSoundSource="oscillator" setSoundStop={this.setSoundStop} />
+        <MML currentSoundSource="oscillator" setSoundStop={this.setSoundStop} clear={this.clearKeyboards} />
         <Piano ref={this.pianoRef} currentSoundSource="oscillator" />
         <Footer />
       </React.Fragment>
@@ -970,6 +971,12 @@ class App extends React.Component<Props, State> {
   private setSoundStop(index: number, isStop: boolean): void {
     if (this.pianoRef.current) {
       this.pianoRef.current.setSoundStop(index, isStop);
+    }
+  }
+
+  private clearKeyboards(): void {
+    if (this.pianoRef.current) {
+      this.pianoRef.current.clear();
     }
   }
 

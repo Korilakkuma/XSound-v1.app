@@ -18,6 +18,7 @@ interface Sequence {
 interface Props {
   currentSoundSource: 'oscillator' | 'piano' | 'guitar' | 'electric-guitar' | 'whitenoise' | 'pinknoise' | 'browniannoise';
   setSoundStop(index: number, isStop: boolean): void;
+  clear(): void;
 }
 
 interface State {
