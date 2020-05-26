@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { createFilename } from '../../../utils';
+import { Switch } from '../../atoms/Switch';
 import { FileUploader } from '../../atoms/FileUploader';
 import { ProgressBar } from '../../atoms/ProgressBar';
 import { Modal } from '../../atoms/Modal';
@@ -23,6 +24,7 @@ interface Props {
 
 interface State {
   paused: boolean;
+  highlight: boolean;
   melody: string;
   bass: string;
   dataURL: string;
@@ -45,6 +47,7 @@ export default class MML extends React.Component<Props, State> {
 
     this.state = {
       paused                       : true,
+      highlight                    : false,
       melody                       : '',
       bass                         : '',
       filename                     : '',
@@ -73,6 +76,7 @@ export default class MML extends React.Component<Props, State> {
     this.onClickMMLController  = this.onClickMMLController.bind(this);
     this.onClickRewindButton   = this.onClickRewindButton.bind(this);
     this.onClickDownloadButton = this.onClickDownloadButton.bind(this);
+    this.onChangeHightlight    = this.onChangeHightlight.bind(this);
 
     this.onClickOverwrite = this.onClickOverwrite.bind(this);
     this.onClickCancel    = this.onClickCancel.bind(this);
@@ -115,9 +119,11 @@ export default class MML extends React.Component<Props, State> {
         this.props.setSoundStop(index, false);
       });
 
-      this.setState((prevState: State) => {
-        return { melody: prevState.melody.replace(` ${note}`, ` <span>${note}</span>`) };
-      });
+      if (this.state.highlight) {
+        this.setState((prevState: State) => {
+          return { melody: prevState.melody.replace(` ${note}`, ` <span>${note}</span>`) };
+        });
+      }
     };
 
     const startCallbackBass = (sequence: Sequence) => {
@@ -131,9 +137,11 @@ export default class MML extends React.Component<Props, State> {
         this.props.setSoundStop(index, false);
       });
 
-      this.setState((prevState: State) => {
-        return { bass: this.state.bass.replace(` ${note}`, ` <span>${note}</span>`) };
-      });
+      if (this.state.highlight) {
+        this.setState((prevState: State) => {
+          return { bass: this.state.bass.replace(` ${note}`, ` <span>${note}</span>`) };
+        });
+      }
     };
 
     const stopCallback = (sequence: Sequence) => {
@@ -199,6 +207,7 @@ export default class MML extends React.Component<Props, State> {
   render(): React.ReactNode {
     const {
       paused,
+      highlight,
       melody,
       bass,
       dataURL,
@@ -259,6 +268,12 @@ export default class MML extends React.Component<Props, State> {
             onClick={this.onClickDownloadButton}
           >
           </a>
+          <Switch
+            id="mml-switch-highlight"
+            label="Highlight"
+            defaultChecked={highlight}
+            onChange={this.onChangeHightlight}
+          />
           <FileUploader
             label="MML text file"
             accept="text/plain"
@@ -431,6 +446,10 @@ export default class MML extends React.Component<Props, State> {
         return { dataURL : X.toTextFile(`${prevState.melody}||||${prevState.bass}`) };
       });
     });
+  }
+
+  private onChangeHightlight(event: React.SyntheticEvent): void {
+    this.setState({ highlight: event.currentTarget.checked });
   }
 
   private readFile(event: React.SyntheticEvent): void {

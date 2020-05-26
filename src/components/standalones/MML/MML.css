@@ -124,3 +124,10 @@
 .MML__download:active {
   background-position: -175px center;
 }
+
+/* HACK */
+.MML__controllers > .Switch {
+  margin: 0 8px;
+  font-size: 12px;
+  color: var(--white);
+}
