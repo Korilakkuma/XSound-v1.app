@@ -1,6 +1,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Flexbox } from './atoms/Flexbox';
+import { Switch } from './atoms/Switch';
+import { Select } from './atoms/Select';
+import { ValueController } from './helpers/ValueController';
 import { Header } from './standalones/Header';
 import { OscillatorFieldset } from './standalones/OscillatorFieldset';
 import { EnvelopeGeneratorFieldset } from './standalones/EnvelopeGeneratorFieldset';
@@ -22,8 +25,10 @@ declare global {
 interface Props {
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface State {
+  currentSoundSource: 'oscillator' | 'piano' | 'guitar' | 'electric-guitar' | 'whitenoise' | 'pinknoise' | 'browniannoise';
+  analyserState: boolean;
+  mmlState: boolean;
   progress: boolean;
   rate: number;
 }
@@ -765,13 +770,24 @@ class App extends React.Component<Props, State> {
     super(props);
 
     this.state = {
-      progress: true,
-      rate    : 0
+      currentSoundSource: 'oscillator',
+      analyserState     : false,
+      mmlState          : false,
+      progress          : true,
+      rate              : 0
     };
 
     this.setSoundStop   = this.setSoundStop.bind(this);
     this.clearKeyboards = this.clearKeyboards.bind(this);
-    this.loadRIRs       = this.loadRIRs.bind(this);
+
+    this.onChangeMasterVolume       = this.onChangeMasterVolume.bind(this);
+    this.onChangeGlide              = this.onChangeGlide.bind(this);
+    this.onChangeTranspose          = this.onChangeTranspose.bind(this);
+    this.onChangeCurrentSoundSource = this.onChangeCurrentSoundSource.bind(this);
+    this.onChangeAnalyserState      = this.onChangeAnalyserState.bind(this);
+    this.onChangeMMLState           = this.onChangeMMLState.bind(this);
+
+    this.loadRIRs = this.loadRIRs.bind(this);
   }
 
   componentDidMount(): void {
@@ -868,7 +884,13 @@ class App extends React.Component<Props, State> {
   }
 
   render(): React.ReactNode {
-    const { progress, rate } = this.state;
+    const {
+      currentSoundSource,
+      analyserState,
+      mmlState,
+      progress,
+      rate
+    } = this.state;
 
     return (
       <React.Fragment>
@@ -960,9 +982,82 @@ class App extends React.Component<Props, State> {
           <RecorderFieldset sources={sources} />
           <AudioFieldset />
         </Flexbox>
-        <Analyser sources={sources} />
-        <MML currentSoundSource="oscillator" setSoundStop={this.setSoundStop} clear={this.clearKeyboards} />
-        <Piano ref={this.pianoRef} currentSoundSource="oscillator" />
+        <Analyser active={analyserState} sources={sources} />
+        <MML
+          active={mmlState}
+          currentSoundSource={currentSoundSource}
+          setSoundStop={this.setSoundStop}
+          clear={this.clearKeyboards}
+        />
+        <Flexbox>
+          <ValueController
+            label="Master Volume"
+            id="master-volume"
+            defaultValue={1}
+            min={0}
+            max={1}
+            step={0.05}
+            width="20%"
+            onChange={this.onChangeMasterVolume}
+          />
+          <ValueController
+            label="Glide"
+            id="glide"
+            defaultValue={0}
+            min={0}
+            max={1}
+            step={0.05}
+            width="20%"
+            onChange={this.onChangeGlide}
+          />
+          <ValueController
+            label="Transpose"
+            id="transpose"
+            defaultValue={0}
+            min={-6}
+            max={6}
+            step={1}
+            width="20%"
+            onChange={this.onChangeTranspose}
+          />
+          <Select
+            values={[
+              'oscillator',
+              'piano',
+              'guitar',
+              'electric-guitar',
+              'whitenoise',
+              'pinknoise',
+              'browniannoise'
+            ]}
+            texts={[
+              'Oscillator',
+              'Piano',
+              'A. Guitar',
+              'E. Guitar',
+              'White Noise',
+              'Pink Noise',
+              'Brownian Noise',
+              'Microphone',
+              'MIDI'
+            ]}
+            width="20%"
+            onChange={this.onChangeCurrentSoundSource}
+          />
+          <Switch
+            id="analyser"
+            label="Analyser"
+            defaultChecked={analyserState}
+            onChange={this.onChangeAnalyserState}
+          />
+          <Switch
+            id="mml"
+            label="MML"
+            defaultChecked={mmlState}
+            onChange={this.onChangeMMLState}
+          />
+        </Flexbox>
+        <Piano ref={this.pianoRef} currentSoundSource={currentSoundSource} />
         <Footer />
       </React.Fragment>
     );
@@ -978,6 +1073,57 @@ class App extends React.Component<Props, State> {
     if (this.pianoRef.current) {
       this.pianoRef.current.clear();
     }
+  }
+
+  private onChangeMasterVolume(event: React.SyntheticEvent): void {
+    sources.forEach((source: string) => {
+      if (X(source) !== null) {
+        X(source).param('mastervolume', event.currentTarget.valueAsNumber);
+      }
+
+      if (window.C(source) !== null) {
+        window.C(source).param('mastervolume', event.currentTarget.valueAsNumber);
+      }
+    });
+  }
+
+  private onChangeGlide(event: React.SyntheticEvent): void {
+    X('oscillator').module('glide').param('time', event.currentTarget.valueAsNumber);
+    window.C('oscillator').module('glide').param('time', event.currentTarget.valueAsNumber);
+  }
+
+  private onChangeTranspose(event: React.SyntheticEvent): void {
+    const transpose = (event.currentTarget.valueAsNumber + 12) / 12;
+
+    X('oneshot').param('transpose', transpose);
+  }
+
+  private onChangeCurrentSoundSource(event: React.SyntheticEvent): void {
+    const source = event.currentTarget.value;
+
+    this.setState({ currentSoundSource: source }, () => {
+      // TODO:
+      switch (source) {
+        case 'stream':
+          break;
+        case 'midi':
+          break;
+        default:
+          break;
+      }
+    });
+  }
+
+  private onChangeAnalyserState(): void {
+    this.setState((prevState: State) => {
+      return { analyserState: !prevState.analyserState };
+    });
+  }
+
+  private onChangeMMLState(): void {
+    this.setState((prevState: State) => {
+      return { mmlState: !prevState.mmlState };
+    });
   }
 
   private loadRIRs(): void {
