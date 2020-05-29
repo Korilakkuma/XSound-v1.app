@@ -5,23 +5,36 @@ import { ValueController } from '../../helpers/ValueController';
 import { X } from 'xsound';
 
 interface Props {
+  active: boolean;
   sources: string[];
 }
 
 interface State {
+  active: boolean;
   showTimeOverview: 'left' | 'right';
 }
 
 export default class Analyser extends React.Component<Props, State> {
+  private setupped = false;
+
   private canvasForTimeOverviewLRef: RefObject<HTMLCanvasElement>   = React.createRef<HTMLCanvasElement>();
   private canvasForTimeOverviewRRef: RefObject<HTMLCanvasElement>   = React.createRef<HTMLCanvasElement>();
   private canvasForTimeDomainRef: RefObject<HTMLCanvasElement>      = React.createRef<HTMLCanvasElement>();
   private canvasForFrequencyDomainRef: RefObject<HTMLCanvasElement> = React.createRef<HTMLCanvasElement>();
 
+  static getDerivedStateFromProps(props: Props, state: State): State | null {
+    if (props.active !== state.active) {
+      return { active: props.active };
+    }
+
+    return null;
+  }
+
   constructor(props: Props) {
     super(props);
 
     this.state = {
+      active          : props.active,
       showTimeOverview: 'left'
     };
 
@@ -32,37 +45,19 @@ export default class Analyser extends React.Component<Props, State> {
     this.onChangeSmoothing = this.onChangeSmoothing.bind(this);
   }
 
-  onChangeMode(event: React.SyntheticEvent): void {
-    const checked = event.currentTarget.checked;
-
-    if (checked) {
-      X('audio').module('analyser').domain('time-overview-L').param('mode', 'sprite');
-      X('audio').module('analyser').domain('time-overview-R').param('mode', 'sprite');
-      X('audio').param('loop', true);
-    } else {
-      X('audio').module('analyser').domain('time-overview-L').param('mode', 'update');
-      X('audio').module('analyser').domain('time-overview-R').param('mode', 'update');
-      X('audio').param('loop', false);
-    }
-  }
-
-  onChangeInterval(event: React.SyntheticEvent): void {
-    const value = event.currentTarget.valueAsNumber;
-
-    this.props.sources.forEach((source: string) => {
-      X(source).module('analyser').domain('time').param('interval', ((value > 0) ? value : 'auto'));
-      X(source).module('analyser').domain('fft').param('interval', ((value > 0) ? value : 'auto'));
-    });
-  }
-
-  onChangeSmoothing(event: React.SyntheticEvent): void {
-    this.props.sources.forEach((source: string) => {
-      X(source).module('analyser').param('smoothingTimeConstant', event.currentTarget.valueAsNumber);
-    });
-  }
-
   // `Analyser#setup` is not invoked on `componentDidMount`
   componentDidUpdate(): void {
+    const { active } = this.state;
+
+    if (this.setupped) {
+      this.props.sources.forEach((source: string) => {
+        X(source).module('analyser').domain('time').state(active);
+        X(source).module('analyser').domain('fft').state(active);
+      });
+
+      return;
+    }
+
     this.props.sources.forEach((source: string) => {
       X(source).module('analyser').param({
         fftSize              : 2048,
@@ -84,7 +79,7 @@ export default class Analyser extends React.Component<Props, State> {
         width   : 2,
         right   : 15,
         type    : 'uint'
-      }).state(true);
+      }).state(active);
 
       X(source).module('analyser').domain('fft').setup(this.canvasForFrequencyDomainRef.current).param({
         interval: 0,
@@ -104,7 +99,7 @@ export default class Analyser extends React.Component<Props, State> {
         right   : 15,
         type    : 'uint',
         size    : 256
-      }).state(true);
+      }).state(active);
     });
 
     const params = {
@@ -157,13 +152,15 @@ export default class Analyser extends React.Component<Props, State> {
       .state(true)
       .param(params)
       .drag(dragCallback);
+
+    this.setupped = true;
   }
 
   render(): React.ReactNode {
-    const { showTimeOverview } = this.state;
+    const { active, showTimeOverview } = this.state;
 
     return (
-      <div className="Analyser">
+      <div className={`Analyser${active ? ' -active' : ''}`}>
         <div className="Analyser__canvas">
           <dl>
             <dt>
@@ -224,5 +221,34 @@ export default class Analyser extends React.Component<Props, State> {
 
   private onClickChannel(event: React.SyntheticEvent): void {
     this.setState({ showTimeOverview: this.state.showTimeOverview === 'right' ? 'left' : 'right' });
+  }
+
+  private onChangeMode(event: React.SyntheticEvent): void {
+    const checked = event.currentTarget.checked;
+
+    if (checked) {
+      X('audio').module('analyser').domain('time-overview-L').param('mode', 'sprite');
+      X('audio').module('analyser').domain('time-overview-R').param('mode', 'sprite');
+      X('audio').param('loop', true);
+    } else {
+      X('audio').module('analyser').domain('time-overview-L').param('mode', 'update');
+      X('audio').module('analyser').domain('time-overview-R').param('mode', 'update');
+      X('audio').param('loop', false);
+    }
+  }
+
+  private onChangeInterval(event: React.SyntheticEvent): void {
+    const value = event.currentTarget.valueAsNumber;
+
+    this.props.sources.forEach((source: string) => {
+      X(source).module('analyser').domain('time').param('interval', ((value > 0) ? value : 'auto'));
+      X(source).module('analyser').domain('fft').param('interval', ((value > 0) ? value : 'auto'));
+    });
+  }
+
+  private onChangeSmoothing(event: React.SyntheticEvent): void {
+    this.props.sources.forEach((source: string) => {
+      X(source).module('analyser').param('smoothingTimeConstant', event.currentTarget.valueAsNumber);
+    });
   }
 }
