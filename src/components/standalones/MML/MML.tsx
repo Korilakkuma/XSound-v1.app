@@ -17,12 +17,15 @@ interface Sequence {
 }
 
 interface Props {
+  active: boolean;
   currentSoundSource: 'oscillator' | 'piano' | 'guitar' | 'electric-guitar' | 'whitenoise' | 'pinknoise' | 'browniannoise';
   setSoundStop(index: number, isStop: boolean): void;
   clear(): void;
 }
 
 interface State {
+  active: boolean;
+  currentSoundSource: 'oscillator' | 'piano' | 'guitar' | 'electric-guitar' | 'whitenoise' | 'pinknoise' | 'browniannoise';
   paused: boolean;
   highlight: boolean;
   melody: string;
@@ -40,12 +43,27 @@ interface State {
 }
 
 export default class MML extends React.Component<Props, State> {
+  private setupped = false;
   private mmls: string[] = ['', ''];
+
+  static getDerivedStateFromProps(props: Props, state: State): State | null {
+    if (state.active !== props.active) {
+      return { active: props.active };
+    }
+
+    if (state.currentSoundSource !== props.currentSoundSource) {
+      return { currentSoundSource: props.currentSoundSource };
+    }
+
+    return null;
+  }
 
   constructor(props: Props) {
     super(props);
 
     this.state = {
+      active                       : props.active,
+      currentSoundSource           : props.currentSoundSource,
       paused                       : true,
       highlight                    : false,
       melody                       : '',
@@ -108,6 +126,15 @@ export default class MML extends React.Component<Props, State> {
 
   // `MML#setup` is not invoked on `componentDidMount`
   componentDidUpdate(): void {
+    if (this.setupped && X('mml').isPaused() && (this.state.mmlErrorMessage === '')) {
+      this.readyMML();
+      return;
+    }
+
+    if (this.setupped) {
+      return;
+    }
+
     const startCallbackMelody = (sequence: Sequence) => {
       const { indexes, note } = sequence;
 
@@ -202,10 +229,13 @@ export default class MML extends React.Component<Props, State> {
       ended: endedCallback,
       error: errorCallback
     });
+
+    this.setupped = true;
   }
 
   render(): React.ReactNode {
     const {
+      active,
       paused,
       highlight,
       melody,
@@ -223,7 +253,7 @@ export default class MML extends React.Component<Props, State> {
     } = this.state;
 
     return (
-      <div className="MML">
+      <div className={`MML${active ? ' -active' : ''}`}>
         <div className="MML__editor">
           <dl>
             <dt>Melody</dt>
