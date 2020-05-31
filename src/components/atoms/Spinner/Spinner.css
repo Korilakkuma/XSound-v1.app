@@ -1,6 +1,7 @@
 .Spinner {
   cursor: pointer;
   display: inline-block;
+  outline: none;
   border: 2px solid rgba(255, 255, 255, 0.05);
   padding: 4px 0 4px 8px;
   width: 40%;
@@ -16,7 +17,6 @@
 
 .Spinner:focus,
 .Spinner:active {
-  outline-color: var(--assort-color);
   background-color: var(--base-color);
   background-image: linear-gradient(to bottom, var(--base-color), var(--assort-color));
   box-shadow: 5px 5px 3px rgba(0, 0, 0, 0.4) inset, 3px -3px 3px rgba(0, 0, 0, 0.2) inset, 0 -1px 5px 1px rgba(17, 17, 17, 0.75);  /* outer (for emboss) */
