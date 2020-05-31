@@ -4,15 +4,16 @@ interface Props {
   groups?: string[];
   values: string[][];
   texts: string[][];
+  width: string;
   onChange(event: React.SyntheticEvent): void;
 }
 
 const Select: React.SFC<Props> = (props: Props) => {
-  const { groups, values, texts, onChange } = props;
+  const { groups, values, texts, width, onChange } = props;
 
   if (groups) {
     return (
-      <select className="Select" onChange={onChange}>
+      <select className="Select" onChange={onChange} style={{ width }}>
         {groups.map((group: string, i: number) => {
           return (
             <optgroup key={group} label={group}>
@@ -27,7 +28,7 @@ const Select: React.SFC<Props> = (props: Props) => {
   }
 
   return (
-    <select className="Select" onChange={onChange}>
+    <select className="Select" onChange={onChange} style={{ width }}>
       {values.map((value: string, index: number) => {
         return <option key={value} value={value}>{texts[index]}</option>;
       })}
