@@ -28,6 +28,8 @@ interface State {
 }
 
 export default class AudioFieldset extends React.Component<Props, State> {
+  private setupped = false;
+
   constructor(props: Props) {
     super(props);
 
@@ -65,6 +67,10 @@ export default class AudioFieldset extends React.Component<Props, State> {
 
   // `X('audio').setup` is not invoked on `componentDidMount`
   componentDidUpdate(): void {
+    if (this.setupped) {
+      return;
+    }
+
     const decodeCallback = () => {
       this.setState({
         progress              : false,
@@ -126,6 +132,8 @@ export default class AudioFieldset extends React.Component<Props, State> {
       ended : endedCallback,
       error : errorCallback
     });
+
+    this.setupped = true;
   }
 
   render(): React.ReactNode {
