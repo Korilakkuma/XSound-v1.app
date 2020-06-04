@@ -110,7 +110,10 @@ export default class AudioFieldset extends React.Component<Props, State> {
     };
 
     const endedCallback = () => {
-      this.setState({ currentTime: 0 });
+      this.setState({
+        paused     : true,
+        currentTime: 0
+      });
 
       // X('audio').module('analyser').domain('time-overview-L').update(0);
       // X('audio').module('analyser').domain('time-overview-R').update(0);
