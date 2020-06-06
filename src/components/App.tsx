@@ -791,7 +791,6 @@ class App extends React.Component<Props, State> {
 
     window.C.free([
       window.C('oneshot'),
-      window.C('noise'),
       window.C('audio'),
       window.C('media'),
       window.C('stream'),

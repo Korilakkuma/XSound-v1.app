@@ -25,7 +25,6 @@ interface Props {
 
 interface State {
   active: boolean;
-  currentSoundSource: 'oscillator' | 'piano' | 'guitar' | 'electric-guitar' | 'whitenoise' | 'pinknoise' | 'browniannoise';
   paused: boolean;
   highlight: boolean;
   melody: string;
@@ -51,10 +50,6 @@ export default class MML extends React.Component<Props, State> {
       return { active: props.active };
     }
 
-    if (state.currentSoundSource !== props.currentSoundSource) {
-      return { currentSoundSource: props.currentSoundSource };
-    }
-
     return null;
   }
 
@@ -63,7 +58,6 @@ export default class MML extends React.Component<Props, State> {
 
     this.state = {
       active                       : props.active,
-      currentSoundSource           : props.currentSoundSource,
       paused                       : true,
       highlight                    : false,
       melody                       : '',
@@ -125,9 +119,27 @@ export default class MML extends React.Component<Props, State> {
   }
 
   // `MML#setup` is not invoked on `componentDidMount`
-  componentDidUpdate(): void {
-    if (this.setupped && X('mml').isPaused() && (this.state.mmlErrorMessage === '')) {
-      this.readyMML();
+  componentDidUpdate(prevProps: Props): void {
+    if (prevProps.currentSoundSource !== this.props.currentSoundSource) {
+      this.setState((prevState: State) => {
+        const { melody, bass } = prevState;
+
+        return {
+          melody: melody.replace(/<span>(.+?)<\/span>/g, '$1'),
+          bass  : bass.replace(/<span>(.+?)<\/span>/g, '$1'),
+          paused: true
+        };
+      }, () => {
+        for (let i = 0, len = X('oscillator').length(); i < len; i++) {
+          if (i !== 0) {
+            X('oscillator').get(i).state(false);
+            window.C('oscillator').get(i).state(false);
+          }
+        }
+
+        this.readyMML();
+      });
+
       return;
     }
 
@@ -166,7 +178,7 @@ export default class MML extends React.Component<Props, State> {
 
       if (this.state.highlight) {
         this.setState((prevState: State) => {
-          return { bass: this.state.bass.replace(` ${note}`, ` <span>${note}</span>`) };
+          return { bass: prevState.bass.replace(` ${note}`, ` <span>${note}</span>`) };
         });
       }
     };
@@ -183,16 +195,20 @@ export default class MML extends React.Component<Props, State> {
 
     const endedCallback = () => {
       for (let i = 0, len = X('oscillator').length(); i < len; i++) {
-        X('oscillator').get(i).state(false);
-        window.C('oscillator').get(i).state(false);
+        if (i !== 0) {
+          X('oscillator').get(i).state(false);
+          window.C('oscillator').get(i).state(false);
+        }
       }
+
+      this.props.clear();
 
       this.setState((prevState: State) => {
         const { melody, bass } = prevState;
 
         return {
-          melody: melody.replace(/<span>(.*)?<\/span>/g, '$1'),
-          bass  : bass.replace(/<span>(.*)?<\/span>/g, '$1'),
+          melody: melody.replace(/<span>(.+?)<\/span>/g, '$1'),
+          bass  : bass.replace(/<span>(.+?)<\/span>/g, '$1'),
           paused: true
         };
       }, () => {
@@ -359,30 +375,25 @@ export default class MML extends React.Component<Props, State> {
     switch (this.props.currentSoundSource) {
       case 'oscillator':
         X('mml').ready(X('oscillator'), melody);
-        // eslint-disable-next-line no-undef
-        window.C('mml').ready(C('oscillator'), bass);
+        window.C('mml').ready(window.C('oscillator'), bass);
         break;
       case 'piano':
         X('mml').ready(X('oneshot'), melody, 0);
-        // eslint-disable-next-line no-undef
         window.C('mml').ready(X('oneshot'), bass, 0);
         break;
       case 'guitar':
         X('mml').ready(X('oneshot'), melody, 88);
-        // eslint-disable-next-line no-undef
         window.C('mml').ready(X('oneshot'), bass, 88);
         break;
       case 'electric-guitar':
         X('mml').ready(X('oneshot'), melody, 88 + 88);
-        // eslint-disable-next-line no-undef
         window.C('mml').ready(X('oneshot'), bass, 88 + 88);
         break;
       case 'whitenoise'   :
       case 'pinknoise'    :
       case 'browniannoise':
         X('mml').ready(X('noise'), melody);
-        // eslint-disable-next-line no-undef
-        window.C('mml').ready(C('noise'), bass);
+        window.C('mml').ready(window.C('noise'), bass);
         break;
       default:
         break;
@@ -390,13 +401,19 @@ export default class MML extends React.Component<Props, State> {
   }
 
   private onBlurMelody(event: React.SyntheticEvent): void {
-    this.setState({ melody: event.currentTarget.textContent }, () => {
+    this.setState({
+      melody: event.currentTarget.textContent,
+      paused: true
+    }, () => {
       this.readyMML();
     });
   }
 
   private onBlurBass(event: React.SyntheticEvent): void {
-    this.setState({ bass: event.currentTarget.textContent }, () => {
+    this.setState({
+      bass  : event.currentTarget.textContent,
+      paused: true
+    }, () => {
       this.readyMML();
     });
   }
@@ -445,8 +462,8 @@ export default class MML extends React.Component<Props, State> {
 
   private onClickRewindButton(): void {
     // Stop MML
-    X('mml').stop();
-    window.C('mml').stop();
+    X('mml').stop().clear();
+    window.C('mml').stop().clear();
 
     this.props.clear();
 
