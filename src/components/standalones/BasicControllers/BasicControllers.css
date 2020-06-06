@@ -1,0 +1,23 @@
+.BasicControllers {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  -webkit-align-items: flex-start;
+  align-items: flex-start;
+  padding: 24px 48px;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* HACK */
+.BasicControllers > .Select {
+  margin: 0;
+}
+
+/* HACK */
+.BasicControllers > .Switch > label {
+  font-size: 12px;
+  color: var(--white);
+}
