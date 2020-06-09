@@ -17,10 +17,10 @@ interface State {
 export default class Analyser extends React.Component<Props, State> {
   private setupped = false;
 
-  private canvasForTimeOverviewLRef: RefObject<HTMLCanvasElement>   = React.createRef<HTMLCanvasElement>();
-  private canvasForTimeOverviewRRef: RefObject<HTMLCanvasElement>   = React.createRef<HTMLCanvasElement>();
-  private canvasForTimeDomainRef: RefObject<HTMLCanvasElement>      = React.createRef<HTMLCanvasElement>();
-  private canvasForFrequencyDomainRef: RefObject<HTMLCanvasElement> = React.createRef<HTMLCanvasElement>();
+  private canvasForTimeOverviewLeftRef: RefObject<HTMLCanvasElement>  = React.createRef<HTMLCanvasElement>();
+  private canvasForTimeOverviewRightRef: RefObject<HTMLCanvasElement> = React.createRef<HTMLCanvasElement>();
+  private canvasForTimeDomainRef: RefObject<HTMLCanvasElement>        = React.createRef<HTMLCanvasElement>();
+  private canvasForFrequencyDomainRef: RefObject<HTMLCanvasElement>   = React.createRef<HTMLCanvasElement>();
 
   static getDerivedStateFromProps(props: Props, state: State): State | null {
     if (props.active !== state.active) {
@@ -124,13 +124,13 @@ export default class Analyser extends React.Component<Props, State> {
         return;
       }
 
-      const mode = X('audio').module('analyser').domain('time-overview-L').param('mode');
+      const mode = X('audio').module('analyser').domain('timeoverview', 0).param('mode');
 
       if (mode === 'update') {
         if ((startTime >= 0) && (startTime <= X('audio').param('duration'))) {
           X('audio').param('currentTime', startTime);
-          X('audio').module('analyser').domain('time-overview-L').update(startTime);
-          X('audio').module('analyser').domain('time-overview-R').update(startTime);
+          X('audio').module('analyser').domain('timeoverview', 0).update(startTime);
+          X('audio').module('analyser').domain('timeoverview', 1).update(startTime);
         }
       } else if (mode === 'sprite') {
         X('audio').stop().start(startTime, endTime);
@@ -139,16 +139,16 @@ export default class Analyser extends React.Component<Props, State> {
 
     X('audio')
       .module('analyser')
-      .domain('time-overview-L')
-      .setup(this.canvasForTimeOverviewLRef.current)
+      .domain('timeoverview', 0)
+      .setup(this.canvasForTimeOverviewLeftRef.current)
       .state(true)
       .param(params)
       .drag(dragCallback);
 
     X('audio')
       .module('analyser')
-      .domain('time-overview-R')
-      .setup(this.canvasForTimeOverviewRRef.current)
+      .domain('timeoverview', 1)
+      .setup(this.canvasForTimeOverviewRightRef.current)
       .state(true)
       .param(params)
       .drag(dragCallback);
@@ -173,8 +173,8 @@ export default class Analyser extends React.Component<Props, State> {
               </button>
               Time Overview [{showTimeOverview}]
             </dt>
-            <dd hidden={showTimeOverview === 'right'}><canvas ref={this.canvasForTimeOverviewLRef} width="1200" height="120" /></dd>
-            <dd hidden={showTimeOverview ===  'left'}><canvas ref={this.canvasForTimeOverviewRRef} width="1200" height="120" /></dd>
+            <dd hidden={showTimeOverview === 'right'}><canvas ref={this.canvasForTimeOverviewLeftRef} width="1200" height="120" /></dd>
+            <dd hidden={showTimeOverview ===  'left'}><canvas ref={this.canvasForTimeOverviewRightRef} width="1200" height="120" /></dd>
           </dl>
           <dl>
             <dt>Time Domain</dt>
@@ -227,12 +227,12 @@ export default class Analyser extends React.Component<Props, State> {
     const checked = event.currentTarget.checked;
 
     if (checked) {
-      X('audio').module('analyser').domain('time-overview-L').param('mode', 'sprite');
-      X('audio').module('analyser').domain('time-overview-R').param('mode', 'sprite');
+      X('audio').module('analyser').domain('timeoverview', 0).param('mode', 'sprite');
+      X('audio').module('analyser').domain('timeoverview', 1).param('mode', 'sprite');
       X('audio').param('loop', true);
     } else {
-      X('audio').module('analyser').domain('time-overview-L').param('mode', 'update');
-      X('audio').module('analyser').domain('time-overview-R').param('mode', 'update');
+      X('audio').module('analyser').domain('timeoverview', 0).param('mode', 'update');
+      X('audio').module('analyser').domain('timeoverview', 1).param('mode', 'update');
       X('audio').param('loop', false);
     }
   }

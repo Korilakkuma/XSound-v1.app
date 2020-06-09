@@ -115,8 +115,8 @@ export default class AudioFieldset extends React.Component<Props, State> {
         currentTime: 0
       });
 
-      // X('audio').module('analyser').domain('time-overview-L').update(0);
-      // X('audio').module('analyser').domain('time-overview-R').update(0);
+      X('audio').module('analyser').domain('timeoverview', 0).update(0);
+      X('audio').module('analyser').domain('timeoverview', 1).update(0);
     };
 
     const errorCallback = (error: Error) => {
