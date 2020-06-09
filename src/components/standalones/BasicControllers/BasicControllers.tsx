@@ -16,8 +16,115 @@ interface Props {
 }
 
 interface State {
+  currentSoundSource: 'oscillator' | 'piano' | 'guitar' | 'electric-guitar' | 'whitenoise' | 'pinknoise' | 'browniannoise';
   analyserState: boolean;
   mmlState: boolean;
+}
+
+const MIN_NOTE_NUMBER = 21;
+const MAX_NOTE_NUMBER = 108;
+const MAX_VELOCITY    = 127;
+
+function successCallback(source: string, midiAccess: MIDIAccess, inputs: MIDIInput, outputs: MIDIOutput): void {
+  const indexes = [];
+  const volumes = [];
+
+  const noteOn = (noteNumber: number, velocity: number) => {
+    if ((noteNumber < MIN_NOTE_NUMBER) || (noteNumber > MAX_NOTE_NUMBER)) {
+      return;
+    }
+
+    if ((velocity < 0) || (velocity > MAX_VELOCITY)) {
+      return;
+    }
+
+    const targetIndex = noteNumber - MIN_NOTE_NUMBER;
+    const volume      = velocity / MAX_VELOCITY;
+
+    if (source === 'oscillator') {
+      indexes.push(targetIndex);
+
+      volumes[0] = X('oscillator', 0).param('volume');
+      volumes[1] = window.C('oscillator', 0).param('volume');
+
+      for (let i = 0, len = X('oscillator').length(); i < len; i++) {
+        if (i !== 0) {
+          X('oscillator').get(i).state(true);
+          window.C('oscillator').get(i).state(true);
+        }
+
+        X('oscillator').get(i).param('volume', volume);
+        window.C('oscillator').get(i).param('volume', volume);
+      }
+
+      X('oscillator').ready(0, 0).start(X.toFrequencies(indexes));
+      window.C('oscillator').ready(0, 0).start(X.toFrequencies(indexes));
+
+      X('mixer').mix([X('oscillator'), window.C('oscillator')]);
+
+      X('mixer').module('recorder').start();
+      X('mixer').module('session').start();
+    } else {
+      X('oneshot').reset(targetIndex, 'volume', volume).ready(0, 0).start(targetIndex);
+
+      X('oneshot').module('recorder').start();
+      X('oneshot').module('session').start();
+    }
+  };
+
+  const noteOff = (noteNumber: number, velocity: number) => {
+    if ((noteNumber < MIN_NOTE_NUMBER) || (noteNumber > MAX_NOTE_NUMBER)) {
+      return;
+    }
+
+    if ((velocity < 0) || (velocity > MAX_VELOCITY)) {
+      return;
+    }
+
+    const targetIndex = noteNumber - MIN_NOTE_NUMBER;
+
+    if (source === 'oscillator') {
+      const index = indexes.indexOf(targetIndex);
+
+      if (index !== -1) {
+        indexes.splice(index, 1);
+      }
+
+      X('oscillator').stop();
+      window.C('oscillator').stop();
+
+      for (let i = 0, len = X('oscillator').length(); i < len; i++) {
+        if (i !== 0) {
+          X('oscillator').get(i).state(false);
+          window.C('oscillator').get(i).state(false);
+        }
+
+        X('oscillator').get(i).param('volume', volumes[0]);
+        window.C('oscillator').get(i).param('volume', volumes[1]);
+      }
+    } else {
+      X('oneshot').stop(targetIndex).reset(targetIndex, 'volume', 1);
+    }
+  };
+
+  if (inputs.length > 0) {
+    inputs[0].onmidimessage = (event: MIDIMessageEvent) => {
+      switch (event.data[0] & 0xf0) {
+        case 0x90:
+          noteOn(event.data[1], event.data[2]);
+          break;
+        case 0x80:
+          noteOff(event.data[1], event.data[2]);
+          break;
+        default :
+          break;
+      }
+    };
+  }
+}
+
+function errorCallback(): void {
+  // TODO: open modal for shoing error messag ...
 }
 
 export default class BasicControllers extends React.Component<Props, State> {
@@ -29,12 +136,12 @@ export default class BasicControllers extends React.Component<Props, State> {
       mmlState     : false
     };
 
-    this.onChangeMasterVolume       = this.onChangeMasterVolume.bind(this);
-    this.onChangeGlide              = this.onChangeGlide.bind(this);
-    this.onChangeTranspose          = this.onChangeTranspose.bind(this);
-    this.onChangeCurrentSoundSource = this.onChangeCurrentSoundSource.bind(this);
-    this.onChangeAnalyserState      = this.onChangeAnalyserState.bind(this);
-    this.onChangeMMLState           = this.onChangeMMLState.bind(this);
+    this.onChangeMasterVolume  = this.onChangeMasterVolume.bind(this);
+    this.onChangeGlide         = this.onChangeGlide.bind(this);
+    this.onChangeTranspose     = this.onChangeTranspose.bind(this);
+    this.onChangeSoundSource   = this.onChangeSoundSource.bind(this);
+    this.onChangeAnalyserState = this.onChangeAnalyserState.bind(this);
+    this.onChangeMMLState      = this.onChangeMMLState.bind(this);
   }
 
   render(): React.ReactNode {
@@ -80,7 +187,9 @@ export default class BasicControllers extends React.Component<Props, State> {
             'electric-guitar',
             'whitenoise',
             'pinknoise',
-            'browniannoise'
+            'browniannoise',
+            'stream',
+            'midi'
           ]}
           texts={[
             'Oscillator',
@@ -94,7 +203,7 @@ export default class BasicControllers extends React.Component<Props, State> {
             'MIDI'
           ]}
           width="20%"
-          onChange={this.onChangeCurrentSoundSource}
+          onChange={this.onChangeSoundSource}
         />
         <Switch
           id="analyser"
@@ -135,17 +244,27 @@ export default class BasicControllers extends React.Component<Props, State> {
     X('oneshot').param('transpose', transpose);
   }
 
-  private onChangeCurrentSoundSource(event: React.SyntheticEvent): void {
+  private onChangeSoundSource(event: React.SyntheticEvent): void {
     const source = event.currentTarget.value;
 
     this.props.dispatch(changeCurrentSourceSource(source));
 
     this.setState({ currentSoundSource: source }, () => {
-      // TODO:
+      X('stream').stop();
+
       switch (source) {
         case 'stream':
+          X('stream').start();
+          X('stream').module('session').start();
           break;
         case 'midi':
+          try {
+            X('midi').setup(true, (midiAccess: MIDIAccess, inputs: MIDIInput, outputs: MIDIOutput) => {
+              successCallback(source, midiAccess, inputs, outputs);
+            }, errorCallback);
+          } catch (error) {
+            // TODO: open modal for shoing error messag ...
+          }
           break;
         default:
           break;
