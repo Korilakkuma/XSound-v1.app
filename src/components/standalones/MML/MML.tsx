@@ -43,7 +43,7 @@ interface State {
 
 export default class MML extends React.Component<Props, State> {
   private setupped = false;
-  private mmls: string[] = ['', ''];
+  private mmls = ['', ''];
 
   static getDerivedStateFromProps(props: Props, state: State): State | null {
     if (state.active !== props.active) {
