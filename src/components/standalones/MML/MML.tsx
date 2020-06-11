@@ -450,7 +450,6 @@ export default class MML extends React.Component<Props, State> {
 
       for (let i = 0, len = X('oscillator').length(); i < len; i++) {
         X('oscillator').get(i).state(false);
-        // eslint-disable-next-line no-undef
         window.C('oscillator').get(i).state(false);
       }
     }
