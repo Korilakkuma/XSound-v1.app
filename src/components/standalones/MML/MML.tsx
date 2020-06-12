@@ -148,9 +148,7 @@ export default class MML extends React.Component<Props, State> {
     }
 
     const startCallbackMelody = (sequence: Sequence) => {
-      const { indexes, note } = sequence;
-
-      indexes.forEach((index: number) => {
+      sequence.indexes.forEach((index: number) => {
         if (index === 'R') {
           return;
         }
@@ -159,16 +157,14 @@ export default class MML extends React.Component<Props, State> {
       });
 
       if (this.state.highlight) {
-        this.setState((prevState: State) => {
-          return { melody: prevState.melody.replace(` ${note}`, ` <span>${note}</span>`) };
-        });
+        const melody = X('mml').get(0, true);
+
+        this.setState({ melody });
       }
     };
 
     const startCallbackBass = (sequence: Sequence) => {
-      const { indexes, note } = sequence;
-
-      indexes.forEach((index: number) => {
+      sequence.indexes.forEach((index: number) => {
         if (index === 'R') {
           return;
         }
@@ -177,9 +173,9 @@ export default class MML extends React.Component<Props, State> {
       });
 
       if (this.state.highlight) {
-        this.setState((prevState: State) => {
-          return { bass: prevState.bass.replace(` ${note}`, ` <span>${note}</span>`) };
-        });
+        const bass = window.C('mml').get(0, true);
+
+        this.setState({ bass });
       }
     };
 
@@ -424,6 +420,8 @@ export default class MML extends React.Component<Props, State> {
     }
 
     if (this.state.paused) {
+      const { highlight } = this.state;
+
       // Start MML
       if (this.props.currentSoundSource === 'oscillator') {
         for (let i = 0, len = X('oscillator').length(); i < len; i++) {
@@ -431,14 +429,14 @@ export default class MML extends React.Component<Props, State> {
           window.C('oscillator').get(i).state(true);
         }
 
-        X('mml').start(0);
-        window.C('mml').start(0);
+        X('mml').start(0, true);
+        window.C('mml').start(0, true);
 
         X('mixer').module('recorder').start();
         X('mixer').module('session').start();
       } else {
-        X('mml').start(0);
-        window.C('mml').start(0);
+        X('mml').start(0, true);
+        window.C('mml').start(0, true);
 
         X('oneshot').module('recorder').start();
         X('oneshot').module('session').start();
