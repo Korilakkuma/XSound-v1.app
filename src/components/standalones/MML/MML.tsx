@@ -125,8 +125,8 @@ export default class MML extends React.Component<Props, State> {
         const { melody, bass } = prevState;
 
         return {
-          melody: melody.replace(/<span>(.+?)<\/span>/g, '$1'),
-          bass  : bass.replace(/<span>(.+?)<\/span>/g, '$1'),
+          melody: melody.replace(/<span class="x-highlight">(.+?)<\/span>/g, '$1'),
+          bass  : bass.replace(/<span class="x-highlight">(.+?)<\/span>/g, '$1'),
           paused: true
         };
       }, () => {
@@ -203,8 +203,8 @@ export default class MML extends React.Component<Props, State> {
         const { melody, bass } = prevState;
 
         return {
-          melody: melody.replace(/<span>(.+?)<\/span>/g, '$1'),
-          bass  : bass.replace(/<span>(.+?)<\/span>/g, '$1'),
+          melody: melody.replace(/<span class="x-highlight">(.+?)<\/span>/g, '$1'),
+          bass  : bass.replace(/<span class="x-highlight">(.+?)<\/span>/g, '$1'),
           paused: true
         };
       }, () => {
@@ -468,8 +468,8 @@ export default class MML extends React.Component<Props, State> {
       const { melody, bass } = prevState;
 
       return {
-        melody: melody.replace(/<span>(.+?)<\/span>/g, '$1'),
-        bass  : bass.replace(/<span>(.+?)<\/span>/g, '$1'),
+        melody: melody.replace(/<span class="x-highlight">(.+?)<\/span>/g, '$1'),
+        bass  : bass.replace(/<span class="x-highlight">(.+?)<\/span>/g, '$1'),
         paused: true
       };
     }, () => {
@@ -482,8 +482,8 @@ export default class MML extends React.Component<Props, State> {
       const { melody, bass } = prevState;
 
       return {
-        melody: melody.replace(/<span>(.+?)<\/span>/g, '$1'),
-        bass  : bass.replace(/<span>(.+?)<\/span>/g, '$1')
+        melody: melody.replace(/<span class="x-highlight">(.+?)<\/span>/g, '$1'),
+        bass  : bass.replace(/<span class="x-highlight">(.+?)<\/span>/g, '$1')
       };
     }, () => {
       this.setState((prevState: State) => {
