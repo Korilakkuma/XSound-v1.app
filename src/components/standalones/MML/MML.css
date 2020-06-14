@@ -44,7 +44,7 @@
   background-color: var(--assort-color);
 }
 
-.MML__editor > dl > dd[contentEditable] > span {
+.MML__editor > dl > dd[contentEditable] > span:last-of-type {
   color: var(--assort-color);
 }
 
