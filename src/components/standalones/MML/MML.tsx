@@ -41,6 +41,8 @@ interface State {
   isShowModalConfirmation: boolean;
 }
 
+const CLEAR_HIGHLIGHT_REGEXP = /<span class="x-highlight">(.+?)<\/span>/g;
+
 export default class MML extends React.Component<Props, State> {
   private setupped = false;
   private mmls = ['', ''];
@@ -125,8 +127,8 @@ export default class MML extends React.Component<Props, State> {
         const { melody, bass } = prevState;
 
         return {
-          melody: melody.replace(/<span class="x-highlight">(.+?)<\/span>/g, '$1'),
-          bass  : bass.replace(/<span class="x-highlight">(.+?)<\/span>/g, '$1'),
+          melody: melody.replace(CLEAR_HIGHLIGHT_REGEXP, '$1'),
+          bass  : bass.replace(CLEAR_HIGHLIGHT_REGEXP, '$1'),
           paused: true
         };
       }, () => {
@@ -203,8 +205,8 @@ export default class MML extends React.Component<Props, State> {
         const { melody, bass } = prevState;
 
         return {
-          melody: melody.replace(/<span class="x-highlight">(.+?)<\/span>/g, '$1'),
-          bass  : bass.replace(/<span class="x-highlight">(.+?)<\/span>/g, '$1'),
+          melody: melody.replace(CLEAR_HIGHLIGHT_REGEXP, '$1'),
+          bass  : bass.replace(CLEAR_HIGHLIGHT_REGEXP, '$1'),
           paused: true
         };
       }, () => {
@@ -468,8 +470,8 @@ export default class MML extends React.Component<Props, State> {
       const { melody, bass } = prevState;
 
       return {
-        melody: melody.replace(/<span class="x-highlight">(.+?)<\/span>/g, '$1'),
-        bass  : bass.replace(/<span class="x-highlight">(.+?)<\/span>/g, '$1'),
+        melody: melody.replace(CLEAR_HIGHLIGHT_REGEXP, '$1'),
+        bass  : bass.replace(CLEAR_HIGHLIGHT_REGEXP, '$1'),
         paused: true
       };
     }, () => {
@@ -482,8 +484,8 @@ export default class MML extends React.Component<Props, State> {
       const { melody, bass } = prevState;
 
       return {
-        melody: melody.replace(/<span class="x-highlight">(.+?)<\/span>/g, '$1'),
-        bass  : bass.replace(/<span class="x-highlight">(.+?)<\/span>/g, '$1')
+        melody: melody.replace(CLEAR_HIGHLIGHT_REGEXP, '$1'),
+        bass  : bass.replace(CLEAR_HIGHLIGHT_REGEXP, '$1')
       };
     }, () => {
       this.setState((prevState: State) => {
