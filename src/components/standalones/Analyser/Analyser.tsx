@@ -220,7 +220,9 @@ export default class Analyser extends React.Component<Props, State> {
   }
 
   private onClickChannel(event: React.SyntheticEvent): void {
-    this.setState({ showTimeOverview: this.state.showTimeOverview === 'right' ? 'left' : 'right' });
+    this.setState((prevState: State) => {
+      return { showTimeOverview: prevState.showTimeOverview === 'right' ? 'left' : 'right' };
+    });
   }
 
   private onChangeMode(event: React.SyntheticEvent): void {
