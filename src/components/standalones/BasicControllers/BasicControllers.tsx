@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Dispatch } from 'redux';
+import { SoundSource } from '../../../types/aliases';
 import {
   changeCurrentSourceSource,
   changeAnalyserState,
@@ -16,7 +17,7 @@ interface Props {
 }
 
 interface State {
-  currentSoundSource: 'oscillator' | 'piano' | 'guitar' | 'electric-guitar' | 'whitenoise' | 'pinknoise' | 'browniannoise';
+  currentSoundSource: SoundSource;
   analyserState: boolean;
   mmlState: boolean;
 }

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
+import { SoundSource } from '../types/aliases';
 import { Flexbox } from './atoms/Flexbox';
 import { Header } from './standalones/Header';
 import { OscillatorFieldset } from './standalones/OscillatorFieldset';
@@ -22,7 +23,7 @@ declare global {
 
 interface Props {
   dispatch: Dispatch;
-  currentSoundSource: 'oscillator' | 'piano' | 'guitar' | 'electric-guitar' | 'whitenoise' | 'pinknoise' | 'browniannoise';
+  currentSoundSource: SoundSource;
   analyserState: boolean;
   mmlState: boolean;
 }

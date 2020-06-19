@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { SoundSource } from '../../../types/aliases';
 import { X } from 'xsound';
 
 const indexMap = {
@@ -116,7 +117,7 @@ const blacks = [
 ];
 
 interface Props {
-  currentSoundSource: 'oscillator' | 'piano' | 'guitar' | 'electric-guitar' | 'whitenoise' | 'pinknoise' | 'browniannoise';
+  currentSoundSource: SoundSource;
 }
 
 interface State {

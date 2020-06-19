@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { SoundSource } from '../../../types/aliases';
 import { createFilename } from '../../../utils';
 import { Switch } from '../../atoms/Switch';
 import { FileUploader } from '../../atoms/FileUploader';
@@ -18,7 +19,7 @@ interface Sequence {
 
 interface Props {
   active: boolean;
-  currentSoundSource: 'oscillator' | 'piano' | 'guitar' | 'electric-guitar' | 'whitenoise' | 'pinknoise' | 'browniannoise';
+  currentSoundSource: SoundSource;
   setSoundStop(index: number, isStop: boolean): void;
   clear(): void;
 }
