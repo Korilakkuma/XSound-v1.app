@@ -993,11 +993,25 @@ class App extends React.Component<Props, State> {
     }
   }
 
+  private onCloseModalForAjax(): void {
+    this.setState({
+      errorMessage      : '',
+      isShowModalForAjax: false
+    });
+  }
+
+  private onCloseModalForDecoding(): void {
+    this.setState({
+      errorMessage          : '',
+      isShowModalForDecoding: false
+    });
+  }
+
   private loadRIRs(): void {
     // Load impulse responses
     const reverbs: AudioBuffer[] = [];
 
-    rirs.forEach((rir: RIRInfo, index: number) => {
+    rirs.forEach((rir: RIRInfo) => {
       X.ajax(rir.url, 'arraybuffer', AJAX_TIMEOUT, (_, arrayBuffer: ArrayBuffer) => {
         X.decode(X.get(), arrayBuffer, (audioBuffer: AudioBuffer) => {
           reverbs.push(audioBuffer);
