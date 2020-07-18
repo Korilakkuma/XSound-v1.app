@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { SoundSource } from '../types/aliases';
+import { Modal } from './atoms/Modal';
 import { Flexbox } from './atoms/Flexbox';
 import { Header } from './standalones/Header';
 import { OscillatorFieldset } from './standalones/OscillatorFieldset';
@@ -31,6 +32,9 @@ interface Props {
 interface State {
   progress: boolean;
   rate: number;
+  errorMessage: string;
+  isShowModalForAjax: boolean;
+  isShowModalForDecoding: boolean;
 }
 
 interface OneshotSettings {
@@ -770,13 +774,18 @@ class App extends React.Component<Props, State> {
     super(props);
 
     this.state = {
-      currentSoundSource: 'oscillator',
-      progress          : true,
-      rate              : 0
+      progress              : true,
+      rate                  : 0,
+      errorMessage          : '',
+      isShowModalForAjax    : false,
+      isShowModalForDecoding: false
     };
 
     this.setSoundStop   = this.setSoundStop.bind(this);
     this.clearKeyboards = this.clearKeyboards.bind(this);
+
+    this.onCloseModalForAjax     = this.onCloseModalForAjax.bind(this);
+    this.onCloseModalForDecoding = this.onCloseModalForDecoding.bind(this);
 
     this.loadRIRs = this.loadRIRs.bind(this);
   }
@@ -865,17 +874,29 @@ class App extends React.Component<Props, State> {
           }
         },
         error : () => {
-          // TODO: Open error dialog
+          this.setState({
+            errorMessage      : 'The loading of audio files failed.',
+            isShowModalForAjax: true
+          });
         }
       });
     } catch (error: Error) {
-      // TODO: Open error dialog
+      this.setState({
+        errorMessage      : error.message,
+        isShowModalForAjax: true
+      });
     }
   }
 
   render(): React.ReactNode {
     const { dispatch, currentSoundSource, analyserState, mmlState } = this.props;
-    const { progress, rate } = this.state;
+    const {
+      progress,
+      rate,
+      errorMessage,
+      isShowModalForAjax,
+      isShowModalForDecoding
+    } = this.state;
 
     return (
       <React.Fragment>
@@ -977,6 +998,22 @@ class App extends React.Component<Props, State> {
         <BasicControllers dispatch={dispatch} sources={sources} />
         <Piano ref={this.pianoRef} currentSoundSource={currentSoundSource} />
         <Footer />
+        <Modal
+          isShow={isShowModalForAjax}
+          hasOverlay={true}
+          title="Error"
+          onClose={this.onCloseModalForAjax}
+        >
+          {errorMessage}
+        </Modal>
+        <Modal
+          isShow={isShowModalForDecoding}
+          hasOverlay={true}
+          title="Error"
+          onClose={this.onCloseModalForDecoding}
+        >
+          {errorMessage}
+        </Modal>
       </React.Fragment>
     );
   }
@@ -1033,10 +1070,16 @@ class App extends React.Component<Props, State> {
             });
           }
         }, () => {
-          // TODO: Open error dialog
+          this.setState({
+            errorMessage      : 'Decode error.',
+            isShowModalForAjax: true
+          });
         });
       }, () => {
-        // TODO: Open error dialog
+        this.setState({
+          errorMessage      : 'The loading of RIRs failed.',
+          isShowModalForAjax: true
+        });
       });
     });
   }
