@@ -8,6 +8,7 @@ import {
 } from '../../../actions';
 import { Switch } from '../../atoms/Switch';
 import { Select } from '../../atoms/Select';
+import { Modal } from '../../atoms/Modal';
 import { ValueController } from '../../helpers/ValueController';
 import { X } from 'xsound';
 
@@ -20,6 +21,8 @@ interface State {
   currentSoundSource: SoundSource;
   analyserState: boolean;
   mmlState: boolean;
+  errorMessage: string;
+  isShowModalForMIDIError: boolean;
 }
 
 const MIN_NOTE_NUMBER = 21;
@@ -124,17 +127,15 @@ function successCallback(source: string, midiAccess: MIDIAccess, inputs: MIDIInp
   }
 }
 
-function errorCallback(): void {
-  // TODO: open modal for shoing error messag ...
-}
-
 export default class BasicControllers extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
     this.state = {
-      analyserState: false,
-      mmlState     : false
+      analyserState          : false,
+      mmlState               : false,
+      errorMessage           : '',
+      isShowModalForMIDIError: false
     };
 
     this.onChangeMasterVolume  = this.onChangeMasterVolume.bind(this);
@@ -143,10 +144,17 @@ export default class BasicControllers extends React.Component<Props, State> {
     this.onChangeSoundSource   = this.onChangeSoundSource.bind(this);
     this.onChangeAnalyserState = this.onChangeAnalyserState.bind(this);
     this.onChangeMMLState      = this.onChangeMMLState.bind(this);
+
+    this.onClose = this.onClose.bind(this);
   }
 
   render(): React.ReactNode {
-    const { analyserState, mmlState } = this.state;
+    const {
+      analyserState,
+      mmlState,
+      errorMessage,
+      isShowModalForMIDIError
+    } = this.state;
 
     return (
       <div className="BasicControllers">
@@ -218,6 +226,14 @@ export default class BasicControllers extends React.Component<Props, State> {
           defaultChecked={mmlState}
           onChange={this.onChangeMMLState}
         />
+        <Modal
+          isShow={isShowModalForMIDIError}
+          hasOverlay={true}
+          title="Error"
+          onClose={this.onClose}
+        >
+          {errorMessage}
+        </Modal>
       </div>
     );
   }
@@ -262,9 +278,17 @@ export default class BasicControllers extends React.Component<Props, State> {
           try {
             X('midi').setup(true, (midiAccess: MIDIAccess, inputs: MIDIInput, outputs: MIDIOutput) => {
               successCallback(source, midiAccess, inputs, outputs);
-            }, errorCallback);
-          } catch (error) {
-            // TODO: open modal for shoing error messag ...
+            }, () => {
+              this.setState({
+                errorMessage           : 'Cannot use Web MIDI API.',
+                isShowModalForMIDIError: true
+              });
+            });
+          } catch (error: Error) {
+            this.setState({
+              errorMessage           : error.message,
+              isShowModalForMIDIError: true
+            });
           }
           break;
         default:
@@ -286,6 +310,13 @@ export default class BasicControllers extends React.Component<Props, State> {
 
     this.setState((prevState: State) => {
       return { mmlState: !prevState.mmlState };
+    });
+  }
+
+  private onClose(): void {
+    this.setState({
+      errorMessage           : '',
+      isShowModalForMIDIError: false
     });
   }
 }
