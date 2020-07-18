@@ -22,6 +22,7 @@
 }
 
 .Modal__overlay {
+  cursor: pointer;
   position: fixed;
   top: 0;
   right: 0;
