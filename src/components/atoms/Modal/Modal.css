@@ -37,6 +37,7 @@
 .Modal__inner {
   position: fixed;
   z-index: 9999;
+  min-width: 280px;
   background-color: var(--black);
 }
 
