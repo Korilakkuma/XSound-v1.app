@@ -8,7 +8,8 @@ body {
 }
 
 body.-radial {
-  background-image: radial-gradient(50% 50%, circle contain, var(--gray-lighter), var(--transparent));
+  background-image: -webkit-radial-gradient(50% 50%, circle contain, var(--gray-lighter), var(--transparent));
+  background-image: -moz-radial-gradient(50% 50%, circle contain, var(--gray-lighter), var(--transparent));
 }
 
 body.-linear {
