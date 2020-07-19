@@ -11,7 +11,7 @@
     "lint:js": "eslint ./src/**/*.{ts,tsx}",
     "lint:css": "stylelint ./src/**/*.css",
     "lint": "run-p lint:js lint:css",
-    "build": "npm run clean && webpack --progress --mode production",
+    "build": "npm run clean && NODE_ENV=production webpack --progress --mode production",
     "dev": "webpack-dev-server --progress"
   },
   "husky": {

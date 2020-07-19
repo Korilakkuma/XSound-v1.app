@@ -8,9 +8,13 @@ module.exports = {
     app: [
       './src/main.tsx',
       './src/main.css'
+    ],
+    sw: [
+      './src/service-worker.ts'
     ]
   },
   output: {
+    globalObject: 'this',
     filename: '[name].js',
     path: `${__dirname}/assets`,
     publicPath: '/assets/'
