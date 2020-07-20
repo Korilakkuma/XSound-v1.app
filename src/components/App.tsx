@@ -14,6 +14,7 @@ import { MML } from './standalones/MML';
 import { BasicControllers } from './standalones/BasicControllers';
 import { Piano } from './standalones/Piano';
 import { CompressorFieldset } from './standalones/CompressorFieldset';
+import { DistortionFieldset } from './standalones/DistortionFieldset';
 import { Footer } from './standalones/Footer';
 import { X } from 'xsound';
 
@@ -1001,6 +1002,7 @@ class App extends React.Component<Props, State> {
         <Flexbox>
           <div>
             <CompressorFieldset sources={sources} />
+            <DistortionFieldset sources={sources} />
           </div>
         </Flexbox>
         <Footer />
