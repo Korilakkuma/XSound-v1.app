@@ -8,11 +8,7 @@ interface Props {
   sources: string[];
 }
 
-interface State {
-  checked: boolean;
-}
-
-export default class CompressorFieldset extends React.Component<Props, State> {
+export default class CompressorFieldset extends React.Component<Props> {
   constructor(props: Props) {
     super(props);
 
@@ -22,10 +18,6 @@ export default class CompressorFieldset extends React.Component<Props, State> {
     this.onChangeRatio     = this.onChangeRatio.bind(this);
     this.onChangeAttack    = this.onChangeAttack.bind(this);
     this.onChangeRelease   = this.onChangeRelease.bind(this);
-
-    this.state = {
-      checked: true
-    };
   }
 
   render(): React.ReactNode {
@@ -36,7 +28,7 @@ export default class CompressorFieldset extends React.Component<Props, State> {
             <Switch
               id="compressor-state"
               label="Compressor"
-              defaultChecked={this.state.checked}
+              defaultChecked={true}
               onChange={this.onChangeState}
             />
           </legend>
@@ -95,9 +87,11 @@ export default class CompressorFieldset extends React.Component<Props, State> {
     );
   }
 
-  private onChangeState(): void {
-    this.setState((prevState: State) => {
-      return { checked: !prevState.defaultChecked };
+  private onChangeState(event: React.SyntheticEvent): void {
+    const state = event.currentTarget.checked;
+
+    this.props.sources.forEach((source: string) => {
+      X(source).module('compressor').state(state);
     });
   }
 
@@ -105,9 +99,7 @@ export default class CompressorFieldset extends React.Component<Props, State> {
     const threshold = event.currentTarget.valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
-      if (source !== 'oscillator') {
-        X(source).module('compressor').param('threshold', threshold);
-      }
+      X(source).module('compressor').param('threshold', threshold);
     });
   }
 
@@ -115,9 +107,7 @@ export default class CompressorFieldset extends React.Component<Props, State> {
     const knee = event.currentTarget.valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
-      if (source !== 'oscillator') {
-        X(source).module('compressor').param('knee', knee);
-      }
+      X(source).module('compressor').param('knee', knee);
     });
   }
 
@@ -125,9 +115,7 @@ export default class CompressorFieldset extends React.Component<Props, State> {
     const ratio = event.currentTarget.valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
-      if (source !== 'oscillator') {
-        X(source).module('compressor').param('ratio', ratio);
-      }
+      X(source).module('compressor').param('ratio', ratio);
     });
   }
 
@@ -135,9 +123,7 @@ export default class CompressorFieldset extends React.Component<Props, State> {
     const attack = event.currentTarget.valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
-      if (source !== 'oscillator') {
-        X(source).module('compressor').param('attack', attack);
-      }
+      X(source).module('compressor').param('attack', attack);
     });
   }
 
@@ -145,9 +131,7 @@ export default class CompressorFieldset extends React.Component<Props, State> {
     const release = event.currentTarget.valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
-      if (source !== 'oscillator') {
-        X(source).module('compressor').param('release', release);
-      }
+      X(source).module('compressor').param('release', release);
     });
   }
 }
