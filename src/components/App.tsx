@@ -13,6 +13,7 @@ import { Analyser } from './standalones/Analyser';
 import { MML } from './standalones/MML';
 import { BasicControllers } from './standalones/BasicControllers';
 import { Piano } from './standalones/Piano';
+import { CompressorFieldset } from './standalones/CompressorFieldset';
 import { Footer } from './standalones/Footer';
 import { X } from 'xsound';
 
@@ -997,6 +998,11 @@ class App extends React.Component<Props, State> {
         />
         <BasicControllers dispatch={dispatch} sources={sources} />
         <Piano ref={this.pianoRef} currentSoundSource={currentSoundSource} />
+        <Flexbox>
+          <div>
+            <CompressorFieldset sources={sources} />
+          </div>
+        </Flexbox>
         <Footer />
         <Modal
           isShow={isShowModalForAjax}
