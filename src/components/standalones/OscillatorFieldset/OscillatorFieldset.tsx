@@ -5,7 +5,7 @@ import { OscillatorSelector } from '../../helpers/OscillatorSelector';
 import { ValueController } from '../../helpers/ValueController';
 
 interface Props {
-  oscillatorNumber: numbe;
+  oscillatorNumber: number;
   label: string;
   radioName: string;
   defaultState: boolean;
