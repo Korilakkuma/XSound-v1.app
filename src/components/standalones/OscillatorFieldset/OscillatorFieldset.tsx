@@ -33,9 +33,18 @@ const OscillatorFieldset: React.SFC<Props> = (props: Props) => {
     <div className="OscillatorFieldset">
       <fieldset>
         <legend>
-          <Switch id={`oscillator-fieldset-state-${oscillatorNumber}`} label={label} defaultChecked={defaultState} onChange={onChangeState} />
+          <Switch
+            id={`oscillator-fieldset-state-${oscillatorNumber}`}
+            label={label}
+            defaultChecked={defaultState}
+            onChange={onChangeState}
+          />
         </legend>
-        <OscillatorSelector radioName={radioName} initialValue="sawtooth" onChange={onChangeType} />
+        <OscillatorSelector
+          radioName={radioName}
+          initialValue="sawtooth"
+          onChange={onChangeType}
+        />
         <Spacer space={16} />
         <ValueController
           label="Volume"
