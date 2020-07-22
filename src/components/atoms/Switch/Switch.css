@@ -1,6 +1,14 @@
 .Switch > label {
   cursor: pointer;
-  display: block;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  -webkit-align-items: center;
+  align-items: center;
+  padding: 0 4px;
 }
 
 .Switch > label > span {
