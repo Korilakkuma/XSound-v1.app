@@ -18,6 +18,7 @@ import { DistortionFieldset } from './standalones/DistortionFieldset';
 import { WahFieldset } from './standalones/WahFieldset';
 import { EqualizerFieldset } from './standalones/EqualizerFieldset';
 import { FilterFieldset } from './standalones/FilterFieldset';
+import { AutopanFieldset } from './standalones/AutopanFieldset';
 import { Footer } from './standalones/Footer';
 import { X } from 'xsound';
 
@@ -1013,6 +1014,7 @@ class App extends React.Component<Props, State> {
           </div>
           <div>
             <FilterFieldset sources={sources} />
+            <AutopanFieldset sources={sources} />
           </div>
         </Flexbox>
         <Footer />
