@@ -16,6 +16,7 @@ import { Piano } from './standalones/Piano';
 import { CompressorFieldset } from './standalones/CompressorFieldset';
 import { DistortionFieldset } from './standalones/DistortionFieldset';
 import { WahFieldset } from './standalones/WahFieldset';
+import { EqualizerFieldset } from './standalones/EqualizerFieldset';
 import { Footer } from './standalones/Footer';
 import { X } from 'xsound';
 
@@ -1007,6 +1008,7 @@ class App extends React.Component<Props, State> {
           </div>
           <div>
             <WahFieldset sources={sources} />
+            <EqualizerFieldset sources={sources} />
           </div>
         </Flexbox>
         <Footer />
