@@ -17,6 +17,7 @@ import { CompressorFieldset } from './standalones/CompressorFieldset';
 import { DistortionFieldset } from './standalones/DistortionFieldset';
 import { WahFieldset } from './standalones/WahFieldset';
 import { EqualizerFieldset } from './standalones/EqualizerFieldset';
+import { FilterFieldset } from './standalones/FilterFieldset';
 import { Footer } from './standalones/Footer';
 import { X } from 'xsound';
 
@@ -1009,6 +1010,9 @@ class App extends React.Component<Props, State> {
           <div>
             <WahFieldset sources={sources} />
             <EqualizerFieldset sources={sources} />
+          </div>
+          <div>
+            <FilterFieldset sources={sources} />
           </div>
         </Flexbox>
         <Footer />
