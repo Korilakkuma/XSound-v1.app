@@ -22,6 +22,7 @@ import { AutopanFieldset } from './standalones/AutopanFieldset';
 import { TremoloFieldset } from './standalones/TremoloFieldset';
 import { RingModulatorFieldset } from './standalones/RingModulatorFieldset';
 import { PhaserFieldset } from './standalones/PhaserFieldset';
+import { ChorusFieldset } from './standalones/ChorusFieldset';
 import { Footer } from './standalones/Footer';
 import { X } from 'xsound';
 
@@ -1023,6 +1024,9 @@ class App extends React.Component<Props, State> {
             <TremoloFieldset sources={sources} />
             <RingModulatorFieldset sources={sources} />
             <PhaserFieldset sources={sources} />
+          </div>
+          <div>
+            <ChorusFieldset sources={sources} />
           </div>
         </Flexbox>
         <Footer />
