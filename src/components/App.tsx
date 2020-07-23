@@ -20,6 +20,7 @@ import { EqualizerFieldset } from './standalones/EqualizerFieldset';
 import { FilterFieldset } from './standalones/FilterFieldset';
 import { AutopanFieldset } from './standalones/AutopanFieldset';
 import { TremoloFieldset } from './standalones/TremoloFieldset';
+import { RingModulatorFieldset } from './standalones/RingModulatorFieldset';
 import { Footer } from './standalones/Footer';
 import { X } from 'xsound';
 
@@ -1019,6 +1020,7 @@ class App extends React.Component<Props, State> {
           </div>
           <div>
             <TremoloFieldset sources={sources} />
+            <RingModulatorFieldset sources={sources} />
           </div>
         </Flexbox>
         <Footer />
