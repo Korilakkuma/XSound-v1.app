@@ -5,6 +5,7 @@ import { SoundSource } from '../types/aliases';
 import { RIRInfo } from '../types/interfaces';
 import { Modal } from './atoms/Modal';
 import { Flexbox } from './atoms/Flexbox';
+import { VerticalBox } from './atoms/VerticalBox';
 import { Header } from './standalones/Header';
 import { OscillatorFieldset } from './standalones/OscillatorFieldset';
 import { EnvelopeGeneratorFieldset } from './standalones/EnvelopeGeneratorFieldset';
@@ -1005,31 +1006,31 @@ class App extends React.Component<Props, State> {
         <BasicControllers dispatch={dispatch} sources={sources} />
         <Piano ref={this.pianoRef} currentSoundSource={currentSoundSource} />
         <Flexbox>
-          <div>
+          <VerticalBox>
             <CompressorFieldset sources={sources} />
             <DistortionFieldset sources={sources} />
-          </div>
-          <div>
+          </VerticalBox>
+          <VerticalBox>
             <WahFieldset sources={sources} />
             <EqualizerFieldset sources={sources} />
-          </div>
-          <div>
+          </VerticalBox>
+          <VerticalBox>
             <FilterFieldset sources={sources} />
             <AutopanFieldset sources={sources} />
-          </div>
-          <div>
+          </VerticalBox>
+          <VerticalBox>
             <TremoloFieldset sources={sources} />
             <RingModulatorFieldset sources={sources} />
             <PhaserFieldset sources={sources} />
-          </div>
-          <div>
+          </VerticalBox>
+          <VerticalBox>
             <ChorusFieldset sources={sources} />
             <FlangerFieldset sources={sources} />
-          </div>
-          <div>
+          </VerticalBox>
+          <VerticalBox>
             <DelayFieldset sources={sources} />
             <ReverbFieldset sources={sources} rirInfos={rirInfos} />
-          </div>
+          </VerticalBox>
         </Flexbox>
         <Footer />
         <Modal
