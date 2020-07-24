@@ -86,6 +86,7 @@ export default class DistortionFieldset extends React.Component<Props> {
               '65536'
             ]}
             onChange={this.onChangeSamples}
+            defaultValue="32768"
           />
           <Spacer space={8} />
           <ValueController

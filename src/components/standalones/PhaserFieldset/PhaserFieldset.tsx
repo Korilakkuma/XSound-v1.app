@@ -52,6 +52,7 @@ export default class PhaserFieldset extends React.Component<Props> {
               '24 stages'
             ]}
             onChange={this.onChangeStage}
+            defaultValue="12"
           />
           <Spacer space={8} />
           <ValueController

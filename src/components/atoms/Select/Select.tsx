@@ -6,14 +6,20 @@ interface Props {
   texts: { string: string[] };
   width: string;
   onChange(event: React.SyntheticEvent): void;
+  defaultValue?: string;
 }
 
 const Select: React.SFC<Props> = (props: Props) => {
-  const { groups, values, texts, width, onChange } = props;
+  const { groups, values, texts, width, onChange, defaultValue } = props;
 
   if (groups) {
     return (
-      <select className="Select" onChange={onChange} style={{ width }}>
+      <select
+        className="Select"
+        onChange={onChange}
+        defaultValue={defaultValue}
+        style={{ width }}
+      >
         {groups.map((group: string, key: number) => {
           return (
             <optgroup key={key} label={group}>
@@ -28,7 +34,12 @@ const Select: React.SFC<Props> = (props: Props) => {
   }
 
   return (
-    <select className="Select" onChange={onChange} style={{ width }}>
+    <select
+      className="Select"
+      onChange={onChange}
+      defaultValue={defaultValue}
+      style={{ width }}
+    >
       {values.map((value: string, index: number) => {
         return <option key={value} value={value}>{texts[index]}</option>;
       })}
