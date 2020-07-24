@@ -50,8 +50,26 @@ export default class ValueController extends React.Component<Props, State> {
 
     return (
       <dl className="ValueController" style={{ width }}>
-        <dt><label htmlFor={id}>{label}</label><Spinner id={id} value={value} min={min} max={max} step={step} onChange={this.onChange} /></dt>
-        <dd><Slider value={value} min={min} max={max} step={step} onChange={this.onChange} /></dd>
+        <dt>
+          <label htmlFor={id}>{label}</label>
+          <Spinner
+            id={id}
+            value={value}
+            min={min}
+            max={max}
+            step={step}
+            onChange={this.onChange}
+          />
+        </dt>
+        <dd>
+          <Slider
+            value={value}
+            min={min}
+            max={max}
+            step={step}
+            onChange={this.onChange}
+          />
+        </dd>
       </dl>
     );
   }
