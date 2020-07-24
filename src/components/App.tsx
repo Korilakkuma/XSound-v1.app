@@ -24,6 +24,7 @@ import { RingModulatorFieldset } from './standalones/RingModulatorFieldset';
 import { PhaserFieldset } from './standalones/PhaserFieldset';
 import { ChorusFieldset } from './standalones/ChorusFieldset';
 import { FlangerFieldset } from './standalones/FlangerFieldset';
+import { DelayFieldset } from './standalones/DelayFieldset';
 import { Footer } from './standalones/Footer';
 import { X } from 'xsound';
 
@@ -1029,6 +1030,9 @@ class App extends React.Component<Props, State> {
           <div>
             <ChorusFieldset sources={sources} />
             <FlangerFieldset sources={sources} />
+          </div>
+          <div>
+            <DelayFieldset sources={sources} />
           </div>
         </Flexbox>
         <Footer />

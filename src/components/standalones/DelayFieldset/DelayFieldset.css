@@ -1,0 +1,19 @@
+.DelayFieldset {
+  padding: 12px 0;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.DelayFieldset > fieldset {
+  border: none;
+}
+
+.DelayFieldset > fieldset > legend {
+  display: block;
+  margin: 0 auto 8px;
+  width: var(--fieldset-width);
+  font-family: "Neuton", serif;
+  font-size: 22px;
+  font-weight: lighter;
+  color: var(--assort-color);
+  text-transform: uppercase;
+}
