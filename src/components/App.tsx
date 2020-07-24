@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { SoundSource } from '../types/aliases';
+import { RIRInfo } from '../types/interfaces';
 import { Modal } from './atoms/Modal';
 import { Flexbox } from './atoms/Flexbox';
 import { Header } from './standalones/Header';
@@ -25,6 +26,7 @@ import { PhaserFieldset } from './standalones/PhaserFieldset';
 import { ChorusFieldset } from './standalones/ChorusFieldset';
 import { FlangerFieldset } from './standalones/FlangerFieldset';
 import { DelayFieldset } from './standalones/DelayFieldset';
+import { ReverbFieldset } from './standalones/ReverbFieldset';
 import { Footer } from './standalones/Footer';
 import { X } from 'xsound';
 
@@ -58,13 +60,6 @@ interface OneshotSettings {
   volume: number;
 }
 
-interface RIRInfo {
-  url: string;
-  value: number;
-  label: string;
-  group: string;
-}
-
 const BASE_URL = '/assets';
 const NUMBER_OF_ONESHOTS = 88;
 const AJAX_TIMEOUT = 60000;
@@ -84,7 +79,7 @@ const oneshots = [
 ];
 
 // for Revreb
-const rirs: RIRInfo[] = [
+const rirInfos: RIRInfo[] = [
   { url: `${BASE_URL}/impulse-responses/s1_r1_c.wav`, value:  1, label: '1 - 1', group: 'Sideways pointed cardioid measurements in the audience area' },
   { url: `${BASE_URL}/impulse-responses/s1_r2_c.wav`, value:  2, label: '1 - 2', group: 'Sideways pointed cardioid measurements in the audience area' },
   { url: `${BASE_URL}/impulse-responses/s1_r3_c.wav`, value:  3, label: '1 - 3', group: 'Sideways pointed cardioid measurements in the audience area' },
@@ -879,7 +874,7 @@ class App extends React.Component<Props, State> {
         timeout  : AJAX_TIMEOUT,
         success  : () => {
           // Next, Load RIRs
-          if (rirs.length === 0) {
+          if (rirInfos.length === 0) {
             this.setState({ progress: false });
           } else {
             this.loadRIRs();
@@ -1033,6 +1028,7 @@ class App extends React.Component<Props, State> {
           </div>
           <div>
             <DelayFieldset sources={sources} />
+            <ReverbFieldset sources={sources} rirInfos={rirInfos} />
           </div>
         </Flexbox>
         <Footer />
@@ -1086,16 +1082,16 @@ class App extends React.Component<Props, State> {
     // Load impulse responses
     const reverbs: AudioBuffer[] = [];
 
-    rirs.forEach((rir: RIRInfo) => {
-      X.ajax(rir.url, 'arraybuffer', AJAX_TIMEOUT, (_, arrayBuffer: ArrayBuffer) => {
+    rirInfos.forEach((rirInfo: RIRInfo) => {
+      X.ajax(rirInfo.url, 'arraybuffer', AJAX_TIMEOUT, (_, arrayBuffer: ArrayBuffer) => {
         X.decode(X.get(), arrayBuffer, (audioBuffer: AudioBuffer) => {
           reverbs.push(audioBuffer);
 
-          const rate = Math.floor((reverbs.length / rirs.length) * 100);
+          const rate = Math.floor((reverbs.length / rirInfos.length) * 100);
 
           this.setState({ rate });
 
-          if (reverbs.length === rirs.length) {
+          if (reverbs.length === rirInfos.length) {
             sources.forEach((source: string) => {
               X(source).module('reverb').preset(reverbs);
             });
