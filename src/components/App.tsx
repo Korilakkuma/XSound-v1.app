@@ -33,7 +33,7 @@ import { X } from 'xsound';
 
 declare global {
   interface Window {
-    C: any;
+    C: typeof X;
   }
 }
 
