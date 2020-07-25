@@ -1,0 +1,1568 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />                                                                            <!--Encoding-->
+<title>X Sound</title>                                                                              <!--Title-->
+<meta name="description" content="HTML5 Web Audio APIを利用したサウンド編集Webアプリケーション" />  <!--Site Abstract-->
+<meta name="keywords" content="HTML5, Web Audio API, JavaScript, X Sound" />                        <!--Keywords-->
+<meta name="author" content="池田友洋（Tomohiro IKEDA）" />                                         <!--Author-->
+<link rel="icon" href="favicon16.png" type="image/png" />                                           <!--Favicon-->
+<link rel="apple-touch-icon" href="photo/png/icon.png" />                                           <!--Icon for iPhone-->
+<link rel="stylesheet" href="css/reset.css" type="text/css" media="all" />                          <!--Reset CSS-->
+<link rel="stylesheet" href="css/main.css" type="text/css" media="all" />                           <!--Main CSS-->
+<script type="text/javascript" src="javascript/dsp.js"></script>                                    <!--JavaScript's Library for Digital Signal Processing-->
+<script type="text/javascript">
+<!--
+    (function(){
+
+        window.addEventListener('load', function(){
+
+            /*Global Variable, Object*/
+            var audioCtx = null;
+            var sources = new Array();
+            var srcAudioFile = null;
+            var bufferSizes = {elem : null, value : null};
+            //var onaudioprocessCnt = 0;
+            var loop = false;
+            var reader = null;
+            var readerIR = null;
+            var dropArea = null;
+            var dropAreaIR = null;
+            var audioList = null;
+            var playButton = null;
+            var playFlag = false;
+            var timers = new Array();
+            var compressor = null;
+            var duration = null;
+            var volumes ={slider : null, value : null};
+            var speeds = {slider : null, value : null};
+            var distortions = {slider : null, value : null};
+            var delays = {slider : null, value : null};
+            var filters = {
+                           type : null,
+                           Q : {slider : null, value : null},
+                           frequency : {slider : null, value : null},
+                           gain : {slider : null, value : null}
+                          };
+            var canvasNodes = {timeAll : null, time : null, spectrum : null};
+            var canvasContexts = {timeAll : null, time : null, spectrum : null};
+            var cw = null;
+            var ch = null;
+
+            var audioDataAlls = {data : new Array(), plot : 1000};
+            var drawIntervals = {slider : null, value : null};
+            var drawPlots = {slider : null, value : null};
+
+            var createFlag = false;
+            var synthesizeFlag = false;
+            var fmWaveType = null;
+            var waveTypes = {sine : DSP.SINE, triangle : DSP.TRIANGLE, saw : DSP.SAW, square : DSP.SQUARE};
+            var currentWaveType = '';
+            var sampleRates = {elem : null, value : null};
+            var numPlots = {elem : null, value : null};
+            var fmChannel = null;
+            var channel = null;
+            var amplitude = null;
+            var frequency = null;
+            var tracks = new Array();
+
+            var pianoModeFlags = {normal : true, chord : false, scale : false};
+            var fmPianoMode = null;
+            var chordType = null;
+            var pianoKeys = {
+                C : {name : 'C', node : null, eventKey : 'Z', frequency : 261.62},
+                Ch : {name : 'Ch', node : null, eventKey : 'A', frequency : 277.18},
+                D : {name : 'D', node : null, eventKey : 'X', frequency : 293.66},
+                Dh : {name : 'Dh', node : null, eventKey : 'S', frequency : 311.12},
+                E : {name : 'E', node : null, eventKey : 'C', frequency : 329.62},
+                F : {name : 'F', node : null, eventKey : 'V', frequency : 349.22},
+                Fh : {name : 'Fh', node : null, eventKey : 'D', frequency : 369.99},
+                G : {name : 'G', node : null, eventKey : 'B', frequency : 391.99},
+                Gh : {name : 'Gh', node : null, eventKey : 'F', frequency : 260.7},
+                A : {name : 'A', node : null, eventKey : 'N', frequency : 440},
+                Ah : {name : 'Ah', node : null, eventKey : 'G', frequency : 466.16},
+                B : {name : 'B', node : null, eventKey : 'M', frequency : 493.88},
+                C1 : {name : 'C1', node : null, eventKey : 'E', frequency : 523.25},
+                C1h : {name : 'C1h', node : null, eventKey : 'H', frequency : 554.36},
+                D1 : {name : 'D1', node : null, eventKey : 'R', frequency : 587.33},
+                D1h : {name : 'D1h', node : null, eventKey : 'J', frequency : 622.25},
+                E1 : {name : 'E1', node : null, eventKey : 'T', frequency : 659.25},
+                F1 : {name : 'F1', node : null, eventKey : 'Y', frequency : 698.45},
+                F1h : {name : 'F1h', node : null, eventKey : 'K', frequency : 739.89},
+                G1 : {name : 'G1', node : null, eventKey : 'U', frequency : 783.99},
+                G1h : {name : 'G1h', node : null, eventKey : 'L', frequency : 830.60},
+                A1 : {name : 'A1', node : null, eventKey : 'I', frequency : 880},
+                A1h : {name : 'A1h', node : null, eventKey : 'P', frequency : 932.32},
+                B1 : {name : 'B1', node : null, eventKey : 'O', frequency : 987.76}
+            };
+
+            var majorChords = {
+                C : {name : 'C', chord : [pianoKeys.C, pianoKeys.E, pianoKeys.G], eventKey : 'Z'},
+                Ch : {name : 'Ch', chord : [pianoKeys.Ch, pianoKeys.F, pianoKeys.Gh], eventKey : 'A'},
+                D : {name : 'D', chord : [pianoKeys.D, pianoKeys.Fh, pianoKeys.A], eventKey : 'X'},
+                Dh : {name : 'Dh', chord : [pianoKeys.Dh, pianoKeys.G, pianoKeys.Ah], eventKey : 'S'},
+                E : {name : 'E', chord : [pianoKeys.E, pianoKeys.Gh, pianoKeys.B], eventKey : 'C'},
+                F : {name : 'F', chord : [pianoKeys.F, pianoKeys.A, pianoKeys.C1], eventKey : 'V'},
+                Fh : {name : 'Fh', chord : [pianoKeys.Fh, pianoKeys.Ah, pianoKeys.C1h], eventKey : 'D'},
+                G : {name : 'G', chord : [pianoKeys.G, pianoKeys.B, pianoKeys.D1], eventKey : 'B'},
+                Gh : {name : 'Gh', chord : [pianoKeys.Gh, pianoKeys.C1, pianoKeys.D1h], eventKey : 'F'},
+                A : {name : 'A', chord : [pianoKeys.A, pianoKeys.C1h, pianoKeys.E1], eventKey : 'N'},
+                Ah : {name : 'Ah', chord : [pianoKeys.Ah, pianoKeys.D1, pianoKeys.F1], eventKey : 'G'},
+                B : {name : 'B', chord : [pianoKeys.B, pianoKeys.D1h, pianoKeys.F1h], eventKey : 'M'}
+            };
+
+            var minorChords = {
+                C : pianoKeys.Dh,
+                Ch : pianoKeys.E,
+                D : pianoKeys.F,
+                Dh : pianoKeys.Fh,
+                E : pianoKeys.G,
+                F : pianoKeys.Gh,
+                Fh : pianoKeys.A,
+                G : pianoKeys.Ah,
+                Gh : pianoKeys.B,
+                A : pianoKeys.C1,
+                Ah : pianoKeys.C1h,
+                B : pianoKeys.D1
+            };
+
+            var seventhChords = {
+                C : pianoKeys.Ah,
+                Ch : pianoKeys.B,
+                D : pianoKeys.C1,
+                Dh : pianoKeys.C1h,
+                E : pianoKeys.D1,
+                F : pianoKeys.D1h,
+                Fh : pianoKeys.E1,
+                G : pianoKeys.F1,
+                Gh : pianoKeys.F1h,
+                A : pianoKeys.G1,
+                Ah : pianoKeys.G1h,
+                B : pianoKeys.A
+            };
+
+            var maj7thChords = {
+                C : pianoKeys.B,
+                Ch : pianoKeys.C1,
+                D : pianoKeys.C1h,
+                Dh : pianoKeys.D1,
+                E : pianoKeys.D1h,
+                F : pianoKeys.E1,
+                Fh : pianoKeys.F,
+                G : pianoKeys.F1h,
+                Gh : pianoKeys.G1,
+                A : pianoKeys.G1h,
+                Ah : pianoKeys.A,
+                B : pianoKeys.A1h,
+            };
+
+            var pianoNavi = null;
+            var octaves = {slider : null, value : null};
+
+            var convolver = null;
+            var gainNode = null;
+            var compressorNode = null;
+            var waveShaperNode = null;
+            var delayNode = null;
+            var filterNode = null;
+            var analyser = null;
+            var timeDomainData = null;
+            var frequencyDomainData = null;
+
+            /*Constant Message*/
+            var CONST_MSGS = {
+                noAudioCtx : 'Your Browser does not support Web Audio API !! Please use Google Chrome.',
+                decodeError1 : 'Error decoding file data: ',
+                decodeError2 : 'decodeAudioData Error',
+                timeout : 'Connection Timeout !!',
+                xhrError : 'BufferLoader: XHR Error',
+                channelError : 'Please Select Left or Right Channel !!',
+                dropFile : 'Drop Audio File',
+                dropOn : 'Drop !!',
+                dropError : 'Please File Drop !!',
+                dropIR : 'Drop Impulse Response File',
+                typeError1 : 'Please Audio File Drop !!',
+                typeError2 : 'Please Impulse Response File Drop !!'
+            };
+
+            /*Get Node Object*/
+            bufferSizes = {elem : document.getElementById('bufferSize'), value : document.getElementById('bufferSizeValue')};
+            audioList = document.getElementById('audioList');
+            dropArea = document.getElementById('dropArea');
+            dropAreaIR = document.getElementById('dropAreaIR');
+            playButton = document.getElementById('playButton');
+            compressor = document.getElementById('compressor');
+
+            volumes = {slider : document.getElementById('volume'), value : document.getElementById('volumeValue')};
+            speeds = {slider : document.getElementById('speed'), value : document.getElementById('speedValue')};
+            distortions = {slider : document.getElementById('distortion'), value : document.getElementById('distortionValue')};
+            delays = {slider : document.getElementById('delayTime'), value : document.getElementById('delayTimeValue')};
+
+            filters.type = document.getElementById('filter');
+            filters.Q = {slider : document.getElementById('filterQ'), value : document.getElementById('filterQValue')};
+            filters.frequency = {slider : document.getElementById('filterFrequency'), value : document.getElementById('filterFrequencyValue')};
+            filters.gain = {slider : document.getElementById('filterGain'), value : document.getElementById('filterGainValue')};
+            canvasNodes = {
+                           timeAll : document.getElementById('canvasTimeDomainAll'),
+                           time : document.getElementById('canvasTimeDomain'),
+                           spectrum : document.getElementById('canvasFrequencyDomain')
+                           };
+            canvasContexts = {
+                              timeAll : canvasNodes.timeAll.getContext('2d'),
+                              time : canvasNodes.time.getContext('2d'),
+                              spectrum : canvasNodes.spectrum.getContext('2d')
+                              };
+            for(var i = 0; i < document.getElementsByTagName('canvas').length; i++){
+                cw = document.getElementsByTagName('canvas')[i].width;
+                ch = document.getElementsByTagName('canvas')[i].height;
+            }
+
+            //drawIntervals = {slider : document.getElementById('drawInterval'), value : document.getElementById('drawIntervalValue')};
+            drawPlots = {slider : document.getElementById('drawPlot'), value : document.getElementById('drawPlotValue')};
+            drawPlots.slider.value = audioDataAlls.plot;
+            drawPlots.value.innerHTML = audioDataAlls.plot;
+
+            fmWaveType = document.fmWaveType;
+            sampleRates = {elem : document.getElementById('sampleRate'), value : document.getElementById('sampleRateValue')};
+            numPlots = {elem : document.getElementById('numPlot'), value : document.getElementById('numPlotValue')};
+            fmChannel = document.getElementById('fmChannel');
+            channel = document.fmChannel.channel;
+            amplitude = document.getElementById('amplitude');
+            frequency = document.getElementById('frequency');
+            for(var i = 0; i < 10; i++){
+                tracks[i] = document.getElementById('track' + (i + 1));
+            }
+
+            fmPianoMode = document.fmPianoMode;
+            chordType = document.getElementById('chordType');
+            for(var key in pianoKeys){
+                pianoKeys[key].node = document.getElementById(key);
+            }
+            pianoNavi = document.getElementById('pianoNavi');
+            octaves = {slider : document.getElementById('octave'), value : document.getElementById('octaveValue')};
+
+            /*Browser supports AudioContext (Web Audio API) ?*/
+            try{
+                if(!window.webkitAudioContext){
+                    throw new Error(CONST_MSGS.noAudioCtx);
+                }
+            }catch(e){
+                window.alert(e.message);
+            }
+
+            /*Get AudioContext Instance*/
+            audioCtx = new webkitAudioContext();
+
+            jsNode = audioCtx.createJavaScriptNode(bufferSizes.elem.value, 1, 1);
+
+            convolver = audioCtx.createConvolver();
+
+            gainNode = audioCtx.createGainNode();
+
+            compressorNode = audioCtx.createDynamicsCompressor();
+
+            waveShaperNode = audioCtx.createWaveShaper();
+
+            delayNode = audioCtx.createDelayNode();
+
+            filterNode = audioCtx.createBiquadFilter();
+            /*Initialize HTML elements for Filter*/
+            filters.Q.slider.value = filterNode.Q.value;
+            filters.Q.value.innerHTML = filterNode.Q.value;
+            filters.frequency.slider.value = filterNode.frequency.value;
+            filters.frequency.value.innerHTML = filterNode.frequency.value;
+            filters.gain.slider.value = filterNode.gain.value;
+            filters.gain.value.innerHTML = filterNode.gain.value;
+
+            analyser = audioCtx.createAnalyser();
+            timeDomainData = new Uint8Array(analyser.frequencyBinCount);
+            frequencyDomainData = new Uint8Array(analyser.frequencyBinCount);
+
+            /*Define function for Form*/
+            function changeForm(mode){
+                if(mode === 'on'){
+                    /*Enable Form*/
+                    audioList.disabled = false;
+                    playButton.disabled = false;
+                }else {
+                    /*Disable Form*/
+                    audioList.disabled = true;
+                    playButton.disabled = true;
+                }
+            }
+
+            /*Button rollover, rollout*/
+            function rollover(button){
+                button.addEventListener('mouseover', function(){
+                    if(this.classList.contains('buttonOn')){
+                        return;
+                    }
+                    this.classList.remove('buttonOff');
+                    this.classList.add('buttonOver');
+                }, false);
+
+                button.addEventListener('mouseout', function(){
+                    if(this.classList.contains('buttonOn') || this.classList.contains('buttonOff')){
+                        return;
+                    }
+                    this.classList.remove('buttonOver');
+                    this.classList.add('buttonOff');
+                }, false);
+            }
+
+            /*Define BufferLoader Constructor*/
+            function BufferLoader(urlList, callback){
+                this.urlList = urlList;
+                this.onload = callback;
+                this.bufferList = new Array();
+                this.loadCount = 0;
+            }
+
+            /*Define function that Decode Audio Data Asynchronously*/
+            function decode(xhr, url, index, loader){
+                var audioData = null;
+                if(loader){
+                    /*In the case of Audio File*/
+                    if(url){
+                        audioData = xhr.response;
+                    }else {
+                        audioData = reader.result;
+                    }
+                }else {
+                    /*In the case of Impulse Response*/
+                    audioData = readerIR.result;
+                }
+
+                audioCtx.decodeAudioData(
+                    audioData,
+                    function(buffer){
+                        if(!buffer){
+                            window.alert(CONST_MSGS.decodeError1 + url);
+                            return;
+                        }
+                        if(loader){
+                            loader.bufferList[index] = buffer;
+                            if(++loader.loadCount === loader.urlList.length){
+                                loader.onload(loader.bufferList);
+                            }
+                        }else {
+                            convolver.buffer = buffer;
+                        }
+                    },
+                    function(error){
+                        console.error(CONST_MSGS.decodeError2, error);
+                    }
+                );
+            }
+
+            /*Prototype Inheritance : loadBuffer()*/
+            BufferLoader.prototype.loadBuffer = function(url, index){
+                /*Asynchronously Load Buffer (Ajax)*/
+                var xhr = new XMLHttpRequest();
+
+                /*Get Object*/
+                var loader = this;
+                var progress = document.getElementById('progress');
+
+                /*Timeout handler for Ajax (1 minutes)*/
+                var timerAjax = window.setTimeout(function(){
+                    xhr.abort();
+                    window.alert(CONST_MSGS.timeout);
+                }, 60000);
+
+                /*Event handler (onreadystatechang)*/
+                xhr.onreadystatechange = function(){
+                    /*Being Received HTTP Response Message from Server*/
+                    if(xhr.readyState === 3){
+                        progress.innerHTML = '<span>Receiving Data ... </span><progress value="50" max="100">Receiving Data ...</progress>';
+                        changeForm('off');
+                    }
+                    /*Having Received HTTP Response Message from Server*/
+                    if(xhr.readyState === 4){
+                        progress.innerHTML = '<span>Complete (100%) </span><progress value="100" max="100">100%</progress>';
+                        changeForm('on');
+
+                        if(xhr.status === 200){
+                            /*Clear Timeout handler*/
+                            window.clearTimeout(timerAjax);
+                            /*Asynchronously Decode Audio Data*/
+                            decode(xhr, url, index, loader);
+                        }
+                    }
+                };
+
+                xhr.onerror = function(){
+                    window.alert(CONST_MSGS.xhrError);
+                };
+
+                if(url){
+                    xhr.open('GET', url, true);       //Request Line (HTTP Request Message)
+                    xhr.responseType = 'arraybuffer';
+                    xhr.send(null);                   //Send HTTP Request Message --> Wait HTTP Response Message from Server
+                }else {
+                    /*Clear Timeout handler*/
+                    window.clearTimeout(timerAjax);
+                    /*Asynchronously Decode Audio Data*/
+                    decode(xhr, url, index, loader);
+                }
+
+            };
+
+            /*Prototype Inheritance : load()*/
+            BufferLoader.prototype.load = function(){
+                for(var i = 0; i < this.urlList.length; ++i){
+                    /*Arguments to loadBuffer method*/
+                    this.loadBuffer(this.urlList[i], i);
+                }
+            };
+
+            /*Define function for Connecting Source*/
+            function connectSource(buffer, index){
+
+                function connect(source){
+                    source.loop = loop;
+                    source.playbackRate.value = speeds.slider.valueAsNumber;
+
+                    source.connect(gainNode);
+                    gainNode.connect(audioCtx.destination);
+
+                    source.connect(convolver);
+                    convolver.connect(audioCtx.destination);
+
+                    if(compressor.checked){
+                        source.connect(compressorNode);
+                        compressorNode.connect(audioCtx.destination);
+                    }else {
+                        //window.alert('Compressor OFF');
+                    }
+
+                    source.connect(waveShaperNode);
+                    waveShaperNode.connect(audioCtx.destination);
+
+                    source.connect(delayNode);
+                    delayNode.connect(audioCtx.destination);
+
+                    source.connect(filterNode);
+                    filterNode.connect(audioCtx.destination);
+
+                    source.connect(analyser);
+                    analyser.connect(audioCtx.destination);
+
+                    source.connect(jsNode);
+                    jsNode.connect(audioCtx.destination);
+
+                    source.buffer = audioCtx.createBuffer(2, numPlots.elem.value, sampleRates.elem.value);
+                    if(createFlag){
+                        try{
+                            if(channel[0].checked){
+                                /*Left Channel ON*/
+                                source.buffer.getChannelData(0).set(buffer);
+                            }
+                            if(channel[1].checked){
+                                /*Right Channel ON*/
+                                source.buffer.getChannelData(1).set(buffer);
+                            }
+                            if(!channel[0].checked && !channel[1].checked){
+                                fmChannel.style.color = '#ff0000';
+                                throw new Error(CONST_MSGS.channelError);
+                            }
+                        }catch(e){
+                            window.alert(e.message);
+                        }
+                    }else {
+                        source.buffer = buffer;
+                    }
+                }
+
+                if(createFlag){
+                    if(synthesizeFlag){
+                        sources[index] = audioCtx.createBufferSource();
+                        connect(sources[index]);
+                    }else {
+                        sources[sources.length] = audioCtx.createBufferSource();
+                        connect(sources[sources.length - 1]);
+                    }
+                }else {
+                    srcAudioFile = audioCtx.createBufferSource();
+                    connect(srcAudioFile);
+                }
+            }
+
+            /*Define function for Drawing Audio Wave*/
+            function drawAudio(){
+                /*Define function for Drawing by Canvas*/
+                function drawCanvas(ctx, domain){
+                    var lineStyles = {color : '#ff0000', width : 2.0};
+                    var waveStyles = {color : '#0000ff', width : 1.0};
+                    /*Erase Previous Wave*/
+                    ctx.clearRect(0, 0, cw, ch);
+
+                    /*Middle Line*/
+                    if(domain !== 'spectrum'){
+                        ctx.beginPath();
+                        ctx.strokeStyle = lineStyles.color;
+                        ctx.lineWidth = lineStyles.width;
+                        ctx.moveTo(0, (ch / 2));
+                        ctx.lineTo(cw, (ch / 2));
+                        ctx.stroke();
+                    }
+
+                    ctx.beginPath()
+                    /*Style*/
+                    ctx.strokeStyle = waveStyles.color;
+                    ctx.lineWidth = waveStyles.width;
+                    ctx.lineCap = 'round';
+                    ctx.lineJoin = 'round';
+
+                    switch(domain){
+                        case 'timeAll' :
+                            var timeAllValue = null;
+                            /*Draw Wave of Time All*/
+                            ctx.moveTo(0, (ch / 2));
+                            for(var i = 0; i < audioDataAlls.plot; i++){
+                                /*Display Audio Wave on Middle Line*/
+                                timeAllValue = ((parseInt(audioDataAlls.data[parseInt(i * audioDataAlls.data.length / audioDataAlls.plot)]) - 128) / 2) + (ch / 2);
+                                ctx.lineTo(parseInt(i * cw / audioDataAlls.plot), timeAllValue);
+                            }
+                            ctx.stroke();
+                            break;
+                        case 'time' :
+                            var timeValue = null;
+                            /*Draw Wave*/
+                            ctx.moveTo(0, (ch / 2));
+                            for(var i = 0; i < timeDomainData.length; i++){
+                                /*Display Audio Wave on Middle Line*/
+                                timeValue = ((parseInt(timeDomainData[i]) - 128) / 2) + (ch / 2);
+                                ctx.lineTo(i, timeValue);
+                            }
+                            ctx.stroke();
+                            break;
+                        case 'spectrum' :
+                            var spectrumValue = null;
+                            /*Draw Spectrum*/
+                            ctx.moveTo(0, 0);
+                            for(var i = 0; i < timeDomainData.length; i++){
+                                /*Display Audio Spectrum on Middle Line*/
+                                spectrumValue = ((parseInt(frequencyDomainData[i]) - 128) / 2) + (ch / 2);
+                                ctx.lineTo(i, spectrumValue);
+                            }
+                            ctx.stroke();
+                            break;
+                    }
+
+                    /*Set Timer*/
+                    //if(index){
+                        //timers[index] = window.setTimeout(drawAudio, drawIntervals.slider.valueAsNumber);
+                    //}else {
+                        //timers[timers.length] = window.setTimeout(drawAudio, drawIntervals.slider.valueAsNumber);
+                    //}
+                }
+
+                /*Get Audio Data in Time Domain*/
+                analyser.getByteTimeDomainData(timeDomainData);
+                for(var i = 0; i < timeDomainData.length; i++){
+                    audioDataAlls.data[audioDataAlls.data.length] = timeDomainData[i];
+                }
+                /*Get Audio FFT Data*/
+                analyser.getByteFrequencyData(frequencyDomainData);
+
+                drawCanvas(canvasContexts.timeAll, 'timeAll');
+                drawCanvas(canvasContexts.time, 'time');
+                drawCanvas(canvasContexts.spectrum, 'spectrum');
+
+            }
+
+            /*Define function for Wrapping Event Handler (onaudioprocess)*/
+            function wrapOnaudioprocess(){
+                jsNode.onaudioprocess = function(evt){
+				    //console.log(onaudioprocessCnt++);
+                    if(playFlag){
+						console.log(this.playbackTime);
+                        drawAudio();
+                    }
+                }
+            }
+
+            /*Define function for Starting Audio*/
+            function startAudio(isSource, signal, index, pianoSrc){
+                /*Audio File URL*/
+                var url = '';
+                var ex = '.wav';
+
+                if(isSource === 'sample'){
+                    /*Get Audio File URL*/
+                    url = location.protocol + '//' + location.host + '/mobile/audio/' + audioList.value + ex;
+                }else if(isSource === 'piano'){
+                           var chord = String(pianoSrc).replace('pianoKeys.', ''); 
+                           /*Get Audio File URL*/
+                           url = location.protocol + '//' + location.host + '/mobile/audio/piano/' + pianoSrc.name + '.mp3';
+				       }
+
+                if(signal){
+                    createFlag = true;
+                    if(synthesizeFlag){
+                        connectSource(signal, index);
+                        sources[index].noteOn(0);
+                        console.log('START : sources[' + index + ']');
+                        wrapOnaudioprocess();
+                    }else {
+                        connectSource(signal);
+                        /*Start Audio*/
+                        for(var i = 0; i < sources.length; i++){
+							console.debug(sources[i]);
+                            sources[i].noteOn(0);
+                            console.log('START : sources[' + i + ']');
+                        }
+                        wrapOnaudioprocess();
+                    }
+                }else {
+                    createFlag = false;
+                    var bufferLoader = new BufferLoader([url], function(bufferList){
+                        for(var i = 0; i < bufferList.length; i++){
+                            connectSource(bufferList[i]);
+                            /*Start Audio*/
+                            srcAudioFile.noteOn(0);
+							console.log('START : srcAudioFile');
+                        }
+                        wrapOnaudioprocess();
+                    });
+                    /*Run load(), loadBuffer()*/
+                    bufferLoader.load();
+                }
+                playFlag = true;
+            }
+
+            /*Define function for Stopping Audio*/
+            function stopAudio(index){
+
+                function clear(){
+                    /*Clear Flag*/
+                    playFlag = false;
+                    createFlag = false;
+                    synthesizeFlag = false;
+                    loop = false;
+                    /*Clear Timer*/
+                    //for(var i = 0; i < timers.length; i++){
+                        //window.clearTimeout(timers[i]);
+                    //}
+                    /*Clear Array*/
+                    sources.length = 0;
+                    audioDataAlls.data.length = 0;
+                }
+
+                if(!playFlag){
+                    return;
+                }
+
+                /*Stop Audio*/
+                if(createFlag){
+					console.log(synthesizeFlag);
+                    if(synthesizeFlag){
+                        sources[index].noteOff(0);
+                        sources[index] = null;
+						console.log('STOP : sources[' + index + ']');
+                        /*Check All Stop?*/
+                        for(var i = 0; i < sources.length; i++){
+                            if(sources[i]){
+                                return;
+                            }
+                        }
+                        /*Clear All Timers*/
+                        //for(var i = 0; i < timers.length; i++){
+                            //window.clearTimeout(timers[i]);
+                        //}
+                        clear();
+                    }else {
+                        for(var i = 0; i < sources.length; i++){
+                            sources[i].noteOff(0);
+                            console.log('STOP : sources[' + i + ']');
+                            clear();
+                        }
+                    }
+                }else {
+                    srcAudioFile.noteOff(0);
+                    clear();
+                }
+            }
+
+            /*Define function for Wrapping Oscillator Object*/
+            function wrapOsc(hz){
+                var osc = new Oscillator(waveTypes[currentWaveType], hz * getOctave(), amplitude.valueAsNumber, numPlots.elem.value, sampleRates.elem.value);
+                osc.generate();
+                return osc
+            }
+
+            /*Define function for Synthesizing Sound*/
+            function trackEvent(track, index){
+                track.addEventListener('click', function(){
+                    var osc = null;
+                    synthesizeFlag = true;
+                    if(!track.classList.contains('buttonOn')){
+                        osc = wrapOsc(frequency.valueAsNumber);
+                        loop = true;
+                        startAudio(null, osc.signal, index);
+                        //setTimeout(stopAudio, (numPlots.elem.value / sampleRates.elem.value) * 1000);
+
+                        this.classList.remove('buttonOff');
+                        this.classList.remove('buttonOver');
+                        this.classList.add('buttonOn');
+                    }else {
+                        stopAudio(index);
+
+                        this.classList.remove('buttonOn');
+                        this.classList.add('buttonOff');
+                    }
+                }, false);
+            }
+
+            /*Define function for Stopping Synthesized Sound*/
+            function clearTrack(){
+                for(var i = 0; i < tracks.length; i++){
+                    if(tracks[i].classList.contains('buttonOn')){
+                        stopAudio(i);
+                        tracks[i].classList.remove('buttonOn');
+                        tracks[i].classList.add('buttonOff');
+                    }
+                }
+                synthesizeFlag = false;
+            }
+
+            /*Define function for Getting Octave*/
+            function getOctave(){
+                var oct = null;
+                if(octaves.slider.valueAsNumber >= 0){
+                    oct = octaves.slider.valueAsNumber + 1;
+                }else {
+                    switch(octaves.slider.valueAsNumber){
+                        case -1 :
+                            oct = 0.5;
+                            break;
+                        case -2 :
+                            oct = 0.25;
+                            break;
+                        case -3 :
+                            oct = 0.125;
+                            break;
+                    }
+                }
+                return oct;
+            }
+
+            /*Define function for Getting Chord*/
+            function getChords(chords, key){
+                chords[0] = majorChords[key].chord[0];
+                chords[1] = majorChords[key].chord[1];
+                chords[2] = majorChords[key].chord[2];
+
+                switch(chordType.value){
+                    case 'minor' :
+                        chords[1] = minorChords[key];
+                        break;
+                    case 'seventh' :
+                        chords[3] = seventhChords[key];
+                        break;
+                    case 'minor7th' :
+                        chords[1] = minorChords[key];
+                        chords[3] = seventhChords[key];
+                        break;
+                    case 'M7' :
+                        chords[3] = maj7thChords[key];
+                        break;
+                    case 'minorM7' :
+                        chords[1] = minorChords[key];
+                        chords[3] = maj7thChords[key];
+                        break;
+                    case 'power' :
+                        chords.splice(1, 1);
+                        break;
+                    case 'major' :
+                        break;
+                }
+            }
+
+            /*Define function for Creating Sound by Click*/
+            function pianoClick(obj){
+                obj.node.addEventListener('mousedown', function(){
+                    if(synthesizeFlag){
+                        return;
+                    }
+                    var osc = null
+                    clearTrack();
+                    if(pianoModeFlags.normal){
+                        osc = wrapOsc(obj.frequency);
+                        startAudio(null, osc.signal, null);
+
+                        this.classList.remove('keyOff');
+                        this.classList.add('keyOn');
+                    }else {
+                        var chords = new Array();
+                        var chordName = null;
+
+                        for(var key in majorChords){
+                            if(obj.name === majorChords[key].name){
+                                getChords(chords, key);
+                                for(var i = 0; i < chords.length; i++){
+                                    chordName = chords[i];
+                                    osc = wrapOsc(chordName.frequency);
+                                    startAudio(null, osc.signal, null);
+
+                                    chordName.node.classList.remove('keyOff');
+                                    chordName.node.classList.add('keyOn');
+                                }
+                            }
+                        }
+                    }
+                }, false);
+
+                obj.node.addEventListener('mouseup', function(){
+                    if(synthesizeFlag){
+                        return;
+                    }
+                    if(pianoModeFlags.normal){
+                        stopAudio();
+
+                        this.classList.remove('keyOn');
+                        this.classList.add('keyOff');
+                    }else {
+                        var chords = new Array();
+                        var chordName = null;
+
+                        for(var key in majorChords){
+                            if(obj.name === majorChords[key].name){
+                                getChords(chords, key);
+                                for(var i = 0; i < chords.length; i++){
+                                    stopAudio();
+
+                                    chordName = chords[i];
+                                    chordName.node.classList.remove('keyOn');
+                                    chordName.node.classList.add('keyOff');
+                                }
+                            }
+                        }
+                    }
+                }, false);
+            }
+
+            dropArea.addEventListener('dragover', function(evt){
+                evt.preventDefault();
+                if(this.firstChild.nodeValue === CONST_MSGS.dropFile){
+                    this.firstChild.nodeValue = CONST_MSGS.dropOn;
+                    this.classList.remove('dropOff');
+                    this.classList.add('dropOn');
+                }
+            }, false);
+
+            dropArea.addEventListener('dragleave', function(evt){
+                evt.preventDefault();
+                if(this.firstChild.nodeValue === CONST_MSGS.dropOn){
+                    this.firstChild.nodeValue = CONST_MSGS.dropFile;
+                    this.classList.remove('dropOn');
+                    this.classList.add('dropOff');
+                }
+            }, false);
+
+            dropArea.addEventListener('drop', function(evt){
+                var file = null;
+                var msg = '';
+
+                evt.preventDefault();
+                changeForm('off');
+                this.classList.remove('dropOn');
+                this.classList.add('dropOff');
+
+                file = evt.dataTransfer.files[0];
+                if(!file){
+                    window.alert(CONST_MSGS.dropError);
+                    changeForm('on');
+                    return;
+                }
+
+                reader = new FileReader();
+                reader.onprogress = function(evt){
+                    if((evt.lengthComputable === true) && (evt.total > 0)){
+                        var rate = (evt.loaded * 100 / evt.total).toFixed(1);
+                        msg = evt.total + ' Bytes ...<br />' + evt.loaded + ' Bytes load (' + rate + ' %)';
+                        this.innerHTML = msg;
+                    }
+                };
+
+                msg += 'File Name : ' + file.name + '<br />';
+                //msg += 'Type : ' + file.type + '<br />';
+                //msg += 'File Size : ' + file.size + ' Bytes<br />';
+                this.innerHTML = msg;
+
+                if(/^audio/.test(file.type)){
+                    reader.readAsArrayBuffer(file);
+                }else {
+                    window.alert(CONST_MSGS.typeError1);
+                    changeForm('on');
+                    return;
+                }
+
+                reader.onload = function(){
+                    changeForm('on');
+                    if(playFlag){
+                        /*Stop Audio*/
+                        stopAudio();
+                    }
+                    /*Start Audio*/
+                    startAudio(null, null, null);
+                };
+            }, false);
+
+            playButton.addEventListener('click', function(){
+                if(playFlag){
+                    /*Stop Audio*/
+                    stopAudio();
+
+                    this.classList.remove('buttonOn');
+                    this.classList.remove('buttonOver');
+                    this.classList.add('buttonOff');
+                    this.value = ' ► ';
+                }else {
+                    /*Start Audio*/
+                    startAudio('sample', null, null);
+
+                    this.classList.remove('buttonOff');
+                    this.classList.remove('buttonOver');
+                    this.classList.add('buttonOn');
+                    this.value = ' ll ';
+                }
+            }, false);
+
+            dropAreaIR.addEventListener('dragover', function(evt){
+                evt.preventDefault();
+                if(this.firstChild.nodeValue === CONST_MSGS.dropIR){
+                    this.firstChild.nodeValue = CONST_MSGS.dropOn;
+                    this.classList.remove('dropOff');
+                    this.classList.add('dropOn');
+                }
+            }, false);
+
+            dropAreaIR.addEventListener('dragleave', function(evt){
+                evt.preventDefault();
+                if(this.firstChild.nodeValue === CONST_MSGS.dropOn){
+                    this.firstChild.nodeValue = CONST_MSGS.dropIR;
+                    this.classList.remove('dropOn');
+                    this.classList.add('dropOff');
+                }
+            }, false);
+
+            dropAreaIR.addEventListener('drop', function(evt){
+                var file = null;
+                var msg = '';
+
+                evt.preventDefault();
+                this.classList.remove('dropOn');
+                this.classList.add('dropOff');
+
+                file = evt.dataTransfer.files[0];
+                if(!file){
+                    window.alert(CONST_MSGS.dropError);
+                    return;
+                }
+
+                readerIR = new FileReader();
+                readerIR.onprogress = function(evt){
+                    if((evt.lengthComputable === true) && (evt.total > 0)){
+                        var rate = (evt.loaded * 100 / evt.total).toFixed(1);
+                        msg = evt.total + ' Bytes ...<br />' + evt.loaded + ' Bytes load (' + rate + ' %)';
+                        this.innerHTML = msg;
+                    }
+                };
+
+                msg += 'File Name : ' + file.name + '<br />';
+                //msg += 'Type : ' + file.type + '<br />';
+                //msg += 'File Size : ' + file.size + ' Bytes<br />';
+                this.innerHTML = msg;
+
+                if(/^audio/.test(file.type)){
+                    readerIR.readAsArrayBuffer(file);
+                }else {
+                    window.alert(CONST_MSGS.typeError2);
+                    return;
+                }
+
+                readerIR.onload = function(){
+                    decode(null, null, null, null);
+                };
+            }, false);
+
+            bufferSizes.elem.addEventListener('change', function(){
+                jsNode = audioCtx.createJavaScriptNode(bufferSizes.elem.value, 1, 1);
+                bufferSizes.value.innerHTML = bufferSizes.elem.value;
+            }, false);
+
+            volumes.slider.addEventListener('change', function(){
+                gainNode.gain.value = this.valueAsNumber;
+                volumes.value.innerHTML = this.valueAsNumber;
+            }, false);
+
+            speeds.slider.addEventListener('change', function(){
+                speeds.value.innerHTML = this.valueAsNumber;
+            }, false);
+
+            distortions.slider.addEventListener('change', function(){
+                waveShaperNode.curve = this.valueAsNumber;
+                distortions.value.innerHTML = this.valueAsNumber;
+            }, false);
+
+            delays.slider.addEventListener('change', function(){
+                delayNode.delayTime.value = this.valueAsNumber;
+                delays.value.innerHTML = this.valueAsNumber;
+            }, false);
+
+            filters.type.addEventListener('change', function(){
+                filterNode.type = this.value;
+            }, false);
+
+            filters.Q.slider.addEventListener('change', function(){
+                filterNode.Q.value = this.valueAsNumber;
+                filters.Q.value.innerHTML = this.valueAsNumber;
+            }, false);
+
+            filters.frequency.slider.addEventListener('change', function(){
+                filterNode.frequency.value = this.valueAsNumber;
+                filters.frequency.value.innerHTML = this.valueAsNumber;
+            }, false);
+
+            filters.gain.slider.addEventListener('change', function(){
+                filterNode.gain.value = this.valueAsNumber;
+                filters.gain.value.innerHTML = this.valueAsNumber;
+            }, false);
+
+            //drawIntervals.slider.addEventListener('change', function(){
+                //drawIntervals.value.innerHTML = this.valueAsNumber;
+            //}, false);
+
+            drawPlots.slider.addEventListener('change', function(){
+                audioDataAlls.plot = this.valueAsNumber;
+                drawPlots.value.innerHTML = this.valueAsNumber;
+            }, false);
+
+            for(var i = 0; i < tracks.length; i++){
+                trackEvent(tracks[i], i);
+                rollover(tracks[i]);
+            }
+
+            amplitude.addEventListener('change', function(){
+                amplitudeValue.innerHTML = this.valueAsNumber;
+            }, false);
+
+            frequency.addEventListener('change', function(){
+                frequencyValue.innerHTML = this.valueAsNumber;
+            }, false);
+
+            sampleRates.elem.addEventListener('change', function(){
+                sampleRates.value.innerHTML = this.value;
+            }, false);
+
+            numPlots.elem.addEventListener('change', function(){
+                numPlots.value.innerHTML = this.value;
+            }, false);
+
+            fmChannel.addEventListener('change', function(){
+                if(channel[0].checked || channel[1].checked){
+                    fmChannel.style.color = '#ffffff';
+                }
+            }, false);
+
+            fmWaveType.addEventListener('change', function(){
+                /*Get Wave Type*/
+                for(var i = 0; i < fmWaveType.waveType.length; i++){
+                    if(fmWaveType.waveType[i].checked){
+                        currentWaveType = fmWaveType.waveType[i].value;
+                        return;
+                    }
+                }
+            }, false);
+
+            fmPianoMode.addEventListener('change', function(){
+                /*Clear Flag*/
+                pianoModeFlags.normal = false;
+                pianoModeFlags.chord = false;
+                pianoModeFlags.scale = false;
+
+                /*Set Flag*/
+                for(var i = 0; i < fmPianoMode.pianoMode.length; i++){
+                    if(fmPianoMode.pianoMode[i].checked){
+                        pianoModeFlags[fmPianoMode.pianoMode[i].value] = true;
+
+                        if(fmPianoMode.pianoMode[i].value === 'chord'){
+                            chordType.disabled = false;
+                            /*Prevent Distortion*/
+                            amplitude.value = 0.1;
+                            amplitudeValue.innerHTML = amplitude.value;
+                        }else {
+                            chordType.disabled = true;
+                            amplitude.value = 1.0;
+                            amplitudeValue.innerHTML = amplitude.value;
+                        }
+                        return;
+                    }
+                }
+            }, false);
+
+            for(var pianoKey in pianoKeys){
+                pianoClick(pianoKeys[pianoKey]);
+            }
+
+            document.addEventListener('keydown', function(evt){
+                if(synthesizeFlag){
+                    return;
+                }
+                var osc = null;
+                clearTrack();
+                if(pianoModeFlags.normal){
+                    for(var key in pianoKeys){
+                        if(pianoKeys[key].eventKey === String.fromCharCode(evt.keyCode)){
+                                if(false){
+                                    startAudio('piano', null, null, pianoKeys[key]);
+                                }else {
+                            osc = wrapOsc(pianoKeys[key].frequency);
+                            startAudio(null, osc.signal, null);
+								}
+
+                            pianoKeys[key].node.classList.remove('keyOff');
+                            pianoKeys[key].node.classList.add('keyOn');
+                        }
+                    }
+                }else {
+                    var chords = new Array();
+                    var chordName = null;
+
+                    for(var key in majorChords){
+                        if(majorChords[key].eventKey === String.fromCharCode(evt.keyCode)){
+                            getChords(chords, key);
+                            for(var i = 0; i < chords.length; i++){
+                                chordName = chords[i];
+								if(false){
+								startAudio('piano', null, null, chordName);
+								}else {
+                                    osc = wrapOsc(chordName.frequency);
+                                    startAudio(null, osc.signal, null);
+								}
+                                chordName.node.classList.remove('keyOff');
+                                chordName.node.classList.add('keyOn');
+                            }
+                        }
+                    }
+                }
+            }, false);
+
+            document.addEventListener('keyup', function(evt){
+                if(synthesizeFlag){
+                    return;
+                }
+                if(pianoModeFlags.normal){
+                    for(var key in pianoKeys){
+                        if(pianoKeys[key].eventKey === String.fromCharCode(evt.keyCode)){
+                            stopAudio();
+
+                            pianoKeys[key].node.classList.remove('keyOn');
+                            pianoKeys[key].node.classList.add('keyOff');
+                        }
+                    }
+                }else {
+                    var chords = new Array();
+                    var chordName = null;
+
+                    for(var key in majorChords){
+                        if(majorChords[key].eventKey === String.fromCharCode(evt.keyCode)){
+                            getChords(chords, key);
+                            for(var i = 0; i < chords.length; i++){
+                                stopAudio();
+
+                                chordName = chords[i];
+                                chordName.node.classList.remove('keyOn');
+                                chordName.node.classList.add('keyOff');
+                            }
+                        }
+                    }
+                }
+            }, false);
+
+            pianoNavi.addEventListener('change', function(){
+                var whites = document.getElementById('white').children;
+                var blacks = document.getElementById('black').children;
+
+                if(this.checked){
+                    for(var i = 0, len = whites.length; i < len; i++)whites[i].style.color = 'rgba(0, 0, 0, 1.0)';
+                    for(var i = 0, len = blacks.length; i < len; i++)blacks[i].style.color = 'rgba(255, 255, 255, 1.0)';
+                }else {
+                    for(var i = 0, len = whites.length; i < len; i++)whites[i].style.color = 'rgba(0, 0, 0, 0)';
+                    for(var i = 0, len = blacks.length; i < len; i++)blacks[i].style.color = 'rgba(255, 255, 255, 0)';
+                }
+
+                /*
+                var white = document.getElementById('whiteNavi');
+                var black = document.getElementById('blackNavi');
+
+                if(pianoNavi.checked){
+                    white.style.visibility = black.style.visibility = 'visible';
+                }else {
+                    white.style.visibility = black.style.visibility = 'hidden';
+                }
+                */
+            }, false);
+
+            octaves.slider.addEventListener('change', function(){
+                octaves.value.innerHTML = this.valueAsNumber;
+            }, false);
+
+            rollover(playButton);
+
+        }, true);
+
+    })();
+-->
+</script>
+<?php include 'php/counter.php'; ?>
+</head>
+
+<body>
+<div id="page">
+    <header>
+        <h1 id="logo"><img src="photo/png/logo_v02.png" alt="X Sound" width="200" height="100" /></h1>
+    </header>
+
+    <div id="upContainer">
+        <div id="audioSource">
+            <fieldset>
+                <legend>Upload Audio File</legend>
+                <div id="dropArea" class="dropOff">Drop Audio File</div>
+            </fieldset>
+            <fieldset>
+                <legend>Sample Audio</legend>
+                <select id="audioList">
+                    <option value="silentjealousy_mix">Silent Jealousy - X JAPAN -</option>
+                    <option value="weekend_mix">WEEK END - X JAPAN -</option>
+                    <option value="kurenai_twin">紅 - X JAPAN -</option>
+                    <option value="rustynail_twin">Rusty Nail - X JAPAN -</option>
+                    <option value="endlessrain_piano">ENDLESS RAIN - X JAPAN -</option>
+                    <option value="curtaincall_mix">カーテンコール - GLAY -</option>
+                </select>
+                <span><input type="button" id="playButton" class="buttonOff" value=" ► " /></span>
+                <span id="progress"></span>
+            </fieldset>
+            <fieldset>
+                <legend>Convolve Impulse Response</legend>
+                <div id="dropAreaIR" class="dropOff">Drop Impulse Response File</div>
+            </fieldset>
+        </div>
+        <!--end[audioSource]-->
+
+        <div id="audioWave">
+            <fieldset>
+                <legend>Audio Wave</legend>
+                <dl>
+                    <!--
+                    <dt>Draw Interval : <span id="drawIntervalValue">100</span> msec</dt>
+                    <dd><input type="range" id="drawInterval" value="100" min="10" max="1000" step="10" /></dd>
+                    -->
+                    <dt>Buffer Size : <span id="bufferSizeValue">2048</span></dt>
+                    <dd>
+                        <select id="bufferSize">
+                            <option value="256">256</option>
+                            <option value="512">512</option>
+                            <option value="1024">1024</option>
+                            <option value="2048" selected>2048</option>
+                            <option value="4096">8192</option>
+                            <option value="16384">16834</option>
+                        </select>
+                    </dd>
+                    <dt>Time Domain (ALL) : <span id="drawPlotValue"></span> plots</dt>
+                    <dd><input type="range" id="drawPlot" min="100" max="5000" step="10" /></dd>
+                    <dd><canvas id="canvasTimeDomainAll"></canvas></dd>
+                    <dt>Time Domain</dt>
+                    <dd><canvas id="canvasTimeDomain"></canvas></dd>
+                    <dt>Frequency Domain</dt>
+                    <dd><canvas id="canvasFrequencyDomain"></canvas></dd>
+                </dl>
+            </fieldset>
+        </div>
+        <!--end[audioWave]-->
+
+        <div id="controller">
+            <fieldset>
+                <legend>Basic Parameters</legend>
+                <dl>
+                    <dt>Volume : <span id="volumeValue">0.5</span></dt>
+                    <dd><input type="range" id="volume" value="0.5" min="0.0" max="1.0" step="0.05" /></dd>
+                    <dd><input type="checkbox" id="compressor" checked /><label for="compressor">Compressor</label><!-- (Set Before Starting Audio)--></dd>
+                    <dt>Playback Speed<!-- (Set Before Starting Audio)--> : <span id="speedValue">1.0</span></dt>
+                    <dd><input type="range" id="speed" value="1.0" min="0.0" max="2.0" step="0.05" /></dd>
+                    <dt>NonLinear Distortion : <span id="distortionValue">0.0</span></dt>
+                    <dd><input type="range" id="distortion" value="0.0" min="-1.0" max="1.0" step="0.05"></dd>
+                    <dt>Delay : <span id="delayTimeValue">0.0</span> sec</dt>
+                    <dd><input type="range" id="delayTime" value="0.0" min="0.000" max="1.000" step="0.001" /></dd>
+                </dl>
+            </fieldset>
+            <fieldset>
+                <legend>Filter Parameters</legend>
+                <dl>
+                    <dt>Filter</dt>
+                    <dd>
+                        <select id="filter">
+                            <option value="">Normal</option>
+                            <option value="0">Low-Pass</option>
+                            <option value="1">High-Pass</option>
+                            <option value="2">Band-Pass</option>
+                            <option value="3">Low-Shelf</option>
+                            <option value="4">High-Shelf</option>
+                            <option value="5">Peaking</option>
+                            <option value="6">Notch</option>
+                            <option value="7">All-Pass</option>
+                        </select>
+                    </dd>
+                    <dd>
+                        <dl>
+                            <dt>Q : <span id="filterQValue"></span></dt>
+                            <dd><input type="range" id="filterQ" min="-20" max="20" step="1" /></dd>
+                            <dt>Frequency : <span id="filterFrequencyValue"></span> Hz</dt>
+                            <dd><input type="range" id="filterFrequency" min="20" max="22050" step="1" /></dd>
+                            <dt>Gain : <span id="filterGainValue"></span> dB</dt>
+                            <dd><input type="range" id="filterGain" min="0.000" max="1.000" step="0.001" /></dd>
+                        </dl>
+                    </dd>
+                </dl>
+            </fieldset>
+        </div>
+        <!--end[controller]-->
+    </div>
+    <!--end[upContainer]-->
+
+    <div id="piano">
+        <fieldset id="pianoControllerLeft">
+            <dl>
+                <dt>Mode :</dt>
+                <dd>
+                    <form name="fmPianoMode">
+                        <input type="radio" name="pianoMode" id="normal" value="normal" checked /><label for="normal">Normal</label>
+                        <input type="radio" name="pianoMode" id="chord" value="chord" /><label for="chord">Chord</label>
+                    </form>
+                </dd>
+                <dd>
+                    <select id="chordType" disabled="disabled">
+                        <option value="major" selected>Major Chord</option>
+                        <option value="minor">Minor Chord</option>
+                        <option value="seventh">7th Chord</option>
+                        <option value="minor7th">Minor 7th Chord</option>
+                        <option value="M7">M7 Chord</option>
+                        <option value="minorM7">Minor M7 Chord</option>
+                        <option value="power">Power Chord</option>
+                    </select>
+                </dd>
+                <dd><input type="checkbox" id="pianoNavi" checked /><label for="pianoNavi">Keyboard Navigation</label></dd>
+                <dt>Amplitude : <span id="amplitudeValue">1.0</span></dt>
+                <dd><input type="range" id="amplitude" value="1.0" min="0.0" max="3" step="0.05" /></dd>
+                <dt>Frequency : <span id="frequencyValue">440</span> Hz</dt>
+                <dd><input type="range" id="frequency" value="440" min="220" max="1760" step="10" /></dd>
+                <dt>Octave : <span id="octaveValue">0</span></dt>
+                <dd><input type="range" id="octave" value="0" min="-3" max="3" step="1" /></dd>
+            </dl>
+        </fieldset>
+        <ul id="white">
+        <!--
+            <li id="C-2"></li>
+            <li id="D-2"></li>
+            <li id="E-2"></li>
+            <li id="F-2"></li>
+            <li id="G-2"></li>
+            <li id="A-2"></li>
+            <li id="B-2"></li>
+            <li id="C-1" class="keyOff"></li>
+            <li id="D-1" class="keyOff"></li>
+            <li id="E-1" class="keyOff"></li>
+            <li id="F-1" class="keyOff"></li>
+            <li id="G-1" class="keyOff"></li>
+            <li id="A-1" class="keyOff"></li>
+            <li id="B-1" class="keyOff"></li>
+        -->
+            <li id="C" class="keyOff">Z</li>
+            <li id="D" class="keyOff">X</li>
+            <li id="E" class="keyOff">C</li>
+            <li id="F" class="keyOff">V</li>
+            <li id="G" class="keyOff">B</li>
+            <li id="A" class="keyOff">N</li>
+            <li id="B" class="keyOff">M</li>
+            <li id="C1" class="keyOff">E</li>
+            <li id="D1" class="keyOff">R</li>
+            <li id="E1" class="keyOff">T</li>
+            <li id="F1" class="keyOff">Y</li>
+            <li id="G1" class="keyOff">U</li>
+            <li id="A1" class="keyOff">I</li>
+            <li id="B1" class="keyOff">O</li>
+        <!--
+            <li id="C2"></li>
+            <li id="D2"></li>
+            <li id="E2"></li>
+            <li id="F2"></li>
+            <li id="G2"></li>
+            <li id="A2"></li>
+            <li id="B2"></li>
+        -->
+        </ul>
+        <!--
+        <ul id="whiteNavi">
+            <li>Z</li>
+            <li>X</li>
+            <li>C</li>
+            <li>V</li>
+            <li>B</li>
+            <li>N</li>
+            <li>M</li>
+            <li>E</li>
+            <li>R</li>
+            <li>T</li>
+            <li>Y</li>
+            <li>U</li>
+            <li>I</li>
+            <li>O</li>
+        </ul>
+        -->
+        <ul id="black">
+        <!--
+            <li id="C-2h"></li>
+            <li id="D-2h"></li>
+            <li class="skip"></li>
+            <li id="F-2h"></li>
+            <li id="G-2h"></li>
+            <li id="A-2h"></li>
+            <li class="skip"></li>
+            <li id="C-1h" class="keyOff"></li>
+            <li id="D-1h" class="keyOff"></li>
+            <li class="skip"></li>
+            <li id="F-1h" class="keyOff"></li>
+            <li id="G-1h" class="keyOff"></li>
+            <li id="A-1h" class="keyOff"></li>
+            <li class="skip"></li>
+        -->
+            <li id="Ch" class="keyOff">A</li>
+            <li id="Dh" class="keyOff">S</li>
+            <li class="skip"></li>
+            <li id="Fh" class="keyOff">D</li>
+            <li id="Gh" class="keyOff">F</li>
+            <li id="Ah" class="keyOff">G</li>
+            <li class="skip"></li>
+            <li id="C1h" class="keyOff">H</li>
+            <li id="D1h" class="keyOff">J</li>
+            <li class="skip"></li>
+            <li id="F1h" class="keyOff">K</li>
+            <li id="G1h" class="keyOff">L</li>
+            <li id="A1h" class="keyOff">P</li>
+            <li class="skip"></li>
+        <!--
+            <li id="C2h"></li>
+            <li id="D2h"></li>
+            <li class="skip"></li>
+            <li id="F2h"></li>
+            <li id="G2h"></li>
+            <li id="A2h"></li>
+        -->
+        </ul>
+        <!--
+        <ul id="blackNavi">
+            <li>A</li>
+            <li>S</li>
+            <li class="skip">&nbsp;</li>
+            <li>D</li>
+            <li>F</li>
+            <li>G</li>
+            <li class="skip">&nbsp;</li>
+            <li>H</li>
+            <li>J</li>
+            <li class="skip">&nbsp;</li>
+            <li>K</li>
+            <li>L</li>
+            <li>P</li>
+            <li class="skip">&nbsp;</li>
+        </ul>
+        -->
+        <fieldset id="pianoControllerRight">
+            <dl>
+                <!--
+                <dt>Sound Source</dt>
+                <dd>
+                    <form name="fmSoundSource">
+                        <input type="radio" name="soundSource" id="instrument" checked /><label for="instrument">Instrument</label>
+                        <input type="radio" name="soundSource" id="wave" /><label for="wave">Wave</label>
+                    </form>
+                </dd>
+                <dt>Instrument</dt>
+                <dd>
+                    <form name="fmInstrument">
+                        <input type="radio" name="instrument" id="soundPiano" checked /><label for="soundPiano">Piano</label>
+                        <input type="radio" name="instrument" id="soundGuitar" disabled="disabled" /><label for="soundGuitar">Guitar</label>
+                    </form>
+                </dd>
+                -->
+                <dt>Wave Type :</dt>
+                <dd>
+                    <form name="fmWaveType">
+                        <input type="radio" name="waveType" id="waveSine" value="sine" checked /><label for="waveSine">SINE</label>
+                        <input type="radio" name="waveType" id="waveTriangle" value="triangle" /><label for="waveTriangle">TRIANGLE</label>
+                        <input type="radio" name="waveType" id="waveSaw" value="saw" /><label for="waveSaw">SAW</label>
+                        <input type="radio" name="waveType" id="waveSquare" value="square" /><label for="waveSquare">SQUARE</label>
+                    </form>
+                </dd>
+                <dt>Sampling Frequency : <span id="sampleRateValue">441000</span> Hz</dt>
+                <dd>
+                    <select id="sampleRate">
+                        <option value="22050">22050</option>
+                        <option value="32000">32000</option>
+                        <option value="44100" selected>44100</option>
+                        <option value="48000">48000</option>
+                        <option value="96000">96000</option>
+                    </select>
+                </dd>
+                <dt>Number of Plots : <span id="numPlotValue">65536</span> plots</dt>
+                <dd>
+                    <select id="numPlot">
+                        <option value="65536">SELECT the Number of Plots</option>
+                        <option value="256">256</option>
+                        <option value="512">512</option>
+                        <option value="1024">1024</option>
+                        <option value="2048">2048</option>
+                        <option value="4096">4096</option>
+                        <option value="8192">8192</option>
+                        <option value="16384">16384</option>
+                        <option value="32768">32768</option>
+                        <option value="65536" selected>65536</option>
+                    </select>
+                </dd>
+                <dt>Channel :</dt>
+                <dd>
+                    <form id="fmChannel" name="fmChannel">
+                        <input type="checkbox" name="channel" id="channelL" checked /><label for="channelL">LEFT</label>
+                        <input type="checkbox" name="channel" id="channelF" checked /><label for="channelF">RIGHT</label>
+                    </form>
+                </dd>
+            </dl>
+            <div>
+                <input type="button" id="track1" class="buttonOff" value="Track 1" />
+                <input type="button" id="track2" class="buttonOff" value="Track 2" />
+                <input type="button" id="track3" class="buttonOff" value="Track 3" />
+                <input type="button" id="track4" class="buttonOff" value="Track 4" />
+                <input type="button" id="track5" class="buttonOff" value="Track 5" />
+                <br />
+                <input type="button" id="track6" class="buttonOff" value="Track 6" />
+                <input type="button" id="track7" class="buttonOff" value="Track 7" />
+                <input type="button" id="track8" class="buttonOff" value="Track 8" />
+                <input type="button" id="track9" class="buttonOff" value="Track 9" />
+                <input type="button" id="track10" class="buttonOff" value="Track 10" />
+            </div>
+        </fieldset>
+    </div>
+    <!--end[piano]-->
+
+    <!--footer-->
+    <footer>
+        <p>Download Browser &gt;&gt; <a href="http://www.google.co.jp/chrome/intl/ja/landing_ch.html">Google Chrome</a></p>
+        <small>Copy Right &copy; Tomohiro Ikeda <a href="../../">http://goyururi.dip.jp/</a></small>
+    </footer>
+    <!--end[footer]-->
+</div>
+<!--end[page]-->
+</body>
+</html>
