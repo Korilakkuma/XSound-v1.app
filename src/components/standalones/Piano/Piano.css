@@ -4,7 +4,7 @@
   margin: 32px auto;
   width: 1256px;
   height: 240px;
-  background-color: var(--transparent);
+  background-color: var(--gray);
   background-image: url(/assets/images/piano-frame-crystal.png);
   background-position: left top;
   background-repeat: no-repeat;
