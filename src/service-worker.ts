@@ -6,6 +6,9 @@ const CACHE_NAME    = `xsound.app-cache-v${CACHE_VERSION}`;
 const BASE_URL = '/';
 const CACHE_FILES = [
   BASE_URL,
+  `${BASE_URL}index.html`,
+  `${BASE_URL}manifest.json`,
+  `${BASE_URL}register.js`,
   `${BASE_URL}assets/app.css`,
   `${BASE_URL}assets/app.css.map`,
   `${BASE_URL}assets/app.js`,

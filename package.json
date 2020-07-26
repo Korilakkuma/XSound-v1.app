@@ -7,7 +7,7 @@
   "description": "Multifunctional Synthesizer by XSound (Web Audio API Library)",
   "main": "./assets/app.js",
   "scripts": {
-    "clean": "rm -rf ./assets/app.* ./assets/vendor.*",
+    "clean": "rm -rf register.js sw.js ./assets/app.* ./assets/vendor.*",
     "lint:js": "eslint ./src/**/*.{ts,tsx}",
     "lint:css": "stylelint ./src/**/*.css",
     "lint": "run-p lint:js lint:css",
