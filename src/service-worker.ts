@@ -1,7 +1,7 @@
 'use strict';
 
-const CACHE_VERSION = '0.0.0';
-const CACHE_NAME    = `xsound-cache-v${CACHE_VERSION}`;
+const CACHE_VERSION = '1.0.0';
+const CACHE_NAME    = `xsound.app-cache-v${CACHE_VERSION}`;
 
 const BASE_URL = '/';
 const CACHE_FILES = [
