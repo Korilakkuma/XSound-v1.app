@@ -44,12 +44,12 @@ export default class PhaserFieldset extends React.Component<Props> {
               '24'
             ]}
             texts={[
-              'All-Pass Filter',
-              '2 stages',
-              '4 stages',
-              '8 stages',
-              '12 stages',
-              '24 stages'
+              'ALL-PASS FILTER',
+              '2 STAGES',
+              '4 STAGES',
+              '8 STAGES',
+              '12 STAGES',
+              '24 STAGES'
             ]}
             onChange={this.onChangeStage}
             defaultValue="12"

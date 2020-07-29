@@ -105,7 +105,7 @@ export default class RecorderFieldset extends React.Component<Props, State> {
           <Spacer space={16} />
           <Select
             values={['0', '1', '2', '3']}
-            texts={['Track 1', 'Track 2', 'Track 3', 'Track 4']}
+            texts={['TRACK 1', 'TRACK 2', 'TRACK 3', 'TRACK 4']}
             onChange={this.onChangeTrack}
           />
           <Spacer space={16} />

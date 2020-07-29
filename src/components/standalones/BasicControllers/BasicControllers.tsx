@@ -201,14 +201,14 @@ export default class BasicControllers extends React.Component<Props, State> {
             'midi'
           ]}
           texts={[
-            'Oscillator',
-            'Piano',
-            'A. Guitar',
-            'E. Guitar',
-            'White Noise',
-            'Pink Noise',
-            'Brownian Noise',
-            'Microphone',
+            'OSCILLATOR',
+            'PIANO',
+            'A. GUITAR',
+            'E. GUITAR',
+            'WHITE NOISE',
+            'PINK NOISE',
+            'BROWNIAN NOISE',
+            'MICROPHONE',
             'MIDI'
           ]}
           width="20%"
