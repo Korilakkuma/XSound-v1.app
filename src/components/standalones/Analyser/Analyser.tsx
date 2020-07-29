@@ -187,7 +187,7 @@ export default class Analyser extends React.Component<Props, State> {
         </div>
         <div className="Analyser__controllers">
           <Switch
-            label="Visual Audio Sprite"
+            label="Audio Sprite"
             id="analyser-audio-sprite-mode"
             defaultChecked={false}
             onChange={this.onChangeMode}

@@ -20,4 +20,5 @@
 .BasicControllers > .Switch > label {
   font-size: 12px;
   color: var(--white);
+  text-transform: uppercase;
 }
