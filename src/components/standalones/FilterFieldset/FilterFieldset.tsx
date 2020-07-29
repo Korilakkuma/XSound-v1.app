@@ -48,14 +48,14 @@ export default class FilterFieldset extends React.Component<Props> {
               'allpass'
             ]}
             texts={[
-              'lowpass',
-              'highpass',
-              'bandpass',
-              'lowshelf',
-              'highshelf',
-              'peaking',
-              'notch',
-              'allpass'
+              'LOWPASS',
+              'HIGHPASS',
+              'BANDPASS',
+              'LOWSHELF',
+              'HIGHSHELF',
+              'PEAKING',
+              'NOTCH',
+              'ALLPASS'
             ]}
             onChange={this.onChangeType}
           />

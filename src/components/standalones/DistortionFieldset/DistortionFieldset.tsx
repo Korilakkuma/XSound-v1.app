@@ -43,11 +43,11 @@ export default class DistortionFieldset extends React.Component<Props> {
               'fuzz'
             ]}
             texts={[
-              'clean',
-              'crunch',
-              'overdrive',
-              'distortion',
-              'fuzz'
+              'CLEAN',
+              'CRUNCH',
+              'OVERDRIVE',
+              'DISTORTION',
+              'FUZZ'
             ]}
             onChange={this.onChangeCurve}
           />
