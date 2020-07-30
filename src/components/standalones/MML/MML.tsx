@@ -101,7 +101,7 @@ export default class MML extends React.Component<Props, State> {
     const sampleMMLs = ['foreverlove', 'tears'];
     const sampleMML  = sampleMMLs[Date.now() % 2];
 
-    fetch(`/assets/mml/mml-${sampleMML}.txt`)
+    fetch(`/assets/mmls/mml-${sampleMML}.txt`)
       .then((response) => {
         return response.text();
       })
