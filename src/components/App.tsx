@@ -68,15 +68,15 @@ const AJAX_TIMEOUT = 60000;
 const sources = ['mixer', 'oscillator', 'oneshot', 'audio', 'stream', 'noise'];
 
 const oneshots = [
-  `${BASE_URL}/one-shot/piano-2/C.wav`,
-  `${BASE_URL}/one-shot/piano-2/D.wav`,
-  `${BASE_URL}/one-shot/piano-2/E.wav`,
-  `${BASE_URL}/one-shot/piano-2/F.wav`,
-  `${BASE_URL}/one-shot/piano-2/G.wav`,
-  `${BASE_URL}/one-shot/piano-2/A.wav`,
-  `${BASE_URL}/one-shot/piano-2/B.wav`,
-  `${BASE_URL}/one-shot/guitar/C.mp3`,
-  `${BASE_URL}/one-shot/e-guitar/C.mp3`
+  `${BASE_URL}/one-shots/piano-2/C.wav`,
+  `${BASE_URL}/one-shots/piano-2/D.wav`,
+  `${BASE_URL}/one-shots/piano-2/E.wav`,
+  `${BASE_URL}/one-shots/piano-2/F.wav`,
+  `${BASE_URL}/one-shots/piano-2/G.wav`,
+  `${BASE_URL}/one-shots/piano-2/A.wav`,
+  `${BASE_URL}/one-shots/piano-2/B.wav`,
+  `${BASE_URL}/one-shots/guitar/C.mp3`,
+  `${BASE_URL}/one-shots/e-guitar/C.mp3`
 ];
 
 // for Revreb
