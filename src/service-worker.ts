@@ -40,6 +40,11 @@ self.addEventListener('fetch', (event: FetchEvent) => {
     return;
   }
 
+  if (event.request.url.includes('chrome-extension')) {
+    // Not cache ...
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request)
       .then((response: Response) => {
