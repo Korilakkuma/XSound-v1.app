@@ -52,11 +52,11 @@ export default class Header extends React.Component<Props, State> {
           <div>
             <h1 className="Header__logo">
               <img src="/assets/images/logo-v09.png" alt="XSound.app" width="200" height="100" />
-              <img src="/assets/images/logo-v09.png" alt="XSound.app" width="200" height="100" />
-              <img src="/assets/images/logo-v09.png" alt="XSound.app" width="200" height="100" />
-              <img src="/assets/images/logo-v09.png" alt="XSound.app" width="200" height="100" />
-              <img src="/assets/images/logo-v09.png" alt="XSound.app" width="200" height="100" />
-              <img src="/assets/images/logo-v09.png" alt="XSound.app" width="200" height="100" />
+              <img src="/assets/images/logo-v09.png" alt="" width="200" height="100" />
+              <img src="/assets/images/logo-v09.png" alt="" width="200" height="100" />
+              <img src="/assets/images/logo-v09.png" alt="" width="200" height="100" />
+              <img src="/assets/images/logo-v09.png" alt="" width="200" height="100" />
+              <img src="/assets/images/logo-v09.png" alt="" width="200" height="100" />
             </h1>
             <div className="Header__intro">
               <span className="Header__moveLeft">This application is created by <strong>Web Audio API</strong>. You can create sound or listen to audio or record sound or session.</span>
