@@ -126,14 +126,21 @@ export default class Analyser extends React.Component<Props, State> {
 
       const mode = X('audio').module('analyser').domain('timeoverview', 0).param('mode');
 
-      if (mode === 'update') {
-        if ((startTime >= 0) && (startTime <= X('audio').param('duration'))) {
-          X('audio').param('currentTime', startTime);
-          X('audio').module('analyser').domain('timeoverview', 0).update(startTime);
-          X('audio').module('analyser').domain('timeoverview', 1).update(startTime);
-        }
-      } else if (mode === 'sprite') {
-        X('audio').stop().start(startTime, endTime);
+      switch (mode) {
+        case 'update':
+          if ((startTime >= 0) && (startTime <= X('audio').param('duration'))) {
+            X('audio').param('currentTime', startTime);
+            X('audio').module('analyser').domain('timeoverview', 0).update(startTime);
+            X('audio').module('analyser').domain('timeoverview', 1).update(startTime);
+          }
+
+          break;
+        case 'sprite':
+          X('audio').stop().start(startTime, endTime);
+
+          break;
+        default:
+          break;
       }
     };
 
@@ -233,9 +240,13 @@ export default class Analyser extends React.Component<Props, State> {
       X('audio').module('analyser').domain('timeoverview', 1).param('mode', 'sprite');
       X('audio').param('loop', true);
     } else {
+      const currentTime = X('audio').param('currentTime');
+      const duration    = X('audio').param('duration');
+
       X('audio').module('analyser').domain('timeoverview', 0).param('mode', 'update');
       X('audio').module('analyser').domain('timeoverview', 1).param('mode', 'update');
       X('audio').param('loop', false);
+      X('audio').stop().start(currentTime, duration);
     }
   }
 
