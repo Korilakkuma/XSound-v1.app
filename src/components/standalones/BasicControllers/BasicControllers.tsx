@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Dispatch } from 'redux';
-import { SoundSource } from '../../../types/aliases';
+import { SoundSource } from '../../../types/types';
 import {
   changeCurrentSourceSource,
   changeAnalyserState,

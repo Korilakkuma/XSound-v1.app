@@ -5,7 +5,7 @@ import {
   CurrentSourceSourceAction,
   AnalyserStateAction,
   MMLStateAction
-} from './types/interfaces';
+} from './types/types';
 
 function currentSoundSource(state = 'oscillator', action: CurrentSourceSourceAction): string {
   switch (action.type) {

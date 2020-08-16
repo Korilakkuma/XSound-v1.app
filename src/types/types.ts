@@ -1,6 +1,14 @@
 import { Action } from 'redux';
 
-export interface RIRInfo {
+export type SoundSource = 'oscillator'
+                        | 'piano'
+                        | 'guitar'
+                        | 'electric-guitar'
+                        | 'whitenoise'
+                        | 'pinknoise'
+                        | 'browniannoise';
+
+export type RIRInfo = {
   url: string;
   value: number;
   label: string;

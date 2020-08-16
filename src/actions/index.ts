@@ -1,10 +1,10 @@
 import { ActionTypes } from './ActionTypes';
-import { SoundSource } from './types/aliases';
 import {
+  SoundSource,
   CurrentSourceSourceAction,
   AnalyserStateAction,
   MMLStateAction
-} from './types/interfaces';
+} from './types/types';
 
 export function changeCurrentSourceSource(source: SoundSource): CurrentSourceSourceAction {
   return {

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { RIRInfo } from '../../../types/interfaces';
+import { RIRInfo } from '../../../types/types';
 import { Spacer } from '../../atoms/Spacer';
 import { Select } from '../../atoms/Select';
 import { Switch } from '../../atoms/Switch';

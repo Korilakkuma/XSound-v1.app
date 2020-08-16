@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { SoundSource } from '../../../types/aliases';
+import { SoundSource } from '../../../types/types';
 import { createFilename } from '../../../utils';
 import { Switch } from '../../atoms/Switch';
 import { FileUploader } from '../../atoms/FileUploader';

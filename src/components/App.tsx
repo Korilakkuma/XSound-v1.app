@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { SoundSource } from '../types/aliases';
-import { RIRInfo } from '../types/interfaces';
+import { SoundSource, RIRInfo } from '../types/types';
 import { Modal } from './atoms/Modal';
 import { Flexbox } from './atoms/Flexbox';
 import { VerticalBox } from './atoms/VerticalBox';
