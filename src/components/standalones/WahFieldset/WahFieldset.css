@@ -15,4 +15,5 @@
   font-size: 22px;
   font-weight: lighter;
   color: var(--assort-color);
+  text-transform: uppercase;
 }

@@ -133,8 +133,13 @@
 /* HACK */
 .MML__controllers > .Switch {
   margin: 0 8px;
+}
+
+/* HACK */
+.MML__controllers > .Switch > label {
   font-size: 12px;
   color: var(--white);
+  text-transform: uppercase;
 }
 
 .MML.-active {
