@@ -43,6 +43,12 @@ interface Props {
   mmlState: boolean;
 }
 
+interface StateProps {
+  currentSoundSource: SoundSource;
+  analyserState: boolean;
+  mmlState: boolean;
+}
+
 interface State {
   progress: boolean;
   rate: number;
@@ -1121,7 +1127,7 @@ class App extends React.Component<Props, State> {
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state: StateProps): StateProps {
   const { currentSoundSource, analyserState, mmlState } = state;
 
   return { currentSoundSource, analyserState, mmlState };
