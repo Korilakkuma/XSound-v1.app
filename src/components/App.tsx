@@ -908,129 +908,131 @@ class App extends React.Component<Props, State> {
     return (
       <React.Fragment>
         <Header progress={progress} rate={rate} />
-        <Flexbox>
-          <OscillatorFieldset
-            oscillatorNumber={0}
-            label="Oscillator - 1"
-            radioName="oscillator-type-0"
-            defaultState={true}
-            onChangeType={(event: React.SyntheticEvent) => {
-              const type = event.currentTarget.value;
+        <main>
+          <Flexbox>
+            <OscillatorFieldset
+              oscillatorNumber={0}
+              label="Oscillator - 1"
+              radioName="oscillator-type-0"
+              defaultState={true}
+              onChangeType={(event: React.SyntheticEvent) => {
+                const type = event.currentTarget.value;
 
-              for (let i = 0, len = X('oscillator').length(); i < len; i++) {
-                X('oscillator').get(i).param('type', type);
-              }
-            }}
-            onChangeState={(event: React.SyntheticEvent) => {
-              const state = event.currentTarget.checked;
+                for (let i = 0, len = X('oscillator').length(); i < len; i++) {
+                  X('oscillator').get(i).param('type', type);
+                }
+              }}
+              onChangeState={(event: React.SyntheticEvent) => {
+                const state = event.currentTarget.checked;
 
-              for (let i = 0, len = X('oscillator').length(); i < len; i++) {
-                X('oscillator').get(i).state(state);
-              }
-            }}
-            onChangeVolume={(event: React.SyntheticEvent) => {
-              const volume = event.currentTarget.valueAsNumber;
+                for (let i = 0, len = X('oscillator').length(); i < len; i++) {
+                  X('oscillator').get(i).state(state);
+                }
+              }}
+              onChangeVolume={(event: React.SyntheticEvent) => {
+                const volume = event.currentTarget.valueAsNumber;
 
-              for (let i = 0, len = X('oscillator').length(); i < len; i++) {
-                X('oscillator').get(i).param('volume', volume);
-              }
-            }}
-            onChangeOctave={(event: React.SyntheticEvent) => {
-              const octave = event.currentTarget.valueAsNumber;
+                for (let i = 0, len = X('oscillator').length(); i < len; i++) {
+                  X('oscillator').get(i).param('volume', volume);
+                }
+              }}
+              onChangeOctave={(event: React.SyntheticEvent) => {
+                const octave = event.currentTarget.valueAsNumber;
 
-              for (let i = 0, len = X('oscillator').length(); i < len; i++) {
-                X('oscillator').get(i).param('octave', octave);
-              }
-            }}
-            onChangeFine={(event: React.SyntheticEvent) => {
-              const fine = event.currentTarget.valueAsNumber;
+                for (let i = 0, len = X('oscillator').length(); i < len; i++) {
+                  X('oscillator').get(i).param('octave', octave);
+                }
+              }}
+              onChangeFine={(event: React.SyntheticEvent) => {
+                const fine = event.currentTarget.valueAsNumber;
 
-              for (let i = 0, len = X('oscillator').length(); i < len; i++) {
-                X('oscillator').get(i).param('fine', fine);
-              }
-            }}
+                for (let i = 0, len = X('oscillator').length(); i < len; i++) {
+                  X('oscillator').get(i).param('fine', fine);
+                }
+              }}
+            />
+            <OscillatorFieldset
+              oscillatorNumber={1}
+              label="Oscillator - 2"
+              radioName="oscillator-type-1"
+              defaultState={false}
+              onChangeType={(event: React.SyntheticEvent) => {
+                const type = event.currentTarget.value;
+
+                for (let i = 0, len = window.C('oscillator').length(); i < len; i++) {
+                  window.C('oscillator').get(i).param('type', type);
+                }
+              }}
+              onChangeState={(event: React.SyntheticEvent) => {
+                const state = event.currentTarget.checked;
+
+                for (let i = 0, len = window.C('oscillator').length(); i < len; i++) {
+                  window.C('oscillator').get(i).state(state);
+                }
+              }}
+              onChangeVolume={(event: React.SyntheticEvent) => {
+                const volume = event.currentTarget.valueAsNumber;
+
+                for (let i = 0, len = window.C('oscillator').length(); i < len; i++) {
+                  window.C('oscillator').get(i).param('volume', volume);
+                }
+              }}
+              onChangeOctave={(event: React.SyntheticEvent) => {
+                const octave = event.currentTarget.valueAsNumber;
+
+                for (let i = 0, len = window.C('oscillator').length(); i < len; i++) {
+                  window.C('oscillator').get(i).param('octave', octave);
+                }
+              }}
+              onChangeFine={(event: React.SyntheticEvent) => {
+                const fine = event.currentTarget.valueAsNumber;
+
+                for (let i = 0, len = window.C('oscillator').length(); i < len; i++) {
+                  window.C('oscillator').get(i).param('fine', fine);
+                }
+              }}
+            />
+            <EnvelopeGeneratorFieldset />
+            <RecorderFieldset sources={sources} />
+            <AudioFieldset />
+          </Flexbox>
+          <Analyser active={analyserState} sources={sources} />
+          <MML
+            active={mmlState}
+            currentSoundSource={currentSoundSource}
+            setSoundStop={this.setSoundStop}
+            clear={this.clearKeyboards}
           />
-          <OscillatorFieldset
-            oscillatorNumber={1}
-            label="Oscillator - 2"
-            radioName="oscillator-type-1"
-            defaultState={false}
-            onChangeType={(event: React.SyntheticEvent) => {
-              const type = event.currentTarget.value;
-
-              for (let i = 0, len = window.C('oscillator').length(); i < len; i++) {
-                window.C('oscillator').get(i).param('type', type);
-              }
-            }}
-            onChangeState={(event: React.SyntheticEvent) => {
-              const state = event.currentTarget.checked;
-
-              for (let i = 0, len = window.C('oscillator').length(); i < len; i++) {
-                window.C('oscillator').get(i).state(state);
-              }
-            }}
-            onChangeVolume={(event: React.SyntheticEvent) => {
-              const volume = event.currentTarget.valueAsNumber;
-
-              for (let i = 0, len = window.C('oscillator').length(); i < len; i++) {
-                window.C('oscillator').get(i).param('volume', volume);
-              }
-            }}
-            onChangeOctave={(event: React.SyntheticEvent) => {
-              const octave = event.currentTarget.valueAsNumber;
-
-              for (let i = 0, len = window.C('oscillator').length(); i < len; i++) {
-                window.C('oscillator').get(i).param('octave', octave);
-              }
-            }}
-            onChangeFine={(event: React.SyntheticEvent) => {
-              const fine = event.currentTarget.valueAsNumber;
-
-              for (let i = 0, len = window.C('oscillator').length(); i < len; i++) {
-                window.C('oscillator').get(i).param('fine', fine);
-              }
-            }}
-          />
-          <EnvelopeGeneratorFieldset />
-          <RecorderFieldset sources={sources} />
-          <AudioFieldset />
-        </Flexbox>
-        <Analyser active={analyserState} sources={sources} />
-        <MML
-          active={mmlState}
-          currentSoundSource={currentSoundSource}
-          setSoundStop={this.setSoundStop}
-          clear={this.clearKeyboards}
-        />
-        <BasicControllers dispatch={dispatch} sources={sources} />
-        <Piano ref={this.pianoRef} currentSoundSource={currentSoundSource} />
-        <Flexbox>
-          <VerticalBox>
-            <CompressorFieldset sources={sources} />
-            <DistortionFieldset sources={sources} />
-          </VerticalBox>
-          <VerticalBox>
-            <WahFieldset sources={sources} />
-            <EqualizerFieldset sources={sources} />
-          </VerticalBox>
-          <VerticalBox>
-            <FilterFieldset sources={sources} />
-            <AutopanFieldset sources={sources} />
-          </VerticalBox>
-          <VerticalBox>
-            <TremoloFieldset sources={sources} />
-            <RingModulatorFieldset sources={sources} />
-            <PhaserFieldset sources={sources} />
-          </VerticalBox>
-          <VerticalBox>
-            <ChorusFieldset sources={sources} />
-            <FlangerFieldset sources={sources} />
-          </VerticalBox>
-          <VerticalBox>
-            <DelayFieldset sources={sources} />
-            <ReverbFieldset sources={sources} rirInfos={rirInfos} />
-          </VerticalBox>
-        </Flexbox>
+          <BasicControllers dispatch={dispatch} sources={sources} />
+          <Piano ref={this.pianoRef} currentSoundSource={currentSoundSource} />
+          <Flexbox>
+            <VerticalBox>
+              <CompressorFieldset sources={sources} />
+              <DistortionFieldset sources={sources} />
+            </VerticalBox>
+            <VerticalBox>
+              <WahFieldset sources={sources} />
+              <EqualizerFieldset sources={sources} />
+            </VerticalBox>
+            <VerticalBox>
+              <FilterFieldset sources={sources} />
+              <AutopanFieldset sources={sources} />
+            </VerticalBox>
+            <VerticalBox>
+              <TremoloFieldset sources={sources} />
+              <RingModulatorFieldset sources={sources} />
+              <PhaserFieldset sources={sources} />
+            </VerticalBox>
+            <VerticalBox>
+              <ChorusFieldset sources={sources} />
+              <FlangerFieldset sources={sources} />
+            </VerticalBox>
+            <VerticalBox>
+              <DelayFieldset sources={sources} />
+              <ReverbFieldset sources={sources} rirInfos={rirInfos} />
+            </VerticalBox>
+          </Flexbox>
+        </main>
         <Footer />
         <Modal
           isShow={isShowModalForAjax}
