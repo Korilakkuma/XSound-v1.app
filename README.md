@@ -24,7 +24,6 @@ You can use the following features.
 $ git clone git@github.com:Korilakkuma/XSound.app.git
 $ cd XSound
 $ npm install
-$ npm run build
 $ npm run dev
 $ open http://localhost:8080/
 ```
