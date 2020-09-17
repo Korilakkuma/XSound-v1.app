@@ -98,10 +98,10 @@ export default class MML extends React.Component<Props, State> {
   }
 
   componentDidMount(): void {
-    const sampleMMLs = ['foreverlove', 'tears'];
+    const sampleMMLs = ['forever-love', 'tears'];
     const sampleMML  = sampleMMLs[Date.now() % 2];
 
-    fetch(`/assets/mmls/mml-${sampleMML}.txt`)
+    fetch(`/assets/mmls/${sampleMML}.txt`)
       .then((response) => {
         return response.text();
       })
