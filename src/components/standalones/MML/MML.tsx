@@ -423,8 +423,6 @@ export default class MML extends React.Component<Props, State> {
     }
 
     if (this.state.paused) {
-      const { highlight } = this.state;
-
       // Start MML
       if (this.props.currentSoundSource === 'oscillator') {
         for (let i = 0, len = X('oscillator').length(); i < len; i++) {
@@ -513,9 +511,6 @@ export default class MML extends React.Component<Props, State> {
           this.mmls = text.split(/\|+/);
 
           const { melody, bass } = this.state;
-
-          console.log(melody);
-          console.log(bass);
 
           if (melody || bass) {
             this.setState({ isShowModalConfirmation: true });

@@ -125,6 +125,10 @@ function successCallback(source: string, midiAccess: MIDIAccess, inputs: MIDIInp
       }
     };
   }
+
+  if (outputs.length > 0) {
+    // TODO: do something ...
+  }
 }
 
 export default class BasicControllers extends React.Component<Props, State> {

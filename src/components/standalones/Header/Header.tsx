@@ -34,19 +34,9 @@ export default class Header extends React.Component<Props, State> {
         onAnimationEnd={this.onAnimationEnd}
       >
         <div hidden={this.props.progress}>
-          <div>
+          <div className="Header__forkMeOnGitHub">
             <a href="https://github.com/Korilakkuma/XSound.app" target="_blank" rel="noopener noreferrer">
-              <img
-                style={{
-                  position: 'absolute',
-                  top     : '0',
-                  right   : '0',
-                  zIndex  : '10',
-                  border  : '0'
-                }}
-                src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"
-                alt="Fork me on GitHub"
-              />
+              <img src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub" />
             </a>
           </div>
           <div>

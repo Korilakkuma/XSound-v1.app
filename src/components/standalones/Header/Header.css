@@ -25,6 +25,14 @@
   animation: fade-out-header-animation 1.5s ease 1 normal 0s forwards;
 }
 
+.Header__forkMeOnGitHub {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 10;
+  border: none;
+}
+
 @keyframes fade-out-header-animation {
   0% {
     opacity: 1;

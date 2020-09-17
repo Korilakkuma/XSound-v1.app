@@ -32,7 +32,7 @@ const Button: React.SFC<Props> = (props: Props) => {
       height: `${height}px`,
       backgroundImage: `url(${image})`,
       backgroundSize: size,
-      backgroundPostion: position
+      backgroundPosition: position
     }}
     onClick={onClick}
   />;

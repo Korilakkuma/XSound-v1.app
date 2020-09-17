@@ -226,7 +226,7 @@ export default class Analyser extends React.Component<Props, State> {
     );
   }
 
-  private onClickChannel(event: React.SyntheticEvent): void {
+  private onClickChannel(): void {
     this.setState((prevState: State) => {
       return { showTimeOverview: prevState.showTimeOverview === 'right' ? 'left' : 'right' };
     });

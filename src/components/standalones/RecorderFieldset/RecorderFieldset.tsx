@@ -173,7 +173,7 @@ export default class RecorderFieldset extends React.Component<Props, State> {
     }
   }
 
-  private onClickCreateButton(event: React.SyntheticEvent): void {
+  private onClickCreateButton(): void {
     this.setState({ running: false });
 
     for (const source of this.props.sources) {

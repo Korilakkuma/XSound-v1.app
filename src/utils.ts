@@ -1,4 +1,4 @@
-export function createFilename(prefix, ext) {
+export function createFilename(prefix: string, ext: string): string {
   const format = (n: number) => {
     return (`0${n}`).slice(-2);
   };
