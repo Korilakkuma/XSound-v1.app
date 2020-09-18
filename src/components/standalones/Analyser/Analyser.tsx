@@ -171,14 +171,16 @@ export default class Analyser extends React.Component<Props, State> {
         <div className="Analyser__canvas">
           <dl>
             <dt>
-              <button
-                type="button"
-                className={`Analyser__channelSelector -${showTimeOverview}`}
-                aria-label="Select Channel"
-                onClick={this.onClickChannel}
-              >
-              </button>
-              Time Overview [{showTimeOverview}]
+              <label>
+                <button
+                  type="button"
+                  className={`Analyser__channelSelector -${showTimeOverview}`}
+                  aria-label="Select Channel"
+                  onClick={this.onClickChannel}
+                >
+                </button>
+                Time Overview [{showTimeOverview}]
+              </label>
             </dt>
             <dd hidden={showTimeOverview === 'right'}><canvas ref={this.canvasForTimeOverviewLeftRef} width="1200" height="120" /></dd>
             <dd hidden={showTimeOverview ===  'left'}><canvas ref={this.canvasForTimeOverviewRightRef} width="1200" height="120" /></dd>
