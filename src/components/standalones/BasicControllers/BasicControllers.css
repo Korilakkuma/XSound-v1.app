@@ -7,7 +7,7 @@
   justify-content: space-between;
   -webkit-align-items: flex-start;
   align-items: flex-start;
-  padding: 24px 48px;
+  padding: 24px 0;
   background-color: rgba(255, 255, 255, 0.05);
 }
 
