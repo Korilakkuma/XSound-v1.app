@@ -62,7 +62,7 @@ export default class AudioFieldset extends React.Component<Props, State> {
     this.onChangePitch       = this.onChangePitch.bind(this);
     this.onChangeDepth       = this.onChangeDepth.bind(this);
 
-    this.onClose = this.onClose.bind(this);
+    this.onCloseModal = this.onCloseModal.bind(this);
   }
 
   // `X('audio').setup` is not invoked on `componentDidMount`
@@ -234,7 +234,7 @@ export default class AudioFieldset extends React.Component<Props, State> {
           hasOverlay
           isShow={isShowModalForFileUploadError}
           title="Error"
-          onClose={this.onClose}
+          onClose={this.onCloseModal}
         >
           {errorMessage}
         </Modal>
@@ -242,7 +242,7 @@ export default class AudioFieldset extends React.Component<Props, State> {
           hasOverlay
           isShow={isShowModalForDecodingError}
           title="Error"
-          onClose={this.onClose}
+          onClose={this.onCloseModal}
         >
           {errorMessage}
         </Modal>
@@ -360,7 +360,7 @@ export default class AudioFieldset extends React.Component<Props, State> {
     X('audio').module('vocalcanceler').param('depth', event.currentTarget.valueAsNumber);
   }
 
-  private onClose(): void {
+  private onCloseModal(): void {
     this.setState({
       isShowModalForFileUploadError: false,
       isShowModalForDecodingError  : false

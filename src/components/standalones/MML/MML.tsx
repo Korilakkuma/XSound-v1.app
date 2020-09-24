@@ -93,6 +93,7 @@ export default class MML extends React.Component<Props, State> {
     this.onClickDownloadButton = this.onClickDownloadButton.bind(this);
     this.onChangeHightlight    = this.onChangeHightlight.bind(this);
 
+    this.onCloseModal     = this.onCloseModal.bind(this);
     this.onClickOverwrite = this.onClickOverwrite.bind(this);
     this.onClickCancel    = this.onClickCancel.bind(this);
   }
@@ -335,7 +336,7 @@ export default class MML extends React.Component<Props, State> {
           hasOverlay
           isShow={isShowModalForFileUploadError}
           title="Error"
-          onClose={this.onClose}
+          onClose={this.onCloseModal}
         >
           {errorMessage}
         </Modal>
@@ -574,6 +575,10 @@ export default class MML extends React.Component<Props, State> {
 
   private onDrop(event: React.SyntheticEvent): void {
     this.readFile(event);
+  }
+
+  private onCloseModal(): void {
+    this.setState({ isShowModalForFileUploadError: false });
   }
 
   private onClickOverwrite(): void {

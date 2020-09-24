@@ -149,7 +149,7 @@ export default class BasicControllers extends React.Component<Props, State> {
     this.onChangeAnalyserState = this.onChangeAnalyserState.bind(this);
     this.onChangeMMLState      = this.onChangeMMLState.bind(this);
 
-    this.onClose = this.onClose.bind(this);
+    this.onCloseModal = this.onCloseModal.bind(this);
   }
 
   render(): React.ReactNode {
@@ -234,7 +234,7 @@ export default class BasicControllers extends React.Component<Props, State> {
           hasOverlay
           isShow={isShowModalForMIDIError}
           title="Error"
-          onClose={this.onClose}
+          onClose={this.onCloseModal}
         >
           {errorMessage}
         </Modal>
@@ -317,7 +317,7 @@ export default class BasicControllers extends React.Component<Props, State> {
     });
   }
 
-  private onClose(): void {
+  private onCloseModal(): void {
     this.setState({
       errorMessage           : '',
       isShowModalForMIDIError: false
