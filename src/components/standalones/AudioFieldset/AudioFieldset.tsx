@@ -230,18 +230,38 @@ export default class AudioFieldset extends React.Component<Props, State> {
             onChange={this.onChangeDepth}
           />
         </fieldset>
-        <Modal isShow={isShowModalForFileUploadError} hasOverlay={true} title="Error" onClose={this.onClose}>
+        <Modal
+          hasOverlay
+          isShow={isShowModalForFileUploadError}
+          title="Error"
+          onClose={this.onClose}
+        >
           {errorMessage}
         </Modal>
-        <Modal isShow={isShowModalForDecodingError} hasOverlay={true} title="Error" onClose={this.onClose}>
+        <Modal
+          hasOverlay
+          isShow={isShowModalForDecodingError}
+          title="Error"
+          onClose={this.onClose}
+        >
           {errorMessage}
         </Modal>
-        <Modal isShow={isShowModalForProgress} hasOverlay={true} title="Progress ..." onClose={this.onClose}>
+        <Modal
+          hasOverlay
+          isShow={isShowModalForProgress}
+          title="Progress ..."
+          onClose={null}
+        >
           <p>{loaded} bytes ({rate} %)</p>
-          <ProgressBar title="" progress={progress} rate={rate} auto={false} />
+          <ProgressBar title="" progress={progress} rate={rate} />
         </Modal>
-        <Modal isShow={isShowModalForDecoding} hasOverlay={true} title="Decoding ..." onClose={this.onClose}>
-          <ProgressBar title="" progress={true} rate={0} auto={true} />
+        <Modal
+          hasOverlay
+          isShow={isShowModalForDecoding}
+          title="Decoding ..."
+          onClose={null}
+        >
+          <ProgressBar auto progress title="" rate={0} />
         </Modal>
       </div>
     );

@@ -273,7 +273,7 @@ export default class MML extends React.Component<Props, State> {
           <dl>
             <dt>Melody</dt>
             <dd
-              contentEditable={true}
+              contentEditable
               dangerouslySetInnerHTML={{ __html: melody }}
               onBlur={this.onBlurMelody}
             >
@@ -282,7 +282,7 @@ export default class MML extends React.Component<Props, State> {
           <dl>
             <dt>Bass</dt>
             <dd
-              contentEditable={true}
+              contentEditable
               dangerouslySetInnerHTML={{ __html: bass }}
               onBlur={this.onBlurBass}
             >
@@ -332,25 +332,25 @@ export default class MML extends React.Component<Props, State> {
           />
         </div>
         <Modal
+          hasOverlay
           isShow={isShowModalForFileUploadError}
-          hasOverlay={true}
           title="Error"
           onClose={this.onClose}
         >
           {errorMessage}
         </Modal>
         <Modal
+          hasOverlay
           isShow={isShowModalForProgress}
-          hasOverlay={true}
           title="Progress ..."
-          onClose={this.onClose}
+          onClose={null}
         >
           <p>{loaded} bytes ({rate} %)</p>
           <ProgressBar title="" progress={progress} rate={rate} auto={false} />
         </Modal>
         <SelectableModal
+          hasOverlay
           isShow={isShowModalConfirmation}
-          hasOverlay={true}
           title="Confirmation"
           first={{
             label : 'Cancel',

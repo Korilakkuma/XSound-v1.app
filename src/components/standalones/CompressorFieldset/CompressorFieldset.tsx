@@ -26,9 +26,9 @@ export default class CompressorFieldset extends React.Component<Props> {
         <fieldset>
           <legend>
             <Switch
+              defaultChecked
               id="compressor-state"
               label="Compressor"
-              defaultChecked={true}
               onChange={this.onChangeState}
             />
           </legend>

@@ -33,6 +33,7 @@
     "quote-props": 0,
     "radix": 1,
     "react/prop-types": 0,
+    "react/jsx-boolean-value": 1,
     "semi": [2, "always"],
     "space-before-function-paren": 0,
     "template-curly-spacing" : 0,

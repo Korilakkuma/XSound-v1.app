@@ -130,8 +130,8 @@ export default class RecorderFieldset extends React.Component<Props, State> {
           />
         </fieldset>
         <SelectableModal
+          hasOverlay
           isShow={isShowModal}
-          hasOverlay={true}
           title="Confirmation"
           first={{
             label : 'Cancel',

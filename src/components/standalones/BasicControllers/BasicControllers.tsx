@@ -231,8 +231,8 @@ export default class BasicControllers extends React.Component<Props, State> {
           onChange={this.onChangeMMLState}
         />
         <Modal
+          hasOverlay
           isShow={isShowModalForMIDIError}
-          hasOverlay={true}
           title="Error"
           onClose={this.onClose}
         >

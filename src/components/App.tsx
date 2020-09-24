@@ -917,10 +917,10 @@ class App extends React.Component<Props, State> {
         <main>
           <Flexbox>
             <OscillatorFieldset
+              defaultState
               oscillatorNumber={0}
               label="Oscillator - 1"
               radioName="oscillator-type-0"
-              defaultState={true}
               onChangeType={(event: React.SyntheticEvent) => {
                 const type = event.currentTarget.value;
 
@@ -961,7 +961,6 @@ class App extends React.Component<Props, State> {
               oscillatorNumber={1}
               label="Oscillator - 2"
               radioName="oscillator-type-1"
-              defaultState={false}
               onChangeType={(event: React.SyntheticEvent) => {
                 const type = event.currentTarget.value;
 
@@ -1041,16 +1040,16 @@ class App extends React.Component<Props, State> {
         </main>
         <Footer />
         <Modal
+          hasOverlay
           isShow={isShowModalForAjax}
-          hasOverlay={true}
           title="Error"
           onClose={this.onCloseModalForAjax}
         >
           {errorMessage}
         </Modal>
         <Modal
+          hasOverlay
           isShow={isShowModalForDecoding}
-          hasOverlay={true}
           title="Error"
           onClose={this.onCloseModalForDecoding}
         >
