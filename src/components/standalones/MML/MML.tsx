@@ -103,10 +103,10 @@ export default class MML extends React.Component<Props, State> {
     const sampleMML  = sampleMMLs[Date.now() % 2];
 
     fetch(`/assets/mmls/${sampleMML}.txt`)
-      .then((response) => {
+      .then((response: Response) => {
         return response.text();
       })
-      .then((text) => {
+      .then((text: string) => {
         const mmls = text.split(/\|+/);
 
         this.setState({
@@ -116,8 +116,7 @@ export default class MML extends React.Component<Props, State> {
           this.readyMML();
         });
       })
-      .catch((error) => {
-        // do not anything ...
+      .catch((error: Error) => {
         console.error(error);
       });
   }
