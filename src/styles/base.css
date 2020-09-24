@@ -56,6 +56,10 @@ a:hover {
   text-decoration: underline;
 }
 
+label {
+  cursor: pointer;
+}
+
 [hidden] {
   display: none !important;
 }
