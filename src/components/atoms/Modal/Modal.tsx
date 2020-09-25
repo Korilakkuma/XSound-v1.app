@@ -4,7 +4,7 @@ interface Props {
   isShow: boolean;
   hasOverlay: boolean;
   title: string;
-  onClose(event: React.SyntheticEvent): void;
+  onClose(event: React.SyntheticEvent): void | null;
   children: React.ReactNode;
 }
 
@@ -15,6 +15,7 @@ const Modal: React.SFC<Props> = (props: Props) => {
     <div className={`Modal${isShow ? ' -show' : ''}`}>
       {hasOverlay ? <div className="Modal__overlay" role="button" onClick={onClose} /> : null}
       <div className="Modal__inner">
+        {onClose !== null ? <button className="Modal__closer" type="button" aria-label="Close modal" onClick={onClose}>X</button> : null}
         <h1 className="Modal__title">{title}</h1>
         <div className="Modal__contents">{children}</div>
       </div>

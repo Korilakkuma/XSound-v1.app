@@ -41,6 +41,24 @@
   background-color: var(--black);
 }
 
+.Modal__closer {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  border-radius: 12px;
+  width: 24px;
+  height: 24px;
+  text-align: center;
+  line-height: 24px;
+  color: var(--white);
+  background-color: var(--assort-color);
+  transition: background-color 0.6s ease;
+}
+
+.Modal__closer:hover {
+  background-color: var(--base-color);
+}
+
 .Modal__title {
   padding: 8px;
   font-size: 18px;
