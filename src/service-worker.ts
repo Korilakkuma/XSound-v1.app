@@ -24,7 +24,9 @@ self.addEventListener('install', (event: InstallEvent) => {
   //     .then((cache: Cache) => {
   //       return cache.addAll(cacheFiles);
   //     })
-  //     .catch(console.error);
+  //     .catch((error: Error) => {
+  //       console.error(error);
+  //     });
   // );
 }, false);
 
@@ -62,13 +64,19 @@ self.addEventListener('fetch', (event: FetchEvent) => {
               .then((cache: Cache) => {
                 cache.put(event.request, responseToCache);
               })
-              .catch(console.error);
+              .catch((error: Error) => {
+                console.error(error);
+              });
 
             return response;
           })
-          .catch(console.error);
+          .catch((error: Error) => {
+            console.error(error);
+          });
       })
-      .catch(console.error)
+      .catch((error: Error) => {
+        console.error(error);
+      })
   );
 }, false);
 
@@ -82,6 +90,8 @@ self.addEventListener('activate', (event: ExtendableEvent) => {
             .map((cacheName: string) => caches.delete(cacheName))
         );
       })
-      .catch(console.error)
+      .catch((error: Error) => {
+        console.error(error);
+      })
   );
 }, false);

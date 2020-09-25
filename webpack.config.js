@@ -1,6 +1,15 @@
 const webpack                        = require('webpack');
 const MiniCSSExtractPlugin           = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
+const TerserPlugin                   = require('terser-webpack-plugin');
+
+const terserPlugin = new TerserPlugin({
+  terserOptions: {
+    compress: {
+      drop_console: true
+    }
+  }
+});
 
 module.exports = [{
   mode: 'development',
@@ -68,6 +77,10 @@ module.exports = [{
     })
   ],
   optimization: {
+    minimize: process.env.NODE_ENV === 'production',
+    minimizer: [
+      terserPlugin
+    ],
     splitChunks: {
       chunks: 'all',
       name: 'vendor'
@@ -112,5 +125,11 @@ module.exports = [{
   },
   resolve: {
     extensions: ['.js', '.ts']
+  },
+  optimization: {
+    minimize: process.env.NODE_ENV === 'production',
+    minimizer: [
+      terserPlugin
+    ]
   }
 }];
