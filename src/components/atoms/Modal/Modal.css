@@ -50,6 +50,7 @@
 }
 
 .Modal__contents {
-  margin: 36px 8px;
+  margin: 24px;
   color: var(--assort-color);
+  text-align: center;
 }

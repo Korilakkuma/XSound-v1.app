@@ -17,7 +17,7 @@
   font-size: var(--base-font-size);
   color: var(--white);
   background-color: var(--assort-color);
-  transition: background 0.6s ease;
+  transition: background-color 0.6s ease;
 }
 
 .SelectableModal__buttons > button:hover {
@@ -25,5 +25,5 @@
 }
 
 .SelectableModal__buttons > button:last-child {
-  margin-left: 8px;
+  margin-left: 12px;
 }
