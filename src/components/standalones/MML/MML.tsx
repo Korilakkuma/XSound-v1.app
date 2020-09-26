@@ -418,7 +418,7 @@ export default class MML extends React.Component<Props, State> {
   }
 
   private onClickMMLController(): void {
-    if (!X('mml').isSequences() || !window.C('mml').isSequences()) {
+    if (!X('mml').isSequences() && !window.C('mml').isSequences()) {
       return;
     }
 
