@@ -41,4 +41,7 @@ $ open http://localhost:8080/
   - webpack
   - npm scripts
 
-Copyright (c) 2012 Tomohiro IKEDA (Korilakkuma)
+## License
+  
+Released under the [MIT](https://github.com/Korilakkuma/XSound.app/blob/master/LICENSE) license
+  
