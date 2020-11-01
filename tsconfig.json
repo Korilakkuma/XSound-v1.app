@@ -3,13 +3,15 @@
     "target": "esnext",
     "module": "commonjs",
     "declaration": true,
+    "skipLibCheck": true,
     "sourceMap": true,
     "strict": false,
     "strictNullChecks": true,
     "strictPropertyInitialization": true,
     "lib": [
       "dom",
-      "es2015"
+      "es2015",
+      "webworker"
     ],
     "outDir": "./assets/",
     "jsx": "react"
