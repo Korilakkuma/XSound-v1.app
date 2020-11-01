@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { RefObject } from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { SoundSource, RIRInfo } from '../types/types';
@@ -794,6 +795,7 @@ class App extends React.Component<Props, State> {
       isShowModalForDecoding: false
     };
 
+    this.onBeforeunload = this.onBeforeunload.bind(this);
     this.setSoundStop   = this.setSoundStop.bind(this);
     this.clearKeyboards = this.clearKeyboards.bind(this);
 
@@ -804,6 +806,8 @@ class App extends React.Component<Props, State> {
   }
 
   componentDidMount(): void {
+    window.addEventListener('beforeunload', this.onBeforeunload);
+
     // Initialization for using XSound
 
     // Clone X object as global object
@@ -899,6 +903,10 @@ class App extends React.Component<Props, State> {
         isShowModalForAjax: true
       });
     }
+  }
+
+  componentWillUnmount(): void {
+    window.removeEventListener('beforeunload', this.onBeforeunload);
   }
 
   render(): React.ReactNode {
@@ -1057,6 +1065,11 @@ class App extends React.Component<Props, State> {
         </Modal>
       </React.Fragment>
     );
+  }
+
+  private onBeforeunload(event: BeforeUnloadEvent): void {
+    // event.preventDefault();
+    event.returnValue = 'Leave XSound.app ?';
   }
 
   private setSoundStop(index: number, isStop: boolean): void {
