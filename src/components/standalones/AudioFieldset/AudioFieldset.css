@@ -1,7 +1,6 @@
 .AudioFieldset {
   padding: 12px 0;
   width: 20%;
-  background-color: rgba(255, 255, 255, 0.05);
 }
 
 .AudioFieldset > fieldset {

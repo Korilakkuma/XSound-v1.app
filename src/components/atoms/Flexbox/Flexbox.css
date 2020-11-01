@@ -7,4 +7,5 @@
   justify-content: flex-start;
   -webkit-align-items: stretch;
   align-items: stretch;
+  background-color: rgba(255, 255, 255, 0.05);
 }
