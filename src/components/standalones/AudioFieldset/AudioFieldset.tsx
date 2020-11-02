@@ -99,6 +99,10 @@ export default class AudioFieldset extends React.Component<Props, State> {
     };
 
     const updateCallback = (source: AudioBufferSourceNode, currentTime: number) => {
+      if (source.buffer === null) {
+        return;
+      }
+
       const index = Math.floor(currentTime * source.buffer.sampleRate);
       const n100msec = 0.100 * source.buffer.sampleRate;
 
@@ -250,7 +254,6 @@ export default class AudioFieldset extends React.Component<Props, State> {
           hasOverlay
           isShow={isShowModalForProgress}
           title="Progress ..."
-          onClose={null}
         >
           <p>{loaded} bytes ({rate} %)</p>
           <ProgressBar title="" progress={progress} rate={rate} />
@@ -259,7 +262,6 @@ export default class AudioFieldset extends React.Component<Props, State> {
           hasOverlay
           isShow={isShowModalForDecoding}
           title="Decoding ..."
-          onClose={null}
         >
           <ProgressBar auto progress title="" rate={0} />
         </Modal>
@@ -274,7 +276,7 @@ export default class AudioFieldset extends React.Component<Props, State> {
       success : (event: Event, arrayBuffer: ArrayBuffer) => {
         X('audio').ready(arrayBuffer);
 
-        event.currentTarget.value = '';
+        (event.currentTarget as HTMLInputElement).value = '';
       },
       error   : (error: Error) => {
         this.setState({
@@ -283,7 +285,7 @@ export default class AudioFieldset extends React.Component<Props, State> {
         });
       },
       progress: (event: Event) => {
-        const { lengthComputable, loaded, total } = event;
+        const { lengthComputable, loaded, total } = event as ProgressEvent;
 
         this.setState({
           progress              : lengthComputable,
@@ -299,7 +301,7 @@ export default class AudioFieldset extends React.Component<Props, State> {
       const file = X.file(options);
 
       this.setState({ filename: file.name });
-    } catch (error: Error) {
+    } catch (error) {
       this.setState({
         errorMessage                 : error.message,
         isShowModalForFileUploadError: true
@@ -344,20 +346,20 @@ export default class AudioFieldset extends React.Component<Props, State> {
   }
 
   private onChangeCurrentTime(event: React.SyntheticEvent): void {
-    X('audio').param('currentTime', event.currentTarget.valueAsNumber);
+    X('audio').param('currentTime', (event.currentTarget as HTMLInputElement).valueAsNumber);
   }
 
   private onChangeVolume(event: React.SyntheticEvent): void {
-    X('audio').param('mastervolume', event.currentTarget.valueAsNumber);
+    X('audio').param('mastervolume', (event.currentTarget as HTMLInputElement).valueAsNumber);
   }
 
   private onChangePitch(event: React.SyntheticEvent): void {
-    X('audio').module('pitchshifter').param('pitch', event.currentTarget.valueAsNumber);
-    X('stream').module('pitchshifter').param('pitch', event.currentTarget.valueAsNumber);
+    X('audio').module('pitchshifter').param('pitch', (event.currentTarget as HTMLInputElement).valueAsNumber);
+    X('stream').module('pitchshifter').param('pitch', (event.currentTarget as HTMLInputElement).valueAsNumber);
   }
 
   private onChangeDepth(event: React.SyntheticEvent): void {
-    X('audio').module('vocalcanceler').param('depth', event.currentTarget.valueAsNumber);
+    X('audio').module('vocalcanceler').param('depth', (event.currentTarget as HTMLInputElement).valueAsNumber);
   }
 
   private onCloseModal(): void {

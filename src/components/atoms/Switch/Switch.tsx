@@ -3,7 +3,7 @@ import * as React from 'react';
 interface Props {
   id?: string;
   label: string;
-  defaultChecked: boolean;
+  defaultChecked?: boolean;
   onChange(event: React.SyntheticEvent): void;
 }
 
@@ -16,7 +16,7 @@ export default class Switch extends React.Component<Props, State> {
     super(props);
 
     this.state = {
-      checked: props.defaultChecked
+      checked: Boolean(props.defaultChecked)
     };
 
     this.onChange = this.onChange.bind(this);
@@ -35,6 +35,6 @@ export default class Switch extends React.Component<Props, State> {
 
   private onChange(event: React.SyntheticEvent): void {
     this.props.onChange(event);
-    this.setState({ checked: event.currentTarget.checked });
+    this.setState({ checked: (event.currentTarget as HTMLInputElement).checked });
   }
 }

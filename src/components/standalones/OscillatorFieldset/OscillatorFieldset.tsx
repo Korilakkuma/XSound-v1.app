@@ -8,7 +8,7 @@ interface Props {
   oscillatorNumber: number;
   label: string;
   radioName: string;
-  defaultState: boolean;
+  defaultState?: boolean;
   onChangeType(event: React.SyntheticEvent): void;
   onChangeState(event: React.SyntheticEvent): void;
   onChangeVolume(event: React.SyntheticEvent): void;

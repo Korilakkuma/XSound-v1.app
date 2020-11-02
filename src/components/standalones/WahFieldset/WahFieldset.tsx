@@ -77,7 +77,7 @@ export default class WahFieldset extends React.Component<Props> {
   }
 
   private onChangeState(event: React.SyntheticEvent): void {
-    const state = event.currentTarget.checked;
+    const state = (event.currentTarget as HTMLInputElement).checked;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('wah').state(state);
@@ -85,7 +85,7 @@ export default class WahFieldset extends React.Component<Props> {
   }
 
   private onChangeCutoff(event: React.SyntheticEvent): void {
-    const cutoff = event.currentTarget.valueAsNumber;
+    const cutoff = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('wah').param('cutoff', cutoff);
@@ -93,7 +93,7 @@ export default class WahFieldset extends React.Component<Props> {
   }
 
   private onChangeDepth(event: React.SyntheticEvent): void {
-    const depth = event.currentTarget.valueAsNumber;
+    const depth = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('wah').param('depth', depth);
@@ -101,7 +101,7 @@ export default class WahFieldset extends React.Component<Props> {
   }
 
   private onChangeRate(event: React.SyntheticEvent): void {
-    const rate = event.currentTarget.valueAsNumber;
+    const rate = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('wah').param('rate', rate);
@@ -109,7 +109,7 @@ export default class WahFieldset extends React.Component<Props> {
   }
 
   private onChangeResonance(event: React.SyntheticEvent): void {
-    const resonance = event.currentTarget.valueAsNumber;
+    const resonance = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('wah').param('resonance', resonance);

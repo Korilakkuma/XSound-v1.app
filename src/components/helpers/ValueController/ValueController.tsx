@@ -9,7 +9,7 @@ interface Props {
   max: number;
   step: number;
   defaultValue: number;
-  width: string;
+  width?: string;
   onChange(event: React.SyntheticEvent): void;
 }
 
@@ -49,7 +49,7 @@ export default class ValueController extends React.Component<Props, State> {
     const { value } = this.state;
 
     return (
-      <dl className="ValueController" style={{ width }}>
+      <dl className="ValueController" style={width ? { width } : undefined}>
         <dt>
           <label htmlFor={id}>{label}</label>
           <Spinner
@@ -76,6 +76,6 @@ export default class ValueController extends React.Component<Props, State> {
 
   private onChange(event: React.SyntheticEvent): void {
     this.props.onChange(event);
-    this.setState({ value: event.currentTarget.valueAsNumber });
+    this.setState({ value: (event.currentTarget as HTMLInputElement).valueAsNumber });
   }
 }

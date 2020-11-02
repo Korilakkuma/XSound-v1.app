@@ -88,7 +88,7 @@ export default class ChorusFieldset extends React.Component<Props> {
   }
 
   private onChangeState(event: React.SyntheticEvent): void {
-    const state = event.currentTarget.checked;
+    const state = (event.currentTarget as HTMLInputElement).checked;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('chorus').state(state);
@@ -96,7 +96,7 @@ export default class ChorusFieldset extends React.Component<Props> {
   }
 
   private onChangeTime(event: React.SyntheticEvent): void {
-    const time = event.currentTarget.valueAsNumber / 1000;
+    const time = (event.currentTarget as HTMLInputElement).valueAsNumber / 1000;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('chorus').param('time', time);
@@ -104,7 +104,7 @@ export default class ChorusFieldset extends React.Component<Props> {
   }
 
   private onChangeDepth(event: React.SyntheticEvent): void {
-    const depth = event.currentTarget.valueAsNumber;
+    const depth = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('chorus').param('depth', depth);
@@ -112,7 +112,7 @@ export default class ChorusFieldset extends React.Component<Props> {
   }
 
   private onChangeRate(event: React.SyntheticEvent): void {
-    const rate = event.currentTarget.valueAsNumber;
+    const rate = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('chorus').param('rate', rate);
@@ -120,7 +120,7 @@ export default class ChorusFieldset extends React.Component<Props> {
   }
 
   private onChangeMix(event: React.SyntheticEvent): void {
-    const mix = event.currentTarget.valueAsNumber;
+    const mix = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('chorus').param('mix', mix);
@@ -128,7 +128,7 @@ export default class ChorusFieldset extends React.Component<Props> {
   }
 
   private onChangeTone(event: React.SyntheticEvent): void {
-    const tone = event.currentTarget.valueAsNumber;
+    const tone = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('chorus').param('tone', tone);

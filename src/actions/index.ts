@@ -1,12 +1,12 @@
 import { ActionTypes } from './ActionTypes';
 import {
   SoundSource,
-  CurrentSourceSourceAction,
+  CurrentSoundSourceAction,
   AnalyserStateAction,
   MMLStateAction
-} from './types/types';
+} from '../types/types';
 
-export function changeCurrentSourceSource(source: SoundSource): CurrentSourceSourceAction {
+export function changeCurrentSoundSource(source: SoundSource): CurrentSoundSourceAction {
   return {
     type   : ActionTypes.CHANGE_CURRENT_SOUND_SOURCE,
     payload: source

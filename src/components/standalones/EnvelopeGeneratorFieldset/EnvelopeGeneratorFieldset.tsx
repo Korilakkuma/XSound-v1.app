@@ -72,28 +72,28 @@ export default class EnvelopeGenerator extends React.Component<Props, State> {
   }
 
   private onChangeAttack(event: React.SyntheticEvent): void {
-    const attack = event.currentTarget.valueAsNumber;
+    const attack = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     X('oscillator').module('envelopegenerator').param('attack', attack);
     window.C('oscillator').module('envelopegenerator').param('attack', attack);
   }
 
   private onChangeDecay(event: React.SyntheticEvent): void {
-    const decay = event.currentTarget.valueAsNumber;
+    const decay = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     X('oscillator').module('envelopegenerator').param('decay', decay);
     window.C('oscillator').module('envelopegenerator').param('decay', decay);
   }
 
   private onChangeSustain(event: React.SyntheticEvent): void {
-    const sustain = event.currentTarget.valueAsNumber;
+    const sustain = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     X('oscillator').module('envelopegenerator').param('sustain', sustain);
     window.C('oscillator').module('envelopegenerator').param('sustain', sustain);
   }
 
   private onChangeRelease(event: React.SyntheticEvent): void {
-    const release = event.currentTarget.valueAsNumber;
+    const release = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     X('oscillator').module('envelopegenerator').param('release', release);
     window.C('oscillator').module('envelopegenerator').param('release', release);

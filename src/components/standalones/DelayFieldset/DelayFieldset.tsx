@@ -88,7 +88,7 @@ export default class DelayFieldset extends React.Component<Props> {
   }
 
   private onChangeState(event: React.SyntheticEvent): void {
-    const state = event.currentTarget.checked;
+    const state = (event.currentTarget as HTMLInputElement).checked;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('delay').state(state);
@@ -96,7 +96,7 @@ export default class DelayFieldset extends React.Component<Props> {
   }
 
   private onChangeTime(event: React.SyntheticEvent): void {
-    const time = event.currentTarget.valueAsNumber / 1000;
+    const time = (event.currentTarget as HTMLInputElement).valueAsNumber / 1000;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('delay').param('time', time);
@@ -104,7 +104,7 @@ export default class DelayFieldset extends React.Component<Props> {
   }
 
   private onChangeDry(event: React.SyntheticEvent): void {
-    const dry = event.currentTarget.valueAsNumber;
+    const dry = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('delay').param('dry', dry);
@@ -112,7 +112,7 @@ export default class DelayFieldset extends React.Component<Props> {
   }
 
   private onChangeWet(event: React.SyntheticEvent): void {
-    const wet = event.currentTarget.valueAsNumber;
+    const wet = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('delay').param('wet', wet);
@@ -120,7 +120,7 @@ export default class DelayFieldset extends React.Component<Props> {
   }
 
   private onChangeTone(event: React.SyntheticEvent): void {
-    const tone = event.currentTarget.valueAsNumber;
+    const tone = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('delay').param('tone', tone);
@@ -128,7 +128,7 @@ export default class DelayFieldset extends React.Component<Props> {
   }
 
   private onChangeFeedback(event: React.SyntheticEvent): void {
-    const feedback = event.currentTarget.valueAsNumber;
+    const feedback = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('delay').param('feedback', feedback);

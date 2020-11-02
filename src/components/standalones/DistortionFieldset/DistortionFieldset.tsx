@@ -135,7 +135,7 @@ export default class DistortionFieldset extends React.Component<Props> {
   }
 
   private onChangeState(event: React.SyntheticEvent): void {
-    const state = event.currentTarget.checked;
+    const state = (event.currentTarget as HTMLInputElement).checked;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('distortion').state(state);
@@ -143,7 +143,7 @@ export default class DistortionFieldset extends React.Component<Props> {
   }
 
   private onChangeCurve(event: React.SyntheticEvent): void {
-    const curve = event.currentTarget.value;
+    const curve = (event.currentTarget as HTMLInputElement).value;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('distortion').param('curve', curve);
@@ -151,7 +151,7 @@ export default class DistortionFieldset extends React.Component<Props> {
   }
 
   private onChangeSamples(event: React.SyntheticEvent): void {
-    const samples = parseInt(event.currentTarget.value, 10);
+    const samples = parseInt((event.currentTarget as HTMLInputElement).value, 10);
 
     this.props.sources.forEach((source: string) => {
       X(source).module('distortion').param('samples', samples);
@@ -159,7 +159,7 @@ export default class DistortionFieldset extends React.Component<Props> {
   }
 
   private onChangeAmount(event: React.SyntheticEvent): void {
-    const amount = event.currentTarget.valueAsNumber;
+    const amount = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('distortion').param('amount', amount);
@@ -167,7 +167,7 @@ export default class DistortionFieldset extends React.Component<Props> {
   }
 
   private onChangeDrive(event: React.SyntheticEvent): void {
-    const drive = event.currentTarget.valueAsNumber;
+    const drive = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('distortion').param('drive', drive);
@@ -175,7 +175,7 @@ export default class DistortionFieldset extends React.Component<Props> {
   }
 
   private onChangeColor(event: React.SyntheticEvent): void {
-    const color = event.currentTarget.valueAsNumber;
+    const color = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('distortion').param('color', color);
@@ -183,7 +183,7 @@ export default class DistortionFieldset extends React.Component<Props> {
   }
 
   private onChangeTone(event: React.SyntheticEvent): void {
-    const tone = event.currentTarget.valueAsNumber;
+    const tone = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('distortion').param('tone', tone);

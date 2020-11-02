@@ -55,7 +55,7 @@ export default class RingModulatorFieldset extends React.Component<Props> {
   }
 
   private onChangeState(event: React.SyntheticEvent): void {
-    const state = event.currentTarget.checked;
+    const state = (event.currentTarget as HTMLInputElement).checked;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('ringmodulator').state(state);
@@ -63,7 +63,7 @@ export default class RingModulatorFieldset extends React.Component<Props> {
   }
 
   private onChangeDepth(event: React.SyntheticEvent): void {
-    const depth = event.currentTarget.valueAsNumber;
+    const depth = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('ringmodulator').param('depth', depth);
@@ -71,7 +71,7 @@ export default class RingModulatorFieldset extends React.Component<Props> {
   }
 
   private onChangeRate(event: React.SyntheticEvent): void {
-    const rate = event.currentTarget.valueAsNumber;
+    const rate = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('ringmodulator').param('rate', rate);

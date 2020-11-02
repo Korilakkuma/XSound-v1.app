@@ -2,9 +2,9 @@ import * as React from 'react';
 
 interface Props {
   title: string;
-  progress: boolean;
+  progress?: boolean;
   rate: number;
-  auto: boolean;
+  auto?: boolean;
 }
 
 const ProgressBar: React.SFC<Props> = (props: Props) => {

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { RefObject } from 'react';
 
 interface Props {
   label: string;
@@ -17,7 +18,7 @@ interface State {
   drop: boolean;
 }
 
-export default class FileUploader<Props, State> extends React.Component<Props, State> {
+export default class FileUploader extends React.Component<Props, State> {
   private fileUploaderRef: RefObject<HTMLInputElement> = React.createRef<HTMLInputElement>();
 
   constructor(props: Props) {
@@ -55,6 +56,10 @@ export default class FileUploader<Props, State> extends React.Component<Props, S
 
   private onClick(): void {
     const node = this.fileUploaderRef.current;
+
+    if (node === null) {
+      return;
+    }
 
     node.value = '';
     node.click();

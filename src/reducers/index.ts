@@ -2,12 +2,12 @@ import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
 import { ActionTypes } from '../actions/ActionTypes';
 import {
-  CurrentSourceSourceAction,
+  CurrentSoundSourceAction,
   AnalyserStateAction,
   MMLStateAction
-} from './types/types';
+} from '../types/types';
 
-function currentSoundSource(state = 'oscillator', action: CurrentSourceSourceAction): string {
+function currentSoundSource(state = 'oscillator', action: CurrentSoundSourceAction): string {
   switch (action.type) {
     case ActionTypes.CHANGE_CURRENT_SOUND_SOURCE:
       return action.payload;

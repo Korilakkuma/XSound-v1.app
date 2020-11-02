@@ -2,9 +2,9 @@ import * as React from 'react';
 
 interface Props {
   groups?: string[];
-  values: { string: string[] };
-  texts: { string: string[] };
-  width: string;
+  values: string[] | { [group: string]: string[] };
+  texts: string[] | { [group: string]: string[] };
+  width?: string;
   onChange(event: React.SyntheticEvent): void;
   defaultValue?: string;
 }
@@ -18,7 +18,7 @@ const Select: React.SFC<Props> = (props: Props) => {
         className="Select"
         onChange={onChange}
         defaultValue={defaultValue}
-        style={{ width }}
+        style={width ? { width } : undefined}
       >
         {groups.map((group: string, key: number) => {
           return (
@@ -33,18 +33,22 @@ const Select: React.SFC<Props> = (props: Props) => {
     );
   }
 
-  return (
-    <select
-      className="Select"
-      onChange={onChange}
-      defaultValue={defaultValue}
-      style={{ width }}
-    >
-      {values.map((value: string, index: number) => {
-        return <option key={value} value={value}>{texts[index]}</option>;
-      })}
-    </select>
-  );
+  if (Array.isArray(values)) {
+    return (
+      <select
+        className="Select"
+        onChange={onChange}
+        defaultValue={defaultValue}
+        style={width ? { width } : undefined}
+      >
+        {values.map((value: string, index: number) => {
+          return <option key={value} value={value}>{texts[index]}</option>;
+        })}
+      </select>
+    );
+  }
+
+  return null;
 };
 
 export default Select;

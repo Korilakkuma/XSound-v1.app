@@ -1,8 +1,14 @@
 import * as React from 'react';
 import { Dispatch } from 'redux';
-import { SoundSource } from '../../../types/types';
 import {
-  changeCurrentSourceSource,
+  SoundSource,
+  MIDIAccess,
+  MIDIInput,
+  MIDIOutput,
+  MIDIMessageEvent
+} from '../../../types/types';
+import {
+  changeCurrentSoundSource,
   changeAnalyserState,
   changeMMLState
 } from '../../../actions';
@@ -29,9 +35,9 @@ const MIN_NOTE_NUMBER = 21;
 const MAX_NOTE_NUMBER = 108;
 const MAX_VELOCITY    = 127;
 
-function successCallback(source: string, midiAccess: MIDIAccess, inputs: MIDIInput, outputs: MIDIOutput): void {
-  const indexes = [];
-  const volumes = [];
+function successCallback(source: string, midiAccess: MIDIAccess, inputs: MIDIInput[], outputs: MIDIOutput[]): void {
+  const indexes: number[] = [];
+  const volumes: number[] = [];
 
   const noteOn = (noteNumber: number, velocity: number) => {
     if ((noteNumber < MIN_NOTE_NUMBER) || (noteNumber > MAX_NOTE_NUMBER)) {
@@ -48,8 +54,8 @@ function successCallback(source: string, midiAccess: MIDIAccess, inputs: MIDIInp
     if (source === 'oscillator') {
       indexes.push(targetIndex);
 
-      volumes[0] = X('oscillator', 0).param('volume');
-      volumes[1] = window.C('oscillator', 0).param('volume');
+      volumes[0] = X('oscillator', 0).param('volume') as number;
+      volumes[1] = window.C('oscillator', 0).param('volume') as number;
 
       for (let i = 0, len = X('oscillator').length(); i < len; i++) {
         if (i !== 0) {
@@ -136,6 +142,7 @@ export default class BasicControllers extends React.Component<Props, State> {
     super(props);
 
     this.state = {
+      currentSoundSource     : 'oscillator',
       analyserState          : false,
       mmlState               : false,
       errorMessage           : '',
@@ -245,30 +252,30 @@ export default class BasicControllers extends React.Component<Props, State> {
   private onChangeMasterVolume(event: React.SyntheticEvent): void {
     this.props.sources.forEach((source: string) => {
       if (X(source) !== null) {
-        X(source).param('mastervolume', event.currentTarget.valueAsNumber);
+        X(source).param('mastervolume', (event.currentTarget as HTMLInputElement).valueAsNumber);
       }
 
       if (window.C(source) !== null) {
-        window.C(source).param('mastervolume', event.currentTarget.valueAsNumber);
+        window.C(source).param('mastervolume', (event.currentTarget as HTMLInputElement).valueAsNumber);
       }
     });
   }
 
   private onChangeGlide(event: React.SyntheticEvent): void {
-    X('oscillator').module('glide').param('time', event.currentTarget.valueAsNumber);
-    window.C('oscillator').module('glide').param('time', event.currentTarget.valueAsNumber);
+    X('oscillator').module('glide').param('time', (event.currentTarget as HTMLInputElement).valueAsNumber);
+    window.C('oscillator').module('glide').param('time', (event.currentTarget as HTMLInputElement).valueAsNumber);
   }
 
   private onChangeTranspose(event: React.SyntheticEvent): void {
-    const transpose = (event.currentTarget.valueAsNumber + 12) / 12;
+    const transpose = ((event.currentTarget as HTMLInputElement).valueAsNumber + 12) / 12;
 
     X('oneshot').param('transpose', transpose);
   }
 
   private onChangeSoundSource(event: React.SyntheticEvent): void {
-    const source = event.currentTarget.value;
+    const source = (event.currentTarget as HTMLInputElement).value as SoundSource;
 
-    this.props.dispatch(changeCurrentSourceSource(source));
+    this.props.dispatch(changeCurrentSoundSource(source));
 
     this.setState({ currentSoundSource: source }, () => {
       X('stream').stop();
@@ -280,7 +287,7 @@ export default class BasicControllers extends React.Component<Props, State> {
           break;
         case 'midi':
           try {
-            X('midi').setup(true, (midiAccess: MIDIAccess, inputs: MIDIInput, outputs: MIDIOutput) => {
+            X('midi').setup(true, (midiAccess: MIDIAccess, inputs: MIDIInput[], outputs: MIDIOutput[]) => {
               successCallback(source, midiAccess, inputs, outputs);
             }, () => {
               this.setState({
@@ -288,7 +295,7 @@ export default class BasicControllers extends React.Component<Props, State> {
                 isShowModalForMIDIError: true
               });
             });
-          } catch (error: Error) {
+          } catch (error) {
             this.setState({
               errorMessage           : error.message,
               isShowModalForMIDIError: true
@@ -302,7 +309,7 @@ export default class BasicControllers extends React.Component<Props, State> {
   }
 
   private onChangeAnalyserState(event: React.SyntheticEvent): void {
-    this.props.dispatch(changeAnalyserState(event.currentTarget.checked));
+    this.props.dispatch(changeAnalyserState((event.currentTarget as HTMLInputElement).checked));
 
     this.setState((prevState: State) => {
       return { analyserState: !prevState.analyserState };
@@ -310,7 +317,7 @@ export default class BasicControllers extends React.Component<Props, State> {
   }
 
   private onChangeMMLState(event: React.SyntheticEvent): void {
-    this.props.dispatch(changeMMLState(event.currentTarget.checked));
+    this.props.dispatch(changeMMLState((event.currentTarget as HTMLInputElement).checked));
 
     this.setState((prevState: State) => {
       return { mmlState: !prevState.mmlState };

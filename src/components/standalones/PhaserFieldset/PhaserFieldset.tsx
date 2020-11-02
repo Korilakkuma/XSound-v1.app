@@ -111,7 +111,7 @@ export default class PhaserFieldset extends React.Component<Props> {
   }
 
   private onChangeState(event: React.SyntheticEvent): void {
-    const state = event.currentTarget.checked;
+    const state = (event.currentTarget as HTMLInputElement).checked;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('phaser').state(state);
@@ -119,7 +119,7 @@ export default class PhaserFieldset extends React.Component<Props> {
   }
 
   private onChangeStage(event: React.SyntheticEvent): void {
-    const stage = parseInt(event.currentTarget.value, 10);
+    const stage = parseInt((event.currentTarget as HTMLInputElement).value, 10);
 
     this.props.sources.forEach((source: string) => {
       X(source).module('phaser').param('stage', stage);
@@ -127,7 +127,7 @@ export default class PhaserFieldset extends React.Component<Props> {
   }
 
   private onChangeFrequency(event: React.SyntheticEvent): void {
-    const frequency = event.currentTarget.valueAsNumber;
+    const frequency = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('phaser').param('frequency', frequency);
@@ -135,7 +135,7 @@ export default class PhaserFieldset extends React.Component<Props> {
   }
 
   private onChangeDepth(event: React.SyntheticEvent): void {
-    const depth = event.currentTarget.valueAsNumber;
+    const depth = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('phaser').param('depth', depth);
@@ -143,7 +143,7 @@ export default class PhaserFieldset extends React.Component<Props> {
   }
 
   private onChangeRate(event: React.SyntheticEvent): void {
-    const rate = event.currentTarget.valueAsNumber;
+    const rate = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('phaser').param('rate', rate);
@@ -151,7 +151,7 @@ export default class PhaserFieldset extends React.Component<Props> {
   }
 
   private onChangeMix(event: React.SyntheticEvent): void {
-    const mix = event.currentTarget.valueAsNumber;
+    const mix = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('phaser').param('mix', mix);
@@ -159,7 +159,7 @@ export default class PhaserFieldset extends React.Component<Props> {
   }
 
   private onChangeFeedback(event: React.SyntheticEvent): void {
-    const feedback = event.currentTarget.valueAsNumber;
+    const feedback = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('phaser').param('feedback', feedback);

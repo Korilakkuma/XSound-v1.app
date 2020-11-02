@@ -1,4 +1,5 @@
 import { Action } from 'redux';
+import { ActionTypes } from '../actions/ActionTypes';
 
 export type SoundSource = 'oscillator'
                         | 'piano'
@@ -6,7 +7,9 @@ export type SoundSource = 'oscillator'
                         | 'electric-guitar'
                         | 'whitenoise'
                         | 'pinknoise'
-                        | 'browniannoise';
+                        | 'browniannoise'
+                        | 'stream'
+                        | 'midi';
 
 export type RIRInfo = {
   url: string;
@@ -15,17 +18,37 @@ export type RIRInfo = {
   group: string;
 }
 
-export interface CurrentSourceSourceAction extends Action {
-  type: 'CHANGE_CURRENT_SOUND_SOURCE';
+// HACK:
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface MIDIAccess {
+}
+
+// HACK:
+export interface MIDIInput {
+  onmidimessage(event: MIDIMessageEvent): void;
+}
+
+// HACK:
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface MIDIOutput {
+}
+
+// HACK:
+export interface MIDIMessageEvent {
+  data: Uint8Array;
+}
+
+export interface CurrentSoundSourceAction extends Action {
+  type: typeof ActionTypes.CHANGE_CURRENT_SOUND_SOURCE;
   payload: SoundSource;
 }
 
 export interface AnalyserStateAction extends Action {
-  type: 'CHANGE_ANALYSER_STATE';
+  type: typeof ActionTypes.CHANGE_ANALYSER_STATE;
   payload: boolean;
 }
 
 export interface MMLStateAction extends Action {
-  type: 'CHANGE_MML_STATE';
+  type: typeof ActionTypes.CHANGE_MML_STATE;
   payload: boolean;
 }

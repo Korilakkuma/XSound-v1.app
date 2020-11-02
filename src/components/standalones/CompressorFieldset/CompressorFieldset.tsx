@@ -88,7 +88,7 @@ export default class CompressorFieldset extends React.Component<Props> {
   }
 
   private onChangeState(event: React.SyntheticEvent): void {
-    const state = event.currentTarget.checked;
+    const state = (event.currentTarget as HTMLInputElement).checked;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('compressor').state(state);
@@ -96,7 +96,7 @@ export default class CompressorFieldset extends React.Component<Props> {
   }
 
   private onChangeThreshold(event: React.SyntheticEvent): void {
-    const threshold = event.currentTarget.valueAsNumber;
+    const threshold = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('compressor').param('threshold', threshold);
@@ -104,7 +104,7 @@ export default class CompressorFieldset extends React.Component<Props> {
   }
 
   private onChangeKnee(event: React.SyntheticEvent): void {
-    const knee = event.currentTarget.valueAsNumber;
+    const knee = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('compressor').param('knee', knee);
@@ -112,7 +112,7 @@ export default class CompressorFieldset extends React.Component<Props> {
   }
 
   private onChangeRatio(event: React.SyntheticEvent): void {
-    const ratio = event.currentTarget.valueAsNumber;
+    const ratio = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('compressor').param('ratio', ratio);
@@ -120,7 +120,7 @@ export default class CompressorFieldset extends React.Component<Props> {
   }
 
   private onChangeAttack(event: React.SyntheticEvent): void {
-    const attack = event.currentTarget.valueAsNumber;
+    const attack = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('compressor').param('attack', attack);
@@ -128,7 +128,7 @@ export default class CompressorFieldset extends React.Component<Props> {
   }
 
   private onChangeRelease(event: React.SyntheticEvent): void {
-    const release = event.currentTarget.valueAsNumber;
+    const release = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('compressor').param('release', release);

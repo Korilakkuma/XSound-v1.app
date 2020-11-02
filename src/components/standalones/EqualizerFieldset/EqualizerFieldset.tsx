@@ -77,7 +77,7 @@ export default class EqualizerFieldset extends React.Component<Props> {
   }
 
   private onChangeState(event: React.SyntheticEvent): void {
-    const state = event.currentTarget.checked;
+    const state = (event.currentTarget as HTMLInputElement).checked;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('equalizer').state(state);
@@ -85,7 +85,7 @@ export default class EqualizerFieldset extends React.Component<Props> {
   }
 
   private onChangeBass(event: React.SyntheticEvent): void {
-    const bass = event.currentTarget.valueAsNumber;
+    const bass = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('equalizer').param('bass', bass);
@@ -93,7 +93,7 @@ export default class EqualizerFieldset extends React.Component<Props> {
   }
 
   private onChangeMiddle(event: React.SyntheticEvent): void {
-    const middle = event.currentTarget.valueAsNumber;
+    const middle = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('equalizer').param('middle', middle);
@@ -101,7 +101,7 @@ export default class EqualizerFieldset extends React.Component<Props> {
   }
 
   private onChangeTreble(event: React.SyntheticEvent): void {
-    const treble = event.currentTarget.valueAsNumber;
+    const treble = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('equalizer').param('treble', treble);
@@ -109,7 +109,7 @@ export default class EqualizerFieldset extends React.Component<Props> {
   }
 
   private onChangePresence(event: React.SyntheticEvent): void {
-    const presence = event.currentTarget.valueAsNumber;
+    const presence = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('equalizer').param('presence', presence);

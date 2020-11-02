@@ -24,8 +24,8 @@ export default class ReverbFieldset extends React.Component<Props> {
 
   render(): React.ReactNode {
     const groups: string[] = [];
-    const values: { string: string[] } = {};
-    const texts: { string: string[] } = {};
+    const values: { [group: string]: string[] } = {};
+    const texts: { [group: string]: string[] } = {};
 
     this.props.rirInfos.forEach((rirInfo: RIRInfo) => {
       const { value, label, group } = rirInfo;
@@ -33,9 +33,9 @@ export default class ReverbFieldset extends React.Component<Props> {
       groups.push(group);
 
       if (Array.isArray(values[group])) {
-        values[group].push(parseInt(value, 10));
+        values[group].push(value.toString(10));
       } else {
-        values[group] = [parseInt(value, 10)];
+        values[group] = [value.toString(10)];
       }
 
       if (Array.isArray(texts[group])) {
@@ -100,7 +100,7 @@ export default class ReverbFieldset extends React.Component<Props> {
   }
 
   private onChangeState(event: React.SyntheticEvent): void {
-    const state = event.currentTarget.checked;
+    const state = (event.currentTarget as HTMLInputElement).checked;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('reverb').state(state);
@@ -108,7 +108,7 @@ export default class ReverbFieldset extends React.Component<Props> {
   }
 
   private onChangeType(event: React.SyntheticEvent): void {
-    const type = parseInt(event.currentTarget.value, 10);
+    const type = parseInt((event.currentTarget as HTMLInputElement).value, 10);
 
     this.props.sources.forEach((source: string) => {
       X(source).module('reverb').param('type', type);
@@ -116,7 +116,7 @@ export default class ReverbFieldset extends React.Component<Props> {
   }
 
   private onChangeDry(event: React.SyntheticEvent): void {
-    const dry = event.currentTarget.valueAsNumber;
+    const dry = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('reverb').param('dry', dry);
@@ -124,7 +124,7 @@ export default class ReverbFieldset extends React.Component<Props> {
   }
 
   private onChangeWet(event: React.SyntheticEvent): void {
-    const wet = event.currentTarget.valueAsNumber;
+    const wet = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('reverb').param('wet', wet);
@@ -132,7 +132,7 @@ export default class ReverbFieldset extends React.Component<Props> {
   }
 
   private onChangeTone(event: React.SyntheticEvent): void {
-    const tone = event.currentTarget.valueAsNumber;
+    const tone = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('reverb').param('tone', tone);

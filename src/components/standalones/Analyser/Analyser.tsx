@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { RefObject } from 'react';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
 import { ValueController } from '../../helpers/ValueController';
@@ -14,6 +15,10 @@ interface State {
   showTimeOverview: 'left' | 'right';
 }
 
+interface DerivedState {
+  active: boolean;
+}
+
 export default class Analyser extends React.Component<Props, State> {
   private setupped = false;
 
@@ -22,7 +27,7 @@ export default class Analyser extends React.Component<Props, State> {
   private canvasForTimeDomainRef: RefObject<HTMLCanvasElement>        = React.createRef<HTMLCanvasElement>();
   private canvasForFrequencyDomainRef: RefObject<HTMLCanvasElement>   = React.createRef<HTMLCanvasElement>();
 
-  static getDerivedStateFromProps(props: Props, state: State): State | null {
+  static getDerivedStateFromProps(props: Props, state: State): DerivedState | null {
     if (props.active !== state.active) {
       return { active: props.active };
     }
@@ -235,7 +240,7 @@ export default class Analyser extends React.Component<Props, State> {
   }
 
   private onChangeMode(event: React.SyntheticEvent): void {
-    const checked = event.currentTarget.checked;
+    const checked = (event.currentTarget as HTMLInputElement).checked;
 
     if (checked) {
       X('audio').module('analyser').domain('timeoverview', 0).param('mode', 'sprite');
@@ -253,7 +258,7 @@ export default class Analyser extends React.Component<Props, State> {
   }
 
   private onChangeInterval(event: React.SyntheticEvent): void {
-    const value = event.currentTarget.valueAsNumber;
+    const value = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('analyser').domain('time').param('interval', ((value > 0) ? value : 'auto'));
@@ -263,7 +268,7 @@ export default class Analyser extends React.Component<Props, State> {
 
   private onChangeSmoothing(event: React.SyntheticEvent): void {
     this.props.sources.forEach((source: string) => {
-      X(source).module('analyser').param('smoothingTimeConstant', event.currentTarget.valueAsNumber);
+      X(source).module('analyser').param('smoothingTimeConstant', (event.currentTarget as HTMLInputElement).valueAsNumber);
     });
   }
 }

@@ -241,7 +241,7 @@ export default class RecorderFieldset extends React.Component<Props, State> {
       return;
     }
 
-    this.activeTrack = parseInt(event.currentTarget.value, 10);
+    this.activeTrack = parseInt((event.currentTarget as HTMLInputElement).value, 10);
 
     this.props.sources.forEach((source: string) => {
       if (source !== 'oscillator') {
@@ -257,7 +257,7 @@ export default class RecorderFieldset extends React.Component<Props, State> {
   private onChangeLeftChannelGain(event: React.SyntheticEvent): void {
     this.props.sources.forEach((source: string) => {
       if (source !== 'oscillator') {
-        X(source).module('recorder').param('gainL', event.currentTarget.valueAsNumber);
+        X(source).module('recorder').param('gainL', (event.currentTarget as HTMLInputElement).valueAsNumber);
       }
     });
   }
@@ -265,7 +265,7 @@ export default class RecorderFieldset extends React.Component<Props, State> {
   private onChangeRightChannelGain(event: React.SyntheticEvent): void {
     this.props.sources.forEach((source: string) => {
       if (source !== 'oscillator') {
-        X(source).module('recorder').param('gainR', event.currentTarget.valueAsNumber);
+        X(source).module('recorder').param('gainR', (event.currentTarget as HTMLInputElement).valueAsNumber);
       }
     });
   }

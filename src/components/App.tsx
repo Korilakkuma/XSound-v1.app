@@ -149,7 +149,7 @@ const rirInfos: RIRInfo[] = [
 ];
 
 function getBufferIndex(pianoIndex: number): number {
-  switch (parseInt(((pianoIndex + 9) % 12), 10)) {
+  switch (Math.floor((pianoIndex + 9) % 12)) {
     case  0 :
     case  1 :
       return 0;
@@ -170,7 +170,7 @@ function getBufferIndex(pianoIndex: number): number {
     case 11 :
       return 6;
     default :
-      break;
+      return -1;
   }
 }
 
@@ -897,7 +897,7 @@ class App extends React.Component<Props, State> {
           });
         }
       });
-    } catch (error: Error) {
+    } catch (error) {
       this.setState({
         errorMessage      : error.message,
         isShowModalForAjax: true
@@ -930,35 +930,35 @@ class App extends React.Component<Props, State> {
               label="Oscillator - 1"
               radioName="oscillator-type-0"
               onChangeType={(event: React.SyntheticEvent) => {
-                const type = event.currentTarget.value;
+                const type = (event.currentTarget as HTMLInputElement).value;
 
                 for (let i = 0, len = X('oscillator').length(); i < len; i++) {
                   X('oscillator').get(i).param('type', type);
                 }
               }}
               onChangeState={(event: React.SyntheticEvent) => {
-                const state = event.currentTarget.checked;
+                const state = (event.currentTarget as HTMLInputElement).checked;
 
                 for (let i = 0, len = X('oscillator').length(); i < len; i++) {
                   X('oscillator').get(i).state(state);
                 }
               }}
               onChangeVolume={(event: React.SyntheticEvent) => {
-                const volume = event.currentTarget.valueAsNumber;
+                const volume = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
                 for (let i = 0, len = X('oscillator').length(); i < len; i++) {
                   X('oscillator').get(i).param('volume', volume);
                 }
               }}
               onChangeOctave={(event: React.SyntheticEvent) => {
-                const octave = event.currentTarget.valueAsNumber;
+                const octave = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
                 for (let i = 0, len = X('oscillator').length(); i < len; i++) {
                   X('oscillator').get(i).param('octave', octave);
                 }
               }}
               onChangeFine={(event: React.SyntheticEvent) => {
-                const fine = event.currentTarget.valueAsNumber;
+                const fine = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
                 for (let i = 0, len = X('oscillator').length(); i < len; i++) {
                   X('oscillator').get(i).param('fine', fine);
@@ -970,35 +970,35 @@ class App extends React.Component<Props, State> {
               label="Oscillator - 2"
               radioName="oscillator-type-1"
               onChangeType={(event: React.SyntheticEvent) => {
-                const type = event.currentTarget.value;
+                const type = (event.currentTarget as HTMLInputElement).value;
 
                 for (let i = 0, len = window.C('oscillator').length(); i < len; i++) {
                   window.C('oscillator').get(i).param('type', type);
                 }
               }}
               onChangeState={(event: React.SyntheticEvent) => {
-                const state = event.currentTarget.checked;
+                const state = (event.currentTarget as HTMLInputElement).checked;
 
                 for (let i = 0, len = window.C('oscillator').length(); i < len; i++) {
                   window.C('oscillator').get(i).state(state);
                 }
               }}
               onChangeVolume={(event: React.SyntheticEvent) => {
-                const volume = event.currentTarget.valueAsNumber;
+                const volume = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
                 for (let i = 0, len = window.C('oscillator').length(); i < len; i++) {
                   window.C('oscillator').get(i).param('volume', volume);
                 }
               }}
               onChangeOctave={(event: React.SyntheticEvent) => {
-                const octave = event.currentTarget.valueAsNumber;
+                const octave = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
                 for (let i = 0, len = window.C('oscillator').length(); i < len; i++) {
                   window.C('oscillator').get(i).param('octave', octave);
                 }
               }}
               onChangeFine={(event: React.SyntheticEvent) => {
-                const fine = event.currentTarget.valueAsNumber;
+                const fine = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
                 for (let i = 0, len = window.C('oscillator').length(); i < len; i++) {
                   window.C('oscillator').get(i).param('fine', fine);

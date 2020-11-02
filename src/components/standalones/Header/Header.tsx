@@ -66,7 +66,7 @@ export default class Header extends React.Component<Props, State> {
   }
 
   private onAnimationEnd(event: React.SyntheticEvent): void {
-    if (event.animationName === 'fade-out-header-animation') {
+    if ((event.nativeEvent as AnimationEvent).animationName === 'fade-out-header-animation') {
       this.setState({ animationEnd: true });
     }
   }

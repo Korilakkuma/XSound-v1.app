@@ -136,7 +136,7 @@ export default class FilterFieldset extends React.Component<Props> {
   }
 
   private onChangeState(event: React.SyntheticEvent): void {
-    const state = event.currentTarget.checked;
+    const state = (event.currentTarget as HTMLInputElement).checked;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('filter').state(state);
@@ -144,7 +144,7 @@ export default class FilterFieldset extends React.Component<Props> {
   }
 
   private onChangeType(event: React.SyntheticEvent): void {
-    const type = event.currentTarget.value;
+    const type = (event.currentTarget as HTMLInputElement).value;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('filter').param('type', type);
@@ -152,7 +152,7 @@ export default class FilterFieldset extends React.Component<Props> {
   }
 
   private onChangeFrequency(event: React.SyntheticEvent): void {
-    const frequency = event.currentTarget.valueAsNumber;
+    const frequency = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('filter').param('frequency', frequency);
@@ -160,7 +160,7 @@ export default class FilterFieldset extends React.Component<Props> {
   }
 
   private onChangeQuality(event: React.SyntheticEvent): void {
-    const quality = event.currentTarget.valueAsNumber;
+    const quality = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('filter').param('Q', quality);
@@ -168,7 +168,7 @@ export default class FilterFieldset extends React.Component<Props> {
   }
 
   private onChangeGain(event: React.SyntheticEvent): void {
-    const gain = event.currentTarget.valueAsNumber;
+    const gain = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('filter').param('gain', gain);
@@ -176,7 +176,7 @@ export default class FilterFieldset extends React.Component<Props> {
   }
 
   private onChangeAttack(event: React.SyntheticEvent): void {
-    const attack = event.currentTarget.valueAsNumber;
+    const attack = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('filter').param('attack', attack);
@@ -184,7 +184,7 @@ export default class FilterFieldset extends React.Component<Props> {
   }
 
   private onChangeDecay(event: React.SyntheticEvent): void {
-    const decay = event.currentTarget.valueAsNumber;
+    const decay = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('filter').param('decay', decay);
@@ -192,7 +192,7 @@ export default class FilterFieldset extends React.Component<Props> {
   }
 
   private onChangeSustain(event: React.SyntheticEvent): void {
-    const sustain = event.currentTarget.valueAsNumber;
+    const sustain = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('filter').param('sustain', sustain);
@@ -200,7 +200,7 @@ export default class FilterFieldset extends React.Component<Props> {
   }
 
   private onChangeRelease(event: React.SyntheticEvent): void {
-    const release = event.currentTarget.valueAsNumber;
+    const release = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
     this.props.sources.forEach((source: string) => {
       X(source).module('filter').param('release', release);

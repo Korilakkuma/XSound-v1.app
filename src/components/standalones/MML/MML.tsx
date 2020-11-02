@@ -37,9 +37,14 @@ interface State {
   total: number;
   rate: number;
   errorMessage: string;
+  mmlErrorMessage: string;
   isShowModalForFileUploadError: boolean;
   isShowModalForProgress: boolean;
   isShowModalConfirmation: boolean;
+}
+
+interface DerivedState {
+  active: boolean;
 }
 
 const CLEAR_HIGHLIGHT_REGEXP = /<span class="x-highlight">(.+?)<\/span>/g;
@@ -48,7 +53,7 @@ export default class MML extends React.Component<Props, State> {
   private setupped = false;
   private mmls = ['', ''];
 
-  static getDerivedStateFromProps(props: Props, state: State): State | null {
+  static getDerivedStateFromProps(props: Props, state: State): DerivedState | null {
     if (state.active !== props.active) {
       return { active: props.active };
     }
@@ -65,6 +70,7 @@ export default class MML extends React.Component<Props, State> {
       highlight                    : false,
       melody                       : '',
       bass                         : '',
+      dataURL                      : '',
       filename                     : '',
       progress                     : false,
       loaded                       : 0,
@@ -151,7 +157,7 @@ export default class MML extends React.Component<Props, State> {
     }
 
     const startCallbackMelody = (sequence: Sequence) => {
-      sequence.indexes.forEach((index: number) => {
+      sequence.indexes.forEach((index: number | 'R') => {
         if (index === 'R') {
           return;
         }
@@ -167,7 +173,7 @@ export default class MML extends React.Component<Props, State> {
     };
 
     const startCallbackBass = (sequence: Sequence) => {
-      sequence.indexes.forEach((index: number) => {
+      sequence.indexes.forEach((index: number | 'R') => {
         if (index === 'R') {
           return;
         }
@@ -183,7 +189,7 @@ export default class MML extends React.Component<Props, State> {
     };
 
     const stopCallback = (sequence: Sequence) => {
-      sequence.indexes.forEach((index: number) => {
+      sequence.indexes.forEach((index: number | 'R') => {
         if (index === 'R') {
           return;
         }
@@ -343,7 +349,6 @@ export default class MML extends React.Component<Props, State> {
           hasOverlay
           isShow={isShowModalForProgress}
           title="Progress ..."
-          onClose={null}
         >
           <p>{loaded} bytes ({rate} %)</p>
           <ProgressBar title="" progress={progress} rate={rate} auto={false} />
@@ -400,6 +405,10 @@ export default class MML extends React.Component<Props, State> {
   }
 
   private onBlurMelody(event: React.SyntheticEvent): void {
+    if ((event.currentTarget === null) || (event.currentTarget.textContent === null)) {
+      return;
+    }
+
     this.setState({
       melody: event.currentTarget.textContent,
       paused: true
@@ -409,6 +418,10 @@ export default class MML extends React.Component<Props, State> {
   }
 
   private onBlurBass(event: React.SyntheticEvent): void {
+    if ((event.currentTarget === null) || (event.currentTarget.textContent === null)) {
+      return;
+    }
+
     this.setState({
       bass  : event.currentTarget.textContent,
       paused: true
@@ -494,7 +507,7 @@ export default class MML extends React.Component<Props, State> {
   }
 
   private onChangeHightlight(event: React.SyntheticEvent): void {
-    this.setState({ highlight: event.currentTarget.checked });
+    this.setState({ highlight: (event.currentTarget as HTMLInputElement).checked });
   }
 
   private readFile(event: React.SyntheticEvent): void {
@@ -502,7 +515,7 @@ export default class MML extends React.Component<Props, State> {
       event   : event.nativeEvent,
       type    : 'Text',
       success : (event: Event, text: string) => {
-        event.currentTarget.value = '';
+        (event.currentTarget as HTMLInputElement).value = '';
 
         this.setState({
           progress              : false,
@@ -532,7 +545,7 @@ export default class MML extends React.Component<Props, State> {
         });
       },
       progress: (event: Event) => {
-        const { lengthComputable, loaded, total } = event;
+        const { lengthComputable, loaded, total } = event as ProgressEvent;
 
         this.setState({
           progress              : lengthComputable,
@@ -548,7 +561,7 @@ export default class MML extends React.Component<Props, State> {
       const file = X.file(options);
 
       this.setState({ filename: file.name });
-    } catch (error: Error) {
+    } catch (error) {
       this.setState({
         errorMessage                 : error.message,
         isShowModalForFileUploadError: true
