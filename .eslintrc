@@ -15,6 +15,7 @@
     "plugin:@typescript-eslint/recommended"
   ],
   "rules": {
+    "default-param-last": 0,
     "indent": [2, 2, {
       "ignoredNodes": ["TemplateLiteral"],
       "SwitchCase": 1,
@@ -27,6 +28,7 @@
     "no-multi-spaces": 0,
     "no-unneeded-ternary": 0,
     "no-unused-vars": [1, {"vars": "all", "args": "after-used"}],
+    "no-use-before-define": 1,
     "no-var": 1,
     "prefer-promise-reject-errors": 0,
     "quotes": [2, "single"],
