@@ -27,6 +27,7 @@
   margin-bottom: 8px;
   font-size: 12px;
   color: var(--white);
+  text-transform: uppercase;
 }
 
 .MML__editor > dl > dd[contentEditable] {
