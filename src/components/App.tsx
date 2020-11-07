@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { RefObject } from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { SoundSource, RIRInfo } from '../types/types';
