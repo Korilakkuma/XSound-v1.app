@@ -273,6 +273,11 @@ export default class BasicControllers extends React.Component<Props, State> {
   }
 
   private onChangeSoundSource(event: React.SyntheticEvent): void {
+    this.props.sources.forEach((source: SoundSource) => {
+      X(source).module('analyser').stop('time').domain('time').clear();
+      X(source).module('analyser').stop('fft').domain('fft').clear();
+    });
+
     const source = (event.currentTarget as HTMLInputElement).value as SoundSource;
 
     this.props.dispatch(changeCurrentSoundSource(source));
