@@ -1,8 +1,8 @@
 import * as React from 'react';
 
 interface Props {
-  id?: string;
   label: string;
+  id?: string;
   defaultChecked?: boolean;
   onChange(event: React.SyntheticEvent): void;
 }
@@ -23,7 +23,7 @@ export default class Switch extends React.Component<Props, State> {
   }
 
   render(): React.ReactNode {
-    const { id, label } = this.props;
+    const { label, id } = this.props;
 
     return (
       <div className={`Switch${this.state.checked ? ' -checked' : ''}`}>

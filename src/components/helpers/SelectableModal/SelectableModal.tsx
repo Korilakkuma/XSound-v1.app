@@ -12,19 +12,19 @@ interface Props {
   title: string;
   first: Selection;
   second: Selection;
-  onClose(event: React.SyntheticEvent): void;
   children: React.ReactNode;
+  onClose(event: React.SyntheticEvent): void;
 }
 
-const SelectableModal: React.SFC<Props> = (props: Props) => {
+const SelectableModal: React.FC<Props> = (props: Props) => {
   const {
     isShow,
     hasOverlay,
     title,
     first,
     second,
-    onClose,
-    children
+    children,
+    onClose
   } = props;
 
   return (

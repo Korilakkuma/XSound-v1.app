@@ -1,25 +1,25 @@
 import * as React from 'react';
 
 interface Props {
+  active: boolean;
   label: string;
   image: string;
   width: number;
   height: number;
   size: string;
   position?: string;
-  active: boolean;
   onClick(event: React.SyntheticEvent): void;
 }
 
-const Button: React.SFC<Props> = (props: Props) => {
+const Button: React.FC<Props> = (props: Props) => {
   const {
+    active,
     label,
     image,
     width,
     height,
     size,
     position,
-    active,
     onClick
   } = props;
 

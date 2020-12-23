@@ -4,12 +4,12 @@ interface Props {
   isShow: boolean;
   hasOverlay: boolean;
   title: string;
-  onClose?(event: React.SyntheticEvent): void;
   children: React.ReactNode;
+  onClose?(event: React.SyntheticEvent): void;
 }
 
-const Modal: React.SFC<Props> = (props: Props) => {
-  const { isShow, hasOverlay, title, onClose, children } = props;
+const Modal: React.FC<Props> = (props: Props) => {
+  const { isShow, hasOverlay, title, children, onClose } = props;
 
   return (
     <div className={`Modal${isShow ? ' -show' : ''}`}>

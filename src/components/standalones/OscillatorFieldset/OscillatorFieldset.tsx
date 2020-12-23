@@ -16,7 +16,7 @@ interface Props {
   onChangeFine(event: React.SyntheticEvent): void;
 }
 
-const OscillatorFieldset: React.SFC<Props> = (props: Props) => {
+const OscillatorFieldset: React.FC<Props> = (props: Props) => {
   const {
     oscillatorNumber,
     label,

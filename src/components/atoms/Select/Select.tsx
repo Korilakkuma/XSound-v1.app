@@ -1,16 +1,16 @@
 import * as React from 'react';
 
 interface Props {
-  groups?: string[];
   values: string[] | { [group: string]: string[] };
   texts: string[] | { [group: string]: string[] };
+  groups?: string[];
   width?: string;
-  onChange(event: React.SyntheticEvent): void;
   defaultValue?: string;
+  onChange(event: React.SyntheticEvent): void;
 }
 
-const Select: React.SFC<Props> = (props: Props) => {
-  const { groups, values, texts, width, onChange, defaultValue } = props;
+const Select: React.FC<Props> = (props: Props) => {
+  const { values, texts, groups, width, defaultValue, onChange } = props;
 
   if (groups) {
     return (

@@ -1,16 +1,16 @@
 import * as React from 'react';
 
 interface Props {
-  id?: string;
   value: number;
   min: number;
   max: number;
   step: number;
+  id?: string;
   onChange(event: React.SyntheticEvent): void;
 }
 
-const Slider: React.SFC<Props> = (props: Props) => {
-  const { id, value, min, max, step, onChange } = props;
+const Slider: React.FC<Props> = (props: Props) => {
+  const { value, min, max, step, id, onChange } = props;
 
   const rate  = (value - min) / (max - min);
   const width = rate * 100;

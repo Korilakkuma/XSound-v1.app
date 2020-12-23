@@ -4,7 +4,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-const Flexbox: React.SFC<Props> = (props: Props) => {
+const Flexbox: React.FC<Props> = (props: Props) => {
   return <div className="Flexbox">{props.children}</div>;
 };
 

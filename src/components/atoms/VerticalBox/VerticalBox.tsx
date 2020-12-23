@@ -4,7 +4,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-const VerticalBox: React.SFC<Props> = (props: Props) => {
+const VerticalBox: React.FC<Props> = (props: Props) => {
   return <div className="VerticalBox">{props.children}</div>;
 };
 

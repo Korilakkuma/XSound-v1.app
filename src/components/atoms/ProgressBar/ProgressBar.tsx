@@ -2,13 +2,13 @@ import * as React from 'react';
 
 interface Props {
   title: string;
-  progress?: boolean;
   rate: number;
   auto?: boolean;
+  progress?: boolean;
 }
 
-const ProgressBar: React.SFC<Props> = (props: Props) => {
-  const { title, progress, rate, auto } = props;
+const ProgressBar: React.FC<Props> = (props: Props) => {
+  const { title, rate, auto, progress } = props;
 
   return (
     <div className="ProgressBar" hidden={!progress}>
