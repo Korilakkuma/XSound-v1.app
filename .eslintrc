@@ -27,8 +27,8 @@
     "no-else-return": 2,
     "no-multi-spaces": 0,
     "no-unneeded-ternary": 0,
-    "no-unused-vars": [1, {"vars": "all", "args": "after-used"}],
-    "no-use-before-define": 1,
+    "no-unused-vars": [0, {"vars": "all", "args": "after-used"}],
+    "no-use-before-define": 0,
     "no-var": 1,
     "prefer-promise-reject-errors": 0,
     "quotes": [2, "single"],
@@ -39,7 +39,9 @@
     "semi": [2, "always"],
     "space-before-function-paren": 0,
     "template-curly-spacing" : 0,
-    "@typescript-eslint/explicit-member-accessibility": 0
+    "@typescript-eslint/explicit-member-accessibility": 0,
+    "@typescript-eslint/no-unused-vars": 2,
+    "@typescript-eslint/no-use-before-define": 2
   },
   "settings": {
     "react": {
