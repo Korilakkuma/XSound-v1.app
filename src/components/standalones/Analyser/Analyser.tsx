@@ -12,6 +12,8 @@ interface Props {
 
 interface State {
   active: boolean;
+  dragTime: string;
+  showDragTime: boolean;
   showTimeOverview: 'left' | 'right';
 }
 
@@ -40,6 +42,8 @@ export default class Analyser extends React.Component<Props, State> {
 
     this.state = {
       active          : props.active,
+      dragTime        : '00 : 00 - 00 : 00',
+      showDragTime    : false,
       showTimeOverview: 'left'
     };
 
@@ -124,28 +128,41 @@ export default class Analyser extends React.Component<Props, State> {
       right: 15
     };
 
-    const dragCallback = (event: Event, startTime: number, endTime: number) => {
-      if (!((event.type === 'mouseup') || (event.type === 'touchend'))) {
+    const dragCallback = (event: Event, startTime: number, endTime: number, mode: 'update' | 'sprite') => {
+      if ((event.type === 'mousedown') || (event.type === 'touchstart')) {
+        this.setState({ showDragTime: true });
         return;
       }
 
-      const mode = X('audio').module('analyser').domain('timeoverview', 0).param('mode');
+      if ((event.type === 'mousemove') || (event.type === 'touchmove')) {
+        const convertedStartTime = X.convertTime(startTime);
+        const convertedEndTime   = X.convertTime(endTime);
 
-      switch (mode) {
-        case 'update':
-          if ((startTime >= 0) && (startTime <= X('audio').param('duration'))) {
-            X('audio').param('currentTime', startTime);
-            X('audio').module('analyser').domain('timeoverview', 0).update(startTime);
-            X('audio').module('analyser').domain('timeoverview', 1).update(startTime);
-          }
+        const dragTime = `${('0' + convertedStartTime.minutes).slice(-2)} : ${('0' + convertedStartTime.seconds).slice(-2)} - ${('0' + convertedEndTime.minutes).slice(-2)} : ${('0' + convertedEndTime.seconds).slice(-2)}`;
 
-          break;
-        case 'sprite':
-          X('audio').stop().start(startTime, endTime);
+        this.setState({ dragTime });
+        return;
+      }
 
-          break;
-        default:
-          break;
+      if ((event.type === 'mouseup') || (event.type === 'touchend')) {
+        switch (mode) {
+          case 'update':
+            if ((endTime >= 0) && (endTime <= X('audio').param('duration'))) {
+              X('audio').param('currentTime', endTime);
+              X('audio').module('analyser').domain('timeoverview', 0).update(endTime);
+              X('audio').module('analyser').domain('timeoverview', 1).update(endTime);
+            }
+
+            break;
+          case 'sprite':
+            X('audio').stop().start(startTime, endTime);
+
+            break;
+          default:
+            break;
+        }
+
+        this.setState({ showDragTime: false });
       }
     };
 
@@ -169,7 +186,12 @@ export default class Analyser extends React.Component<Props, State> {
   }
 
   render(): React.ReactNode {
-    const { active, showTimeOverview } = this.state;
+    const {
+      active,
+      dragTime,
+      showDragTime,
+      showTimeOverview
+    } = this.state;
 
     return (
       <div className={`Analyser${active ? ' -active' : ''}`}>
@@ -186,6 +208,7 @@ export default class Analyser extends React.Component<Props, State> {
                 </button>
                 Time Overview [{showTimeOverview}]
               </label>
+              {showDragTime ? <span className="Analyser__dragTime">{dragTime}</span> : null}
             </dt>
             <dd hidden={showTimeOverview === 'right'}><canvas ref={this.canvasForTimeOverviewLeftRef} width="1200" height="120" /></dd>
             <dd hidden={showTimeOverview ===  'left'}><canvas ref={this.canvasForTimeOverviewRightRef} width="1200" height="120" /></dd>
