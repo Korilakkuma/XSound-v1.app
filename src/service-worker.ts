@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 'use strict';
 
 const CACHE_VERSION = '1.0.0';
@@ -19,15 +21,15 @@ const CACHE_FILES = [
 
 self.addEventListener('install', (event: InstallEvent) => {
   event.waitUntil(self.skipWaiting());
-  // event.waitUntil(
-  //   caches.open(CACHE_NAME)
-  //     .then((cache: Cache) => {
-  //       return cache.addAll(cacheFiles);
-  //     })
-  //     .catch((error: Error) => {
-  //       console.error(error);
-  //     });
-  // );
+
+  // const promise = caches.open(CACHE_NAME)
+  //   .then((cache: Cache) => {
+  //     return cache.addAll(cacheFiles);
+  //   })
+  //   .catch((error: Error) => {
+  //     console.error(error);
+  //   });
+  // event.waitUntil(promise);
 }, false);
 
 self.addEventListener('fetch', (event: FetchEvent) => {
@@ -47,51 +49,51 @@ self.addEventListener('fetch', (event: FetchEvent) => {
     return;
   }
 
-  event.respondWith(
-    caches.match(event.request)
-      .then((response: Response) => {
-        if (response) {
+  const promise = caches.match(event.request)
+    .then((response: Response) => {
+      if (response) {
+        return response;
+      }
+
+      const request = event.request.clone();
+
+      return fetch(request)
+        .then((response: Response) => {
+          const responseToCache = response.clone();
+
+          caches.open(CACHE_NAME)
+            .then((cache: Cache) => {
+              cache.put(event.request, responseToCache);
+            })
+            .catch((error: Error) => {
+              console.error(error);
+            });
+
           return response;
-        }
+        })
+        .catch((error: Error) => {
+          console.error(error);
+        });
+    })
+    .catch((error: Error) => {
+      console.error(error);
+    });
 
-        const request = event.request.clone();
-
-        return fetch(request)
-          .then((response: Response) => {
-            const responseToCache = response.clone();
-
-            caches.open(CACHE_NAME)
-              .then((cache: Cache) => {
-                cache.put(event.request, responseToCache);
-              })
-              .catch((error: Error) => {
-                console.error(error);
-              });
-
-            return response;
-          })
-          .catch((error: Error) => {
-            console.error(error);
-          });
-      })
-      .catch((error: Error) => {
-        console.error(error);
-      })
-  );
+  event.respondWith(promise);
 }, false);
 
 self.addEventListener('activate', (event: ExtendableEvent) => {
-  event.waitUntil(
-    caches.keys()
-      .then((cacheNames: string[]) => {
-        return Promise.all(
-          cacheNames
-            .filter((cacheName: string) => cacheName !== CACHE_NAME)
-            .map((cacheName: string) => caches.delete(cacheName))
-        );
-      })
-      .catch((error: Error) => {
-        console.error(error);
-      })
-  );
+  const promise = caches.keys()
+    .then((cacheNames: string[]) => {
+      return Promise.all(
+        cacheNames
+          .filter((cacheName: string) => cacheName !== CACHE_NAME)
+          .map((cacheName: string) => caches.delete(cacheName))
+      );
+    })
+    .catch((error: Error) => {
+      console.error(error);
+    });
+
+  event.waitUntil(promise);
 }, false);

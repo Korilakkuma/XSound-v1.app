@@ -36,13 +36,24 @@ export default class OscillatorSelector extends React.Component<Props, State> {
   }
 
   private onChange(event: React.SyntheticEvent): void {
-    const form = event.currentTarget as HTMLFormElement;
-    const name = `radio-${this.props.radioName}`;
+    const form  = event.currentTarget as HTMLFormElement;
+    const name  = `radio-${this.props.radioName}`;
+    const items = form.elements.namedItem(name) as RadioNodeList;
 
-    for (let i = 0, len = form.elements[name].length; i < len; i++) {
-      if (form.elements[name][i].checked) {
-        this.setState({ value: form.elements[name][i].value });
-        break;
+    if (items === null) {
+      return;
+    }
+
+    for (let i = 0, len = items.length; i < len; i++) {
+      const item = items[i] as HTMLInputElement;
+
+      const { checked, value } = item;
+
+      if (checked) {
+        if ((value === 'sine') || (value === 'square') || (value === 'sawtooth') || (value === 'triangle')) {
+          this.setState({ value });
+          break;
+        }
       }
     }
   }

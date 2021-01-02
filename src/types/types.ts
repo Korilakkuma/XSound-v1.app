@@ -1,5 +1,12 @@
+import { X } from 'xsound';
 import { Action } from 'redux';
 import { ActionTypes } from '../actions/ActionTypes';
+
+declare global {
+  interface Window {
+    C: typeof X;
+  }
+}
 
 export type SoundSource = 'oscillator'
                         | 'piano'

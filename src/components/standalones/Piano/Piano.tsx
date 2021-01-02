@@ -2,7 +2,7 @@ import * as React from 'react';
 import { SoundSource } from '../../../types/types';
 import { X } from 'xsound';
 
-const indexMap = {
+const indexMap: { [pitch: string]: number } = {
   'A-4' :  0,
   'A-4h':  1,
   'B-4' :  2,

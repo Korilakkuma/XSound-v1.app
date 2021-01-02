@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { RIRInfo } from '../../../types/types';
 import { Spacer } from '../../atoms/Spacer';
-import { Select } from '../../atoms/Select';
+import { GroupSelect } from '../../atoms/GroupSelect';
 import { Switch } from '../../atoms/Switch';
 import { ValueController } from '../../helpers/ValueController';
 import { X } from 'xsound';
@@ -56,7 +56,7 @@ export default class ReverbFieldset extends React.Component<Props> {
               onChange={this.onChangeState}
             />
           </legend>
-          <Select
+          <GroupSelect
             groups={groups}
             values={values}
             texts={texts}

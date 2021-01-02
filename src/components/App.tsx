@@ -31,12 +31,6 @@ import { ReverbFieldset } from './standalones/ReverbFieldset';
 import { Footer } from './standalones/Footer';
 import { X } from 'xsound';
 
-declare global {
-  interface Window {
-    C: typeof X;
-  }
-}
-
 interface Props {
   dispatch: Dispatch;
   currentSoundSource: SoundSource;
@@ -1091,7 +1085,7 @@ class App extends React.Component<Props, State> {
     const reverbs: AudioBuffer[] = [];
 
     rirInfos.forEach((rirInfo: RIRInfo) => {
-      X.ajax(rirInfo.url, 'arraybuffer', AJAX_TIMEOUT, (_, arrayBuffer: ArrayBuffer) => {
+      X.ajax(rirInfo.url, 'arraybuffer', AJAX_TIMEOUT, (event: ProgressEvent, arrayBuffer: ArrayBuffer) => {
         X.decode(X.get(), arrayBuffer, (audioBuffer: AudioBuffer) => {
           reverbs.push(audioBuffer);
 

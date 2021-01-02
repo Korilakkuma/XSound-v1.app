@@ -1,13 +1,15 @@
 {
   "compilerOptions": {
-    "target": "esnext",
+    "target": "es5",
     "module": "commonjs",
-    "declaration": true,
     "skipLibCheck": true,
     "sourceMap": true,
-    "strict": false,
-    "strictNullChecks": true,
-    "strictPropertyInitialization": true,
+    "strict": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": false,
+    "forceConsistentCasingInFileNames": true,
     "lib": [
       "dom",
       "es2015",

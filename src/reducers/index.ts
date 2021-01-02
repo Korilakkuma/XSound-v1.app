@@ -1,5 +1,6 @@
-import { combineReducers } from 'redux';
+import { Reducer, combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
+import { History } from 'history';
 import { ActionTypes } from '../actions/ActionTypes';
 import {
   CurrentSoundSourceAction,
@@ -34,8 +35,7 @@ function mmlState(state = false, action: MMLStateAction): boolean {
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export const rootReducer = (history: History) => combineReducers({
+export const rootReducer = (history: History): Reducer => combineReducers({
   currentSoundSource,
   analyserState,
   mmlState,
