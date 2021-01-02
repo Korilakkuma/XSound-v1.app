@@ -38,7 +38,8 @@
     "react/jsx-boolean-value": 1,
     "semi": [2, "always"],
     "space-before-function-paren": 0,
-    "template-curly-spacing" : 0,
+    "template-curly-spacing": 0,
+    "@typescript-eslint/ban-ts-comment": 1,
     "@typescript-eslint/explicit-member-accessibility": 0,
     "@typescript-eslint/no-unused-vars": 2,
     "@typescript-eslint/no-use-before-define": 2
