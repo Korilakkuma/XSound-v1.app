@@ -34,7 +34,7 @@ self.addEventListener('install', (event: InstallEvent) => {
 
 self.addEventListener('fetch', (event: FetchEvent) => {
   if (!CACHE_FILES.some((file: string) => event.request.url.includes(file)) &&
-    !event.request.url.includes('http') &&
+    !event.request.url.startsWith('http') &&
     !event.request.url.endsWith('.wav') &&
     !event.request.url.endsWith('.mp3') &&
     !event.request.url.endsWith('.png') &&
