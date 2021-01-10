@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { RefObject } from 'react';
+import React, { RefObject } from 'react';
 
 interface Props {
   label: string;

@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { SoundSource } from '../../../types/types';
 import { X } from 'xsound';
 

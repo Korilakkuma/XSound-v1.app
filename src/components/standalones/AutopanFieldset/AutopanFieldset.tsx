@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
 import { ValueController } from '../../helpers/ValueController';

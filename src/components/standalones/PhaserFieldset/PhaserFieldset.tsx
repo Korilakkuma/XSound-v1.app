@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { Spacer } from '../../atoms/Spacer';
 import { Select } from '../../atoms/Select';
 import { Switch } from '../../atoms/Switch';

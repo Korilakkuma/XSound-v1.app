@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { RIRInfo } from '../../../types/types';
 import { Spacer } from '../../atoms/Spacer';
 import { GroupSelect } from '../../atoms/GroupSelect';

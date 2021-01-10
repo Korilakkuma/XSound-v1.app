@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { createFilename } from '../../../utils';
 import { Spacer } from '../../atoms/Spacer';
 import { Select } from '../../atoms/Select';
