@@ -2,6 +2,6 @@
 
 @import "./styles/reset.css";
 @import "./styles/vars.css";
-@import "./styles/util.css";
+@import "./styles/utils.css";
 @import "./styles/base.css";
 @import "./components/**/*.css";
