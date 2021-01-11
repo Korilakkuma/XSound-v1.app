@@ -183,12 +183,12 @@ export default class AudioFieldset extends React.Component<Props, State> {
               onDrop={this.onDrop}
             />
             <Button
+              active={!paused}
               label={paused ? 'Start Audio' : 'Stop Audio'}
-              image="/assets/images/button-audio.png"
               width={70}
               height={33}
+              image="/assets/images/button-audio.png"
               size="70px 99px"
-              active={!paused}
               onClick={this.onClick}
             />
           </div>

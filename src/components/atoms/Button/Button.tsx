@@ -3,11 +3,10 @@ import React from 'react';
 interface Props {
   active: boolean;
   label: string;
-  image: string;
   width: number;
   height: number;
+  image: string;
   size: string;
-  position?: string;
   onClick(event: React.SyntheticEvent): void;
 }
 
@@ -15,11 +14,10 @@ const Button: React.FC<Props> = (props: Props) => {
   const {
     active,
     label,
-    image,
     width,
     height,
+    image,
     size,
-    position,
     onClick
   } = props;
 
@@ -30,9 +28,8 @@ const Button: React.FC<Props> = (props: Props) => {
     style={{
       width: `${width}px`,
       height: `${height}px`,
-      backgroundImage: `url(${image})`,
-      backgroundSize: size,
-      backgroundPosition: position ? position : undefined
+      backgroundImage: `url("${image}")`,
+      backgroundSize: size
     }}
     onClick={onClick}
   />;
