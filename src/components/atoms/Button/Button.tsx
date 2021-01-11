@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface Props {
+export interface Props {
   active: boolean;
   label: string;
   width: number;
@@ -10,7 +10,7 @@ interface Props {
   onClick(event: React.SyntheticEvent): void;
 }
 
-const Button: React.FC<Props> = (props: Props) => {
+export const Button: React.FC<Props> = (props: Props) => {
   const {
     active,
     label,
@@ -34,5 +34,3 @@ const Button: React.FC<Props> = (props: Props) => {
     onClick={onClick}
   />;
 };
-
-export default Button;
