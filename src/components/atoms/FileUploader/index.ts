@@ -1,3 +1,3 @@
-import FileUploader from './FileUploader';
+import { FileUploader } from './FileUploader';
 
 export { FileUploader };

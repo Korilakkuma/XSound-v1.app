@@ -1,6 +1,6 @@
-import React, { RefObject } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 
-interface Props {
+export interface Props {
   label: string;
   accept: string;
   placeholder: string;
@@ -12,49 +12,26 @@ interface Props {
   onDrop(event: React.SyntheticEvent): void;
 }
 
-interface State {
-  drag: boolean;
-  drop: boolean;
-}
+export const FileUploader: React.FC<Props> = (props: Props) => {
+  const {
+    label,
+    accept,
+    placeholder,
+    filename,
+    onChange,
+    onDragEnter,
+    onDragOver,
+    onDragLeave,
+    onDrop
+  } = props;
 
-export default class FileUploader extends React.Component<Props, State> {
-  private fileUploaderRef: RefObject<HTMLInputElement> = React.createRef<HTMLInputElement>();
+  const fileUploaderRef = useRef<HTMLInputElement>(null);
 
-  constructor(props: Props) {
-    super(props);
+  const [drag, setDrag] = useState<boolean>(false);
+  const [drop, setDrop] = useState<boolean>(false);
 
-    this.state = {
-      drag: false,
-      drop: false
-    };
-
-    this.onClick     = this.onClick.bind(this);
-    this.onDragEnter = this.onDragEnter.bind(this);
-    this.onDragOver  = this.onDragOver.bind(this);
-    this.onDragLeave = this.onDragLeave.bind(this);
-    this.onDrop      = this.onDrop.bind(this);
-  }
-
-  render(): React.ReactNode {
-    const { label, accept, placeholder, filename, onChange } = this.props;
-    const { drag, drop } = this.state;
-
-    return (
-      <div
-        className={`FileUploader${drag ? ' -drag' : ''}${drop ? ' -drop' : ''}`}
-        onDragEnter={this.onDragEnter}
-        onDragOver={this.onDragOver}
-        onDragLeave={this.onDragLeave}
-        onDrop={this.onDrop}
-      >
-        <button type="button" className="text-ellipsis" aria-label={label} onClick={this.onClick}>{filename ? filename : placeholder}</button>
-        <input type="file" ref={this.fileUploaderRef} hidden accept={accept} placeholder={placeholder} onChange={onChange} />
-      </div>
-    );
-  }
-
-  private onClick(): void {
-    const node = this.fileUploaderRef.current;
+  const onClickCallback = useCallback(() => {
+    const node = fileUploaderRef.current;
 
     if (node === null) {
       return;
@@ -62,44 +39,51 @@ export default class FileUploader extends React.Component<Props, State> {
 
     node.value = '';
     node.click();
-  }
+  }, []);
 
-  private onDragEnter(event: React.SyntheticEvent): void {
+  const onDragEnterCallback = useCallback((event: React.SyntheticEvent) => {
     event.preventDefault();
 
-    this.setState({
-      drag: true,
-      drop: false
-    });
+    setDrag(true);
+    setDrop(false);
 
-    this.props.onDragEnter(event);
-  }
+    onDragEnter(event);
+  }, [onDragEnter]);
 
-  private onDragOver(event: React.SyntheticEvent): void {
+  const onDragOverCallback = useCallback((event: React.SyntheticEvent) => {
     event.preventDefault();
 
-    this.props.onDragOver(event);
-  }
+    onDragOver(event);
+  }, [onDragOver]);
 
-  private onDragLeave(event: React.SyntheticEvent): void {
+  const onDragLeaveCallback = useCallback((event: React.SyntheticEvent) => {
     event.preventDefault();
 
-    this.setState({
-      drag: false,
-      drop: false
-    });
+    setDrag(false);
+    setDrag(false);
 
-    this.props.onDragLeave(event);
-  }
+    onDragLeave(event);
+  }, [onDragLeave]);
 
-  private onDrop(event: React.SyntheticEvent): void {
+  const onDropCallback = useCallback((event: React.SyntheticEvent) => {
     event.preventDefault();
 
-    this.setState({
-      drag: false,
-      drop: true
-    });
+    setDrag(false);
+    setDrop(true);
 
-    this.props.onDrop(event);
-  }
-}
+    onDrop(event);
+  }, [onDrop]);
+
+  return (
+    <div
+      className={`FileUploader${drag ? ' -drag' : ''}${drop ? ' -drop' : ''}`}
+      onDragEnter={onDragEnterCallback}
+      onDragOver={onDragOverCallback}
+      onDragLeave={onDragLeaveCallback}
+      onDrop={onDropCallback}
+    >
+      <button type="button" className="text-ellipsis" aria-label={label} onClick={onClickCallback}>{filename ? filename : placeholder}</button>
+      <input type="file" ref={fileUploaderRef} hidden accept={accept} placeholder={placeholder} onChange={onChange} />
+    </div>
+  );
+};
