@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface Props {
+export interface Props {
   values: { [group: string]: string[] };
   texts: { [group: string]: string[] };
   groups: string[];
@@ -9,7 +9,7 @@ interface Props {
   onChange(event: React.SyntheticEvent): void;
 }
 
-const GroupSelect: React.FC<Props> = (props: Props) => {
+export const GroupSelect: React.FC<Props> = (props: Props) => {
   const {
     values,
     texts,
@@ -38,5 +38,3 @@ const GroupSelect: React.FC<Props> = (props: Props) => {
     </select>
   );
 };
-
-export default GroupSelect;
