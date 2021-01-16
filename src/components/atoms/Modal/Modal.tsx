@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface Props {
+export interface Props {
   isShow: boolean;
   hasOverlay: boolean;
   title: string;
@@ -8,7 +8,7 @@ interface Props {
   onClose?(event: React.SyntheticEvent): void;
 }
 
-const Modal: React.FC<Props> = (props: Props) => {
+export const Modal: React.FC<Props> = (props: Props) => {
   const { isShow, hasOverlay, title, children, onClose } = props;
 
   return (
@@ -22,5 +22,3 @@ const Modal: React.FC<Props> = (props: Props) => {
     </div>
   );
 };
-
-export default Modal;
