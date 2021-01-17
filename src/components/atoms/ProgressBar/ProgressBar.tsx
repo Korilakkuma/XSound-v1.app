@@ -1,13 +1,13 @@
 import React from 'react';
 
-interface Props {
+export interface Props {
   title: string;
   rate: number;
   auto?: boolean;
   progress?: boolean;
 }
 
-const ProgressBar: React.FC<Props> = (props: Props) => {
+export const ProgressBar: React.FC<Props> = (props: Props) => {
   const { title, rate, auto, progress } = props;
 
   return (
@@ -20,5 +20,3 @@ const ProgressBar: React.FC<Props> = (props: Props) => {
     </div>
   );
 };
-
-export default ProgressBar;
