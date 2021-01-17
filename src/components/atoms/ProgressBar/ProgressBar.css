@@ -1,7 +1,7 @@
 .ProgressBar__wrapper {
   position: relative;
   z-index: 1;
-  margin: 12px auto;
+  margin: 0 auto;
   width: 204px;
   height: 12px;
   background-color: var(--base-color);
@@ -43,7 +43,8 @@
   }
 }
 
-.ProgressBar__title {
+.ProgressBar__label {
+  margin-bottom: 12px;
   font-family: "Alike", serif;
   font-size: var(--base-font-size);
   color: var(--assort-color);

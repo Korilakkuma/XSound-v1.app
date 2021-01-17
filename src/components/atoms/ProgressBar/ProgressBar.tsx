@@ -1,21 +1,23 @@
 import React from 'react';
 
 export interface Props {
-  title: string;
-  rate: number;
-  auto?: boolean;
-  progress?: boolean;
+  id?: string;
+  label?: string;
+  rate?: number;
 }
 
 export const ProgressBar: React.FC<Props> = (props: Props) => {
-  const { title, rate, auto, progress } = props;
+  const { rate, id, label } = props;
+
+  const manual = typeof rate === 'number';
+  const style  = typeof rate === 'number' ? { width: `${(rate <= 100) ? rate : 100}%` } : {};
 
   return (
-    <div className="ProgressBar" hidden={!progress}>
-      {title ? <p className="ProgressBar__title">{title}</p> : null}
+    <div className="ProgressBar">
+      {manual && label ? <p id={id} className="ProgressBar__label">{label}</p> : null}
       <div className="ProgressBar__wrapper">
-        <div className="ProgressBar__mask" />
-        <div className={`ProgressBar__bar${auto ? ' -auto' : ''}`} style={{ width: `${rate}%` }} />
+        <div role="presetation" className="ProgressBar__mask" />
+        {manual ? <div aria-labelledby={id} className="ProgressBar__bar" style={style} /> : <div className="ProgressBar__bar -auto" />}
       </div>
     </div>
   );

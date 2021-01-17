@@ -73,7 +73,7 @@ export default class AudioFieldset extends React.Component<Props, State> {
 
     const decodeCallback = () => {
       this.setState({
-        progress              : false,
+        progress              : true,
         loaded                : 0,
         total                 : 0,
         rate                  : 0,
@@ -255,15 +255,14 @@ export default class AudioFieldset extends React.Component<Props, State> {
           isShow={isShowModalForProgress}
           title="Progress ..."
         >
-          <p>{loaded} bytes ({rate} %)</p>
-          <ProgressBar title="" progress={progress} rate={rate} />
+          {progress ? <ProgressBar id="progress-bar-read-audio" label={`${loaded} bytes (${rate} %)`} rate={rate} /> : null}
         </Modal>
         <Modal
           hasOverlay
           isShow={isShowModalForDecoding}
           title="Decoding ..."
         >
-          <ProgressBar auto progress title="" rate={0} />
+          {progress ? <ProgressBar /> : null}
         </Modal>
       </div>
     );

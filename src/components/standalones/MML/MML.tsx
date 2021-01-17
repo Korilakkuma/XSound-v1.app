@@ -350,8 +350,7 @@ export default class MML extends React.Component<Props, State> {
           isShow={isShowModalForProgress}
           title="Progress ..."
         >
-          <p>{loaded} bytes ({rate} %)</p>
-          <ProgressBar title="" progress={progress} rate={rate} auto={false} />
+          {progress ? <ProgressBar id="progress-bar-read-mml" label={`${loaded} bytes (${rate} %)`} rate={rate} /> : null}
         </Modal>
         <SelectableModal
           hasOverlay

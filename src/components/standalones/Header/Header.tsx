@@ -16,7 +16,7 @@ export default class Header extends React.Component<Props, State> {
     super(props);
 
     this.state = {
-      running: false,
+      running     : false,
       animationEnd: false
     };
 
@@ -56,7 +56,7 @@ export default class Header extends React.Component<Props, State> {
             <nav className="Header__startButton"><button type="button" aria-label="Start Application" onClick={this.onClick}></button></nav>
           </div>
         </div>
-        <ProgressBar title="Now Loading ..." progress={progress} rate={rate} auto={false} />
+        {progress ? <ProgressBar id="progress-bar-load-assets" label={`Now Loading ... (${rate} %)`} rate={rate} /> : null}
       </header>
     );
   }
