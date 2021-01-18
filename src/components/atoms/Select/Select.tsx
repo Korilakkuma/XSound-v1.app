@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface Props {
+export interface Props {
   values: string[];
   texts: string[];
   width?: string;
@@ -8,7 +8,7 @@ interface Props {
   onChange(event: React.SyntheticEvent): void;
 }
 
-const Select: React.FC<Props> = (props: Props) => {
+export const Select: React.FC<Props> = (props: Props) => {
   const {
     values,
     texts,
@@ -30,5 +30,3 @@ const Select: React.FC<Props> = (props: Props) => {
     </select>
   );
 };
-
-export default Select;
