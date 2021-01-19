@@ -4,7 +4,11 @@
   margin: 0 auto;
 }
 
-.Slider > input[type="range"] {
+.Slider > label {
+  display: block;
+}
+
+.Slider > label > input[type="range"] {
   -webkit-appearance: none;
   -moz-appearance: none;
   outline: none;
@@ -19,7 +23,7 @@
   -webkit-tap-highlight-color: var(--transparent);
 }
 
-.Slider > input[type="range"]::-webkit-slider-thumb {
+.Slider > label > input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   cursor: pointer;
   border: none;
@@ -34,7 +38,7 @@
   background-position: 0 -23px;
 }
 
-.Slider > input[type="range"]::-moz-range-thumb {
+.Slider > label > input[type="range"]::-moz-range-thumb {
   -moz-appearance: none;
   cursor: pointer;
   border: none;
@@ -49,12 +53,12 @@
   background-position: 0 -23px;
 }
 
-.Slider > input[type="range"]:active::-webkit-slider-thumb {
+.Slider > label > input[type="range"]:active::-webkit-slider-thumb {
   cursor: ew-resize;
   background-position: 0 0;
 }
 
-.Slider > input[type="range"]:active::-moz-range-thumb {
+.Slider > label > input[type="range"]:active::-moz-range-thumb {
   cursor: ew-resize;
   background-position: 0 0;
 }
