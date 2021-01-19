@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface Props {
+export interface Props {
   value: number;
   min: number;
   max: number;
@@ -9,7 +9,7 @@ interface Props {
   onChange(event: React.SyntheticEvent): void;
 }
 
-const Slider: React.FC<Props> = (props: Props) => {
+export const Slider: React.FC<Props> = (props: Props) => {
   const { value, min, max, step, id, onChange } = props;
 
   const rate  = (value - min) / (max - min);
@@ -22,5 +22,3 @@ const Slider: React.FC<Props> = (props: Props) => {
     </div>
   );
 };
-
-export default Slider;
