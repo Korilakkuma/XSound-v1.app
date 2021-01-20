@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface Props {
+export interface Props {
   value: number;
   min: number;
   max: number;
@@ -9,10 +9,8 @@ interface Props {
   onChange(event: React.SyntheticEvent): void;
 }
 
-const Spinner: React.FC<Props> = (props: Props) => {
+export const Spinner: React.FC<Props> = (props: Props) => {
   const { value, min, max, step, id, onChange } = props;
 
   return <input type="number" className="Spinner" id={id} value={value} min={min} max={max} step={step} onChange={onChange} />;
 };
-
-export default Spinner;
