@@ -228,7 +228,7 @@ export default class Analyser extends React.Component<Props, State> {
             defaultChecked={false}
             onChange={this.onChangeMode}
           />
-          <Spacer direction="Right" space={12} />
+          <Spacer direction="right" space={12} />
           <ValueController
             label="Interval"
             id="analyser-interval"
@@ -239,7 +239,7 @@ export default class Analyser extends React.Component<Props, State> {
             width="20%"
             onChange={this.onChangeInterval}
           />
-          <Spacer direction="Right" space={12} />
+          <Spacer direction="right" space={12} />
           <ValueController
             label="Smoothing"
             id="analyser-smoothing"
