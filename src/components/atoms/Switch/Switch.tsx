@@ -1,40 +1,26 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 
-interface Props {
+export interface Props {
+  id: string;
   label: string;
-  id?: string;
-  defaultChecked?: boolean;
+  defaultChecked: boolean;
   onChange(event: React.SyntheticEvent): void;
 }
 
-interface State {
-  checked: boolean;
-}
+export const Switch: React.FC<Props> = (props: Props) => {
+  const { id, label, defaultChecked, onChange } = props;
 
-export default class Switch extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
+  const [checked, setChecked] = useState<boolean>(defaultChecked);
 
-    this.state = {
-      checked: Boolean(props.defaultChecked)
-    };
+  const onChangeCallback = useCallback((event: React.SyntheticEvent) => {
+    onChange(event);
+    setChecked((event.currentTarget as HTMLInputElement).checked);
+  }, [onChange]);
 
-    this.onChange = this.onChange.bind(this);
-  }
-
-  render(): React.ReactNode {
-    const { label, id } = this.props;
-
-    return (
-      <div className={`Switch${this.state.checked ? ' -checked' : ''}`}>
-        <label htmlFor={id}>{label}<span aria-label={`${label} switch`} /></label>
-        <input type="checkbox" hidden id={id} checked={this.state.checked} onChange={this.onChange} />
-      </div>
-    );
-  }
-
-  private onChange(event: React.SyntheticEvent): void {
-    this.props.onChange(event);
-    this.setState({ checked: (event.currentTarget as HTMLInputElement).checked });
-  }
-}
+  return (
+    <div className={`Switch${checked ? ' -checked' : ''}`}>
+      <label htmlFor={id}>{label}<span aria-label={`${label} switch`} /></label>
+      <input type="checkbox" hidden id={id} checked={checked} onChange={onChangeCallback} />
+    </div>
+  );
+};

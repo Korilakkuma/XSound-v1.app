@@ -36,7 +36,7 @@ const OscillatorFieldset: React.FC<Props> = (props: Props) => {
           <Switch
             id={`oscillator-fieldset-state-${oscillatorNumber}`}
             label={label}
-            defaultChecked={defaultState}
+            defaultChecked={Boolean(defaultState)}
             onChange={onChangeState}
           />
         </legend>
