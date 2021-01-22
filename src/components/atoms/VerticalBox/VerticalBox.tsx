@@ -1,11 +1,9 @@
 import React from 'react';
 
-interface Props {
+export interface Props {
   children: React.ReactNode;
 }
 
-const VerticalBox: React.FC<Props> = (props: Props) => {
+export const VerticalBox: React.FC<Props> = (props: Props) => {
   return <div className="VerticalBox">{props.children}</div>;
 };
-
-export default VerticalBox;

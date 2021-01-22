@@ -1,3 +1,3 @@
-import VerticalBox from './VerticalBox';
+import { VerticalBox } from './VerticalBox';
 
 export { VerticalBox };
