@@ -1,43 +1,22 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
+import { OscillatorType } from '../../../types/types';
 
-interface Props {
+export interface Props {
   radioName: string;
-  initialValue: 'sine' | 'square' | 'sawtooth' | 'triangle';
+  defaultType: OscillatorType;
   onChange(event: React.SyntheticEvent): void;
 }
 
-interface State {
-  value: 'sine' | 'square' | 'sawtooth' | 'triangle';
-}
+export const OscillatorSelector: React.FC<Props> = (props: Props) => {
+  const { radioName, defaultType, onChange } = props;
 
-export default class OscillatorSelector extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
+  const [type, setType] = useState<OscillatorType>(defaultType);
 
-    this.state = {
-      value: props.initialValue
-    };
+  const onChangeCallback = useCallback(onChange, [onChange]);
 
-    this.onChange = this.onChange.bind(this);
-  }
-
-  render(): React.ReactNode {
-    const { radioName, onChange } = this.props;
-    const { value } = this.state;
-
-    return (
-      <form className="OscillatorSelector" onChange={this.onChange}>
-        <label className={`OscillatorSelector__sine${value === 'sine' ? ' -active' : ''}`}><input type="radio" name={`radio-${radioName}`} aria-label="sine" checked={value === 'sine'} value="sine" onChange={onChange} /></label>
-        <label className={`OscillatorSelector__square${value === 'square' ? ' -active' : ''}`}><input type="radio" name={`radio-${radioName}`} aria-label="square" checked={value === 'square'} value="square" onChange={onChange} /></label>
-        <label className={`OscillatorSelector__sawtooth${value === 'sawtooth' ? ' -active' : ''}`}><input type="radio" name={`radio-${radioName}`} aria-label="sawtooth" checked={value === 'sawtooth'} value="sawtooth" onChange={onChange} /></label>
-        <label className={`OscillatorSelector__triangle${value === 'triangle' ? ' -active' : ''}`}><input type="radio" name={`radio-${radioName}`} aria-label="triangle" checked={value === 'triangle'} value="triangle" onChange={onChange} /></label>
-      </form>
-    );
-  }
-
-  private onChange(event: React.SyntheticEvent): void {
+  const onChangeTypeCallback = useCallback((event: React.SyntheticEvent) => {
     const form  = event.currentTarget as HTMLFormElement;
-    const name  = `radio-${this.props.radioName}`;
+    const name  = `radio-${radioName}`;
     const items = form.elements.namedItem(name) as RadioNodeList;
 
     if (items === null) {
@@ -51,10 +30,19 @@ export default class OscillatorSelector extends React.Component<Props, State> {
 
       if (checked) {
         if ((value === 'sine') || (value === 'square') || (value === 'sawtooth') || (value === 'triangle')) {
-          this.setState({ value });
+          setType(value);
           break;
         }
       }
     }
-  }
-}
+  }, [radioName]);
+
+  return (
+    <form className="OscillatorSelector" onChange={onChangeTypeCallback}>
+      <label className={`OscillatorSelector__sine${type === 'sine' ? ' -active' : ''}`}><input type="radio" name={`radio-${radioName}`} aria-label="sine" checked={type === 'sine'} value="sine" onChange={onChangeCallback} /></label>
+      <label className={`OscillatorSelector__square${type === 'square' ? ' -active' : ''}`}><input type="radio" name={`radio-${radioName}`} aria-label="square" checked={type === 'square'} value="square" onChange={onChangeCallback} /></label>
+      <label className={`OscillatorSelector__sawtooth${type === 'sawtooth' ? ' -active' : ''}`}><input type="radio" name={`radio-${radioName}`} aria-label="sawtooth" checked={type === 'sawtooth'} value="sawtooth" onChange={onChangeCallback} /></label>
+      <label className={`OscillatorSelector__triangle${type === 'triangle' ? ' -active' : ''}`}><input type="radio" name={`radio-${radioName}`} aria-label="triangle" checked={type === 'triangle'} value="triangle" onChange={onChangeCallback} /></label>
+    </form>
+  );
+};

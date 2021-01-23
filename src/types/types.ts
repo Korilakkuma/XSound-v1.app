@@ -18,6 +18,8 @@ export type SoundSource = 'oscillator'
                         | 'stream'
                         | 'midi';
 
+export type OscillatorType = 'sine' | 'square' | 'sawtooth' | 'triangle';
+
 export type RIRInfo = {
   url: string;
   value: number;

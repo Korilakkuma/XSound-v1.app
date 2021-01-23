@@ -42,7 +42,7 @@ const OscillatorFieldset: React.FC<Props> = (props: Props) => {
         </legend>
         <OscillatorSelector
           radioName={radioName}
-          initialValue="sawtooth"
+          defaultType="sawtooth"
           onChange={onChangeType}
         />
         <Spacer space={16} />
