@@ -1,3 +1,3 @@
-import ValueController from './ValueController';
+import { ValueController } from './ValueController';
 
 export { ValueController };

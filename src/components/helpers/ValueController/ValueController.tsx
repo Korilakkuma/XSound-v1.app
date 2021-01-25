@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Slider } from '../../atoms/Slider';
 import { Spinner } from '../../atoms/Spinner';
 
-interface Props {
+export interface Props {
   label: string;
   id: string;
   min: number;
@@ -13,69 +13,53 @@ interface Props {
   onChange(event: React.SyntheticEvent): void;
 }
 
-interface State {
-  value: number;
-}
+export const ValueController: React.FC<Props> = (props: Props) => {
+  const {
+    label,
+    id,
+    min,
+    max,
+    step,
+    defaultValue,
+    width,
+    onChange
+  } = props;
 
-export default class ValueController extends React.Component<Props, State> {
-  static getDerivedStateFromProps(props: Props): State | null {
-    if (props.id === 'audio-fieldset-current-time') {
-      return { value: props.defaultValue };
+  const [value, setValue] = useState<number>(defaultValue);
+
+  const onChangeCallback = useCallback((event: React.SyntheticEvent) => {
+    setValue((event.currentTarget as HTMLInputElement).valueAsNumber);
+    onChange(event);
+  }, [onChange]);
+
+  useEffect(() => {
+    if (id === 'audio-fieldset-current-time') {
+      setValue(defaultValue);
     }
+  }, [id, defaultValue]);
 
-    return null;
-  }
-
-  constructor(props: Props) {
-    super(props);
-
-    this.state = {
-      value: props.defaultValue
-    };
-
-    this.onChange = this.onChange.bind(this);
-  }
-
-  // TODO: Use `getDerivedStateFromProps` in React v17+
-  // UNSAFE_componentWillReceiveProps(nextProps: Props): void {
-  //   // HACK
-  //   if (this.props.id === 'audio-fieldset-current-time') {
-  //     this.setState({ value: nextProps.defaultValue });
-  //   }
-  // }
-
-  render(): React.ReactNode {
-    const { label, id, min, max, step, width } = this.props;
-    const { value } = this.state;
-
-    return (
-      <dl className="ValueController" style={width ? { width } : undefined}>
-        <dt>
-          <label htmlFor={id}>{label}</label>
-          <Spinner
-            id={id}
-            value={value}
-            min={min}
-            max={max}
-            step={step}
-            onChange={this.onChange}
-          />
-        </dt>
-        <dd>
-          <Slider
-            value={value}
-            min={min}
-            max={max}
-            step={step}
-            onChange={this.onChange}
-          />
-        </dd>
-      </dl>
-    );
-  }
-
-  private onChange(event: React.SyntheticEvent): void {
-    this.props.onChange(event);
-    this.setState({ value: (event.currentTarget as HTMLInputElement).valueAsNumber });
-  }
-}
+  return (
+    <dl className="ValueController" style={width ? { width } : { width: 'auto' }}>
+      <dt>
+        <label htmlFor={id}>{label}</label>
+        <Spinner
+          id={id}
+          value={value}
+          min={min}
+          max={max}
+          step={step}
+          onChange={onChangeCallback}
+        />
+      </dt>
+      <dd>
+        <Slider
+          value={value}
+          min={min}
+          max={max}
+          step={step}
+          onChange={onChangeCallback}
+        />
+      </dd>
+    </dl>
+  );
+};
