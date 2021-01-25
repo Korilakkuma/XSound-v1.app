@@ -6,7 +6,7 @@ interface Selection {
   action(event: React.SyntheticEvent): void;
 }
 
-interface Props {
+export interface Props {
   isShow: boolean;
   hasOverlay: boolean;
   title: string;
@@ -16,7 +16,7 @@ interface Props {
   onClose(event: React.SyntheticEvent): void;
 }
 
-const SelectableModal: React.FC<Props> = (props: Props) => {
+export const SelectableModal: React.FC<Props> = (props: Props) => {
   const {
     isShow,
     hasOverlay,
@@ -39,5 +39,3 @@ const SelectableModal: React.FC<Props> = (props: Props) => {
     </div>
   );
 };
-
-export default SelectableModal;
