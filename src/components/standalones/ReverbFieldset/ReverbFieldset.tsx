@@ -57,6 +57,8 @@ export default class ReverbFieldset extends React.Component<Props> {
             />
           </legend>
           <GroupSelect
+            id="group-select-reverb"
+            label="Select Reverb"
             groups={groups}
             values={values}
             texts={texts}

@@ -104,6 +104,8 @@ export default class RecorderFieldset extends React.Component<Props, State> {
           </div>
           <Spacer space={16} />
           <Select
+            id="select-track"
+            label="Select Track"
             values={['0', '1', '2', '3']}
             texts={['TRACK 1', 'TRACK 2', 'TRACK 3', 'TRACK 4']}
             onChange={this.onChangeTrack}

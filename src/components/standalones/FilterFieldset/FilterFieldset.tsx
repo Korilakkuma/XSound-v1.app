@@ -37,6 +37,8 @@ export default class FilterFieldset extends React.Component<Props> {
             />
           </legend>
           <Select
+            id="select-filter"
+            label="Select Filter"
             values={[
               'lowpass',
               'highpass',

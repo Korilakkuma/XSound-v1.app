@@ -200,6 +200,8 @@ export default class BasicControllers extends React.Component<Props, State> {
           onChange={this.onChangeTranspose}
         />
         <Select
+          id="select-sound-source"
+          label="Select Sound Source"
           values={[
             'oscillator',
             'piano',

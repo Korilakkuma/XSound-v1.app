@@ -1,6 +1,8 @@
 import React from 'react';
 
 export interface Props {
+  id: string;
+  label: string;
   values: { [group: string]: string[] };
   texts: { [group: string]: string[] };
   groups: string[];
@@ -11,6 +13,8 @@ export interface Props {
 
 export const GroupSelect: React.FC<Props> = (props: Props) => {
   const {
+    id,
+    label,
     values,
     texts,
     groups,
@@ -20,21 +24,25 @@ export const GroupSelect: React.FC<Props> = (props: Props) => {
   } = props;
 
   return (
-    <select
-      className="GroupSelect"
-      onChange={onChange}
-      defaultValue={defaultValue}
-      style={width ? { width } : undefined}
-    >
-      {groups.map((group: string, key: number) => {
-        return (
-          <optgroup key={key} label={group}>
-            {values[group].map((value: string, index: number) => {
-              return <option key={value} value={value}>{texts[group][index]}</option>;
-            })}
-          </optgroup>
-        );
-      })}
-    </select>
+    <React.Fragment>
+      <label htmlFor={id} className="visual-hidden">{label}</label>
+      <select
+        id={id}
+        className="GroupSelect"
+        onChange={onChange}
+        defaultValue={defaultValue}
+        style={width ? { width } : undefined}
+      >
+        {groups.map((group: string, key: number) => {
+          return (
+            <optgroup key={key} label={group}>
+              {values[group].map((value: string, index: number) => {
+                return <option key={value} value={value}>{texts[group][index]}</option>;
+              })}
+            </optgroup>
+          );
+        })}
+      </select>
+    </React.Fragment>
   );
 };

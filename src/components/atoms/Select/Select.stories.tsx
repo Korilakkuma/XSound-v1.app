@@ -15,6 +15,8 @@ const Template: Story<Props> = (args: Props) => <Select {...args} />;
 export const Primary = Template.bind({});
 
 Primary.args = {
+  id      : 'primary-select',
+  label   : 'Primary Select',
   values  : ['A', 'B', 'C'],
   texts   : ['0 - 0', '0 - 1', '0 - 2'],
   onChange: (event: React.SyntheticEvent) => {
@@ -25,6 +27,8 @@ Primary.args = {
 export const Secondary = Template.bind({});
 
 Secondary.args = {
+  id      : 'secondary-select',
+  label   : 'Secondary Select',
   values  : ['A', 'B', 'C'],
   texts   : ['0 - 0', '0 - 1', '0 - 2'],
   width   : '50%',
@@ -36,6 +40,8 @@ Secondary.args = {
 export const Tertiary = Template.bind({});
 
 Tertiary.args = {
+  id          : 'tertiary-select',
+  label       : 'Tertiary Select',
   values      : ['A', 'B', 'C'],
   texts       : ['0 - 0', '0 - 1', '0 - 2'],
   defaultValue: 'C',

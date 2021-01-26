@@ -35,6 +35,8 @@ export default class DistortionFieldset extends React.Component<Props> {
             />
           </legend>
           <Select
+            id="select-distortion"
+            label="Select Distortion"
             values={[
               'clean',
               'crunch',
@@ -53,6 +55,8 @@ export default class DistortionFieldset extends React.Component<Props> {
           />
           <Spacer space={8} />
           <Select
+            id="select-curve-size"
+            label="Select Curve Size"
             values={[
               '8',
               '16',

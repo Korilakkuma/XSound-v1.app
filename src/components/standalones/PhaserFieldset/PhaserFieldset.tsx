@@ -35,6 +35,8 @@ export default class PhaserFieldset extends React.Component<Props> {
             />
           </legend>
           <Select
+            id="select-phaser-stages"
+            label="Select Phaser Stages"
             values={[
               '0',
               '2',
