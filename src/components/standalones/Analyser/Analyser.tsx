@@ -1,64 +1,74 @@
-import React, { RefObject } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
 import { ValueController } from '../../helpers/ValueController';
 import { X } from 'xsound';
 
-interface Props {
+export interface Props {
   active: boolean;
   sources: string[];
 }
 
-interface State {
-  active: boolean;
-  dragTime: string;
-  showDragTime: boolean;
-  showTimeOverview: 'left' | 'right';
-}
+export const Analyser: React.FC<Props> = (props: Props) => {
+  const { active, sources } = props;
 
-interface DerivedState {
-  active: boolean;
-}
+  const canvasForTimeOverviewLeftRef  = useRef<HTMLCanvasElement>(null);
+  const canvasForTimeOverviewRightRef = useRef<HTMLCanvasElement>(null);
+  const canvasForTimeDomainRef        = useRef<HTMLCanvasElement>(null);
+  const canvasForFrequencyDomainRef   = useRef<HTMLCanvasElement>(null);
 
-export default class Analyser extends React.Component<Props, State> {
-  private setupped = false;
+  const [loaded, setLoaded] = useState<boolean>(false);
+  const [dragTime, setDragTime] = useState<string>('00 : 00 - 00 : 00');
+  const [showDragTime, setShowDragTime] = useState<boolean>(false);
+  const [showTimeOverview, setShowTimeOverview] = useState<'left' | 'right'>('left');
 
-  private canvasForTimeOverviewLeftRef: RefObject<HTMLCanvasElement>  = React.createRef<HTMLCanvasElement>();
-  private canvasForTimeOverviewRightRef: RefObject<HTMLCanvasElement> = React.createRef<HTMLCanvasElement>();
-  private canvasForTimeDomainRef: RefObject<HTMLCanvasElement>        = React.createRef<HTMLCanvasElement>();
-  private canvasForFrequencyDomainRef: RefObject<HTMLCanvasElement>   = React.createRef<HTMLCanvasElement>();
+  const onClickChannelCallback = useCallback(() => {
+    setShowTimeOverview(showTimeOverview === 'right' ? 'left' : 'right');
+  }, [showTimeOverview]);
 
-  static getDerivedStateFromProps(props: Props, state: State): DerivedState | null {
-    if (props.active !== state.active) {
-      return { active: props.active };
+  const onChangeModeCallback = useCallback((event: React.SyntheticEvent) => {
+    const checked = (event.currentTarget as HTMLInputElement).checked;
+
+    if (checked) {
+      X('audio').module('analyser').domain('timeoverview', 0).param('mode', 'sprite');
+      X('audio').module('analyser').domain('timeoverview', 1).param('mode', 'sprite');
+      X('audio').param('loop', true);
+    } else {
+      const currentTime = X('audio').param('currentTime');
+      const duration    = X('audio').param('duration');
+
+      X('audio').module('analyser').domain('timeoverview', 0).param('mode', 'update');
+      X('audio').module('analyser').domain('timeoverview', 1).param('mode', 'update');
+      X('audio').param('loop', false);
+      X('audio').stop().start(currentTime, duration);
+    }
+  }, []);
+
+  const onChangeIntervalCallback = useCallback((event: React.SyntheticEvent) => {
+    const value = (event.currentTarget as HTMLInputElement).valueAsNumber;
+
+    sources.forEach((source: string) => {
+      X(source).module('analyser').domain('time').param('interval', ((value > 0) ? value : 'auto'));
+      X(source).module('analyser').domain('fft').param('interval', ((value > 0) ? value : 'auto'));
+    });
+  }, [sources]);
+
+  const onChangeSmoothingCallback = useCallback((event: React.SyntheticEvent) => {
+    sources.forEach((source: string) => {
+      X(source).module('analyser').param('smoothingTimeConstant', (event.currentTarget as HTMLInputElement).valueAsNumber);
+    });
+  }, [sources]);
+
+  useEffect(() => {
+    if (canvasForTimeOverviewLeftRef.current === null ||
+      canvasForTimeOverviewRightRef.current === null ||
+      canvasForTimeDomainRef.current === null ||
+      canvasForFrequencyDomainRef.current === null) {
+      return;
     }
 
-    return null;
-  }
-
-  constructor(props: Props) {
-    super(props);
-
-    this.state = {
-      active          : props.active,
-      dragTime        : '00 : 00 - 00 : 00',
-      showDragTime    : false,
-      showTimeOverview: 'left'
-    };
-
-    this.onClickChannel = this.onClickChannel.bind(this);
-
-    this.onChangeMode      = this.onChangeMode.bind(this);
-    this.onChangeInterval  = this.onChangeInterval.bind(this);
-    this.onChangeSmoothing = this.onChangeSmoothing.bind(this);
-  }
-
-  // `Analyser#setup` is not invoked on `componentDidMount`
-  componentDidUpdate(): void {
-    const { active } = this.state;
-
-    if (this.setupped) {
-      this.props.sources.forEach((source: string) => {
+    if (loaded) {
+      sources.forEach((source: string) => {
         X(source).module('analyser').domain('time').state(active);
         X(source).module('analyser').domain('fft').state(active);
       });
@@ -66,7 +76,7 @@ export default class Analyser extends React.Component<Props, State> {
       return;
     }
 
-    this.props.sources.forEach((source: string) => {
+    sources.forEach((source: string) => {
       X(source).module('analyser').param({
         fftSize              : 2048,
         minDecibels          : -100,
@@ -74,7 +84,7 @@ export default class Analyser extends React.Component<Props, State> {
         smoothingTimeConstant: 0.1
       });
 
-      X(source).module('analyser').domain('time').setup(this.canvasForTimeDomainRef.current).param({
+      X(source).module('analyser').domain('time').setup(canvasForTimeDomainRef.current).param({
         interval: 0,
         shape   : 'line',
         wave    : 'rgba(0, 0, 255, 1.0)',
@@ -89,7 +99,7 @@ export default class Analyser extends React.Component<Props, State> {
         type    : 'uint'
       }).state(active);
 
-      X(source).module('analyser').domain('fft').setup(this.canvasForFrequencyDomainRef.current).param({
+      X(source).module('analyser').domain('fft').setup(canvasForFrequencyDomainRef.current).param({
         interval: 0,
         shape   : 'rect',
         wave    : 'gradient',
@@ -129,7 +139,7 @@ export default class Analyser extends React.Component<Props, State> {
 
     const dragCallback = (event: Event, startTime: number, endTime: number, mode: 'update' | 'sprite') => {
       if ((event.type === 'mousedown') || (event.type === 'touchstart')) {
-        this.setState({ showDragTime: true });
+        setShowDragTime(true);
         return;
       }
 
@@ -139,7 +149,7 @@ export default class Analyser extends React.Component<Props, State> {
 
         const dragTime = `${('0' + convertedStartTime.minutes).slice(-2)} : ${('0' + convertedStartTime.seconds).slice(-2)} - ${('0' + convertedEndTime.minutes).slice(-2)} : ${('0' + convertedEndTime.seconds).slice(-2)}`;
 
-        this.setState({ dragTime });
+        setDragTime(dragTime);
         return;
       }
 
@@ -161,14 +171,14 @@ export default class Analyser extends React.Component<Props, State> {
             break;
         }
 
-        this.setState({ showDragTime: false });
+        setShowDragTime(false);
       }
     };
 
     X('audio')
       .module('analyser')
       .domain('timeoverview', 0)
-      .setup(this.canvasForTimeOverviewLeftRef.current)
+      .setup(canvasForTimeOverviewLeftRef.current)
       .state(true)
       .param(params)
       .drag(dragCallback);
@@ -176,121 +186,73 @@ export default class Analyser extends React.Component<Props, State> {
     X('audio')
       .module('analyser')
       .domain('timeoverview', 1)
-      .setup(this.canvasForTimeOverviewRightRef.current)
+      .setup(canvasForTimeOverviewRightRef.current)
       .state(true)
       .param(params)
       .drag(dragCallback);
 
-    this.setupped = true;
-  }
+    setLoaded(true);
+  }, [loaded, active, sources]);
 
-  render(): React.ReactNode {
-    const {
-      active,
-      dragTime,
-      showDragTime,
-      showTimeOverview
-    } = this.state;
-
-    return (
-      <div className={`Analyser${active ? ' -active' : ''}`}>
-        <div className="Analyser__canvas">
-          <dl>
-            <dt>
-              <label>
-                <button
-                  type="button"
-                  className={`Analyser__channelSelector -${showTimeOverview}`}
-                  aria-label="Select Channel"
-                  onClick={this.onClickChannel}
-                >
-                </button>
-                Time Overview [{showTimeOverview}]
-              </label>
-              {showDragTime ? <span className="Analyser__dragTime">{dragTime}</span> : null}
-            </dt>
-            <dd hidden={showTimeOverview === 'right'}><canvas ref={this.canvasForTimeOverviewLeftRef} width="1200" height="120" /></dd>
-            <dd hidden={showTimeOverview ===  'left'}><canvas ref={this.canvasForTimeOverviewRightRef} width="1200" height="120" /></dd>
-          </dl>
-          <dl>
-            <dt>Time Domain</dt>
-            <dd><canvas ref={this.canvasForTimeDomainRef} width="360" height="120" /></dd>
-          </dl>
-          <dl>
-            <dt>Frequency Domain</dt>
-            <dd><canvas ref={this.canvasForFrequencyDomainRef} width="360" height="120" /></dd>
-          </dl>
-        </div>
-        <div className="Analyser__controllers">
-          <Switch
-            label="Audio Sprite"
-            id="analyser-audio-sprite-mode"
-            defaultChecked={false}
-            onChange={this.onChangeMode}
-          />
-          <Spacer direction="right" space={12} />
-          <ValueController
-            label="Interval"
-            id="analyser-interval"
-            defaultValue={0}
-            min={0}
-            max={1000}
-            step={10}
-            width="20%"
-            onChange={this.onChangeInterval}
-          />
-          <Spacer direction="right" space={12} />
-          <ValueController
-            label="Smoothing"
-            id="analyser-smoothing"
-            defaultValue={0.8}
-            min={0}
-            max={1}
-            step={0.05}
-            width="20%"
-            onChange={this.onChangeSmoothing}
-          />
-        </div>
+  return (
+    <div className={`Analyser${active ? ' -active' : ''}`}>
+      <div className="Analyser__canvas">
+        <dl>
+          <dt>
+            <label>
+              <button
+                type="button"
+                className={`Analyser__channelSelector -${showTimeOverview}`}
+                aria-label="Select Channel"
+                onClick={onClickChannelCallback}
+              >
+              </button>
+              Time Overview [{showTimeOverview}]
+            </label>
+            {showDragTime ? <span className="Analyser__dragTime">{dragTime}</span> : null}
+          </dt>
+          <dd hidden={showTimeOverview === 'right'}><canvas ref={canvasForTimeOverviewLeftRef} width="1200" height="120" /></dd>
+          <dd hidden={showTimeOverview ===  'left'}><canvas ref={canvasForTimeOverviewRightRef} width="1200" height="120" /></dd>
+        </dl>
+        <dl>
+          <dt>Time Domain</dt>
+          <dd><canvas ref={canvasForTimeDomainRef} width="360" height="120" /></dd>
+        </dl>
+        <dl>
+          <dt>Frequency Domain</dt>
+          <dd><canvas ref={canvasForFrequencyDomainRef} width="360" height="120" /></dd>
+        </dl>
       </div>
-    );
-  }
-
-  private onClickChannel(): void {
-    this.setState((prevState: State) => {
-      return { showTimeOverview: prevState.showTimeOverview === 'right' ? 'left' : 'right' };
-    });
-  }
-
-  private onChangeMode(event: React.SyntheticEvent): void {
-    const checked = (event.currentTarget as HTMLInputElement).checked;
-
-    if (checked) {
-      X('audio').module('analyser').domain('timeoverview', 0).param('mode', 'sprite');
-      X('audio').module('analyser').domain('timeoverview', 1).param('mode', 'sprite');
-      X('audio').param('loop', true);
-    } else {
-      const currentTime = X('audio').param('currentTime');
-      const duration    = X('audio').param('duration');
-
-      X('audio').module('analyser').domain('timeoverview', 0).param('mode', 'update');
-      X('audio').module('analyser').domain('timeoverview', 1).param('mode', 'update');
-      X('audio').param('loop', false);
-      X('audio').stop().start(currentTime, duration);
-    }
-  }
-
-  private onChangeInterval(event: React.SyntheticEvent): void {
-    const value = (event.currentTarget as HTMLInputElement).valueAsNumber;
-
-    this.props.sources.forEach((source: string) => {
-      X(source).module('analyser').domain('time').param('interval', ((value > 0) ? value : 'auto'));
-      X(source).module('analyser').domain('fft').param('interval', ((value > 0) ? value : 'auto'));
-    });
-  }
-
-  private onChangeSmoothing(event: React.SyntheticEvent): void {
-    this.props.sources.forEach((source: string) => {
-      X(source).module('analyser').param('smoothingTimeConstant', (event.currentTarget as HTMLInputElement).valueAsNumber);
-    });
-  }
-}
+      <div className="Analyser__controllers">
+        <Switch
+          label="Audio Sprite"
+          id="analyser-audio-sprite-mode"
+          defaultChecked={false}
+          onChange={onChangeModeCallback}
+        />
+        <Spacer direction="right" space={12} />
+        <ValueController
+          label="Interval"
+          id="analyser-interval"
+          defaultValue={0}
+          min={0}
+          max={1000}
+          step={10}
+          width="20%"
+          onChange={onChangeIntervalCallback}
+        />
+        <Spacer direction="right" space={12} />
+        <ValueController
+          label="Smoothing"
+          id="analyser-smoothing"
+          defaultValue={0.8}
+          min={0}
+          max={1}
+          step={0.05}
+          width="20%"
+          onChange={onChangeSmoothingCallback}
+        />
+      </div>
+    </div>
+  );
+};

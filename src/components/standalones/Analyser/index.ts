@@ -1,3 +1,3 @@
-import Analyser from './Analyser';
+import { Analyser } from './Analyser';
 
 export { Analyser };
