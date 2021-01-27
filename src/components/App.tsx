@@ -1,4 +1,4 @@
-import React, { RefObject } from 'react';
+import React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { SoundSource, RIRInfo } from '../types/types';
@@ -775,8 +775,6 @@ function createOneshotSettings(): OneshotSettings[]  {
 }
 
 class App extends React.Component<Props, State> {
-  private pianoRef: RefObject<Piano> = React.createRef<Piano>();
-
   constructor(props: Props) {
     super(props);
 
@@ -787,9 +785,6 @@ class App extends React.Component<Props, State> {
       isShowModalForAjax    : false,
       isShowModalForDecoding: false
     };
-
-    this.setSoundStop   = this.setSoundStop.bind(this);
-    this.clearKeyboards = this.clearKeyboards.bind(this);
 
     this.onCloseModalForAjax     = this.onCloseModalForAjax.bind(this);
     this.onCloseModalForDecoding = this.onCloseModalForDecoding.bind(this);
@@ -999,11 +994,10 @@ class App extends React.Component<Props, State> {
           <MML
             active={mmlState}
             currentSoundSource={currentSoundSource}
-            setSoundStop={this.setSoundStop}
-            clear={this.clearKeyboards}
           />
           <BasicControllers dispatch={dispatch} sources={sources} />
-          <Piano ref={this.pianoRef} currentSoundSource={currentSoundSource} />
+          {/* Need Flux */}
+          <Piano currentSoundSource={currentSoundSource} />
           <Flexbox>
             <VerticalBox>
               <CompressorFieldset sources={sources} />
@@ -1051,18 +1045,6 @@ class App extends React.Component<Props, State> {
         </Modal>
       </React.Fragment>
     );
-  }
-
-  private setSoundStop(index: number, isStop: boolean): void {
-    if (this.pianoRef.current) {
-      this.pianoRef.current.setSoundStop(index, isStop);
-    }
-  }
-
-  private clearKeyboards(): void {
-    if (this.pianoRef.current) {
-      this.pianoRef.current.clear();
-    }
   }
 
   private onCloseModalForAjax(): void {

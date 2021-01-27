@@ -20,8 +20,6 @@ interface Sequence {
 interface Props {
   active: boolean;
   currentSoundSource: SoundSource;
-  setSoundStop(index: number, isStop: boolean): void;
-  clear(): void;
 }
 
 interface State {
@@ -159,10 +157,11 @@ export default class MML extends React.Component<Props, State> {
     const startCallbackMelody = (sequence: Sequence) => {
       sequence.indexes.forEach((index: number | 'R') => {
         if (index === 'R') {
+          // eslint-disable-next-line no-useless-return
           return;
         }
 
-        this.props.setSoundStop(index, false);
+        // TODO: Need to dispatch setSoundStop Action
       });
 
       if (this.state.highlight) {
@@ -175,10 +174,11 @@ export default class MML extends React.Component<Props, State> {
     const startCallbackBass = (sequence: Sequence) => {
       sequence.indexes.forEach((index: number | 'R') => {
         if (index === 'R') {
+          // eslint-disable-next-line no-useless-return
           return;
         }
 
-        this.props.setSoundStop(index, false);
+        // TODO: Need to dispatch setSoundStop Action
       });
 
       if (this.state.highlight) {
@@ -191,10 +191,11 @@ export default class MML extends React.Component<Props, State> {
     const stopCallback = (sequence: Sequence) => {
       sequence.indexes.forEach((index: number | 'R') => {
         if (index === 'R') {
+          // eslint-disable-next-line no-useless-return
           return;
         }
 
-        this.props.setSoundStop(index, true);
+        // TODO: Need to dispatch setSoundStop Action
       });
     };
 
@@ -206,7 +207,7 @@ export default class MML extends React.Component<Props, State> {
         }
       }
 
-      this.props.clear();
+      // TODO: Need to dispatch clear Action
 
       this.setState((prevState: State) => {
         const { melody, bass } = prevState;
@@ -475,7 +476,7 @@ export default class MML extends React.Component<Props, State> {
     X('mml').stop().clear();
     window.C('mml').stop().clear();
 
-    this.props.clear();
+    // TODO: Need to dispatch clear Action
 
     this.setState((prevState: State) => {
       const { melody, bass } = prevState;
