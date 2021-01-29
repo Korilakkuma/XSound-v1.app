@@ -1,33 +1,84 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
 import { OscillatorSelector } from '../../helpers/OscillatorSelector';
 import { ValueController } from '../../helpers/ValueController';
+import { X } from 'xsound';
 
-interface Props {
+export interface Props {
   oscillatorNumber: number;
   label: string;
   radioName: string;
   defaultState?: boolean;
-  onChangeType(event: React.SyntheticEvent): void;
-  onChangeState(event: React.SyntheticEvent): void;
-  onChangeVolume(event: React.SyntheticEvent): void;
-  onChangeOctave(event: React.SyntheticEvent): void;
-  onChangeFine(event: React.SyntheticEvent): void;
 }
 
-const OscillatorFieldset: React.FC<Props> = (props: Props) => {
+export const OscillatorFieldset: React.FC<Props> = (props: Props) => {
   const {
     oscillatorNumber,
     label,
     radioName,
-    defaultState,
-    onChangeType,
-    onChangeState,
-    onChangeVolume,
-    onChangeOctave,
-    onChangeFine
+    defaultState
   } = props;
+
+  const onChangeStateCallback = useCallback((event: React.SyntheticEvent) => {
+    const state = (event.currentTarget as HTMLInputElement).checked;
+
+    for (let i = 0, len = X('oscillator').length(); i < len; i++) {
+      if (oscillatorNumber === 0) {
+        X('oscillator').get(i).state(state);
+      } else {
+        window.C('oscillator').get(i).state(state);
+      }
+    }
+  }, [oscillatorNumber]);
+
+  const onChangeTypeCallback = useCallback((event: React.SyntheticEvent) => {
+    const type = (event.currentTarget as HTMLInputElement).value;
+
+    for (let i = 0, len = X('oscillator').length(); i < len; i++) {
+      if (oscillatorNumber === 0) {
+        X('oscillator').get(i).param('type', type);
+      } else {
+        window.C('oscillator').get(i).param('type', type);
+      }
+    }
+  }, [oscillatorNumber]);
+
+  const onChangeVolumeCallback = useCallback((event: React.SyntheticEvent) => {
+    const volume = (event.currentTarget as HTMLInputElement).valueAsNumber;
+
+    for (let i = 0, len = X('oscillator').length(); i < len; i++) {
+      if (oscillatorNumber === 0) {
+        X('oscillator').get(i).param('volume', volume);
+      } else {
+        window.C('oscillator').get(i).param('volume', volume);
+      }
+    }
+  }, [oscillatorNumber]);
+
+  const onChangeOctaveCallback = useCallback((event: React.SyntheticEvent) => {
+    const octave = (event.currentTarget as HTMLInputElement).valueAsNumber;
+
+    for (let i = 0, len = X('oscillator').length(); i < len; i++) {
+      if (oscillatorNumber === 0) {
+        X('oscillator').get(i).param('octave', octave);
+      } else {
+        window.C('oscillator').get(i).param('octave', octave);
+      }
+    }
+  }, [oscillatorNumber]);
+
+  const onChangeFineCallback = useCallback((event: React.SyntheticEvent) => {
+    const fine = (event.currentTarget as HTMLInputElement).valueAsNumber;
+
+    for (let i = 0, len = X('oscillator').length(); i < len; i++) {
+      if (oscillatorNumber === 0) {
+        X('oscillator').get(i).param('fine', fine);
+      } else {
+        window.C('oscillator').get(i).param('fine', fine);
+      }
+    }
+  }, [oscillatorNumber]);
 
   return (
     <div className="OscillatorFieldset">
@@ -37,13 +88,13 @@ const OscillatorFieldset: React.FC<Props> = (props: Props) => {
             id={`oscillator-fieldset-state-${oscillatorNumber}`}
             label={label}
             defaultChecked={Boolean(defaultState)}
-            onChange={onChangeState}
+            onChange={onChangeStateCallback}
           />
         </legend>
         <OscillatorSelector
           radioName={radioName}
           defaultType="sawtooth"
-          onChange={onChangeType}
+          onChange={onChangeTypeCallback}
         />
         <Spacer space={16} />
         <ValueController
@@ -53,7 +104,7 @@ const OscillatorFieldset: React.FC<Props> = (props: Props) => {
           min={0}
           max={1}
           step={0.05}
-          onChange={onChangeVolume}
+          onChange={onChangeVolumeCallback}
         />
         <Spacer space={8} />
         <ValueController
@@ -63,7 +114,7 @@ const OscillatorFieldset: React.FC<Props> = (props: Props) => {
           min={-4}
           max={4}
           step={1}
-          onChange={onChangeOctave}
+          onChange={onChangeOctaveCallback}
         />
         <Spacer space={8} />
         <ValueController
@@ -73,11 +124,9 @@ const OscillatorFieldset: React.FC<Props> = (props: Props) => {
           min={-1200}
           max={1200}
           step={1}
-          onChange={onChangeFine}
+          onChange={onChangeFineCallback}
         />
       </fieldset>
     </div>
   );
 };
-
-export default OscillatorFieldset;
