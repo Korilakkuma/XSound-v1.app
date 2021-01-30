@@ -1,3 +1,3 @@
-import RecorderFieldset from './RecorderFieldset';
+import { RecorderFieldset } from './RecorderFieldset';
 
 export { RecorderFieldset };
