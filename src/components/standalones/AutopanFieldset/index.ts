@@ -1,3 +1,3 @@
-import AutopanFieldset from './AutopanFieldset';
+import { AutopanFieldset } from './AutopanFieldset';
 
 export { AutopanFieldset };
