@@ -1,137 +1,124 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
 import { ValueController } from '../../helpers/ValueController';
 import { X } from 'xsound';
 
-interface Props {
+export interface Props {
   sources: string[];
 }
 
-export default class ChorusFieldset extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props);
-
-    this.onChangeState = this.onChangeState.bind(this);
-    this.onChangeTime  = this.onChangeTime.bind(this);
-    this.onChangeDepth = this.onChangeDepth.bind(this);
-    this.onChangeRate  = this.onChangeRate.bind(this);
-    this.onChangeMix   = this.onChangeMix.bind(this);
-    this.onChangeTone  = this.onChangeTone.bind(this);
-  }
-
-  render(): React.ReactNode {
-    return (
-      <div className="ChorusFieldset">
-        <fieldset>
-          <legend>
-            <Switch
-              id="chorus-state"
-              label="Chorus"
-              defaultChecked={false}
-              onChange={this.onChangeState}
-            />
-          </legend>
-          <ValueController
-            label="Time"
-            id="chorus-time"
-            defaultValue={0}
-            min={0}
-            max={50}
-            step={1}
-            onChange={this.onChangeTime}
-          />
-          <Spacer space={8} />
-          <ValueController
-            label="Depth"
-            id="chorus-depth"
-            defaultValue={0}
-            min={0}
-            max={1}
-            step={0.01}
-            onChange={this.onChangeDepth}
-          />
-          <Spacer space={8} />
-          <ValueController
-            label="Rate"
-            id="chorus-rate"
-            defaultValue={0}
-            min={0}
-            max={1}
-            step={0.01}
-            onChange={this.onChangeRate}
-          />
-          <Spacer space={8} />
-          <ValueController
-            label="Mix"
-            id="chorus-mix"
-            defaultValue={0}
-            min={0}
-            max={1}
-            step={0.05}
-            onChange={this.onChangeMix}
-          />
-          <Spacer space={8} />
-          <ValueController
-            label="Tone"
-            id="chorus-tone"
-            defaultValue={4000}
-            min={20}
-            max={8000}
-            step={1}
-            onChange={this.onChangeTone}
-          />
-          <Spacer space={8} />
-        </fieldset>
-      </div>
-    );
-  }
-
-  private onChangeState(event: React.SyntheticEvent): void {
+export const ChorusFieldset: React.FC<Props> = (props: Props) => {
+  const onChangeStateCallback = useCallback((event: React.SyntheticEvent) => {
     const state = (event.currentTarget as HTMLInputElement).checked;
 
-    this.props.sources.forEach((source: string) => {
+    props.sources.forEach((source: string) => {
       X(source).module('chorus').state(state);
     });
-  }
+  }, [props.sources]);
 
-  private onChangeTime(event: React.SyntheticEvent): void {
+  const onChangeTimeCallback = useCallback((event: React.SyntheticEvent) => {
     const time = (event.currentTarget as HTMLInputElement).valueAsNumber / 1000;
 
-    this.props.sources.forEach((source: string) => {
+    props.sources.forEach((source: string) => {
       X(source).module('chorus').param('time', time);
     });
-  }
+  }, [props.sources]);
 
-  private onChangeDepth(event: React.SyntheticEvent): void {
+  const onChangeDepthCallback = useCallback((event: React.SyntheticEvent) => {
     const depth = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    this.props.sources.forEach((source: string) => {
+    props.sources.forEach((source: string) => {
       X(source).module('chorus').param('depth', depth);
     });
-  }
+  }, [props.sources]);
 
-  private onChangeRate(event: React.SyntheticEvent): void {
+  const onChangeRateCallback = useCallback((event: React.SyntheticEvent) => {
     const rate = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    this.props.sources.forEach((source: string) => {
+    props.sources.forEach((source: string) => {
       X(source).module('chorus').param('rate', rate);
     });
-  }
+  }, [props.sources]);
 
-  private onChangeMix(event: React.SyntheticEvent): void {
+  const onChangeMixCallback = useCallback((event: React.SyntheticEvent) => {
     const mix = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    this.props.sources.forEach((source: string) => {
+    props.sources.forEach((source: string) => {
       X(source).module('chorus').param('mix', mix);
     });
-  }
+  }, [props.sources]);
 
-  private onChangeTone(event: React.SyntheticEvent): void {
+  const onChangeToneCallabck = useCallback((event: React.SyntheticEvent) => {
     const tone = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    this.props.sources.forEach((source: string) => {
+    props.sources.forEach((source: string) => {
       X(source).module('chorus').param('tone', tone);
     });
-  }
-}
+  }, [props.sources]);
+
+  return (
+    <div className="ChorusFieldset">
+      <fieldset>
+        <legend>
+          <Switch
+            id="chorus-state"
+            label="Chorus"
+            defaultChecked={false}
+            onChange={onChangeStateCallback}
+          />
+        </legend>
+        <ValueController
+          label="Time"
+          id="chorus-time"
+          defaultValue={0}
+          min={0}
+          max={50}
+          step={1}
+          onChange={onChangeTimeCallback}
+        />
+        <Spacer space={8} />
+        <ValueController
+          label="Depth"
+          id="chorus-depth"
+          defaultValue={0}
+          min={0}
+          max={1}
+          step={0.01}
+          onChange={onChangeDepthCallback}
+        />
+        <Spacer space={8} />
+        <ValueController
+          label="Rate"
+          id="chorus-rate"
+          defaultValue={0}
+          min={0}
+          max={1}
+          step={0.01}
+          onChange={onChangeRateCallback}
+        />
+        <Spacer space={8} />
+        <ValueController
+          label="Mix"
+          id="chorus-mix"
+          defaultValue={0}
+          min={0}
+          max={1}
+          step={0.05}
+          onChange={onChangeMixCallback}
+        />
+        <Spacer space={8} />
+        <ValueController
+          label="Tone"
+          id="chorus-tone"
+          defaultValue={4000}
+          min={20}
+          max={8000}
+          step={1}
+          onChange={onChangeToneCallabck}
+        />
+        <Spacer space={8} />
+      </fieldset>
+    </div>
+  );
+};
