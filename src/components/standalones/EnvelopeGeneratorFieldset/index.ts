@@ -1,3 +1,3 @@
-import EnvelopeGeneratorFieldset from './EnvelopeGeneratorFieldset';
+import { EnvelopeGeneratorFieldset } from './EnvelopeGeneratorFieldset';
 
 export { EnvelopeGeneratorFieldset };
