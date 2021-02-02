@@ -1,3 +1,3 @@
-import DistortionFieldset from './DistortionFieldset';
+import { DistortionFieldset } from './DistortionFieldset';
 
 export { DistortionFieldset };
