@@ -1,3 +1,3 @@
-import CompressorFieldset from './CompressorFieldset';
+import { CompressorFieldset } from './CompressorFieldset';
 
 export { CompressorFieldset };
