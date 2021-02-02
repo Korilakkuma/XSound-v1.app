@@ -1,137 +1,124 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
 import { ValueController } from '../../helpers/ValueController';
 import { X } from 'xsound';
 
-interface Props {
+export interface Props {
   sources: string[];
 }
 
-export default class DelayFieldset extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props);
-
-    this.onChangeState    = this.onChangeState.bind(this);
-    this.onChangeTime     = this.onChangeTime.bind(this);
-    this.onChangeDry      = this.onChangeDry.bind(this);
-    this.onChangeWet      = this.onChangeWet.bind(this);
-    this.onChangeTone     = this.onChangeTone.bind(this);
-    this.onChangeFeedback = this.onChangeFeedback.bind(this);
-  }
-
-  render(): React.ReactNode {
-    return (
-      <div className="DelayFieldset">
-        <fieldset>
-          <legend>
-            <Switch
-              id="delay-state"
-              label="Delay"
-              defaultChecked={false}
-              onChange={this.onChangeState}
-            />
-          </legend>
-          <ValueController
-            label="Time"
-            id="delay-time"
-            defaultValue={0}
-            min={0}
-            max={1000}
-            step={1}
-            onChange={this.onChangeTime}
-          />
-          <Spacer space={8} />
-          <ValueController
-            label="Dry"
-            id="delay-dry"
-            defaultValue={1}
-            min={0}
-            max={1}
-            step={0.05}
-            onChange={this.onChangeDry}
-          />
-          <Spacer space={8} />
-          <ValueController
-            label="Wet"
-            id="delay-wet"
-            defaultValue={0}
-            min={0}
-            max={1}
-            step={0.05}
-            onChange={this.onChangeWet}
-          />
-          <Spacer space={8} />
-          <ValueController
-            label="Tone"
-            id="delay-tone"
-            defaultValue={4000}
-            min={20}
-            max={8000}
-            step={1}
-            onChange={this.onChangeTone}
-          />
-          <Spacer space={8} />
-          <ValueController
-            label="Feedback"
-            id="delay-feedback"
-            defaultValue={0}
-            min={0}
-            max={0.95}
-            step={0.05}
-            onChange={this.onChangeFeedback}
-          />
-          <Spacer space={8} />
-        </fieldset>
-      </div>
-    );
-  }
-
-  private onChangeState(event: React.SyntheticEvent): void {
+export const DelayFieldset: React.FC<Props> = (props: Props) => {
+  const onChangeStateCallback = useCallback((event: React.SyntheticEvent) => {
     const state = (event.currentTarget as HTMLInputElement).checked;
 
-    this.props.sources.forEach((source: string) => {
+    props.sources.forEach((source: string) => {
       X(source).module('delay').state(state);
     });
-  }
+  }, [props.sources]);
 
-  private onChangeTime(event: React.SyntheticEvent): void {
+  const onChangeTimeCallback = useCallback((event: React.SyntheticEvent) => {
     const time = (event.currentTarget as HTMLInputElement).valueAsNumber / 1000;
 
-    this.props.sources.forEach((source: string) => {
+    props.sources.forEach((source: string) => {
       X(source).module('delay').param('time', time);
     });
-  }
+  }, [props.sources]);
 
-  private onChangeDry(event: React.SyntheticEvent): void {
+  const onChangeDryCallback = useCallback((event: React.SyntheticEvent) => {
     const dry = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    this.props.sources.forEach((source: string) => {
+    props.sources.forEach((source: string) => {
       X(source).module('delay').param('dry', dry);
     });
-  }
+  }, [props.sources]);
 
-  private onChangeWet(event: React.SyntheticEvent): void {
+  const onChangeWetCallback = useCallback((event: React.SyntheticEvent) => {
     const wet = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    this.props.sources.forEach((source: string) => {
+    props.sources.forEach((source: string) => {
       X(source).module('delay').param('wet', wet);
     });
-  }
+  }, [props.sources]);
 
-  private onChangeTone(event: React.SyntheticEvent): void {
+  const onChangeToneCallback = useCallback((event: React.SyntheticEvent) => {
     const tone = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    this.props.sources.forEach((source: string) => {
+    props.sources.forEach((source: string) => {
       X(source).module('delay').param('tone', tone);
     });
-  }
+  }, [props.sources]);
 
-  private onChangeFeedback(event: React.SyntheticEvent): void {
+  const onChangeFeedbackCallback = useCallback((event: React.SyntheticEvent) => {
     const feedback = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    this.props.sources.forEach((source: string) => {
+    props.sources.forEach((source: string) => {
       X(source).module('delay').param('feedback', feedback);
     });
-  }
-}
+  }, [props.sources]);
+
+  return (
+    <div className="DelayFieldset">
+      <fieldset>
+        <legend>
+          <Switch
+            id="delay-state"
+            label="Delay"
+            defaultChecked={false}
+            onChange={onChangeStateCallback}
+          />
+        </legend>
+        <ValueController
+          label="Time"
+          id="delay-time"
+          defaultValue={0}
+          min={0}
+          max={1000}
+          step={1}
+          onChange={onChangeTimeCallback}
+        />
+        <Spacer space={8} />
+        <ValueController
+          label="Dry"
+          id="delay-dry"
+          defaultValue={1}
+          min={0}
+          max={1}
+          step={0.05}
+          onChange={onChangeDryCallback}
+        />
+        <Spacer space={8} />
+        <ValueController
+          label="Wet"
+          id="delay-wet"
+          defaultValue={0}
+          min={0}
+          max={1}
+          step={0.05}
+          onChange={onChangeWetCallback}
+        />
+        <Spacer space={8} />
+        <ValueController
+          label="Tone"
+          id="delay-tone"
+          defaultValue={4000}
+          min={20}
+          max={8000}
+          step={1}
+          onChange={onChangeToneCallback}
+        />
+        <Spacer space={8} />
+        <ValueController
+          label="Feedback"
+          id="delay-feedback"
+          defaultValue={0}
+          min={0}
+          max={0.95}
+          step={0.05}
+          onChange={onChangeFeedbackCallback}
+        />
+        <Spacer space={8} />
+      </fieldset>
+    </div>
+  );
+};
