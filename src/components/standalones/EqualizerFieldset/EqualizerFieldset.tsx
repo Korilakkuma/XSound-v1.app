@@ -1,118 +1,106 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
 import { ValueController } from '../../helpers/ValueController';
 import { X } from 'xsound';
 
-interface Props {
+export interface Props {
   sources: string[];
 }
 
-export default class EqualizerFieldset extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props);
-
-    this.onChangeState    = this.onChangeState.bind(this);
-    this.onChangeBass     = this.onChangeBass.bind(this);
-    this.onChangeMiddle   = this.onChangeMiddle.bind(this);
-    this.onChangeTreble   = this.onChangeTreble.bind(this);
-    this.onChangePresence = this.onChangePresence.bind(this);
-  }
-
-  render(): React.ReactNode {
-    return (
-      <div className="EqualizerFieldset">
-        <fieldset>
-          <legend>
-            <Switch
-              id="equalizer-state"
-              label="Equalizer"
-              defaultChecked={false}
-              onChange={this.onChangeState}
-            />
-          </legend>
-          <ValueController
-            label="Bass"
-            id="equalizer-bass"
-            defaultValue={0}
-            min={-18}
-            max={18}
-            step={1}
-            onChange={this.onChangeBass}
-          />
-          <Spacer space={8} />
-          <ValueController
-            label="Middle"
-            id="equalizer-middle"
-            defaultValue={0}
-            min={-18}
-            max={18}
-            step={1}
-            onChange={this.onChangeMiddle}
-          />
-          <Spacer space={8} />
-          <ValueController
-            label="Treble"
-            id="equalizer-treble"
-            defaultValue={0}
-            min={-18}
-            max={18}
-            step={1}
-            onChange={this.onChangeTreble}
-          />
-          <Spacer space={8} />
-          <ValueController
-            label="Presence"
-            id="equalizer-presence"
-            defaultValue={0}
-            min={-18}
-            max={18}
-            step={1}
-            onChange={this.onChangePresence}
-          />
-          <Spacer space={8} />
-        </fieldset>
-      </div>
-    );
-  }
-
-  private onChangeState(event: React.SyntheticEvent): void {
+export const EqualizerFieldset: React.FC<Props> = (props: Props) => {
+  const onChangeStateCallback = useCallback((event: React.SyntheticEvent) => {
     const state = (event.currentTarget as HTMLInputElement).checked;
 
-    this.props.sources.forEach((source: string) => {
+    props.sources.forEach((source: string) => {
       X(source).module('equalizer').state(state);
     });
-  }
+  }, [props.sources]);
 
-  private onChangeBass(event: React.SyntheticEvent): void {
+  const onChangeBassCallback = useCallback((event: React.SyntheticEvent) => {
     const bass = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    this.props.sources.forEach((source: string) => {
+    props.sources.forEach((source: string) => {
       X(source).module('equalizer').param('bass', bass);
     });
-  }
+  }, [props.sources]);
 
-  private onChangeMiddle(event: React.SyntheticEvent): void {
+  const onChangeMiddleCallback = useCallback((event: React.SyntheticEvent) => {
     const middle = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    this.props.sources.forEach((source: string) => {
+    props.sources.forEach((source: string) => {
       X(source).module('equalizer').param('middle', middle);
     });
-  }
+  }, [props.sources]);
 
-  private onChangeTreble(event: React.SyntheticEvent): void {
+  const onChangeTrebleCallback = useCallback((event: React.SyntheticEvent) => {
     const treble = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    this.props.sources.forEach((source: string) => {
+    props.sources.forEach((source: string) => {
       X(source).module('equalizer').param('treble', treble);
     });
-  }
+  }, [props.sources]);
 
-  private onChangePresence(event: React.SyntheticEvent): void {
+  const onChangePresenceCallback = useCallback((event: React.SyntheticEvent) => {
     const presence = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    this.props.sources.forEach((source: string) => {
+    props.sources.forEach((source: string) => {
       X(source).module('equalizer').param('presence', presence);
     });
-  }
-}
+  }, [props.sources]);
+
+  return (
+    <div className="EqualizerFieldset">
+      <fieldset>
+        <legend>
+          <Switch
+            id="equalizer-state"
+            label="Equalizer"
+            defaultChecked={false}
+            onChange={onChangeStateCallback}
+          />
+        </legend>
+        <ValueController
+          label="Bass"
+          id="equalizer-bass"
+          defaultValue={0}
+          min={-18}
+          max={18}
+          step={1}
+          onChange={onChangeBassCallback}
+        />
+        <Spacer space={8} />
+        <ValueController
+          label="Middle"
+          id="equalizer-middle"
+          defaultValue={0}
+          min={-18}
+          max={18}
+          step={1}
+          onChange={onChangeMiddleCallback}
+        />
+        <Spacer space={8} />
+        <ValueController
+          label="Treble"
+          id="equalizer-treble"
+          defaultValue={0}
+          min={-18}
+          max={18}
+          step={1}
+          onChange={onChangeTrebleCallback}
+        />
+        <Spacer space={8} />
+        <ValueController
+          label="Presence"
+          id="equalizer-presence"
+          defaultValue={0}
+          min={-18}
+          max={18}
+          step={1}
+          onChange={onChangePresenceCallback}
+        />
+        <Spacer space={8} />
+      </fieldset>
+    </div>
+  );
+};

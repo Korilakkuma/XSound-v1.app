@@ -1,3 +1,3 @@
-import EqualizerFieldset from './EqualizerFieldset';
+import { EqualizerFieldset } from './EqualizerFieldset';
 
 export { EqualizerFieldset };
