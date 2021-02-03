@@ -1,211 +1,195 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Spacer } from '../../atoms/Spacer';
 import { Select } from '../../atoms/Select';
 import { Switch } from '../../atoms/Switch';
 import { ValueController } from '../../helpers/ValueController';
 import { X } from 'xsound';
 
-interface Props {
+export interface Props {
   sources: string[];
 }
 
-export default class FilterFieldset extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props);
-
-    this.onChangeState     = this.onChangeState.bind(this);
-    this.onChangeType      = this.onChangeType.bind(this);
-    this.onChangeFrequency = this.onChangeFrequency.bind(this);
-    this.onChangeQuality   = this.onChangeQuality.bind(this);
-    this.onChangeGain      = this.onChangeGain.bind(this);
-    this.onChangeAttack    = this.onChangeAttack.bind(this);
-    this.onChangeDecay     = this.onChangeDecay.bind(this);
-    this.onChangeSustain   = this.onChangeSustain.bind(this);
-    this.onChangeRelease   = this.onChangeRelease.bind(this);
-  }
-
-  render(): React.ReactNode {
-    return (
-      <div className="FilterFieldset">
-        <fieldset>
-          <legend>
-            <Switch
-              id="filter-state"
-              label="Filter"
-              defaultChecked={false}
-              onChange={this.onChangeState}
-            />
-          </legend>
-          <Select
-            id="select-filter"
-            label="Select Filter"
-            values={[
-              'lowpass',
-              'highpass',
-              'bandpass',
-              'lowshelf',
-              'highshelf',
-              'peaking',
-              'notch',
-              'allpass'
-            ]}
-            texts={[
-              'LOWPASS',
-              'HIGHPASS',
-              'BANDPASS',
-              'LOWSHELF',
-              'HIGHSHELF',
-              'PEAKING',
-              'NOTCH',
-              'ALLPASS'
-            ]}
-            onChange={this.onChangeType}
-          />
-          <Spacer space={8} />
-          <ValueController
-            label="Frequency"
-            id="filter-frequency"
-            defaultValue={8000}
-            min={20}
-            max={22050}
-            step={1}
-            onChange={this.onChangeFrequency}
-          />
-          <Spacer space={8} />
-          <ValueController
-            label="Quality"
-            id="filter-quality"
-            defaultValue={1}
-            min={1}
-            max={20}
-            step={1}
-            onChange={this.onChangeQuality}
-          />
-          <Spacer space={8} />
-          <ValueController
-            label="Gain"
-            id="filter-gain"
-            defaultValue={0}
-            min={-18}
-            max={18}
-            step={1}
-            onChange={this.onChangeGain}
-          />
-          <Spacer space={8} />
-          <ValueController
-            label="Attack"
-            id="filter-attack"
-            defaultValue={0.01}
-            min={0}
-            max={1}
-            step={0.01}
-            onChange={this.onChangeAttack}
-          />
-          <Spacer space={8} />
-          <ValueController
-            label="Decay"
-            id="filter-decay"
-            defaultValue={0.3}
-            min={0}
-            max={1}
-            step={0.01}
-            onChange={this.onChangeDecay}
-          />
-          <Spacer space={8} />
-          <ValueController
-            label="Sustain"
-            id="filter-sustain"
-            defaultValue={0.5}
-            min={0}
-            max={1}
-            step={0.01}
-            onChange={this.onChangeSustain}
-          />
-          <Spacer space={8} />
-          <ValueController
-            label="Release"
-            id="filter-release"
-            defaultValue={1}
-            min={0}
-            max={1}
-            step={0.01}
-            onChange={this.onChangeRelease}
-          />
-          <Spacer space={8} />
-        </fieldset>
-      </div>
-    );
-  }
-
-  private onChangeState(event: React.SyntheticEvent): void {
+export const FilterFieldset: React.FC<Props> = (props: Props) => {
+  const onChangeStateCallback = useCallback((event: React.SyntheticEvent) => {
     const state = (event.currentTarget as HTMLInputElement).checked;
 
-    this.props.sources.forEach((source: string) => {
+    props.sources.forEach((source: string) => {
       X(source).module('filter').state(state);
     });
-  }
+  }, [props.sources]);
 
-  private onChangeType(event: React.SyntheticEvent): void {
+  const onChangeTypeCallback = useCallback((event: React.SyntheticEvent) => {
     const type = (event.currentTarget as HTMLInputElement).value;
 
-    this.props.sources.forEach((source: string) => {
+    props.sources.forEach((source: string) => {
       X(source).module('filter').param('type', type);
     });
-  }
+  }, [props.sources]);
 
-  private onChangeFrequency(event: React.SyntheticEvent): void {
+  const onChangeFrequencyCallback = useCallback((event: React.SyntheticEvent) => {
     const frequency = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    this.props.sources.forEach((source: string) => {
+    props.sources.forEach((source: string) => {
       X(source).module('filter').param('frequency', frequency);
     });
-  }
+  }, [props.sources]);
 
-  private onChangeQuality(event: React.SyntheticEvent): void {
+  const onChangeQualityCallback = useCallback((event: React.SyntheticEvent) => {
     const quality = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    this.props.sources.forEach((source: string) => {
+    props.sources.forEach((source: string) => {
       X(source).module('filter').param('Q', quality);
     });
-  }
+  }, [props.sources]);
 
-  private onChangeGain(event: React.SyntheticEvent): void {
+  const onChangeGainCallback = useCallback((event: React.SyntheticEvent) => {
     const gain = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    this.props.sources.forEach((source: string) => {
+    props.sources.forEach((source: string) => {
       X(source).module('filter').param('gain', gain);
     });
-  }
+  }, [props.sources]);
 
-  private onChangeAttack(event: React.SyntheticEvent): void {
+  const onChangeAttackCallback = useCallback((event: React.SyntheticEvent) => {
     const attack = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    this.props.sources.forEach((source: string) => {
+    props.sources.forEach((source: string) => {
       X(source).module('filter').param('attack', attack);
     });
-  }
+  }, [props.sources]);
 
-  private onChangeDecay(event: React.SyntheticEvent): void {
+  const onChangeDecayCallback = useCallback((event: React.SyntheticEvent) => {
     const decay = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    this.props.sources.forEach((source: string) => {
+    props.sources.forEach((source: string) => {
       X(source).module('filter').param('decay', decay);
     });
-  }
+  }, [props.sources]);
 
-  private onChangeSustain(event: React.SyntheticEvent): void {
+  const onChangeSustainCallback = useCallback((event: React.SyntheticEvent) => {
     const sustain = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    this.props.sources.forEach((source: string) => {
+    props.sources.forEach((source: string) => {
       X(source).module('filter').param('sustain', sustain);
     });
-  }
+  }, [props.sources]);
 
-  private onChangeRelease(event: React.SyntheticEvent): void {
+  const onChangeReleaseCallback = useCallback((event: React.SyntheticEvent) => {
     const release = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    this.props.sources.forEach((source: string) => {
+    props.sources.forEach((source: string) => {
       X(source).module('filter').param('release', release);
     });
-  }
-}
+  }, [props.sources]);
+
+  return (
+    <div className="FilterFieldset">
+      <fieldset>
+        <legend>
+          <Switch
+            id="filter-state"
+            label="Filter"
+            defaultChecked={false}
+            onChange={onChangeStateCallback}
+          />
+        </legend>
+        <Select
+          id="select-filter"
+          label="Select Filter"
+          values={[
+            'lowpass',
+            'highpass',
+            'bandpass',
+            'lowshelf',
+            'highshelf',
+            'peaking',
+            'notch',
+            'allpass'
+          ]}
+          texts={[
+            'LOWPASS',
+            'HIGHPASS',
+            'BANDPASS',
+            'LOWSHELF',
+            'HIGHSHELF',
+            'PEAKING',
+            'NOTCH',
+            'ALLPASS'
+          ]}
+          onChange={onChangeTypeCallback}
+        />
+        <Spacer space={8} />
+        <ValueController
+          label="Frequency"
+          id="filter-frequency"
+          defaultValue={8000}
+          min={20}
+          max={22050}
+          step={1}
+          onChange={onChangeFrequencyCallback}
+        />
+        <Spacer space={8} />
+        <ValueController
+          label="Quality"
+          id="filter-quality"
+          defaultValue={1}
+          min={1}
+          max={20}
+          step={1}
+          onChange={onChangeQualityCallback}
+        />
+        <Spacer space={8} />
+        <ValueController
+          label="Gain"
+          id="filter-gain"
+          defaultValue={0}
+          min={-18}
+          max={18}
+          step={1}
+          onChange={onChangeGainCallback}
+        />
+        <Spacer space={8} />
+        <ValueController
+          label="Attack"
+          id="filter-attack"
+          defaultValue={0.01}
+          min={0}
+          max={1}
+          step={0.01}
+          onChange={onChangeAttackCallback}
+        />
+        <Spacer space={8} />
+        <ValueController
+          label="Decay"
+          id="filter-decay"
+          defaultValue={0.3}
+          min={0}
+          max={1}
+          step={0.01}
+          onChange={onChangeDecayCallback}
+        />
+        <Spacer space={8} />
+        <ValueController
+          label="Sustain"
+          id="filter-sustain"
+          defaultValue={0.5}
+          min={0}
+          max={1}
+          step={0.01}
+          onChange={onChangeSustainCallback}
+        />
+        <Spacer space={8} />
+        <ValueController
+          label="Release"
+          id="filter-release"
+          defaultValue={1}
+          min={0}
+          max={1}
+          step={0.01}
+          onChange={onChangeReleaseCallback}
+        />
+        <Spacer space={8} />
+      </fieldset>
+    </div>
+  );
+};
