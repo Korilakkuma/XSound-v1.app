@@ -1,3 +1,3 @@
-import FilterFieldset from './FilterFieldset';
+import { FilterFieldset } from './FilterFieldset';
 
 export { FilterFieldset };
