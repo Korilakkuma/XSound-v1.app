@@ -1,3 +1,3 @@
-import FlangerFieldset from './FlangerFieldset';
+import { FlangerFieldset } from './FlangerFieldset';
 
 export { FlangerFieldset };
