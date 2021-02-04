@@ -1,156 +1,142 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
 import { ValueController } from '../../helpers/ValueController';
 import { X } from 'xsound';
 
-interface Props {
+export interface Props {
   sources: string[];
 }
 
-export default class FlangerFieldset extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props);
-
-    this.onChangeState    = this.onChangeState.bind(this);
-    this.onChangeTime     = this.onChangeTime.bind(this);
-    this.onChangeDepth    = this.onChangeDepth.bind(this);
-    this.onChangeRate     = this.onChangeRate.bind(this);
-    this.onChangeMix      = this.onChangeMix.bind(this);
-    this.onChangeTone     = this.onChangeTone.bind(this);
-    this.onChangeFeedback = this.onChangeFeedback.bind(this);
-  }
-
-  render(): React.ReactNode {
-    return (
-      <div className="FlangerFieldset">
-        <fieldset>
-          <legend>
-            <Switch
-              id="flanger-state"
-              label="Flanger"
-              defaultChecked={false}
-              onChange={this.onChangeState}
-            />
-          </legend>
-          <ValueController
-            label="Time"
-            id="flanger-time"
-            defaultValue={0}
-            min={0}
-            max={10}
-            step={0.05}
-            onChange={this.onChangeTime}
-          />
-          <Spacer space={8} />
-          <ValueController
-            label="Depth"
-            id="flanger-depth"
-            defaultValue={0}
-            min={0}
-            max={1}
-            step={0.01}
-            onChange={this.onChangeDepth}
-          />
-          <Spacer space={8} />
-          <ValueController
-            label="Rate"
-            id="flanger-rate"
-            defaultValue={0}
-            min={0}
-            max={10}
-            step={0.05}
-            onChange={this.onChangeRate}
-          />
-          <Spacer space={8} />
-          <ValueController
-            label="Mix"
-            id="flanger-mix"
-            defaultValue={0}
-            min={0}
-            max={1}
-            step={0.05}
-            onChange={this.onChangeMix}
-          />
-          <Spacer space={8} />
-          <ValueController
-            label="Tone"
-            id="flanger-tone"
-            defaultValue={4000}
-            min={20}
-            max={8000}
-            step={1}
-            onChange={this.onChangeTone}
-          />
-          <Spacer space={8} />
-          <ValueController
-            label="Feedback"
-            id="flanger-feedback"
-            defaultValue={0}
-            min={0}
-            max={0.95}
-            step={0.05}
-            onChange={this.onChangeFeedback}
-          />
-          <Spacer space={8} />
-        </fieldset>
-      </div>
-    );
-  }
-
-  private onChangeState(event: React.SyntheticEvent): void {
+export const FlangerFieldset: React.FC<Props> = (props: Props) => {
+  const onChangeStateCallback = useCallback((event: React.SyntheticEvent) => {
     const state = (event.currentTarget as HTMLInputElement).checked;
 
-    this.props.sources.forEach((source: string) => {
+    props.sources.forEach((source: string) => {
       X(source).module('flanger').state(state);
     });
-  }
+  }, [props.sources]);
 
-  private onChangeTime(event: React.SyntheticEvent): void {
+  const onChangeTimeCallback = useCallback((event: React.SyntheticEvent) => {
     const time = (event.currentTarget as HTMLInputElement).valueAsNumber / 1000;
 
-    this.props.sources.forEach((source: string) => {
+    props.sources.forEach((source: string) => {
       X(source).module('flanger').param('time', time);
     });
-  }
+  }, [props.sources]);
 
-  private onChangeDepth(event: React.SyntheticEvent): void {
+  const onChangeDepthCallback = useCallback((event: React.SyntheticEvent) => {
     const depth = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    this.props.sources.forEach((source: string) => {
+    props.sources.forEach((source: string) => {
       X(source).module('flanger').param('depth', depth);
     });
-  }
+  }, [props.sources]);
 
-  private onChangeRate(event: React.SyntheticEvent): void {
+  const onChangeRateCallback = useCallback((event: React.SyntheticEvent) => {
     const rate = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    this.props.sources.forEach((source: string) => {
+    props.sources.forEach((source: string) => {
       X(source).module('flanger').param('rate', rate);
     });
-  }
+  }, [props.sources]);
 
-  private onChangeMix(event: React.SyntheticEvent): void {
+  const onChangeMixCallback = useCallback((event: React.SyntheticEvent) => {
     const mix = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    this.props.sources.forEach((source: string) => {
+    props.sources.forEach((source: string) => {
       X(source).module('flanger').param('mix', mix);
     });
-  }
+  }, [props.sources]);
 
-  private onChangeTone(event: React.SyntheticEvent): void {
+  const onChangeToneCallback = useCallback((event: React.SyntheticEvent) => {
     const tone = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    this.props.sources.forEach((source: string) => {
+    props.sources.forEach((source: string) => {
       X(source).module('flanger').param('tone', tone);
     });
-  }
+  }, [props.sources]);
 
-  private onChangeFeedback(event: React.SyntheticEvent): void {
+  const onChangeFeedbackCallback = useCallback((event: React.SyntheticEvent) => {
     const feedback = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    this.props.sources.forEach((source: string) => {
+    props.sources.forEach((source: string) => {
       X(source).module('flanger').param('feedback', feedback);
     });
-  }
-}
+  }, [props.sources]);
+
+  return (
+    <div className="FlangerFieldset">
+      <fieldset>
+        <legend>
+          <Switch
+            id="flanger-state"
+            label="Flanger"
+            defaultChecked={false}
+            onChange={onChangeStateCallback}
+          />
+        </legend>
+        <ValueController
+          label="Time"
+          id="flanger-time"
+          defaultValue={0}
+          min={0}
+          max={10}
+          step={0.05}
+          onChange={onChangeTimeCallback}
+        />
+        <Spacer space={8} />
+        <ValueController
+          label="Depth"
+          id="flanger-depth"
+          defaultValue={0}
+          min={0}
+          max={1}
+          step={0.01}
+          onChange={onChangeDepthCallback}
+        />
+        <Spacer space={8} />
+        <ValueController
+          label="Rate"
+          id="flanger-rate"
+          defaultValue={0}
+          min={0}
+          max={10}
+          step={0.05}
+          onChange={onChangeRateCallback}
+        />
+        <Spacer space={8} />
+        <ValueController
+          label="Mix"
+          id="flanger-mix"
+          defaultValue={0}
+          min={0}
+          max={1}
+          step={0.05}
+          onChange={onChangeMixCallback}
+        />
+        <Spacer space={8} />
+        <ValueController
+          label="Tone"
+          id="flanger-tone"
+          defaultValue={4000}
+          min={20}
+          max={8000}
+          step={1}
+          onChange={onChangeToneCallback}
+        />
+        <Spacer space={8} />
+        <ValueController
+          label="Feedback"
+          id="flanger-feedback"
+          defaultValue={0}
+          min={0}
+          max={0.95}
+          step={0.05}
+          onChange={onChangeFeedbackCallback}
+        />
+        <Spacer space={8} />
+      </fieldset>
+    </div>
+  );
+};
