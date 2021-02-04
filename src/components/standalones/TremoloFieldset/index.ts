@@ -1,3 +1,3 @@
-import TremoloFieldset from './TremoloFieldset';
+import { TremoloFieldset } from './TremoloFieldset';
 
 export { TremoloFieldset };
