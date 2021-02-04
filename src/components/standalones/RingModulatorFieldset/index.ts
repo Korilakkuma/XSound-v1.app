@@ -1,3 +1,3 @@
-import RingModulatorFieldset from './RingModulatorFieldset';
+import { RingModulatorFieldset } from './RingModulatorFieldset';
 
 export { RingModulatorFieldset };
