@@ -1,3 +1,3 @@
-import WahFieldset from './WahFieldset';
+import { WahFieldset } from './WahFieldset';
 
 export { WahFieldset };
