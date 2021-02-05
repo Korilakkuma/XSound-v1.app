@@ -1,3 +1,3 @@
-import BasicControllers from './BasicControllers';
+import { BasicControllers } from './BasicControllers';
 
 export { BasicControllers };

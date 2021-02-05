@@ -1,5 +1,5 @@
-import React from 'react';
-import { Dispatch } from 'redux';
+import React, { useState, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import {
   SoundSource,
   MIDIAccess,
@@ -18,323 +18,281 @@ import { Modal } from '../../atoms/Modal';
 import { ValueController } from '../../helpers/ValueController';
 import { X } from 'xsound';
 
-interface Props {
-  dispatch: Dispatch;
-  sources: string[];
-}
-
-interface State {
-  currentSoundSource: SoundSource;
-  analyserState: boolean;
-  mmlState: boolean;
-  errorMessage: string;
-  isShowModalForMIDIError: boolean;
-}
-
 const MIN_NOTE_NUMBER = 21;
 const MAX_NOTE_NUMBER = 108;
 const MAX_VELOCITY    = 127;
 
-function successCallback(source: string, midiAccess: MIDIAccess, inputs: MIDIInput[], outputs: MIDIOutput[]): void {
-  const indexes: number[] = [];
-  const volumes: number[] = [];
-
-  const noteOn = (noteNumber: number, velocity: number) => {
-    if ((noteNumber < MIN_NOTE_NUMBER) || (noteNumber > MAX_NOTE_NUMBER)) {
-      return;
-    }
-
-    if ((velocity < 0) || (velocity > MAX_VELOCITY)) {
-      return;
-    }
-
-    const targetIndex = noteNumber - MIN_NOTE_NUMBER;
-    const volume      = velocity / MAX_VELOCITY;
-
-    if (source === 'oscillator') {
-      indexes.push(targetIndex);
-
-      volumes[0] = X('oscillator', 0).param('volume') as number;
-      volumes[1] = window.C('oscillator', 0).param('volume') as number;
-
-      for (let i = 0, len = X('oscillator').length(); i < len; i++) {
-        if (i !== 0) {
-          X('oscillator').get(i).state(true);
-          window.C('oscillator').get(i).state(true);
-        }
-
-        X('oscillator').get(i).param('volume', volume);
-        window.C('oscillator').get(i).param('volume', volume);
-      }
-
-      X('oscillator').ready(0, 0).start(X.toFrequencies(indexes));
-      window.C('oscillator').ready(0, 0).start(X.toFrequencies(indexes));
-
-      X('mixer').mix([X('oscillator'), window.C('oscillator')]);
-
-      X('mixer').module('recorder').start();
-      X('mixer').module('session').start();
-    } else {
-      X('oneshot').reset(targetIndex, 'volume', volume).ready(0, 0).start(targetIndex);
-
-      X('oneshot').module('recorder').start();
-      X('oneshot').module('session').start();
-    }
-  };
-
-  const noteOff = (noteNumber: number, velocity: number) => {
-    if ((noteNumber < MIN_NOTE_NUMBER) || (noteNumber > MAX_NOTE_NUMBER)) {
-      return;
-    }
-
-    if ((velocity < 0) || (velocity > MAX_VELOCITY)) {
-      return;
-    }
-
-    const targetIndex = noteNumber - MIN_NOTE_NUMBER;
-
-    if (source === 'oscillator') {
-      const index = indexes.indexOf(targetIndex);
-
-      if (index !== -1) {
-        indexes.splice(index, 1);
-      }
-
-      X('oscillator').stop();
-      window.C('oscillator').stop();
-
-      for (let i = 0, len = X('oscillator').length(); i < len; i++) {
-        if (i !== 0) {
-          X('oscillator').get(i).state(false);
-          window.C('oscillator').get(i).state(false);
-        }
-
-        X('oscillator').get(i).param('volume', volumes[0]);
-        window.C('oscillator').get(i).param('volume', volumes[1]);
-      }
-    } else {
-      X('oneshot').stop(targetIndex).reset(targetIndex, 'volume', 1);
-    }
-  };
-
-  if (inputs.length > 0) {
-    inputs[0].onmidimessage = (event: MIDIMessageEvent) => {
-      switch (event.data[0] & 0xf0) {
-        case 0x90:
-          noteOn(event.data[1], event.data[2]);
-          break;
-        case 0x80:
-          noteOff(event.data[1], event.data[2]);
-          break;
-        default :
-          break;
-      }
-    };
-  }
-
-  if (outputs.length > 0) {
-    // TODO: do something ...
-  }
+export interface Props {
+  sources: string[];
 }
 
-export default class BasicControllers extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
+export const BasicControllers: React.FC<Props> = (props: Props) => {
+  const [analyserState, setAnalyserState] = useState<boolean>(false);
+  const [mmlState, setMMLState] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [isShowModalForMIDIError, setIsShowModalForMIDIError] = useState<boolean>(false);
 
-    this.state = {
-      currentSoundSource     : 'oscillator',
-      analyserState          : false,
-      mmlState               : false,
-      errorMessage           : '',
-      isShowModalForMIDIError: false
+  const dispatch = useDispatch();
+
+  const successCallback = useCallback((source: string, midiAccess: MIDIAccess, inputs: MIDIInput[], outputs: MIDIOutput[]) => {
+    const indexes: number[] = [];
+    const volumes: number[] = [];
+
+    const noteOn = (noteNumber: number, velocity: number) => {
+      if ((noteNumber < MIN_NOTE_NUMBER) || (noteNumber > MAX_NOTE_NUMBER)) {
+        return;
+      }
+
+      if ((velocity < 0) || (velocity > MAX_VELOCITY)) {
+        return;
+      }
+
+      const targetIndex = noteNumber - MIN_NOTE_NUMBER;
+      const volume      = velocity / MAX_VELOCITY;
+
+      if (source === 'oscillator') {
+        indexes.push(targetIndex);
+
+        volumes[0] = X('oscillator', 0).param('volume') as number;
+        volumes[1] = window.C('oscillator', 0).param('volume') as number;
+
+        for (let i = 0, len = X('oscillator').length(); i < len; i++) {
+          if (i !== 0) {
+            X('oscillator').get(i).state(true);
+            window.C('oscillator').get(i).state(true);
+          }
+
+          X('oscillator').get(i).param('volume', volume);
+          window.C('oscillator').get(i).param('volume', volume);
+        }
+
+        X('oscillator').ready(0, 0).start(X.toFrequencies(indexes));
+        window.C('oscillator').ready(0, 0).start(X.toFrequencies(indexes));
+
+        X('mixer').mix([X('oscillator'), window.C('oscillator')]);
+
+        X('mixer').module('recorder').start();
+        X('mixer').module('session').start();
+      } else {
+        X('oneshot').reset(targetIndex, 'volume', volume).ready(0, 0).start(targetIndex);
+
+        X('oneshot').module('recorder').start();
+        X('oneshot').module('session').start();
+      }
     };
 
-    this.onChangeMasterVolume  = this.onChangeMasterVolume.bind(this);
-    this.onChangeGlide         = this.onChangeGlide.bind(this);
-    this.onChangeTranspose     = this.onChangeTranspose.bind(this);
-    this.onChangeSoundSource   = this.onChangeSoundSource.bind(this);
-    this.onChangeAnalyserState = this.onChangeAnalyserState.bind(this);
-    this.onChangeMMLState      = this.onChangeMMLState.bind(this);
+    const noteOff = (noteNumber: number, velocity: number) => {
+      if ((noteNumber < MIN_NOTE_NUMBER) || (noteNumber > MAX_NOTE_NUMBER)) {
+        return;
+      }
 
-    this.onCloseModal = this.onCloseModal.bind(this);
-  }
+      if ((velocity < 0) || (velocity > MAX_VELOCITY)) {
+        return;
+      }
 
-  render(): React.ReactNode {
-    const {
-      analyserState,
-      mmlState,
-      errorMessage,
-      isShowModalForMIDIError
-    } = this.state;
+      const targetIndex = noteNumber - MIN_NOTE_NUMBER;
 
-    return (
-      <div className="BasicControllers">
-        <ValueController
-          label="Master Volume"
-          id="master-volume"
-          defaultValue={1}
-          min={0}
-          max={1}
-          step={0.05}
-          width="20%"
-          onChange={this.onChangeMasterVolume}
-        />
-        <ValueController
-          label="Glide"
-          id="glide"
-          defaultValue={0}
-          min={0}
-          max={1}
-          step={0.05}
-          width="20%"
-          onChange={this.onChangeGlide}
-        />
-        <ValueController
-          label="Transpose"
-          id="transpose"
-          defaultValue={0}
-          min={-6}
-          max={6}
-          step={1}
-          width="20%"
-          onChange={this.onChangeTranspose}
-        />
-        <Select
-          id="select-sound-source"
-          label="Select Sound Source"
-          values={[
-            'oscillator',
-            'piano',
-            'guitar',
-            'electric-guitar',
-            'whitenoise',
-            'pinknoise',
-            'browniannoise',
-            'stream',
-            'midi'
-          ]}
-          texts={[
-            'OSCILLATOR',
-            'PIANO',
-            'A. GUITAR',
-            'E. GUITAR',
-            'WHITE NOISE',
-            'PINK NOISE',
-            'BROWNIAN NOISE',
-            'MICROPHONE',
-            'MIDI'
-          ]}
-          width="20%"
-          onChange={this.onChangeSoundSource}
-        />
-        <Switch
-          id="analyser"
-          label="Analyser"
-          defaultChecked={analyserState}
-          onChange={this.onChangeAnalyserState}
-        />
-        <Switch
-          id="mml"
-          label="MML"
-          defaultChecked={mmlState}
-          onChange={this.onChangeMMLState}
-        />
-        <Modal
-          hasOverlay
-          isShow={isShowModalForMIDIError}
-          title="Error"
-          onClose={this.onCloseModal}
-        >
-          {errorMessage}
-        </Modal>
-      </div>
-    );
-  }
+      if (source === 'oscillator') {
+        const index = indexes.indexOf(targetIndex);
 
-  private onChangeMasterVolume(event: React.SyntheticEvent): void {
-    this.props.sources.forEach((source: string) => {
+        if (index !== -1) {
+          indexes.splice(index, 1);
+        }
+
+        X('oscillator').stop();
+        window.C('oscillator').stop();
+
+        for (let i = 0, len = X('oscillator').length(); i < len; i++) {
+          if (i !== 0) {
+            X('oscillator').get(i).state(false);
+            window.C('oscillator').get(i).state(false);
+          }
+
+          X('oscillator').get(i).param('volume', volumes[0]);
+          window.C('oscillator').get(i).param('volume', volumes[1]);
+        }
+      } else {
+        X('oneshot').stop(targetIndex).reset(targetIndex, 'volume', 1);
+      }
+    };
+
+    if (inputs.length > 0) {
+      inputs[0].onmidimessage = (event: MIDIMessageEvent) => {
+        switch (event.data[0] & 0xf0) {
+          case 0x90:
+            noteOn(event.data[1], event.data[2]);
+            break;
+          case 0x80:
+            noteOff(event.data[1], event.data[2]);
+            break;
+          default :
+            break;
+        }
+      };
+    }
+
+    if (outputs.length > 0) {
+      // TODO: do something ...
+    }
+  }, []);
+
+  const onChangeMasterVolumeCallback = useCallback((event: React.SyntheticEvent) => {
+    props.sources.forEach((source: string) => {
+      const mastervolume = (event.currentTarget as HTMLInputElement).valueAsNumber;
+
       if (X(source) !== null) {
-        X(source).param('mastervolume', (event.currentTarget as HTMLInputElement).valueAsNumber);
+        X(source).param('mastervolume', mastervolume);
       }
 
       if (window.C(source) !== null) {
-        window.C(source).param('mastervolume', (event.currentTarget as HTMLInputElement).valueAsNumber);
+        window.C(source).param('mastervolume');
       }
     });
-  }
+  }, [props.sources]);
 
-  private onChangeGlide(event: React.SyntheticEvent): void {
-    X('oscillator').module('glide').param('time', (event.currentTarget as HTMLInputElement).valueAsNumber);
-    window.C('oscillator').module('glide').param('time', (event.currentTarget as HTMLInputElement).valueAsNumber);
-  }
+  const onChangeGlideCallback = useCallback((event: React.SyntheticEvent) => {
+    const time = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-  private onChangeTranspose(event: React.SyntheticEvent): void {
-    const transpose = ((event.currentTarget as HTMLInputElement).valueAsNumber + 12) / 12;
+    X('oscillator').module('glide').param('time', time);
+    window.C('oscillator').module('glide').param('time', time);
+  }, []);
 
-    X('oneshot').param('transpose', transpose);
-  }
+  const onChangeTransposeCallback = useCallback((event: React.SyntheticEvent) => {
+    X('oneshot').param('transpose', (((event.currentTarget as HTMLInputElement).valueAsNumber + 12) / 12));
+  }, []);
 
-  private onChangeSoundSource(event: React.SyntheticEvent): void {
-    this.props.sources.forEach((source: string) => {
+  const onChangeSoundSourceCallback = useCallback((event: React.SyntheticEvent) => {
+    props.sources.forEach((source: string) => {
       X(source).module('analyser').stop('time').domain('time').clear();
       X(source).module('analyser').stop('fft').domain('fft').clear();
     });
 
     const source = (event.currentTarget as HTMLInputElement).value as SoundSource;
 
-    this.props.dispatch(changeCurrentSoundSource(source));
+    dispatch(changeCurrentSoundSource(source));
 
-    this.setState({ currentSoundSource: source }, () => {
-      X('stream').stop();
+    X('stream').stop();
 
-      switch (source) {
-        case 'stream':
-          X('stream').start();
-          X('stream').module('session').start();
-          break;
-        case 'midi':
-          try {
-            X('midi').setup(true, (midiAccess: MIDIAccess, inputs: MIDIInput[], outputs: MIDIOutput[]) => {
-              successCallback(source, midiAccess, inputs, outputs);
-            }, () => {
-              this.setState({
-                errorMessage           : 'Cannot use Web MIDI API.',
-                isShowModalForMIDIError: true
-              });
-            });
-          } catch (error) {
-            this.setState({
-              errorMessage           : error.message,
-              isShowModalForMIDIError: true
-            });
-          }
-          break;
-        default:
-          break;
-      }
-    });
-  }
+    switch (source) {
+      case 'stream':
+        X('stream').start();
+        X('stream').module('session').start();
 
-  private onChangeAnalyserState(event: React.SyntheticEvent): void {
-    this.props.dispatch(changeAnalyserState((event.currentTarget as HTMLInputElement).checked));
+        break;
+      case 'midi':
+        try {
+          X('midi').setup(true, (midiAccess: MIDIAccess, inputs: MIDIInput[], outputs: MIDIOutput[]) => {
+            successCallback(source, midiAccess, inputs, outputs);
+          }, () => {
+            setErrorMessage('Cannot use Web MIDI API.');
+            setIsShowModalForMIDIError(true);
+          });
+        } catch (error) {
+          setErrorMessage(error.message);
+          setIsShowModalForMIDIError(true);
+        }
 
-    this.setState((prevState: State) => {
-      return { analyserState: !prevState.analyserState };
-    });
-  }
+        break;
+      default:
+        break;
+    }
+  }, [props.sources, dispatch, successCallback]);
 
-  private onChangeMMLState(event: React.SyntheticEvent): void {
-    this.props.dispatch(changeMMLState((event.currentTarget as HTMLInputElement).checked));
+  const onChangeAnalyserStateCallback = useCallback((event: React.SyntheticEvent) => {
+    dispatch(changeAnalyserState((event.currentTarget as HTMLInputElement).checked));
+    setAnalyserState(!analyserState);
+  }, [dispatch, analyserState]);
 
-    this.setState((prevState: State) => {
-      return { mmlState: !prevState.mmlState };
-    });
-  }
+  const onChangeMMLStateCallback = useCallback((event: React.SyntheticEvent) => {
+    dispatch(changeMMLState((event.currentTarget as HTMLInputElement).checked));
+    setMMLState(!mmlState);
+  }, [dispatch, mmlState]);
 
-  private onCloseModal(): void {
-    this.setState({
-      errorMessage           : '',
-      isShowModalForMIDIError: false
-    });
-  }
-}
+  const onCloseModalCallback = useCallback(() => {
+    setErrorMessage('');
+    setIsShowModalForMIDIError(false);
+  }, []);
+
+  return (
+    <div className="BasicControllers">
+      <ValueController
+        label="Master Volume"
+        id="master-volume"
+        defaultValue={1}
+        min={0}
+        max={1}
+        step={0.05}
+        width="20%"
+        onChange={onChangeMasterVolumeCallback}
+      />
+      <ValueController
+        label="Glide"
+        id="glide"
+        defaultValue={0}
+        min={0}
+        max={1}
+        step={0.05}
+        width="20%"
+        onChange={onChangeGlideCallback}
+      />
+      <ValueController
+        label="Transpose"
+        id="transpose"
+        defaultValue={0}
+        min={-6}
+        max={6}
+        step={1}
+        width="20%"
+        onChange={onChangeTransposeCallback}
+      />
+      <Select
+        id="select-sound-source"
+        label="Select Sound Source"
+        values={[
+          'oscillator',
+          'piano',
+          'guitar',
+          'electric-guitar',
+          'whitenoise',
+          'pinknoise',
+          'browniannoise',
+          'stream',
+          'midi'
+        ]}
+        texts={[
+          'OSCILLATOR',
+          'PIANO',
+          'A. GUITAR',
+          'E. GUITAR',
+          'WHITE NOISE',
+          'PINK NOISE',
+          'BROWNIAN NOISE',
+          'MICROPHONE',
+          'MIDI'
+        ]}
+        width="20%"
+        onChange={onChangeSoundSourceCallback}
+      />
+      <Switch
+        id="analyser"
+        label="Analyser"
+        defaultChecked={analyserState}
+        onChange={onChangeAnalyserStateCallback}
+      />
+      <Switch
+        id="mml"
+        label="MML"
+        defaultChecked={mmlState}
+        onChange={onChangeMMLStateCallback}
+      />
+      <Modal
+        hasOverlay
+        isShow={isShowModalForMIDIError}
+        title="Error"
+        onClose={onCloseModalCallback}
+      >
+        {errorMessage}
+      </Modal>
+    </div>
+  );
+};
