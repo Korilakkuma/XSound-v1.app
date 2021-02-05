@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { store } from '../store';
-import { SoundSource, OneshotSettings, RIRInfo } from '../types/types';
+import { IState, SoundSource, OneshotSettings, RIRInfo } from '../types/types';
 import { Modal } from './atoms/Modal';
 import { Flexbox } from './atoms/Flexbox';
 import { VerticalBox } from './atoms/VerticalBox';
@@ -34,8 +33,6 @@ import { X } from 'xsound';
 interface Props {
 }
 
-type IState = ReturnType<typeof store.getState>;
-
 const BASE_URL = '/assets';
 const NUMBER_OF_ONESHOTS = 88;
 const AJAX_TIMEOUT = 60000;
@@ -48,8 +45,8 @@ export const App: React.FC<Props> = () => {
   const [isShowModalForDecoding, setIsShowModalForDecoding] = useState<boolean>(false);
 
   const currentSoundSource: SoundSource = useSelector((state: IState) => state.currentSoundSource);
-  const analyserState = useSelector((state: IState) => state.analyserState);
-  const mmlState = useSelector((state: IState) => state.mmlState);
+  const analyserState                   = useSelector((state: IState) => state.analyserState);
+  const mmlState                        = useSelector((state: IState) => state.mmlState);
 
   const sources = useMemo(() => ['mixer', 'oscillator', 'oneshot', 'audio', 'stream', 'noise'], []);
 
@@ -920,10 +917,7 @@ export const App: React.FC<Props> = () => {
           <AudioFieldset />
         </Flexbox>
         <Analyser active={analyserState} sources={sources} />
-        <MML
-          active={mmlState}
-          currentSoundSource={currentSoundSource}
-        />
+        <MML active={mmlState} currentSoundSource={currentSoundSource} />
         <BasicControllers sources={sources} />
         <Piano currentSoundSource={currentSoundSource} />
         <Flexbox>
