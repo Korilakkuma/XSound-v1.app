@@ -5,7 +5,8 @@ import { ActionTypes } from '../actions/ActionTypes';
 import {
   CurrentSoundSourceAction,
   AnalyserStateAction,
-  MMLStateAction
+  MMLStateAction,
+  KeyboardAction
 } from '../types/types';
 
 function currentSoundSource(state = 'oscillator', action: CurrentSoundSourceAction): string {
@@ -35,9 +36,29 @@ function mmlState(state = false, action: MMLStateAction): boolean {
   }
 }
 
+function downKeyboardIndexes(state = [] as number[], action: KeyboardAction): number[] {
+  switch (action.type) {
+    case ActionTypes.DOWN_KEYBOARDS:
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
+function upKeyboardIndexes(state = [] as number[], action: KeyboardAction): number[] {
+  switch (action.type) {
+    case ActionTypes.UP_KEYBOARDS:
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
 export const rootReducer = (history: History): Reducer => combineReducers({
   currentSoundSource,
   analyserState,
   mmlState,
+  downKeyboardIndexes,
+  upKeyboardIndexes,
   router: connectRouter(history)
 });

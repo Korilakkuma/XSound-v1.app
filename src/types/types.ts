@@ -1,5 +1,6 @@
 import { X } from 'xsound';
 import { Action } from 'redux';
+import { store } from '../store';
 import { ActionTypes } from '../actions/ActionTypes';
 
 declare global {
@@ -7,6 +8,8 @@ declare global {
     C: typeof X;
   }
 }
+
+export type IState = ReturnType<typeof store.getState>;
 
 export type SoundSource = 'oscillator'
                         | 'piano'
@@ -69,4 +72,9 @@ export interface AnalyserStateAction extends Action {
 export interface MMLStateAction extends Action {
   type: typeof ActionTypes.CHANGE_MML_STATE;
   payload: boolean;
+}
+
+export interface KeyboardAction extends Action {
+  type: typeof ActionTypes.DOWN_KEYBOARDS | typeof ActionTypes.UP_KEYBOARDS;
+  payload: number[];
 }

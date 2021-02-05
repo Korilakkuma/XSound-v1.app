@@ -3,7 +3,8 @@ import {
   SoundSource,
   CurrentSoundSourceAction,
   AnalyserStateAction,
-  MMLStateAction
+  MMLStateAction,
+  KeyboardAction
 } from '../types/types';
 
 export function changeCurrentSoundSource(source: SoundSource): CurrentSoundSourceAction {
@@ -24,5 +25,19 @@ export function changeMMLState(state: boolean): MMLStateAction {
   return {
     type   : ActionTypes.CHANGE_MML_STATE,
     payload: state
+  };
+}
+
+export function downKeyboards(indexes: number[]): KeyboardAction {
+  return {
+    type   : ActionTypes.DOWN_KEYBOARDS,
+    payload: indexes
+  };
+}
+
+export function upKeyboards(indexes: number[]): KeyboardAction {
+  return {
+    type   : ActionTypes.UP_KEYBOARDS,
+    payload: indexes
   };
 }

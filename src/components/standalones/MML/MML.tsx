@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import { SoundSource } from '../../../types/types';
+import { downKeyboards, upKeyboards } from '../../../actions';
 import { createFilename } from '../../../utils';
 import { Switch } from '../../atoms/Switch';
 import { FileUploader } from '../../atoms/FileUploader';
@@ -46,6 +48,8 @@ export const MML: React.FC<Props> = (props: Props) => {
   const [isShowModalForFileUploadError, setIsShowModalForFileUploadError] = useState<boolean>(false);
   const [isShowModalForProgress, setIsShowModalForProgress] = useState<boolean>(false);
   const [isShowModalConfirmation, setIsShowModalConfirmation] = useState<boolean>(false);
+
+  const dispatch = useDispatch();
 
   const readyMMLCallback = useCallback((currentMelody?: string, currentBass?: string) => {
     switch (currentSoundSource) {
@@ -126,45 +130,28 @@ export const MML: React.FC<Props> = (props: Props) => {
   }, [melody, bass, readyMMLCallback]);
 
   const startMelodyCallback = useCallback((sequence: Sequence) => {
-    sequence.indexes.forEach((index: number | 'R') => {
-      if (index === 'R') {
-        // eslint-disable-next-line no-useless-return
-        return;
-      }
-
-      // TODO: Need to dispatch setSoundStop Action
-    });
+    dispatch(downKeyboards(sequence.indexes));
 
     if (highlight) {
       setMelody(X('mml').get(0, true));
     }
-  }, [highlight]);
+  }, [dispatch, highlight]);
 
   const startBassCallback = useCallback((sequence: Sequence) => {
-    sequence.indexes.forEach((index: number | 'R') => {
-      if (index === 'R') {
-        // eslint-disable-next-line no-useless-return
-        return;
-      }
-
-      // TODO: Need to dispatch setSoundStop Action
-    });
+    dispatch(downKeyboards(sequence.indexes));
 
     if (highlight) {
       setBass(window.C('mml').get(0, true));
     }
-  }, [highlight]);
+  }, [dispatch, highlight]);
 
-  const stopCallback = useCallback((sequence: Sequence) => {
-    sequence.indexes.forEach((index: number | 'R') => {
-      if (index === 'R') {
-        // eslint-disable-next-line no-useless-return
-        return;
-      }
+  const stopMelodyCallback = useCallback((sequence: Sequence) => {
+    dispatch(upKeyboards(sequence.indexes));
+  }, [dispatch]);
 
-      // TODO: Need to dispatch setSoundStop Action
-    });
-  }, []);
+  const stopBassCallback = useCallback((sequence: Sequence) => {
+    dispatch(upKeyboards(sequence.indexes));
+  }, [dispatch]);
 
   const endedCallback = useCallback(() => {
     for (let i = 0, len = X('oscillator').length(); i < len; i++) {
@@ -174,7 +161,7 @@ export const MML: React.FC<Props> = (props: Props) => {
       }
     }
 
-    // TODO: Need to dispatch clear Action
+    dispatch(downKeyboards([]));
 
     const currentMelody = melody.replace(CLEAR_HIGHLIGHT_REGEXP, '$1');
     const currentBass   = bass.replace(CLEAR_HIGHLIGHT_REGEXP, '$1');
@@ -184,7 +171,7 @@ export const MML: React.FC<Props> = (props: Props) => {
     setMelody(currentMelody);
     setBass(currentBass);
     setPaused(true);
-  }, [melody, bass, readyMMLCallback]);
+  }, [dispatch, melody, bass, readyMMLCallback]);
 
   const errorCallback = useCallback((error: string, note: string) => {
     // TODO:
@@ -217,7 +204,7 @@ export const MML: React.FC<Props> = (props: Props) => {
 
     setMelody(currentMelody);
     setPaused(true);
-  }, [readyMMLCallback]);
+  }, [bass, readyMMLCallback]);
 
   const onBlurBassCallback = useCallback((event: React.SyntheticEvent) => {
     if ((event.currentTarget === null) || (event.currentTarget.textContent === null)) {
@@ -230,7 +217,7 @@ export const MML: React.FC<Props> = (props: Props) => {
 
     setBass(currentBass);
     setPaused(true);
-  }, [readyMMLCallback]);
+  }, [melody, readyMMLCallback]);
 
   const onClickMMLControllerCallback = useCallback(() => {
     if (!X('mml').isSequences() && !window.C('mml').isSequences()) {
@@ -273,7 +260,7 @@ export const MML: React.FC<Props> = (props: Props) => {
     X('mml').stop().clear();
     window.C('mml').stop().clear();
 
-    // TODO: Need to dispatch clear Action
+    dispatch(downKeyboards([]));
 
     const currentMelody = melody.replace(CLEAR_HIGHLIGHT_REGEXP, '$1');
     const currentBass   = bass.replace(CLEAR_HIGHLIGHT_REGEXP, '$1');
@@ -283,14 +270,11 @@ export const MML: React.FC<Props> = (props: Props) => {
     setMelody(currentMelody);
     setBass(currentBass);
     setPaused(true);
-  }, [melody, bass, readyMMLCallback]);
+  }, [dispatch, melody, bass, readyMMLCallback]);
 
   const onClickDownloadButtonCallback = useCallback(() => {
     const currentMelody = melody.replace(CLEAR_HIGHLIGHT_REGEXP, '$1');
     const currentBass   = bass.replace(CLEAR_HIGHLIGHT_REGEXP, '$1');
-
-    console.log(melody);
-    console.log(currentMelody);
 
     setDataURL(X.toTextFile(`${currentMelody}||||${currentBass}`));
   }, [melody, bass]);
@@ -329,7 +313,7 @@ export const MML: React.FC<Props> = (props: Props) => {
     setMelody(savedMMLs[0]);
     setBass(savedMMLs[1]);
     setIsShowModalConfirmation(false);
-  }, [melody, bass, readyMMLCallback]);
+  }, [readyMMLCallback]);
 
   const onClickCancelCallback = useCallback(() => {
     setIsShowModalConfirmation(false);
@@ -340,14 +324,14 @@ export const MML: React.FC<Props> = (props: Props) => {
       // HACK:
       X('mml').setup({
         start: startMelodyCallback,
-        stop : stopCallback,
+        stop : stopMelodyCallback,
         ended: endedCallback,
         error: errorCallback
       });
 
       window.C('mml').setup({
         start: startBassCallback,
-        stop : stopCallback,
+        stop : stopBassCallback,
         ended: endedCallback,
         error: errorCallback
       });
@@ -385,7 +369,8 @@ export const MML: React.FC<Props> = (props: Props) => {
     readyMMLCallback,
     startMelodyCallback,
     startBassCallback,
-    stopCallback,
+    stopMelodyCallback,
+    stopBassCallback,
     endedCallback,
     errorCallback
   ]);

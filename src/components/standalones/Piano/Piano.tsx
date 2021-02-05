@@ -1,44 +1,24 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { SoundSource } from '../../../types/types';
+import React, { useState, useCallback, useMemo } from 'react';
+import { useSelector } from 'react-redux';
+import { IState, SoundSource } from '../../../types/types';
 import { X } from 'xsound';
 
 const NUMBER_OF_PIANO_KEYBOARDS = 88;
 
 export interface Props {
   currentSoundSource: SoundSource;
-  index?: number;
-  isStop?: boolean;
-  clear?: boolean;
 }
 
 export const Piano: React.FC<Props> = (props: Props) => {
-  const {
-    currentSoundSource,
-    index,
-    isStop,
-    clear
-  } = props;
+  const [downKeyboards, setDownKeyboards] = useState<boolean[]>(new Array(NUMBER_OF_PIANO_KEYBOARDS).fill(false));
+  const [isDown, setIsDown] = useState<boolean>(false);  // for `mouseover` or `touchmove` event
 
-  const [isSoundStops, setIsSoundStops] = useState<boolean[]>(new Array(NUMBER_OF_PIANO_KEYBOARDS).fill(true));
-  const [isDown, setIsDown] = useState<boolean>(false);
-
-  const setSoundStopCallback = useCallback((index: number, isStop: boolean) => {
-    isSoundStops[index] = isStop;
-
-    setIsSoundStops([...isSoundStops]);
-  }, [isSoundStops]);
-
-  const clearCallback = useCallback(() => {
-    setIsSoundStops(isSoundStops.map(() => true));
-  }, [isSoundStops]);
+  const downIndexes = useSelector((state: IState) => state.downKeyboardIndexes);
+  const upIndexes   = useSelector((state: IState) => state.upKeyboardIndexes);
 
   const startSoundCallback = useCallback((event: React.SyntheticEvent) => {
-    if (!X.IS_XSOUND || (event.currentTarget as Element).classList.contains('skip')) {
+    if ((event.currentTarget as Element).classList.contains('skip')) {
       return;  // skip
-    }
-
-    if (((event.type === 'mouseover') || (event.type === 'touchmove')) && !isDown) {
-      return;
     }
 
     const dataIndex = (event.currentTarget as Element).getAttribute('data-index');
@@ -49,7 +29,11 @@ export const Piano: React.FC<Props> = (props: Props) => {
 
     const index = parseInt(dataIndex, 10);
 
-    switch (currentSoundSource) {
+    if (((event.type === 'mouseover') || (event.type === 'touchmove')) && !isDown) {
+      return;
+    }
+
+    switch (props.currentSoundSource) {
       case 'oscillator':
         X('oscillator').ready(0, 0).start(X.toFrequencies(index));
         window.C('oscillator').ready(0, 0).start(X.toFrequencies(index));
@@ -104,18 +88,18 @@ export const Piano: React.FC<Props> = (props: Props) => {
         break;
       default:
         // eslint-disable-next-line no-console
-        console.assert(`Error: currentSoundSource = ${currentSoundSource}`);
+        console.assert(`Error: currentSoundSource = ${props.currentSoundSource}`);
         break;
     }
 
-    isSoundStops[index] = false;
+    downKeyboards[index] = true;
 
-    setIsSoundStops([...isSoundStops]);
+    setDownKeyboards([...downKeyboards]);
     setIsDown(true);
-  }, [currentSoundSource, isSoundStops, isDown]);
+  }, [props.currentSoundSource, downKeyboards, isDown]);
 
   const stopSoundCallback = useCallback((event: React.SyntheticEvent) => {
-    if (!X.IS_XSOUND || (event.currentTarget as Element).classList.contains('skip')) {
+    if ((event.currentTarget as Element).classList.contains('skip')) {
       return;  // skip
     }
 
@@ -129,7 +113,7 @@ export const Piano: React.FC<Props> = (props: Props) => {
 
     const index = parseInt(dataIndex, 10);
 
-    switch (currentSoundSource) {
+    switch (props.currentSoundSource) {
       case 'oscillator':
         X('oscillator').stop();
         window.C('oscillator').stop();
@@ -151,14 +135,14 @@ export const Piano: React.FC<Props> = (props: Props) => {
         break;
     }
 
-    isSoundStops[index] = true;
+    downKeyboards[index] = false;
 
-    setIsSoundStops([...isSoundStops]);
+    setDownKeyboards([...downKeyboards]);
 
-    if (event.type === 'mouseup') {
+    if ((event.type === 'mouseup') || (event.type === 'touchend')) {
       setIsDown(false);
     }
-  }, [currentSoundSource, isSoundStops]);
+  }, [props.currentSoundSource, downKeyboards]);
 
   const indexMap: { [pitch: string]: number } = useMemo(() => ({
     'A-4' :  0,
@@ -274,25 +258,17 @@ export const Piano: React.FC<Props> = (props: Props) => {
     'C3h',  'D3h',  'skip13', 'F3h',  'G3h',  'A3h'
   ], []);
 
-  useEffect(() => {
-    if (clear) {
-      clearCallback();
-      return;
-    }
-
-    if (typeof index === 'number' && typeof isStop === 'boolean') {
-      setSoundStopCallback(index, isStop);
-    }
-  }, [index, isStop, clear, setSoundStopCallback, clearCallback]);
-
   return (
     <div className="Piano">
       <ul className="Piano__whites">
         {whites.map((pitch: string) => {
+          const index        = indexMap[pitch];
+          const isAutoActive = downIndexes.includes(index) && !upIndexes.includes(index);
+
           return (
             <li
               key={pitch}
-              className={`Piano__keyboard${isSoundStops[indexMap[pitch]] ? '' : ' -active'} text-hidden`}
+              className={`Piano__keyboard${(downKeyboards[index] || isAutoActive) ? ' -active' : ''} text-hidden`}
               role="button"
               data-pitch={pitch}
               data-index={indexMap[pitch]}
@@ -311,14 +287,17 @@ export const Piano: React.FC<Props> = (props: Props) => {
       </ul>
       <ul className="Piano__blacks">
         {blacks.map((pitch: string) => {
-          if (pitch.indexOf('skip') !== -1) {
+          if (pitch.includes('skip')) {
             return <li key={pitch} className="Piano__keyboard -skip" aria-label="skip" />;
           }
+
+          const index        = indexMap[pitch];
+          const isAutoActive = downIndexes.includes(index) && !upIndexes.includes(index);
 
           return (
             <li
               key={pitch}
-              className={`Piano__keyboard${isSoundStops[indexMap[pitch]] ? '' : ' -active'} text-hidden`}
+              className={`Piano__keyboard${(downKeyboards[index] || isAutoActive) ? ' -active' : ''} text-hidden`}
               role="button"
               data-pitch={pitch}
               data-index={indexMap[pitch]}
