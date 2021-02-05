@@ -20,6 +20,15 @@ export type SoundSource = 'oscillator'
 
 export type OscillatorType = 'sine' | 'square' | 'sawtooth' | 'triangle';
 
+export interface OneshotSettings {
+  buffer: number;
+  rate: number;
+  loop: boolean;
+  start: number;
+  end: number;
+  volume: number;
+}
+
 export type RIRInfo = {
   url: string;
   value: number;
