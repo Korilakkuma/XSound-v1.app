@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { XSoundSource } from '../../../types/types';
 import { createFilename } from '../../../utils';
 import { Spacer } from '../../atoms/Spacer';
 import { Select } from '../../atoms/Select';
@@ -13,7 +14,7 @@ const BIT     = 16;  // 16 bit
 const TYPE    = 'objectURL';
 
 export interface Props {
-  sources: string[];
+  sources: XSoundSource[];
 }
 
 export const RecorderFieldset: React.FC<Props> = (props: Props) => {
@@ -25,7 +26,7 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
 
   const onClickRecordButtonCallback = useCallback(() => {
     if (running) {
-      props.sources.forEach((source: string) => {
+      props.sources.forEach((source: XSoundSource) => {
         if (source !== 'oscillator') {
           X(source).module('recorder').stop();
         }
@@ -33,7 +34,7 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
 
       setRunning(false);
     } else {
-      props.sources.forEach((source: string) => {
+      props.sources.forEach((source: XSoundSource) => {
         if (source !== 'oscillator') {
           X(source).module('recorder').ready(activeTrack);
 
@@ -93,7 +94,7 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
   }, [running]);
 
   const onClickClearTrackCallback = useCallback(() => {
-    props.sources.forEach((source: string) => {
+    props.sources.forEach((source: XSoundSource) => {
       if (source !== 'oscillator') {
         X(source).module('recorder').clear(activeTrack);
       }
@@ -114,7 +115,7 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
 
     const nextActiveTrack = parseInt((event.currentTarget as HTMLInputElement).value, 10);
 
-    props.sources.forEach((source: string) => {
+    props.sources.forEach((source: XSoundSource) => {
       if (source !== 'oscillator') {
         X(source).module('recorder').ready(nextActiveTrack);
 
@@ -129,7 +130,7 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
   }, [props.sources, running]);
 
   const onChangeLeftChannelGainCallback = useCallback((event: React.SyntheticEvent) => {
-    props.sources.forEach((source: string) => {
+    props.sources.forEach((source: XSoundSource) => {
       if (source !== 'oscillator') {
         X(source).module('recorder').param('gainL', (event.currentTarget as HTMLInputElement).valueAsNumber);
       }
@@ -137,7 +138,7 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
   }, [props.sources]);
 
   const onChangeRightChannelGainCallback = useCallback((event: React.SyntheticEvent) => {
-    props.sources.forEach((source: string) => {
+    props.sources.forEach((source: XSoundSource) => {
       if (source !== 'oscillator') {
         X(source).module('recorder').param('gainR', (event.currentTarget as HTMLInputElement).valueAsNumber);
       }
@@ -149,7 +150,7 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
       return;
     }
 
-    props.sources.forEach((source: string) => {
+    props.sources.forEach((source: XSoundSource) => {
       if (source !== 'oscillator') {
         X(source).module('recorder').setup(NUMBER_OF_TRACKS);
       }

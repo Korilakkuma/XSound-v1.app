@@ -1,6 +1,12 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { IState, SoundSource, OneshotSettings, RIRInfo } from '../types/types';
+import {
+  IState,
+  SoundSource,
+  XSoundSource,
+  OneshotSettings,
+  RIRInfo
+} from '../types/types';
 import { Modal } from './atoms/Modal';
 import { Flexbox } from './atoms/Flexbox';
 import { VerticalBox } from './atoms/VerticalBox';
@@ -48,7 +54,7 @@ export const App: React.FC<Props> = () => {
   const analyserState                   = useSelector((state: IState) => state.analyserState);
   const mmlState                        = useSelector((state: IState) => state.mmlState);
 
-  const sources = useMemo(() => ['mixer', 'oscillator', 'oneshot', 'audio', 'stream', 'noise'], []);
+  const sources: XSoundSource[] = useMemo(() => ['mixer', 'oscillator', 'oneshot', 'audio', 'stream', 'noise'], []);
 
   const oneshots = useMemo(() => [
     `${BASE_URL}/one-shots/piano-2/C.wav`,
@@ -770,7 +776,7 @@ export const App: React.FC<Props> = () => {
           const rate = Math.floor((reverbs.length / rirInfos.length) * 100);
 
           if (reverbs.length === rirInfos.length) {
-            sources.forEach((source: string) => {
+            sources.forEach((source: XSoundSource) => {
               X(source).module('reverb').preset(reverbs);
             });
 
@@ -849,7 +855,7 @@ export const App: React.FC<Props> = () => {
 
     X('stream').setup(constraints);
 
-    sources.forEach((source: string) => {
+    sources.forEach((source: XSoundSource) => {
       X(source).module('distortion').param('color', 2000);
       X(source).module('distortion').param('tone',  4000);
       X(source).module('chorus').param('tone', 4000);

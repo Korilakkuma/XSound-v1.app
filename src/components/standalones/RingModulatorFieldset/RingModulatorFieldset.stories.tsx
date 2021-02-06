@@ -5,6 +5,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import { Props, RingModulatorFieldset } from './RingModulatorFieldset';
 import '../../../main.css';
 
+import { XSoundSource } from '../../../types/types';
 import { X } from 'xsound';
 
 export default {
@@ -16,7 +17,7 @@ const Template: Story<Props> = () => {
   const [loaded, setLoaded] = useState<boolean>(false);
   const [paused, setPaused] = useState<boolean>(true);
 
-  const sources = useMemo(() => ['audio'], []);
+  const sources = useMemo(() => ['audio'] as XSoundSource[], []);
 
   useEffect(() => {
     if (loaded) {

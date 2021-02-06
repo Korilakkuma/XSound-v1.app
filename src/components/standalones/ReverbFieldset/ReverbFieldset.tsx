@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { RIRInfo } from '../../../types/types';
+import { XSoundSource, RIRInfo } from '../../../types/types';
 import { Spacer } from '../../atoms/Spacer';
 import { GroupSelect } from '../../atoms/GroupSelect';
 import { Switch } from '../../atoms/Switch';
@@ -7,7 +7,7 @@ import { ValueController } from '../../helpers/ValueController';
 import { X } from 'xsound';
 
 export interface Props {
-  sources: string[];
+  sources: XSoundSource[];
   rirInfos: RIRInfo[];
 }
 
@@ -41,7 +41,7 @@ export const ReverbFieldset: React.FC<Props> = (props: Props) => {
   const onChangeStateCallback = useCallback((event: React.SyntheticEvent) => {
     const state = (event.currentTarget as HTMLInputElement).checked;
 
-    sources.forEach((source: string) => {
+    sources.forEach((source: XSoundSource) => {
       X(source).module('reverb').state(state);
     });
   }, [sources]);
@@ -49,7 +49,7 @@ export const ReverbFieldset: React.FC<Props> = (props: Props) => {
   const onChangeTypeCallback = useCallback((event: React.SyntheticEvent) => {
     const type = parseInt((event.currentTarget as HTMLInputElement).value, 10);
 
-    sources.forEach((source: string) => {
+    sources.forEach((source: XSoundSource) => {
       X(source).module('reverb').param('type', type);
     });
   }, [sources]);
@@ -57,7 +57,7 @@ export const ReverbFieldset: React.FC<Props> = (props: Props) => {
   const onChangeDryCallback = useCallback((event: React.SyntheticEvent) => {
     const dry = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    sources.forEach((source: string) => {
+    sources.forEach((source: XSoundSource) => {
       X(source).module('reverb').param('dry', dry);
     });
   }, [sources]);
@@ -65,7 +65,7 @@ export const ReverbFieldset: React.FC<Props> = (props: Props) => {
   const onChangeWetCallback = useCallback((event: React.SyntheticEvent) => {
     const wet = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    sources.forEach((source: string) => {
+    sources.forEach((source: XSoundSource) => {
       X(source).module('reverb').param('wet', wet);
     });
   }, [sources]);
@@ -73,7 +73,7 @@ export const ReverbFieldset: React.FC<Props> = (props: Props) => {
   const onChangeToneCallback = useCallback((event: React.SyntheticEvent) => {
     const tone = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    sources.forEach((source: string) => {
+    sources.forEach((source: XSoundSource) => {
       X(source).module('reverb').param('tone', tone);
     });
   }, [sources]);

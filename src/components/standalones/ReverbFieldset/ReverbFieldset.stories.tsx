@@ -5,7 +5,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import { Props, ReverbFieldset } from './ReverbFieldset';
 import '../../../main.css';
 
-import { RIRInfo } from '../../../types/types';
+import { XSoundSource, RIRInfo } from '../../../types/types';
 import { X } from 'xsound';
 
 export default {
@@ -24,7 +24,7 @@ const Template: Story<Props> = () => {
   const [loaded, setLoaded] = useState<boolean>(false);
   const [paused, setPaused] = useState<boolean>(true);
 
-  const sources = useMemo(() => ['audio'], []);
+  const sources = useMemo(() => ['audio'] as XSoundSource[], []);
 
   const reverbs: AudioBuffer[] = useMemo(() => [], []);
 

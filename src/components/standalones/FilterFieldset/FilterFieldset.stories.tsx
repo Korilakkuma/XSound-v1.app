@@ -5,6 +5,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import { Props, FilterFieldset } from './FilterFieldset';
 import '../../../main.css';
 
+import { XSoundSource } from '../../../types/types';
 import { X } from 'xsound';
 
 export default {
@@ -49,7 +50,7 @@ const Template: Story<Props> = () => {
       >
         {isStop ? 'Start' : 'Stop'}
       </button>
-      <FilterFieldset sources={['oscillator']} />
+      <FilterFieldset sources={['oscillator'] as XSoundSource[]} />
     </React.Fragment>
   );
 };

@@ -8,7 +8,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import { Props, BasicControllers } from './BasicControllers';
 import '../../../main.css';
 
-import { OneshotSettings } from '../../../types/types';
+import { XSoundSource, OneshotSettings } from '../../../types/types';
 import { X } from 'xsound';
 
 export default {
@@ -191,7 +191,7 @@ const Template: Story<Props> = () => {
       >
         {isOneshotStop ? 'Start' : 'Stop'}
       </button>
-      <BasicControllers sources={['oscillator', 'oneshot']} />
+      <BasicControllers sources={['oscillator', 'oneshot'] as XSoundSource[]} />
     </Provider>
   );
 };
