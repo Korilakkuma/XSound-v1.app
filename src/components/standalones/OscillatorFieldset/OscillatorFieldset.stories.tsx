@@ -17,8 +17,7 @@ export const Primary = Template.bind({});
 Primary.args = {
   oscillatorNumber: 0,
   label           : 'Oscillator-1',
-  radioName       : 'oscillator-type-0',
-  defaultState    : true
+  radioName       : 'oscillator-type-0'
 };
 
 export const Secondary = Template.bind({});
