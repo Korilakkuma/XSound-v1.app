@@ -21,6 +21,13 @@ export type SoundSource = 'oscillator'
                         | 'stream'
                         | 'midi';
 
+export type XSoundSource = 'mixer'
+                         | 'oscillator'
+                         | 'oneshot'
+                         | 'audio'
+                         | 'stream'
+                         | 'noise';
+
 export type OscillatorType = 'sine' | 'square' | 'sawtooth' | 'triangle';
 
 export interface OneshotSettings {

@@ -1,18 +1,19 @@
 import React, { useCallback } from 'react';
+import { XSoundSource } from '../../../types/types';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
 import { ValueController } from '../../helpers/ValueController';
 import { X } from 'xsound';
 
 export interface Props {
-  sources: string[];
+  sources: XSoundSource[];
 }
 
 export const DelayFieldset: React.FC<Props> = (props: Props) => {
   const onChangeStateCallback = useCallback((event: React.SyntheticEvent) => {
     const state = (event.currentTarget as HTMLInputElement).checked;
 
-    props.sources.forEach((source: string) => {
+    props.sources.forEach((source: XSoundSource) => {
       X(source).module('delay').state(state);
     });
   }, [props.sources]);
@@ -20,7 +21,7 @@ export const DelayFieldset: React.FC<Props> = (props: Props) => {
   const onChangeTimeCallback = useCallback((event: React.SyntheticEvent) => {
     const time = (event.currentTarget as HTMLInputElement).valueAsNumber / 1000;
 
-    props.sources.forEach((source: string) => {
+    props.sources.forEach((source: XSoundSource) => {
       X(source).module('delay').param('time', time);
     });
   }, [props.sources]);
@@ -28,7 +29,7 @@ export const DelayFieldset: React.FC<Props> = (props: Props) => {
   const onChangeDryCallback = useCallback((event: React.SyntheticEvent) => {
     const dry = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    props.sources.forEach((source: string) => {
+    props.sources.forEach((source: XSoundSource) => {
       X(source).module('delay').param('dry', dry);
     });
   }, [props.sources]);
@@ -36,7 +37,7 @@ export const DelayFieldset: React.FC<Props> = (props: Props) => {
   const onChangeWetCallback = useCallback((event: React.SyntheticEvent) => {
     const wet = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    props.sources.forEach((source: string) => {
+    props.sources.forEach((source: XSoundSource) => {
       X(source).module('delay').param('wet', wet);
     });
   }, [props.sources]);
@@ -44,7 +45,7 @@ export const DelayFieldset: React.FC<Props> = (props: Props) => {
   const onChangeToneCallback = useCallback((event: React.SyntheticEvent) => {
     const tone = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    props.sources.forEach((source: string) => {
+    props.sources.forEach((source: XSoundSource) => {
       X(source).module('delay').param('tone', tone);
     });
   }, [props.sources]);
@@ -52,7 +53,7 @@ export const DelayFieldset: React.FC<Props> = (props: Props) => {
   const onChangeFeedbackCallback = useCallback((event: React.SyntheticEvent) => {
     const feedback = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    props.sources.forEach((source: string) => {
+    props.sources.forEach((source: XSoundSource) => {
       X(source).module('delay').param('feedback', feedback);
     });
   }, [props.sources]);

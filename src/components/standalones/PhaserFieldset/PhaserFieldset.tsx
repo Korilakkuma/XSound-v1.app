@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import { XSoundSource } from '../../../types/types';
 import { Spacer } from '../../atoms/Spacer';
 import { Select } from '../../atoms/Select';
 import { Switch } from '../../atoms/Switch';
@@ -6,14 +7,14 @@ import { ValueController } from '../../helpers/ValueController';
 import { X } from 'xsound';
 
 export interface Props {
-  sources: string[];
+  sources: XSoundSource[];
 }
 
 export const PhaserFieldset: React.FC<Props> = (props: Props) => {
   const onChangeStateCallback = useCallback((event: React.SyntheticEvent) => {
     const state = (event.currentTarget as HTMLInputElement).checked;
 
-    props.sources.forEach((source: string) => {
+    props.sources.forEach((source: XSoundSource) => {
       X(source).module('phaser').state(state);
     });
   }, [props.sources]);
@@ -21,7 +22,7 @@ export const PhaserFieldset: React.FC<Props> = (props: Props) => {
   const onChangeStageCallback = useCallback((event: React.SyntheticEvent) => {
     const stage = parseInt((event.currentTarget as HTMLInputElement).value, 10);
 
-    props.sources.forEach((source: string) => {
+    props.sources.forEach((source: XSoundSource) => {
       X(source).module('phaser').param('stage', stage);
     });
   }, [props.sources]);
@@ -29,7 +30,7 @@ export const PhaserFieldset: React.FC<Props> = (props: Props) => {
   const onChangeFrequencyCallback = useCallback((event: React.SyntheticEvent) => {
     const frequency = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    props.sources.forEach((source: string) => {
+    props.sources.forEach((source: XSoundSource) => {
       X(source).module('phaser').param('frequency', frequency);
     });
   }, [props.sources]);
@@ -37,7 +38,7 @@ export const PhaserFieldset: React.FC<Props> = (props: Props) => {
   const onChangeDepthCallback = useCallback((event: React.SyntheticEvent) => {
     const depth = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    props.sources.forEach((source: string) => {
+    props.sources.forEach((source: XSoundSource) => {
       X(source).module('phaser').param('depth', depth);
     });
   }, [props.sources]);
@@ -45,7 +46,7 @@ export const PhaserFieldset: React.FC<Props> = (props: Props) => {
   const onChangeRateCallback = useCallback((event: React.SyntheticEvent) => {
     const rate = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    props.sources.forEach((source: string) => {
+    props.sources.forEach((source: XSoundSource) => {
       X(source).module('phaser').param('rate', rate);
     });
   }, [props.sources]);
@@ -53,7 +54,7 @@ export const PhaserFieldset: React.FC<Props> = (props: Props) => {
   const onChangeMixCallback = useCallback((event: React.SyntheticEvent) => {
     const mix = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    props.sources.forEach((source: string) => {
+    props.sources.forEach((source: XSoundSource) => {
       X(source).module('phaser').param('mix', mix);
     });
   }, [props.sources]);
@@ -61,7 +62,7 @@ export const PhaserFieldset: React.FC<Props> = (props: Props) => {
   const onChangeFeedbackCallback = useCallback((event: React.SyntheticEvent) => {
     const feedback = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    props.sources.forEach((source: string) => {
+    props.sources.forEach((source: XSoundSource) => {
       X(source).module('phaser').param('feedback', feedback);
     });
   }, [props.sources]);

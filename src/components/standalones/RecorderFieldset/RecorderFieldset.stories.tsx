@@ -5,6 +5,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import { Props, RecorderFieldset } from './RecorderFieldset';
 import '../../../main.css';
 
+import { XSoundSource } from '../../../types/types';
 import { X } from 'xsound';
 
 export default {
@@ -33,7 +34,7 @@ const Template: Story<Props> = () => {
     setLoaded(true);
   }, [loaded]);
 
-  return <RecorderFieldset sources={['stream']} />;
+  return <RecorderFieldset sources={['stream'] as XSoundSource[]} />;
 };
 
 export const Primary = Template.bind({});

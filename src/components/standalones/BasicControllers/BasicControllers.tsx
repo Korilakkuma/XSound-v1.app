@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import {
   SoundSource,
+  XSoundSource,
   MIDIAccess,
   MIDIInput,
   MIDIOutput,
@@ -23,7 +24,7 @@ const MAX_NOTE_NUMBER = 108;
 const MAX_VELOCITY    = 127;
 
 export interface Props {
-  sources: string[];
+  sources: XSoundSource[];
 }
 
 export const BasicControllers: React.FC<Props> = (props: Props) => {
@@ -34,7 +35,7 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
 
   const dispatch = useDispatch();
 
-  const successCallback = useCallback((source: string, midiAccess: MIDIAccess, inputs: MIDIInput[], outputs: MIDIOutput[]) => {
+  const successCallback = useCallback((source: SoundSource, midiAccess: MIDIAccess, inputs: MIDIInput[], outputs: MIDIOutput[]) => {
     const indexes: number[] = [];
     const volumes: number[] = [];
 
@@ -137,7 +138,7 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
   }, []);
 
   const onChangeMasterVolumeCallback = useCallback((event: React.SyntheticEvent) => {
-    props.sources.forEach((source: string) => {
+    props.sources.forEach((source: XSoundSource) => {
       const mastervolume = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
       if (X(source) !== null) {
@@ -162,7 +163,7 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
   }, []);
 
   const onChangeSoundSourceCallback = useCallback((event: React.SyntheticEvent) => {
-    props.sources.forEach((source: string) => {
+    props.sources.forEach((source: XSoundSource) => {
       X(source).module('analyser').stop('time').domain('time').clear();
       X(source).module('analyser').stop('fft').domain('fft').clear();
     });

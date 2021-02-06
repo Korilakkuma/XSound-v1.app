@@ -1,18 +1,19 @@
 import React, { useCallback } from 'react';
+import { XSoundSource } from '../../../types/types';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
 import { ValueController } from '../../helpers/ValueController';
 import { X } from 'xsound';
 
 export interface Props {
-  sources: string[];
+  sources: XSoundSource[];
 }
 
 export const EqualizerFieldset: React.FC<Props> = (props: Props) => {
   const onChangeStateCallback = useCallback((event: React.SyntheticEvent) => {
     const state = (event.currentTarget as HTMLInputElement).checked;
 
-    props.sources.forEach((source: string) => {
+    props.sources.forEach((source: XSoundSource) => {
       X(source).module('equalizer').state(state);
     });
   }, [props.sources]);
@@ -20,7 +21,7 @@ export const EqualizerFieldset: React.FC<Props> = (props: Props) => {
   const onChangeBassCallback = useCallback((event: React.SyntheticEvent) => {
     const bass = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    props.sources.forEach((source: string) => {
+    props.sources.forEach((source: XSoundSource) => {
       X(source).module('equalizer').param('bass', bass);
     });
   }, [props.sources]);
@@ -28,7 +29,7 @@ export const EqualizerFieldset: React.FC<Props> = (props: Props) => {
   const onChangeMiddleCallback = useCallback((event: React.SyntheticEvent) => {
     const middle = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    props.sources.forEach((source: string) => {
+    props.sources.forEach((source: XSoundSource) => {
       X(source).module('equalizer').param('middle', middle);
     });
   }, [props.sources]);
@@ -36,7 +37,7 @@ export const EqualizerFieldset: React.FC<Props> = (props: Props) => {
   const onChangeTrebleCallback = useCallback((event: React.SyntheticEvent) => {
     const treble = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    props.sources.forEach((source: string) => {
+    props.sources.forEach((source: XSoundSource) => {
       X(source).module('equalizer').param('treble', treble);
     });
   }, [props.sources]);
@@ -44,7 +45,7 @@ export const EqualizerFieldset: React.FC<Props> = (props: Props) => {
   const onChangePresenceCallback = useCallback((event: React.SyntheticEvent) => {
     const presence = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    props.sources.forEach((source: string) => {
+    props.sources.forEach((source: XSoundSource) => {
       X(source).module('equalizer').param('presence', presence);
     });
   }, [props.sources]);

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { XSoundSource } from '../../../types/types';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
 import { ValueController } from '../../helpers/ValueController';
@@ -6,7 +7,7 @@ import { X } from 'xsound';
 
 export interface Props {
   active: boolean;
-  sources: string[];
+  sources: XSoundSource[];
 }
 
 export const Analyser: React.FC<Props> = (props: Props) => {
@@ -47,14 +48,14 @@ export const Analyser: React.FC<Props> = (props: Props) => {
   const onChangeIntervalCallback = useCallback((event: React.SyntheticEvent) => {
     const value = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    sources.forEach((source: string) => {
+    sources.forEach((source: XSoundSource) => {
       X(source).module('analyser').domain('time').param('interval', ((value > 0) ? value : 'auto'));
       X(source).module('analyser').domain('fft').param('interval', ((value > 0) ? value : 'auto'));
     });
   }, [sources]);
 
   const onChangeSmoothingCallback = useCallback((event: React.SyntheticEvent) => {
-    sources.forEach((source: string) => {
+    sources.forEach((source: XSoundSource) => {
       X(source).module('analyser').param('smoothingTimeConstant', (event.currentTarget as HTMLInputElement).valueAsNumber);
     });
   }, [sources]);
@@ -68,7 +69,7 @@ export const Analyser: React.FC<Props> = (props: Props) => {
     }
 
     if (loaded) {
-      sources.forEach((source: string) => {
+      sources.forEach((source: XSoundSource) => {
         X(source).module('analyser').domain('time').state(active);
         X(source).module('analyser').domain('fft').state(active);
       });

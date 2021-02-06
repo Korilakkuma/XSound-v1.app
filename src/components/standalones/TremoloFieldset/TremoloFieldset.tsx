@@ -1,18 +1,19 @@
 import React, { useCallback } from 'react';
+import { XSoundSource } from '../../../types/types';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
 import { ValueController } from '../../helpers/ValueController';
 import { X } from 'xsound';
 
 export interface Props {
-  sources: string[];
+  sources: XSoundSource[];
 }
 
 export const TremoloFieldset: React.FC<Props> = (props: Props) => {
   const onChangeStateCallback = useCallback((event: React.SyntheticEvent) => {
     const state = (event.currentTarget as HTMLInputElement).checked;
 
-    props.sources.forEach((source: string) => {
+    props.sources.forEach((source: XSoundSource) => {
       X(source).module('tremolo').state(state);
     });
   }, [props.sources]);
@@ -20,7 +21,7 @@ export const TremoloFieldset: React.FC<Props> = (props: Props) => {
   const onChangeDepthCallback = useCallback((event: React.SyntheticEvent) => {
     const depth = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    props.sources.forEach((source: string) => {
+    props.sources.forEach((source: XSoundSource) => {
       X(source).module('tremolo').param('depth', depth);
     });
   }, [props.sources]);
@@ -28,7 +29,7 @@ export const TremoloFieldset: React.FC<Props> = (props: Props) => {
   const onChangeRateCallback = useCallback((event: React.SyntheticEvent) => {
     const rate = (event.currentTarget as HTMLInputElement).valueAsNumber;
 
-    props.sources.forEach((source: string) => {
+    props.sources.forEach((source: XSoundSource) => {
       X(source).module('tremolo').param('rate', rate);
     });
   }, [props.sources]);
