@@ -66,16 +66,19 @@ self.addEventListener('fetch', (event: FetchEvent) => {
               cache.put(event.request, responseToCache);
             })
             .catch((error: Error) => {
+              // eslint-disable-next-line no-console
               console.error(error);
             });
 
           return response;
         })
         .catch((error: Error) => {
+          // eslint-disable-next-line no-console
           console.error(error);
         });
     })
     .catch((error: Error) => {
+      // eslint-disable-next-line no-console
       console.error(error);
     });
 
@@ -92,6 +95,7 @@ self.addEventListener('activate', (event: ExtendableEvent) => {
       );
     })
     .catch((error: Error) => {
+      // eslint-disable-next-line no-console
       console.error(error);
     });
 
