@@ -8,14 +8,29 @@ export interface Props {
   onClose?(event: React.SyntheticEvent): void;
 }
 
+interface OverlayProps {
+  className: string;
+  onClose?(event: React.SyntheticEvent): void;
+}
+
+const Overlay: React.FC<OverlayProps> = (props: OverlayProps) => {
+  const { className, onClose } = props;
+
+  if (onClose) {
+    return <div role="button" className={className} onClick={onClose} />;
+  }
+
+  return <div className={className} />;
+};
+
 export const Modal: React.FC<Props> = (props: Props) => {
   const { isShow, hasOverlay, title, children, onClose } = props;
 
   return (
     <div className={`Modal${isShow ? ' -show' : ''}`}>
-      {hasOverlay ? <div className="Modal__overlay" role={onClose ? 'button' : undefined} onClick={onClose} /> : null}
+      {hasOverlay ?  <Overlay className="Modal__overlay" onClose={onClose} /> : null}
       <div className="Modal__inner">
-        {onClose ? <button className="Modal__closer" type="button" aria-label="Close modal" onClick={onClose}>X</button> : null}
+        {onClose ? <button type="button" aria-label="Close modal" className="Modal__closer" onClick={onClose}>X</button> : null}
         <h1 className="Modal__title">{title}</h1>
         <div className="Modal__contents">{children}</div>
       </div>
