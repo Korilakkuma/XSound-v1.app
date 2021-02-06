@@ -9,15 +9,13 @@ export interface Props {
   oscillatorNumber: number;
   label: string;
   radioName: string;
-  defaultState?: boolean;
 }
 
 export const OscillatorFieldset: React.FC<Props> = (props: Props) => {
   const {
     oscillatorNumber,
     label,
-    radioName,
-    defaultState
+    radioName
   } = props;
 
   const onChangeStateCallback = useCallback((event: React.SyntheticEvent) => {
@@ -87,7 +85,7 @@ export const OscillatorFieldset: React.FC<Props> = (props: Props) => {
           <Switch
             id={`oscillator-fieldset-state-${oscillatorNumber}`}
             label={label}
-            defaultChecked={Boolean(defaultState)}
+            defaultChecked={oscillatorNumber === 0}
             onChange={onChangeStateCallback}
           />
         </legend>
