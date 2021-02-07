@@ -9,11 +9,11 @@ import { Modal } from '../../atoms/Modal';
 import { ValueController } from '../../helpers/ValueController';
 import { X } from 'xsound';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Props {
+  loadedApp: boolean;
 }
 
-export const AudioFieldset: React.FC<Props> = () => {
+export const AudioFieldset: React.FC<Props> = (props: Props) => {
   const [loaded, setLoaded] = useState<boolean>(false);
   const [filename, setFilename] = useState<string>('');
   const [paused, setPaused] = useState<boolean>(true);
@@ -170,7 +170,7 @@ export const AudioFieldset: React.FC<Props> = () => {
   const durationText    = useMemo(() => `${formatAudioTime(convertedDuration)}`, [convertedDuration]);
 
   useEffect(() => {
-    if (loaded) {
+    if (!props.loadedApp || loaded) {
       return;
     }
 
@@ -186,6 +186,7 @@ export const AudioFieldset: React.FC<Props> = () => {
 
     setLoaded(true);
   }, [
+    props.loadedApp,
     loaded,
     decodeCallback,
     readyCallback,

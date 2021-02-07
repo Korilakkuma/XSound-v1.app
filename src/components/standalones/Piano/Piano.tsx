@@ -125,10 +125,10 @@ export const Piano: React.FC<Props> = (props: Props) => {
         X('oneshot').stop(index);
         break;
       case 'guitar':
-        X('oneshot').stop(index + 88);
+        X('oneshot').stop(index + NUMBER_OF_PIANO_KEYBOARDS);
         break;
       case 'electric-guitar':
-        X('oneshot').stop(index + 88 + 88);
+        X('oneshot').stop(index + NUMBER_OF_PIANO_KEYBOARDS + NUMBER_OF_PIANO_KEYBOARDS);
         break;
       default:
         X('noise').stop();
