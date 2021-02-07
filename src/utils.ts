@@ -1,3 +1,11 @@
+import { ConvertedTime } from './types';
+
+export function formatAudioTime(convertedTime: ConvertedTime): string {
+  const { minutes, seconds } = convertedTime;
+
+  return `${('0' + minutes).slice(-2)} : ${('0' + seconds).slice(-2)}`;
+}
+
 export function createFilename(prefix: string, ext: string): string {
   const format = (n: number) => {
     return (`0${n}`).slice(-2);

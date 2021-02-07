@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { XSoundSource } from '../../../types';
+import { XSoundSource, ConvertedTime } from '../../../types';
+import { formatAudioTime } from '../../../utils';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
 import { ValueController } from '../../helpers/ValueController';
@@ -145,12 +146,7 @@ export const Analyser: React.FC<Props> = (props: Props) => {
       }
 
       if ((event.type === 'mousemove') || (event.type === 'touchmove')) {
-        const convertedStartTime = X.convertTime(startTime);
-        const convertedEndTime   = X.convertTime(endTime);
-
-        const dragTime = `${('0' + convertedStartTime.minutes).slice(-2)} : ${('0' + convertedStartTime.seconds).slice(-2)} - ${('0' + convertedEndTime.minutes).slice(-2)} : ${('0' + convertedEndTime.seconds).slice(-2)}`;
-
-        setDragTime(dragTime);
+        setDragTime(`${formatAudioTime(X.convertTime(startTime) as ConvertedTime)} - ${formatAudioTime(X.convertTime(endTime) as ConvertedTime)}`);
         return;
       }
 

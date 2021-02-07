@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import { ConvertedTime } from '../../../types';
+import { formatAudioTime } from '../../../utils';
 import { Spacer } from '../../atoms/Spacer';
 import { FileUploader } from '../../atoms/FileUploader';
 import { Button } from '../../atoms/Button';
@@ -161,11 +163,11 @@ export const AudioFieldset: React.FC<Props> = () => {
     setIsShowModalForDecodingError(true);
   }, []);
 
-  const convertedCurrenTime = useMemo(() => X.convertTime(currentTime), [currentTime]);
-  const convertedDuration   = useMemo(() => X.convertTime(duration), [duration]);
+  const convertedCurrenTime = useMemo(() => X.convertTime(currentTime) as ConvertedTime, [currentTime]);
+  const convertedDuration   = useMemo(() => X.convertTime(duration) as ConvertedTime, [duration]);
 
-  const currentTimeText = useMemo(() => `${('0' + convertedCurrenTime.minutes).slice(-2)} : ${('0' + convertedCurrenTime.seconds).slice(-2)}`, [convertedCurrenTime.minutes, convertedCurrenTime.seconds]);
-  const durationText    = useMemo(() => `${('0' + convertedDuration.minutes).slice(-2)} : ${('0' + convertedDuration.seconds).slice(-2)}`, [convertedDuration.minutes, convertedDuration.seconds]);
+  const currentTimeText = useMemo(() => `${formatAudioTime(convertedCurrenTime)}`, [convertedCurrenTime]);
+  const durationText    = useMemo(() => `${formatAudioTime(convertedDuration)}`, [convertedDuration]);
 
   useEffect(() => {
     if (loaded) {
