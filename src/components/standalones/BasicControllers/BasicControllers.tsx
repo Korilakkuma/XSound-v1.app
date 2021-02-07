@@ -7,7 +7,7 @@ import {
   MIDIInput,
   MIDIOutput,
   MIDIMessageEvent
-} from '../../../types/types';
+} from '../../../types';
 import {
   changeCurrentSoundSource,
   changeAnalyserState,

@@ -6,7 +6,7 @@ import {
   XSoundSource,
   OneshotSettings,
   RIRInfo
-} from '../types/types';
+} from '../types';
 import { Modal } from './atoms/Modal';
 import { Flexbox } from './atoms/Flexbox';
 import { VerticalBox } from './atoms/VerticalBox';

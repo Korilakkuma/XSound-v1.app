@@ -5,7 +5,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import { Props, ReverbFieldset } from './ReverbFieldset';
 import '../../../main.css';
 
-import { XSoundSource, RIRInfo } from '../../../types/types';
+import { XSoundSource, RIRInfo } from '../../../types';
 import { X } from 'xsound';
 
 export default {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { XSoundSource } from '../../../types/types';
+import { XSoundSource } from '../../../types';
 import { createFilename } from '../../../utils';
 import { Spacer } from '../../atoms/Spacer';
 import { Select } from '../../atoms/Select';

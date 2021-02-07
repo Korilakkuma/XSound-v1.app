@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { OscillatorType } from '../../../types/types';
+import { OscillatorType } from '../../../types';
 
 export interface Props {
   radioName: string;

@@ -5,7 +5,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import { Props, EnvelopeGeneratorFieldset } from './EnvelopeGeneratorFieldset';
 import '../../../main.css';
 
-import '../../../types/types';
+import '../../../types';
 import { X } from 'xsound';
 
 export default {

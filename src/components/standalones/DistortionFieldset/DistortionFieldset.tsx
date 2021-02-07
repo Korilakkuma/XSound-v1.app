@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { XSoundSource } from '../../../types/types';
+import { XSoundSource } from '../../../types';
 import { Spacer } from '../../atoms/Spacer';
 import { Select } from '../../atoms/Select';
 import { Switch } from '../../atoms/Switch';
