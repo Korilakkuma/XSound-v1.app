@@ -39,11 +39,17 @@ export interface OneshotSettings {
   volume: number;
 }
 
-export type RIRInfo = {
+export interface RIRInfo {
   url: string;
   value: number;
   label: string;
   group: string;
+}
+
+export interface ConvertedTime {
+  minutes: number;
+  seconds: number;
+  milliseconds: number;
 }
 
 // HACK:
