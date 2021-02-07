@@ -78,7 +78,7 @@ export const Analyser: React.FC<Props> = (props: Props) => {
       return;
     }
 
-    sources.forEach((source: string) => {
+    sources.forEach((source: XSoundSource) => {
       X(source).module('analyser').param({
         fftSize              : 2048,
         minDecibels          : -100,
