@@ -146,7 +146,7 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
       }
 
       if (window.C(source) !== null) {
-        window.C(source).param('mastervolume');
+        window.C(source).param('mastervolume', mastervolume);
       }
     });
   }, [props.sources]);
