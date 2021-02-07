@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { SoundSource } from '../../../types/types';
+import { SoundSource } from '../../../types';
 import { downKeyboards, upKeyboards } from '../../../actions';
 import { createFilename } from '../../../utils';
 import { Switch } from '../../atoms/Switch';

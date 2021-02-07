@@ -5,7 +5,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import { Props, MML } from './MML';
 import '../../../main.css';
 
-import { SoundSource } from '../../../types/types';
+import { SoundSource } from '../../../types';
 import { X } from 'xsound';
 
 export default {

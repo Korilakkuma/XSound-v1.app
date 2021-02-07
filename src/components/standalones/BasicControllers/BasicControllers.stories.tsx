@@ -8,7 +8,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import { Props, BasicControllers } from './BasicControllers';
 import '../../../main.css';
 
-import { XSoundSource, OneshotSettings } from '../../../types/types';
+import { XSoundSource, OneshotSettings } from '../../../types';
 import { X } from 'xsound';
 
 export default {

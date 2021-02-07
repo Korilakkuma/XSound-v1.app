@@ -5,7 +5,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import { Props, RingModulatorFieldset } from './RingModulatorFieldset';
 import '../../../main.css';
 
-import { XSoundSource } from '../../../types/types';
+import { XSoundSource } from '../../../types';
 import { X } from 'xsound';
 
 export default {

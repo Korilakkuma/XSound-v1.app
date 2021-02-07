@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { IState, SoundSource } from '../../../types/types';
+import { IState, SoundSource } from '../../../types';
 import { X } from 'xsound';
 
 const NUMBER_OF_PIANO_KEYBOARDS = 88;

@@ -5,7 +5,7 @@ import {
   AnalyserStateAction,
   MMLStateAction,
   KeyboardAction
-} from '../types/types';
+} from '../types';
 
 export function changeCurrentSoundSource(source: SoundSource): CurrentSoundSourceAction {
   return {
