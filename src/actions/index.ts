@@ -28,16 +28,30 @@ export function changeMMLState(state: boolean): MMLStateAction {
   };
 }
 
-export function downKeyboards(indexes: number[]): KeyboardAction {
+export function downMelodyKeyboards(indexes: number[]): KeyboardAction {
   return {
-    type   : ActionTypes.DOWN_KEYBOARDS,
+    type   : ActionTypes.DOWN_MELODY_KEYBOARDS,
     payload: indexes
   };
 }
 
-export function upKeyboards(indexes: number[]): KeyboardAction {
+export function downBassKeyboards(indexes: number[]): KeyboardAction {
   return {
-    type   : ActionTypes.UP_KEYBOARDS,
+    type   : ActionTypes.DOWN_BASS_KEYBOARDS,
+    payload: indexes
+  };
+}
+
+export function upMelodyKeyboards(indexes: number[]): KeyboardAction {
+  return {
+    type   : ActionTypes.UP_MELODY_KEYBOARDS,
+    payload: indexes
+  };
+}
+
+export function upBassKeyboards(indexes: number[]): KeyboardAction {
+  return {
+    type   : ActionTypes.UP_BASS_KEYBOARDS,
     payload: indexes
   };
 }

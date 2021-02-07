@@ -88,6 +88,9 @@ export interface MMLStateAction extends Action {
 }
 
 export interface KeyboardAction extends Action {
-  type: typeof ActionTypes.DOWN_KEYBOARDS | typeof ActionTypes.UP_KEYBOARDS;
+  type: typeof ActionTypes.DOWN_MELODY_KEYBOARDS
+      | typeof ActionTypes.DOWN_BASS_KEYBOARDS
+      | typeof ActionTypes.UP_MELODY_KEYBOARDS
+      | typeof ActionTypes.UP_BASS_KEYBOARDS;
   payload: number[];
 }

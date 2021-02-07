@@ -1,7 +1,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { IState, SoundSource } from '../../../types';
-import { downKeyboards, upKeyboards } from '../../../actions';
+import {
+  downMelodyKeyboards,
+  downBassKeyboards,
+  upMelodyKeyboards,
+  upBassKeyboards
+} from '../../../actions';
 import { createFilename } from '../../../utils';
 import { Switch } from '../../atoms/Switch';
 import { FileUploader } from '../../atoms/FileUploader';
@@ -132,7 +137,7 @@ export const MML: React.FC<Props> = (props: Props) => {
   }, [melody, bass, readyMMLCallback]);
 
   const startMelodyCallback = useCallback((sequence: Sequence) => {
-    dispatch(downKeyboards(sequence.indexes));
+    dispatch(downMelodyKeyboards(sequence.indexes));
 
     if (highlight) {
       setMelody(X('mml').get(0, true));
@@ -140,7 +145,7 @@ export const MML: React.FC<Props> = (props: Props) => {
   }, [dispatch, highlight]);
 
   const startBassCallback = useCallback((sequence: Sequence) => {
-    dispatch(downKeyboards(sequence.indexes));
+    dispatch(downBassKeyboards(sequence.indexes));
 
     if (highlight) {
       setBass(window.C('mml').get(0, true));
@@ -148,11 +153,11 @@ export const MML: React.FC<Props> = (props: Props) => {
   }, [dispatch, highlight]);
 
   const stopMelodyCallback = useCallback((sequence: Sequence) => {
-    dispatch(upKeyboards(sequence.indexes));
+    dispatch(upMelodyKeyboards(sequence.indexes));
   }, [dispatch]);
 
   const stopBassCallback = useCallback((sequence: Sequence) => {
-    dispatch(upKeyboards(sequence.indexes));
+    dispatch(upBassKeyboards(sequence.indexes));
   }, [dispatch]);
 
   const endedCallback = useCallback(() => {
@@ -163,7 +168,8 @@ export const MML: React.FC<Props> = (props: Props) => {
       }
     }
 
-    dispatch(downKeyboards([]));
+    dispatch(downMelodyKeyboards([]));
+    dispatch(downBassKeyboards([]));
 
     const currentMelody = melody.replace(CLEAR_HIGHLIGHT_REGEXP, '$1');
     const currentBass   = bass.replace(CLEAR_HIGHLIGHT_REGEXP, '$1');
@@ -262,7 +268,8 @@ export const MML: React.FC<Props> = (props: Props) => {
     X('mml').stop().clear();
     window.C('mml').stop().clear();
 
-    dispatch(downKeyboards([]));
+    dispatch(downMelodyKeyboards([]));
+    dispatch(downBassKeyboards([]));
 
     const currentMelody = melody.replace(CLEAR_HIGHLIGHT_REGEXP, '$1');
     const currentBass   = bass.replace(CLEAR_HIGHLIGHT_REGEXP, '$1');
