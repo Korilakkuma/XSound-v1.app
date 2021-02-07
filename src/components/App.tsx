@@ -1,12 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import {
-  IState,
-  SoundSource,
-  XSoundSource,
-  OneshotSettings,
-  RIRInfo
-} from '../types';
+import { IState, XSoundSource, OneshotSettings, RIRInfo } from '../types';
 import { Modal } from './atoms/Modal';
 import { Flexbox } from './atoms/Flexbox';
 import { VerticalBox } from './atoms/VerticalBox';
@@ -50,11 +44,11 @@ export const App: React.FC<Props> = () => {
   const [isShowModalForAjax, setIsShowModalForAjax] = useState<boolean>(false);
   const [isShowModalForDecoding, setIsShowModalForDecoding] = useState<boolean>(false);
 
-  const currentSoundSource: SoundSource = useSelector((state: IState) => state.currentSoundSource);
-  const analyserState                   = useSelector((state: IState) => state.analyserState);
-  const mmlState                        = useSelector((state: IState) => state.mmlState);
+  const currentSoundSource = useSelector((state: IState) => state.currentSoundSource);
+  const analyserState      = useSelector((state: IState) => state.analyserState);
+  const mmlState           = useSelector((state: IState) => state.mmlState);
 
-  const sources: XSoundSource[] = useMemo(() => ['mixer', 'oscillator', 'oneshot', 'audio', 'stream', 'noise'], []);
+  const sources = useMemo(() => ['mixer', 'oscillator', 'oneshot', 'audio', 'stream', 'noise'] as XSoundSource[], []);
 
   const oneshots = useMemo(() => [
     `${BASE_URL}/one-shots/piano-2/C.wav`,
