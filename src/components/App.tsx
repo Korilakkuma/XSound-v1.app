@@ -38,6 +38,7 @@ const NUMBER_OF_ONESHOTS = 88;
 const AJAX_TIMEOUT = 60000;
 
 export const App: React.FC<Props> = () => {
+  const [loadedApp, setLoadedApp] = useState<boolean>(false);
   const [progress, setProgress] = useState<boolean>(true);
   const [rate, setRate] = useState<number>(0);
   const [errorMessage, setErrorMessage] = useState<string>('');
@@ -45,8 +46,6 @@ export const App: React.FC<Props> = () => {
   const [isShowModalForDecoding, setIsShowModalForDecoding] = useState<boolean>(false);
 
   const currentSoundSource = useSelector((state: IState) => state.currentSoundSource);
-  const analyserState      = useSelector((state: IState) => state.analyserState);
-  const mmlState           = useSelector((state: IState) => state.mmlState);
 
   const sources = useMemo(() => ['mixer', 'oscillator', 'oneshot', 'audio', 'stream', 'noise'] as XSoundSource[], []);
 
@@ -806,6 +805,10 @@ export const App: React.FC<Props> = () => {
 
   // Initialization for using XSound
   useEffect(() => {
+    if (loadedApp) {
+      return;
+    }
+
     // Clone X object as global object
     window.C = X.clone();  // for MML of OscillatorModule
 
@@ -895,7 +898,9 @@ export const App: React.FC<Props> = () => {
       setErrorMessage(error.message);
       setIsShowModalForAjax(true);
     }
-  }, [sources, oneshots, rirInfos.length, createOneshotSettingsCallback, loadRIRsCallback]);
+
+    setLoadedApp(true);
+  }, [loadedApp, sources, oneshots, rirInfos.length, createOneshotSettingsCallback, loadRIRsCallback]);
 
   return (
     <React.Fragment>
@@ -913,11 +918,11 @@ export const App: React.FC<Props> = () => {
             radioName="oscillator-type-1"
           />
           <EnvelopeGeneratorFieldset />
-          <RecorderFieldset sources={sources} />
-          <AudioFieldset />
+          <RecorderFieldset loadedApp={loadedApp} sources={sources} />
+          <AudioFieldset loadedApp={loadedApp} />
         </Flexbox>
-        <Analyser active={analyserState} sources={sources} />
-        <MML active={mmlState} currentSoundSource={currentSoundSource} />
+        <Analyser loadedApp={loadedApp} sources={sources} />
+        <MML loadedApp={loadedApp} currentSoundSource={currentSoundSource} />
         <BasicControllers sources={sources} />
         <Piano currentSoundSource={currentSoundSource} />
         <Flexbox>

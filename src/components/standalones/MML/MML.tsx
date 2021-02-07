@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
-import { SoundSource } from '../../../types';
+import { useDispatch, useSelector } from 'react-redux';
+import { IState, SoundSource } from '../../../types';
 import { downKeyboards, upKeyboards } from '../../../actions';
 import { createFilename } from '../../../utils';
 import { Switch } from '../../atoms/Switch';
@@ -26,12 +26,12 @@ interface Sequence {
 }
 
 export interface Props {
-  active: boolean;
+  loadedApp: boolean;
   currentSoundSource: SoundSource;
 }
 
 export const MML: React.FC<Props> = (props: Props) => {
-  const { active, currentSoundSource } = props;
+  const { loadedApp, currentSoundSource } = props;
 
   const [loaded, setLoaded] = useState<boolean>(false);
   const [paused, setPaused] = useState<boolean>(true);
@@ -50,6 +50,8 @@ export const MML: React.FC<Props> = (props: Props) => {
   const [isShowModalConfirmation, setIsShowModalConfirmation] = useState<boolean>(false);
 
   const dispatch = useDispatch();
+
+  const active = useSelector((state: IState) => state.mmlState);
 
   const readyMMLCallback = useCallback((currentMelody?: string, currentBass?: string) => {
     switch (currentSoundSource) {
@@ -320,6 +322,10 @@ export const MML: React.FC<Props> = (props: Props) => {
   }, []);
 
   useEffect(() => {
+    if (!loadedApp) {
+      return;
+    }
+
     if (loaded) {
       // HACK:
       X('mml').setup({
@@ -362,6 +368,7 @@ export const MML: React.FC<Props> = (props: Props) => {
         setLoaded(true);
       });
   }, [
+    loadedApp,
     loaded,
     melody,
     bass,

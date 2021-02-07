@@ -44,7 +44,7 @@ const Template: Story<Props> = () => {
       >
         {active ? 'Close' : 'Open'}
       </button>
-      <MML active={active} currentSoundSource={'oscillator' as SoundSource} />
+      <MML loadedApp currentSoundSource={'oscillator' as SoundSource} />
     </React.Fragment>
   );
 };

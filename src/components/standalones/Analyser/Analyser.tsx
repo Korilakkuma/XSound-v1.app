@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { XSoundSource, ConvertedTime } from '../../../types';
+import { useSelector } from 'react-redux';
+import { IState, XSoundSource, ConvertedTime } from '../../../types';
 import { formatAudioTime } from '../../../utils';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
@@ -7,12 +8,12 @@ import { ValueController } from '../../helpers/ValueController';
 import { X } from 'xsound';
 
 export interface Props {
-  active: boolean;
+  loadedApp: boolean;
   sources: XSoundSource[];
 }
 
 export const Analyser: React.FC<Props> = (props: Props) => {
-  const { active, sources } = props;
+  const { loadedApp, sources } = props;
 
   const canvasForTimeOverviewLeftRef  = useRef<HTMLCanvasElement>(null);
   const canvasForTimeOverviewRightRef = useRef<HTMLCanvasElement>(null);
@@ -23,6 +24,8 @@ export const Analyser: React.FC<Props> = (props: Props) => {
   const [dragTime, setDragTime] = useState<string>('00 : 00 - 00 : 00');
   const [showDragTime, setShowDragTime] = useState<boolean>(false);
   const [showTimeOverview, setShowTimeOverview] = useState<'left' | 'right'>('left');
+
+  const active = useSelector((state: IState) => state.analyserState);
 
   const onClickChannelCallback = useCallback(() => {
     setShowTimeOverview(showTimeOverview === 'right' ? 'left' : 'right');
@@ -62,6 +65,10 @@ export const Analyser: React.FC<Props> = (props: Props) => {
   }, [sources]);
 
   useEffect(() => {
+    if (!loadedApp) {
+      return;
+    }
+
     if (canvasForTimeOverviewLeftRef.current === null ||
       canvasForTimeOverviewRightRef.current === null ||
       canvasForTimeDomainRef.current === null ||
@@ -79,47 +86,57 @@ export const Analyser: React.FC<Props> = (props: Props) => {
     }
 
     sources.forEach((source: XSoundSource) => {
-      X(source).module('analyser').param({
-        fftSize              : 2048,
-        minDecibels          : -100,
-        maxDecibels          : -30,
-        smoothingTimeConstant: 0.1
-      });
+      X(source)
+        .module('analyser')
+        .param({
+          fftSize              : 2048,
+          minDecibels          : -100,
+          maxDecibels          : -30,
+          smoothingTimeConstant: 0.1
+        });
 
-      X(source).module('analyser').domain('time').setup(canvasForTimeDomainRef.current).param({
-        interval: 0,
-        shape   : 'line',
-        wave    : 'rgba(0, 0, 255, 1.0)',
-        font    : {
-          family: 'Arial',
-          size  : '12px',
-          style : 'normal',
-          weight: 'normal'
-        },
-        width   : 2,
-        right   : 15,
-        type    : 'uint'
-      }).state(active);
+      X(source)
+        .module('analyser')
+        .domain('time')
+        .setup(canvasForTimeDomainRef.current)
+        .param({
+          interval: 0,
+          shape   : 'line',
+          wave    : 'rgba(0, 0, 255, 1.0)',
+          font    : {
+            family: 'Arial',
+            size  : '12px',
+            style : 'normal',
+            weight: 'normal'
+          },
+          width   : 2,
+          right   : 15,
+          type    : 'uint'
+        });
 
-      X(source).module('analyser').domain('fft').setup(canvasForFrequencyDomainRef.current).param({
-        interval: 0,
-        shape   : 'rect',
-        wave    : 'gradient',
-        grad    : [
-          { offset: 0, color: 'rgba(0, 128, 255, 1.0)' },
-          { offset: 1, color: 'rgba(0,   0, 255, 1.0)' }
-        ],
-        font    : {
-          family: 'Arial',
-          size  : '12px',
-          style : 'normal',
-          weight: 'normal'
-        },
-        width   : 1,
-        right   : 15,
-        type    : 'uint',
-        size    : 256
-      }).state(active);
+      X(source)
+        .module('analyser')
+        .domain('fft')
+        .setup(canvasForFrequencyDomainRef.current)
+        .param({
+          interval: 0,
+          shape   : 'rect',
+          wave    : 'gradient',
+          grad    : [
+            { offset: 0, color: 'rgba(0, 128, 255, 1.0)' },
+            { offset: 1, color: 'rgba(0,   0, 255, 1.0)' }
+          ],
+          font    : {
+            family: 'Arial',
+            size  : '12px',
+            style : 'normal',
+            weight: 'normal'
+          },
+          width   : 1,
+          right   : 15,
+          type    : 'uint',
+          size    : 256
+        });
     });
 
     const params = {
@@ -189,7 +206,7 @@ export const Analyser: React.FC<Props> = (props: Props) => {
       .drag(dragCallback);
 
     setLoaded(true);
-  }, [loaded, active, sources]);
+  }, [loadedApp, loaded, active, sources]);
 
   return (
     <div className={`Analyser${active ? ' -active' : ''}`}>

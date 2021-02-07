@@ -34,7 +34,7 @@ const Template: Story<Props> = () => {
     setLoaded(true);
   }, [loaded]);
 
-  return <RecorderFieldset sources={['stream'] as XSoundSource[]} />;
+  return <RecorderFieldset loadedApp sources={['stream'] as XSoundSource[]} />;
 };
 
 export const Primary = Template.bind({});

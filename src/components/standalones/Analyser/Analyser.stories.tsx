@@ -59,7 +59,7 @@ const Template: Story<Props> = () => {
       >
         {active ? 'Close' : 'Open'}
       </button>
-      <Analyser active={active} sources={sources} />
+      <Analyser loadedApp sources={sources} />
     </React.Fragment>
   );
 };

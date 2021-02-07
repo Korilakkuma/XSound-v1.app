@@ -12,7 +12,7 @@ export default {
   component: AudioFieldset
 } as Meta;
 
-const Template: Story<Props> = (args: Props) => {
+const Template: Story<Props> = () => {
   useEffect(() => {
     if (X('audio').module('pitchshifter').state()) {
       return;
@@ -21,7 +21,7 @@ const Template: Story<Props> = (args: Props) => {
     X('audio').module('pitchshifter').state(true);
   });
 
-  return <AudioFieldset {...args} />;
+  return <AudioFieldset loadedApp />;
 };
 
 export const Primary = Template.bind({});
