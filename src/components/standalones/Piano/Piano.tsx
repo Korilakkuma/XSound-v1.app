@@ -13,8 +13,10 @@ export const Piano: React.FC<Props> = (props: Props) => {
   const [downKeyboards, setDownKeyboards] = useState<boolean[]>(new Array(NUMBER_OF_PIANO_KEYBOARDS).fill(false));
   const [isDown, setIsDown] = useState<boolean>(false);  // for `mouseover` or `touchmove` event
 
-  const downIndexes = useSelector((state: IState) => state.downKeyboardIndexes);
-  const upIndexes   = useSelector((state: IState) => state.upKeyboardIndexes);
+  const downMelodyIndexes = useSelector((state: IState) => state.downMelodyKeyboardIndexes);
+  const downBassIndexes   = useSelector((state: IState) => state.downBassKeyboardIndexes);
+  const upMelodyIndexes   = useSelector((state: IState) => state.upMelodyKeyboardIndexes);
+  const upBassIndexes     = useSelector((state: IState) => state.upBassKeyboardIndexes);
 
   const startSoundCallback = useCallback((event: React.SyntheticEvent) => {
     if ((event.currentTarget as Element).classList.contains('skip')) {
@@ -263,7 +265,9 @@ export const Piano: React.FC<Props> = (props: Props) => {
       <ul className="Piano__whites">
         {whites.map((pitch: string) => {
           const index        = indexMap[pitch];
-          const isAutoActive = downIndexes.includes(index) && !upIndexes.includes(index);
+          const hasMelody    = downMelodyIndexes.includes(index) && !upMelodyIndexes.includes(index);
+          const hasBass      = downBassIndexes.includes(index) && !upBassIndexes.includes(index);
+          const isAutoActive = hasMelody || hasBass;
 
           return (
             <li
@@ -292,7 +296,9 @@ export const Piano: React.FC<Props> = (props: Props) => {
           }
 
           const index        = indexMap[pitch];
-          const isAutoActive = downIndexes.includes(index) && !upIndexes.includes(index);
+          const hasMelody    = downMelodyIndexes.includes(index) && !upMelodyIndexes.includes(index);
+          const hasBass      = downBassIndexes.includes(index) && !upBassIndexes.includes(index);
+          const isAutoActive = hasMelody || hasBass;
 
           return (
             <li

@@ -36,18 +36,36 @@ function mmlState(state = false, action: MMLStateAction): boolean {
   }
 }
 
-function downKeyboardIndexes(state = [] as number[], action: KeyboardAction): number[] {
+function downMelodyKeyboardIndexes(state = [] as number[], action: KeyboardAction): number[] {
   switch (action.type) {
-    case ActionTypes.DOWN_KEYBOARDS:
+    case ActionTypes.DOWN_MELODY_KEYBOARDS:
       return action.payload;
     default:
       return state;
   }
 }
 
-function upKeyboardIndexes(state = [] as number[], action: KeyboardAction): number[] {
+function downBassKeyboardIndexes(state = [] as number[], action: KeyboardAction): number[] {
   switch (action.type) {
-    case ActionTypes.UP_KEYBOARDS:
+    case ActionTypes.DOWN_BASS_KEYBOARDS:
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
+function upMelodyKeyboardIndexes(state = [] as number[], action: KeyboardAction): number[] {
+  switch (action.type) {
+    case ActionTypes.UP_MELODY_KEYBOARDS:
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
+function upBassKeyboardIndexes(state = [] as number[], action: KeyboardAction): number[] {
+  switch (action.type) {
+    case ActionTypes.UP_BASS_KEYBOARDS:
       return action.payload;
     default:
       return state;
@@ -58,7 +76,9 @@ export const rootReducer = (history: History): Reducer => combineReducers({
   currentSoundSource,
   analyserState,
   mmlState,
-  downKeyboardIndexes,
-  upKeyboardIndexes,
+  downMelodyKeyboardIndexes,
+  downBassKeyboardIndexes,
+  upMelodyKeyboardIndexes,
+  upBassKeyboardIndexes,
   router: connectRouter(history)
 });
