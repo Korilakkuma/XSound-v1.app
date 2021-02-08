@@ -15,12 +15,6 @@ import { Modal } from '../../atoms/Modal';
 import { SelectableModal } from '../../helpers/SelectableModal';
 import { X } from 'xsound';
 
-const NUMBER_OF_PIANO_KEYBOARDS = 88;
-const CLEAR_HIGHLIGHT_REGEXP = /<span class="x-highlight">(.+?)<\/span>/g;
-
-// HACK:
-const savedMMLs = ['', ''];
-
 interface Sequence {
   indexes: number[];
   frequencies: number[];
@@ -34,6 +28,12 @@ export interface Props {
   loadedApp: boolean;
   currentSoundSource: SoundSource;
 }
+
+const NUMBER_OF_PIANO_KEYBOARDS = 88;
+const CLEAR_HIGHLIGHT_REGEXP = /<span class="x-highlight">(.+?)<\/span>/g;
+
+// HACK:
+const savedMMLs = ['', ''];
 
 export const MML: React.FC<Props> = (props: Props) => {
   const { loadedApp, currentSoundSource } = props;
