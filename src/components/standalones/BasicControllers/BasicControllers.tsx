@@ -19,13 +19,13 @@ import { Modal } from '../../atoms/Modal';
 import { ValueController } from '../../helpers/ValueController';
 import { X } from 'xsound';
 
-const MIN_NOTE_NUMBER = 21;
-const MAX_NOTE_NUMBER = 108;
-const MAX_VELOCITY    = 127;
-
 export interface Props {
   sources: XSoundSource[];
 }
+
+const MIN_NOTE_NUMBER = 21;
+const MAX_NOTE_NUMBER = 108;
+const MAX_VELOCITY    = 127;
 
 export const BasicControllers: React.FC<Props> = (props: Props) => {
   const [analyserState, setAnalyserState] = useState<boolean>(false);

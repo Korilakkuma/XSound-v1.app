@@ -3,11 +3,11 @@ import { useSelector } from 'react-redux';
 import { IState, SoundSource } from '../../../types';
 import { X } from 'xsound';
 
-const NUMBER_OF_PIANO_KEYBOARDS = 88;
-
 export interface Props {
   currentSoundSource: SoundSource;
 }
+
+const NUMBER_OF_PIANO_KEYBOARDS = 88;
 
 export const Piano: React.FC<Props> = (props: Props) => {
   const [downKeyboards, setDownKeyboards] = useState<boolean[]>(new Array(NUMBER_OF_PIANO_KEYBOARDS).fill(false));

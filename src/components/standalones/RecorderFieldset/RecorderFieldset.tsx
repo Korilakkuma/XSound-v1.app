@@ -7,16 +7,16 @@ import { ValueController } from '../../helpers/ValueController';
 import { SelectableModal } from '../../helpers/SelectableModal';
 import { X } from 'xsound';
 
+export interface Props {
+  loadedApp: boolean;
+  sources: XSoundSource[];
+}
+
 const NUMBER_OF_TRACKS = 4;
 
 const CHANNEL = 2;   // Stereo
 const BIT     = 16;  // 16 bit
 const TYPE    = 'objectURL';
-
-export interface Props {
-  loadedApp: boolean;
-  sources: XSoundSource[];
-}
 
 export const RecorderFieldset: React.FC<Props> = (props: Props) => {
   const { loadedApp, sources } = props;
