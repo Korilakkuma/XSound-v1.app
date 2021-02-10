@@ -89,6 +89,7 @@ export const OscillatorFieldset: React.FC<Props> = (props: Props) => {
             onChange={onChangeStateCallback}
           />
         </legend>
+        <Spacer space={2} />
         <OscillatorSelector
           radioName={radioName}
           defaultType="sawtooth"
