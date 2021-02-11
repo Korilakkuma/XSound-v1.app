@@ -89,6 +89,10 @@
   background-position: -119px bottom;
 }
 
+.RecorderFieldset__download[aria-disabled="true"] {
+  cursor: not-allowed;
+}
+
 .RecorderFieldset__download:hover {
   background-position: -119px top;
 }
