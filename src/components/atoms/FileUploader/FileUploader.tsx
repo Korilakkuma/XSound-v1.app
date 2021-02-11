@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useRef } from 'react';
 
 export interface Props {
-  label: string;
+  id: string;
   accept: string;
   placeholder: string;
   filename: string;
@@ -14,7 +14,7 @@ export interface Props {
 
 export const FileUploader: React.FC<Props> = (props: Props) => {
   const {
-    label,
+    id,
     accept,
     placeholder,
     filename,
@@ -44,10 +44,10 @@ export const FileUploader: React.FC<Props> = (props: Props) => {
   const onDragEnterCallback = useCallback((event: React.SyntheticEvent) => {
     event.preventDefault();
 
+    onDragEnter(event);
+
     setDrag(true);
     setDrop(false);
-
-    onDragEnter(event);
   }, [onDragEnter]);
 
   const onDragOverCallback = useCallback((event: React.SyntheticEvent) => {
@@ -59,19 +59,19 @@ export const FileUploader: React.FC<Props> = (props: Props) => {
   const onDragLeaveCallback = useCallback((event: React.SyntheticEvent) => {
     event.preventDefault();
 
-    setDrag(false);
-    setDrag(false);
-
     onDragLeave(event);
+
+    setDrag(false);
+    setDrag(false);
   }, [onDragLeave]);
 
   const onDropCallback = useCallback((event: React.SyntheticEvent) => {
     event.preventDefault();
 
+    onDrop(event);
+
     setDrag(false);
     setDrop(true);
-
-    onDrop(event);
   }, [onDrop]);
 
   return (
@@ -82,8 +82,22 @@ export const FileUploader: React.FC<Props> = (props: Props) => {
       onDragLeave={onDragLeaveCallback}
       onDrop={onDropCallback}
     >
-      <button type="button" className="text-ellipsis" aria-label={label} onClick={onClickCallback}>{filename ? filename : placeholder}</button>
-      <input type="file" ref={fileUploaderRef} hidden accept={accept} placeholder={placeholder} onChange={onChange} />
+      <button
+        type="button"
+        aria-controls={id}
+        className="text-ellipsis"
+        onClick={onClickCallback}
+      >
+        {filename ? filename : placeholder}
+      </button>
+      <input
+        type="file"
+        ref={fileUploaderRef}
+        accept={accept}
+        placeholder={placeholder}
+        className="visual-hidden"
+        onChange={onChange}
+      />
     </div>
   );
 };

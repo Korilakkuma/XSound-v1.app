@@ -203,7 +203,7 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
         <legend>Audio</legend>
         <div className="AudioFieldset__selectAudio">
           <FileUploader
-            label="Upload Audio"
+            id="uploader-audio"
             accept="audio/*"
             placeholder="Audio File (wav, ogg, mp3 ... etc)"
             filename={filename}
