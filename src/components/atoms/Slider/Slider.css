@@ -11,11 +11,12 @@
 .Slider > label > input[type="range"] {
   -webkit-appearance: none;
   -moz-appearance: none;
+  appearance: none;
   outline: none;
   border: 2px solid rgba(255, 255, 255, 0.3);
   border-radius: 4px;
   width: 97%;
-  height: 4px;
+  height: 8px;
   background-color: var(--white);
   background-image: linear-gradient(to bottom, var(--gray-light), var(--black));
   -webkit-touch-callout: none;

@@ -59,7 +59,3 @@ a:hover {
 label {
   cursor: pointer;
 }
-
-[hidden] {
-  display: none !important;
-}
