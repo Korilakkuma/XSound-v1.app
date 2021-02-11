@@ -20,7 +20,7 @@ export const Switch: React.FC<Props> = (props: Props) => {
   return (
     <div className={`Switch${checked ? ' -checked' : ''}`}>
       <label htmlFor={id}>{label}<span aria-label={`${label} switch`} /></label>
-      <input type="checkbox" hidden id={id} checked={checked} onChange={onChangeCallback} />
+      <input type="checkbox" id={id} checked={checked} className="visual-hidden"  onChange={onChangeCallback} />
     </div>
   );
 };
