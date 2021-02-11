@@ -17,7 +17,7 @@
     "type": "tsc --noEmit",
     "build": "npm run clean && NODE_ENV=production webpack --progress --mode production",
     "dev": "webpack-dev-server --progress",
-    "test": "jest",
+    "test": "jest --coverage",
     "storybook": "start-storybook -s . -p 6006",
     "build-storybook": "build-storybook"
   },
