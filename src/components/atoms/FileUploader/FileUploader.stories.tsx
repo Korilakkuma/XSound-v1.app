@@ -15,7 +15,7 @@ const Template: Story<Props> = (args: Props) => <FileUploader {...args} />;
 export const Primary = Template.bind({});
 
 Primary.args = {
-  label      : 'Upload Audio',
+  id         : 'uploader-1',
   accept     : 'audio/*',
   placeholder: 'MP3, Ogg, WAV ... etc',
   filename   : '',
@@ -42,7 +42,7 @@ Primary.args = {
 export const Secondary = Template.bind({});
 
 Secondary.args = {
-  label      : 'Uploaded Audio',
+  id         : 'uploader-2',
   accept     : 'audio/*',
   placeholder: 'MP3, Ogg, WAV ... etc',
   filename   : 'Default filename',

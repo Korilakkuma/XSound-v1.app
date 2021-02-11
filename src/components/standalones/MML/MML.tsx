@@ -449,7 +449,7 @@ export const MML: React.FC<Props> = (props: Props) => {
           onChange={onChangeHightlightCallback}
         />
         <FileUploader
-          label="MML text file"
+          id="uploader-mml"
           accept="text/plain"
           placeholder="MML text file"
           filename={filename}
