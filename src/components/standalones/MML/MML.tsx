@@ -138,19 +138,13 @@ export const MML: React.FC<Props> = (props: Props) => {
 
   const startMelodyCallback = useCallback((sequence: Sequence) => {
     dispatch(downMelodyKeyboards(sequence.indexes));
-
-    if (highlight) {
-      setMelody(X('mml').get(0, true));
-    }
-  }, [dispatch, highlight]);
+    setMelody(X('mml').get(0, true));
+  }, [dispatch]);
 
   const startBassCallback = useCallback((sequence: Sequence) => {
     dispatch(downBassKeyboards(sequence.indexes));
-
-    if (highlight) {
-      setBass(window.C('mml').get(0, true));
-    }
-  }, [dispatch, highlight]);
+    setBass(window.C('mml').get(0, true));
+  }, [dispatch]);
 
   const stopMelodyCallback = useCallback((sequence: Sequence) => {
     dispatch(upMelodyKeyboards(sequence.indexes));
@@ -352,6 +346,20 @@ export const MML: React.FC<Props> = (props: Props) => {
       return;
     }
 
+    X('mml').setup({
+      start: startMelodyCallback,
+      stop : stopMelodyCallback,
+      ended: endedCallback,
+      error: errorCallback
+    });
+
+    window.C('mml').setup({
+      start: startBassCallback,
+      stop : stopBassCallback,
+      ended: endedCallback,
+      error: errorCallback
+    });
+
     const sampleMMLs = ['forever-love', 'tears'];
     const sampleMML  = sampleMMLs[Date.now() % 2];
 
@@ -379,7 +387,6 @@ export const MML: React.FC<Props> = (props: Props) => {
     loaded,
     melody,
     bass,
-    highlight,
     readyMMLCallback,
     startMelodyCallback,
     startBassCallback,
@@ -397,6 +404,7 @@ export const MML: React.FC<Props> = (props: Props) => {
           <dd
             contentEditable
             dangerouslySetInnerHTML={{ __html: melody }}
+            className={highlight ? '-highlight' : ''}
             onBlur={onBlurMelodyCallback}
           />
         </dl>
@@ -405,6 +413,7 @@ export const MML: React.FC<Props> = (props: Props) => {
           <dd
             contentEditable
             dangerouslySetInnerHTML={{ __html: bass }}
+            className={highlight ? '-highlight' : ''}
             onBlur={onBlurBassCallback}
           />
         </dl>
