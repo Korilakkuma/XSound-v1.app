@@ -43,6 +43,8 @@ export const MML: React.FC<Props> = (props: Props) => {
   const [highlight, setHighlight] = useState<boolean>(false);
   const [melody, setMelody] = useState<string>('');
   const [bass, setBass] = useState<string>('');
+  const [melodyIndex, setMelodyIndex] = useState<number>(0);
+  const [bassIndex, setBassIndex] = useState<number>(0);
   const [dataURL, setDataURL] = useState<string>('');
   const [filename, setFilename] = useState<string>('');
   const [showProgress, setShowProgress] = useState<boolean>(false);
@@ -139,11 +141,13 @@ export const MML: React.FC<Props> = (props: Props) => {
   const startMelodyCallback = useCallback((sequence: Sequence) => {
     dispatch(downMelodyKeyboards(sequence.indexes));
     setMelody(X('mml').get(0, true));
+    setMelodyIndex(X('mml').currentIndex(0));
   }, [dispatch]);
 
   const startBassCallback = useCallback((sequence: Sequence) => {
     dispatch(downBassKeyboards(sequence.indexes));
     setBass(window.C('mml').get(0, true));
+    setBassIndex(window.C('mml').currentIndex(0));
   }, [dispatch]);
 
   const stopMelodyCallback = useCallback((sequence: Sequence) => {
@@ -222,9 +226,10 @@ export const MML: React.FC<Props> = (props: Props) => {
   }, [melody, readyMMLCallback]);
 
   const onClickMMLControllerCallback = useCallback(() => {
-    if (!X('mml').isSequences() && !window.C('mml').isSequences()) {
-      return;
-    }
+    readyMMLCallback(melody, bass);
+
+    X('mml').currentIndex(0, melodyIndex);
+    window.C('mml').currentIndex(0, bassIndex);
 
     if (paused) {
       // Start MML
@@ -256,7 +261,7 @@ export const MML: React.FC<Props> = (props: Props) => {
     }
 
     setPaused(!paused);
-  }, [currentSoundSource, paused]);
+  }, [currentSoundSource, paused, melody, bass, melodyIndex, bassIndex, readyMMLCallback]);
 
   const onClickRewindButtonCallback = useCallback(() => {
     X('mml').stop().clear();
@@ -268,12 +273,12 @@ export const MML: React.FC<Props> = (props: Props) => {
     const currentMelody = melody.replace(CLEAR_HIGHLIGHT_REGEXP, '$1');
     const currentBass   = bass.replace(CLEAR_HIGHLIGHT_REGEXP, '$1');
 
-    readyMMLCallback(currentMelody, currentBass);
-
     setMelody(currentMelody);
     setBass(currentBass);
+    setMelodyIndex(0);
+    setBassIndex(0);
     setPaused(true);
-  }, [dispatch, melody, bass, readyMMLCallback]);
+  }, [dispatch, melody, bass]);
 
   const onClickDownloadButtonCallback = useCallback(() => {
     const currentMelody = melody.replace(CLEAR_HIGHLIGHT_REGEXP, '$1');
