@@ -40,11 +40,6 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
       sources.forEach((source: XSoundSource) => {
         if (source !== 'oscillator') {
           X(source).module('recorder').ready(activeTrack);
-
-          if (source === 'stream') {
-            X('stream').start();
-            X('stream').module('recorder').start();
-          }
         }
       });
 
