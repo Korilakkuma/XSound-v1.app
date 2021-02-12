@@ -9,7 +9,7 @@ import {
   KeyboardAction
 } from '../types';
 
-function currentSoundSource(state = 'oscillator', action: CurrentSoundSourceAction): string {
+export function currentSoundSource(state = 'oscillator', action: CurrentSoundSourceAction): string {
   switch (action.type) {
     case ActionTypes.CHANGE_CURRENT_SOUND_SOURCE:
       return action.payload;
@@ -18,7 +18,7 @@ function currentSoundSource(state = 'oscillator', action: CurrentSoundSourceActi
   }
 }
 
-function analyserState(state = false, action: AnalyserStateAction): boolean {
+export function analyserState(state = false, action: AnalyserStateAction): boolean {
   switch (action.type) {
     case ActionTypes.CHANGE_ANALYSER_STATE:
       return action.payload;
@@ -27,7 +27,7 @@ function analyserState(state = false, action: AnalyserStateAction): boolean {
   }
 }
 
-function mmlState(state = false, action: MMLStateAction): boolean {
+export function mmlState(state = false, action: MMLStateAction): boolean {
   switch (action.type) {
     case ActionTypes.CHANGE_MML_STATE:
       return action.payload;
@@ -36,7 +36,7 @@ function mmlState(state = false, action: MMLStateAction): boolean {
   }
 }
 
-function downMelodyKeyboardIndexes(state = [] as number[], action: KeyboardAction): number[] {
+export function downMelodyKeyboardIndexes(state = [] as number[], action: KeyboardAction): number[] {
   switch (action.type) {
     case ActionTypes.DOWN_MELODY_KEYBOARDS:
       return action.payload;
@@ -45,7 +45,7 @@ function downMelodyKeyboardIndexes(state = [] as number[], action: KeyboardActio
   }
 }
 
-function downBassKeyboardIndexes(state = [] as number[], action: KeyboardAction): number[] {
+export function downBassKeyboardIndexes(state = [] as number[], action: KeyboardAction): number[] {
   switch (action.type) {
     case ActionTypes.DOWN_BASS_KEYBOARDS:
       return action.payload;
@@ -54,7 +54,7 @@ function downBassKeyboardIndexes(state = [] as number[], action: KeyboardAction)
   }
 }
 
-function upMelodyKeyboardIndexes(state = [] as number[], action: KeyboardAction): number[] {
+export function upMelodyKeyboardIndexes(state = [] as number[], action: KeyboardAction): number[] {
   switch (action.type) {
     case ActionTypes.UP_MELODY_KEYBOARDS:
       return action.payload;
@@ -63,7 +63,7 @@ function upMelodyKeyboardIndexes(state = [] as number[], action: KeyboardAction)
   }
 }
 
-function upBassKeyboardIndexes(state = [] as number[], action: KeyboardAction): number[] {
+export function upBassKeyboardIndexes(state = [] as number[], action: KeyboardAction): number[] {
   switch (action.type) {
     case ActionTypes.UP_BASS_KEYBOARDS:
       return action.payload;
