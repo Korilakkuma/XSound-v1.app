@@ -172,7 +172,7 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
 
     dispatch(changeCurrentSoundSource(source));
 
-    X('stream').stop();
+    X('stream').clear();
 
     switch (source) {
       case 'stream':
