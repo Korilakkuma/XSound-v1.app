@@ -95,7 +95,7 @@ export const FileUploader: React.FC<Props> = (props: Props) => {
         ref={fileUploaderRef}
         accept={accept}
         placeholder={placeholder}
-        className="visual-hidden"
+        className="visually-hidden"
         onChange={onChange}
       />
     </div>

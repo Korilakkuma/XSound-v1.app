@@ -25,7 +25,7 @@ export const GroupSelect: React.FC<Props> = (props: Props) => {
 
   return (
     <React.Fragment>
-      <label htmlFor={id} className="visual-hidden">{label}</label>
+      <label htmlFor={id} className="visually-hidden">{label}</label>
       <select
         id={id}
         className="GroupSelect"

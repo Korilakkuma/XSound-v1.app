@@ -23,7 +23,7 @@
   text-decoration: none;
 }
 
-.visual-hidden {
+.visually-hidden {
   position: absolute;
   margin: -1px;
   border: none;
