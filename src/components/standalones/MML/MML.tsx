@@ -141,13 +141,11 @@ export const MML: React.FC<Props> = (props: Props) => {
   const startMelodyCallback = useCallback((sequence: Sequence) => {
     dispatch(downMelodyKeyboards(sequence.indexes));
     setMelody(X('mml').get(0, true));
-    setMelodyIndex(X('mml').currentIndex(0));
   }, [dispatch]);
 
   const startBassCallback = useCallback((sequence: Sequence) => {
     dispatch(downBassKeyboards(sequence.indexes));
     setBass(window.C('mml').get(0, true));
-    setBassIndex(window.C('mml').currentIndex(0));
   }, [dispatch]);
 
   const stopMelodyCallback = useCallback((sequence: Sequence) => {
@@ -226,12 +224,12 @@ export const MML: React.FC<Props> = (props: Props) => {
   }, [melody, readyMMLCallback]);
 
   const onClickMMLControllerCallback = useCallback(() => {
-    readyMMLCallback(melody, bass);
-
-    X('mml').currentIndex(0, melodyIndex);
-    window.C('mml').currentIndex(0, bassIndex);
-
     if (paused) {
+      readyMMLCallback(melody, bass);
+
+      X('mml').currentIndex(0, melodyIndex);
+      window.C('mml').currentIndex(0, bassIndex);
+
       // Start MML
       if (currentSoundSource === 'oscillator') {
         for (let i = 0, len = X('oscillator').length(); i < len; i++) {
@@ -250,6 +248,9 @@ export const MML: React.FC<Props> = (props: Props) => {
         X('oneshot').module('recorder').start();
       }
     } else {
+      setMelodyIndex(X('mml').currentIndex(0));
+      setBassIndex(window.C('mml').currentIndex(0));
+
       // Stop MML
       X('mml').stop();
       window.C('mml').stop();
