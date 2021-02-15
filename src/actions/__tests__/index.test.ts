@@ -24,7 +24,7 @@ describe('Actions', () => {
       payload
     } as CurrentSoundSourceAction;
 
-    expect(changeCurrentSoundSource(payload)).toEqual(expectedAction);
+    expect(changeCurrentSoundSource(payload)).toStrictEqual(expectedAction);
   });
 
   it('should create an action to change analyser state', () => {
@@ -34,7 +34,7 @@ describe('Actions', () => {
       payload
     } as AnalyserStateAction;
 
-    expect(changeAnalyserState(payload)).toEqual(expectedAction);
+    expect(changeAnalyserState(payload)).toStrictEqual(expectedAction);
   });
 
   it('should create an action to change MML state', () => {
@@ -44,7 +44,7 @@ describe('Actions', () => {
       payload
     } as MMLStateAction;
 
-    expect(changeMMLState(payload)).toEqual(expectedAction);
+    expect(changeMMLState(payload)).toStrictEqual(expectedAction);
   });
 
   it('should create an action to down keyboards for melody', () => {
@@ -54,7 +54,7 @@ describe('Actions', () => {
       payload
     } as KeyboardAction;
 
-    expect(downMelodyKeyboards(payload)).toEqual(expectedAction);
+    expect(downMelodyKeyboards(payload)).toStrictEqual(expectedAction);
   });
 
   it('should create an action to down keyboards for bass', () => {
@@ -64,7 +64,7 @@ describe('Actions', () => {
       payload
     } as KeyboardAction;
 
-    expect(downBassKeyboards(payload)).toEqual(expectedAction);
+    expect(downBassKeyboards(payload)).toStrictEqual(expectedAction);
   });
 
   it('should create an action to up keyboards for melody', () => {
@@ -74,7 +74,7 @@ describe('Actions', () => {
       payload
     } as KeyboardAction;
 
-    expect(upMelodyKeyboards(payload)).toEqual(expectedAction);
+    expect(upMelodyKeyboards(payload)).toStrictEqual(expectedAction);
   });
 
   it('should create an action to up keyboards for bass', () => {
@@ -84,6 +84,6 @@ describe('Actions', () => {
       payload
     } as KeyboardAction;
 
-    expect(upBassKeyboards(payload)).toEqual(expectedAction);
+    expect(upBassKeyboards(payload)).toStrictEqual(expectedAction);
   });
 });

@@ -24,9 +24,9 @@ describe('Reducers', () => {
       payload: expectedState
     } as CurrentSoundSourceAction;
 
-    expect(currentSoundSource(undefined, {} as CurrentSoundSourceAction)).toEqual('oscillator');
-    expect(currentSoundSource(undefined, action)).toEqual(expectedState);
-    expect(currentSoundSource('oscillator' as SoundSource, action)).toEqual(expectedState);
+    expect(currentSoundSource(undefined, {} as CurrentSoundSourceAction)).toStrictEqual('oscillator');
+    expect(currentSoundSource(undefined, action)).toStrictEqual(expectedState);
+    expect(currentSoundSource('oscillator' as SoundSource, action)).toStrictEqual(expectedState);
   });
 
   it('should handle CHANGE_ANALYSER_STATE', () => {
@@ -36,9 +36,9 @@ describe('Reducers', () => {
       payload: expectedState
     } as AnalyserStateAction;
 
-    expect(analyserState(undefined, {} as AnalyserStateAction)).toEqual(false);
-    expect(analyserState(undefined, action)).toEqual(expectedState);
-    expect(analyserState(false, action)).toEqual(expectedState);
+    expect(analyserState(undefined, {} as AnalyserStateAction)).toStrictEqual(false);
+    expect(analyserState(undefined, action)).toStrictEqual(expectedState);
+    expect(analyserState(false, action)).toStrictEqual(expectedState);
   });
 
   it('should handle CHANGE_MML_STATE', () => {
@@ -48,9 +48,9 @@ describe('Reducers', () => {
       payload: expectedState
     } as MMLStateAction;
 
-    expect(mmlState(undefined, {} as MMLStateAction)).toEqual(false);
-    expect(mmlState(undefined, action)).toEqual(expectedState);
-    expect(mmlState(false, action)).toEqual(expectedState);
+    expect(mmlState(undefined, {} as MMLStateAction)).toStrictEqual(false);
+    expect(mmlState(undefined, action)).toStrictEqual(expectedState);
+    expect(mmlState(false, action)).toStrictEqual(expectedState);
   });
 
   it('should handle DOWN_MELODY_KEYBOARDS', () => {
@@ -60,9 +60,9 @@ describe('Reducers', () => {
       payload: expectedState
     } as KeyboardAction;
 
-    expect(downMelodyKeyboardIndexes(undefined, {} as KeyboardAction)).toEqual([] as number[]);
-    expect(downMelodyKeyboardIndexes(undefined, action)).toEqual(expectedState);
-    expect(downMelodyKeyboardIndexes([] as number[], action)).toEqual(expectedState);
+    expect(downMelodyKeyboardIndexes(undefined, {} as KeyboardAction)).toStrictEqual([] as number[]);
+    expect(downMelodyKeyboardIndexes(undefined, action)).toStrictEqual(expectedState);
+    expect(downMelodyKeyboardIndexes([] as number[], action)).toStrictEqual(expectedState);
   });
 
   it('should handle DOWN_BASS_KEYBOARDS', () => {
@@ -72,9 +72,9 @@ describe('Reducers', () => {
       payload: expectedState
     } as KeyboardAction;
 
-    expect(downBassKeyboardIndexes(undefined, {} as KeyboardAction)).toEqual([] as number[]);
-    expect(downBassKeyboardIndexes(undefined, action)).toEqual(expectedState);
-    expect(downBassKeyboardIndexes([] as number[], action)).toEqual(expectedState);
+    expect(downBassKeyboardIndexes(undefined, {} as KeyboardAction)).toStrictEqual([] as number[]);
+    expect(downBassKeyboardIndexes(undefined, action)).toStrictEqual(expectedState);
+    expect(downBassKeyboardIndexes([] as number[], action)).toStrictEqual(expectedState);
   });
 
   it('should handle UP_MELODY_KEYBOARDS', () => {
@@ -84,9 +84,9 @@ describe('Reducers', () => {
       payload: expectedState
     } as KeyboardAction;
 
-    expect(upMelodyKeyboardIndexes(undefined, {} as KeyboardAction)).toEqual([] as number[]);
-    expect(upMelodyKeyboardIndexes(undefined, action)).toEqual(expectedState);
-    expect(upMelodyKeyboardIndexes([] as number[], action)).toEqual(expectedState);
+    expect(upMelodyKeyboardIndexes(undefined, {} as KeyboardAction)).toStrictEqual([] as number[]);
+    expect(upMelodyKeyboardIndexes(undefined, action)).toStrictEqual(expectedState);
+    expect(upMelodyKeyboardIndexes([] as number[], action)).toStrictEqual(expectedState);
   });
 
   it('should handle UP_BASS_KEYBOARDS', () => {
@@ -96,8 +96,8 @@ describe('Reducers', () => {
       payload: expectedState
     } as KeyboardAction;
 
-    expect(upBassKeyboardIndexes(undefined, {} as KeyboardAction)).toEqual([] as number[]);
-    expect(upBassKeyboardIndexes(undefined, action)).toEqual(expectedState);
-    expect(upBassKeyboardIndexes([] as number[], action)).toEqual(expectedState);
+    expect(upBassKeyboardIndexes(undefined, {} as KeyboardAction)).toStrictEqual([] as number[]);
+    expect(upBassKeyboardIndexes(undefined, action)).toStrictEqual(expectedState);
+    expect(upBassKeyboardIndexes([] as number[], action)).toStrictEqual(expectedState);
   });
 });
