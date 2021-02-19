@@ -21,16 +21,18 @@ export const Button: React.FC<Props> = (props: Props) => {
     onClick
   } = props;
 
-  return <button
-    type="button"
-    className={`Button${active ? ' -active' : ''}`}
-    aria-label={label}
-    style={{
-      width: `${width}px`,
-      height: `${height}px`,
-      backgroundImage: `url("${image}")`,
-      backgroundSize: size
-    }}
-    onClick={onClick}
-  />;
+  return (
+    <button
+      type="button"
+      aria-label={label}
+      style={{
+        width: `${width}px`,
+        height: `${height}px`,
+        backgroundImage: `url("${image}")`,
+        backgroundSize: size
+      }}
+      className={`Button${active ? ' -active' : ''}`}
+      onClick={onClick}
+    />
+  );
 };
