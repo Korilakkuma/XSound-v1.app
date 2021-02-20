@@ -15,6 +15,8 @@ const Template: Story<Props> = (args: Props) => <GroupSelect {...args} />;
 export const Primary = Template.bind({});
 
 Primary.args = {
+  id      : 'primary-group-select',
+  label   : 'Primary Group Select',
   values  : {
     group0: ['A', 'B', 'C'],
     group1: ['D', 'E', 'F'],
@@ -34,6 +36,8 @@ Primary.args = {
 export const Secondary = Template.bind({});
 
 Secondary.args = {
+  id      : 'secondary-group-select',
+  label   : 'Secondary Group Select',
   values  : {
     group0: ['A', 'B', 'C'],
     group1: ['D', 'E', 'F'],
@@ -54,6 +58,8 @@ Secondary.args = {
 export const Tertiary = Template.bind({});
 
 Tertiary.args = {
+  id      : 'tertiary-group-select',
+  label   : 'Tertiary Group Select',
   values      : {
     group0: ['A', 'B', 'C'],
     group1: ['D', 'E', 'F'],
