@@ -28,10 +28,10 @@ export const GroupSelect: React.FC<Props> = (props: Props) => {
       <label htmlFor={id} className="visually-hidden">{label}</label>
       <select
         id={id}
+        style={width ? { width } : undefined}
+        defaultValue={defaultValue}
         className="GroupSelect"
         onChange={onChange}
-        defaultValue={defaultValue}
-        style={width ? { width } : undefined}
       >
         {groups.map((group: string, key: number) => {
           return (
