@@ -1,10 +1,12 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 
 export interface Props {
   id: string;
   accept: string;
   placeholder: string;
   filename: string;
+  drag: boolean;
+  drop: boolean;
   onChange(event: React.SyntheticEvent): void;
   onDragEnter(event: React.SyntheticEvent): void;
   onDragOver(event: React.SyntheticEvent): void;
@@ -18,6 +20,8 @@ export const FileUploader: React.FC<Props> = (props: Props) => {
     accept,
     placeholder,
     filename,
+    drag,
+    drop,
     onChange,
     onDragEnter,
     onDragOver,
@@ -26,9 +30,6 @@ export const FileUploader: React.FC<Props> = (props: Props) => {
   } = props;
 
   const fileUploaderRef = useRef<HTMLInputElement>(null);
-
-  const [drag, setDrag] = useState<boolean>(false);
-  const [drop, setDrop] = useState<boolean>(false);
 
   const onClickCallback = useCallback(() => {
     const node = fileUploaderRef.current;
@@ -41,46 +42,13 @@ export const FileUploader: React.FC<Props> = (props: Props) => {
     node.click();
   }, []);
 
-  const onDragEnterCallback = useCallback((event: React.SyntheticEvent) => {
-    event.preventDefault();
-
-    onDragEnter(event);
-
-    setDrag(true);
-    setDrop(false);
-  }, [onDragEnter]);
-
-  const onDragOverCallback = useCallback((event: React.SyntheticEvent) => {
-    event.preventDefault();
-
-    onDragOver(event);
-  }, [onDragOver]);
-
-  const onDragLeaveCallback = useCallback((event: React.SyntheticEvent) => {
-    event.preventDefault();
-
-    onDragLeave(event);
-
-    setDrag(false);
-    setDrag(false);
-  }, [onDragLeave]);
-
-  const onDropCallback = useCallback((event: React.SyntheticEvent) => {
-    event.preventDefault();
-
-    onDrop(event);
-
-    setDrag(false);
-    setDrop(true);
-  }, [onDrop]);
-
   return (
     <div
       className={`FileUploader${drag ? ' -drag' : ''}${drop ? ' -drop' : ''}`}
-      onDragEnter={onDragEnterCallback}
-      onDragOver={onDragOverCallback}
-      onDragLeave={onDragLeaveCallback}
-      onDrop={onDropCallback}
+      onDragEnter={onDragEnter}
+      onDragOver={onDragOver}
+      onDragLeave={onDragLeave}
+      onDrop={onDrop}
     >
       <button
         type="button"

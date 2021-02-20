@@ -47,6 +47,8 @@ export const MML: React.FC<Props> = (props: Props) => {
   const [bassIndex, setBassIndex] = useState<number>(0);
   const [dataURL, setDataURL] = useState<string>('');
   const [filename, setFilename] = useState<string>('');
+  const [drag, setDrag] = useState<boolean>(false);
+  const [drop, setDrop] = useState<boolean>(false);
   const [showProgress, setShowProgress] = useState<boolean>(false);
   const [loadedByte, setLoadedByte] = useState<number>(0);
   const [rate, setRate] = useState<number>(0);
@@ -298,6 +300,7 @@ export const MML: React.FC<Props> = (props: Props) => {
 
   const onDragEnterCallback = useCallback((event: React.SyntheticEvent) => {
     event.preventDefault();
+    setDrag(true);
   }, []);
 
   const onDragOverCallback = useCallback((event: React.SyntheticEvent) => {
@@ -306,10 +309,16 @@ export const MML: React.FC<Props> = (props: Props) => {
 
   const onDragLeaveCallback = useCallback((event: React.SyntheticEvent) => {
     event.preventDefault();
+    setDrag(false);
   }, []);
 
   const onDropCallback = useCallback((event: React.SyntheticEvent) => {
+    event.preventDefault();
+
     readFileCallback(event);
+
+    setDrag(false);
+    setDrop(true);
   }, [readFileCallback]);
 
   const onCloseModalCallback = useCallback(() => {
@@ -459,6 +468,8 @@ export const MML: React.FC<Props> = (props: Props) => {
           accept="text/plain"
           placeholder="MML text file"
           filename={filename}
+          drag={drag}
+          drop={drop}
           onChange={onChangeFileCallback}
           onDragEnter={onDragEnterCallback}
           onDragOver={onDragOverCallback}

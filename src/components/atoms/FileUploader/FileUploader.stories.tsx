@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 // also exported from '@storybook/react' if you can deal with breaking changes in 6.1
 import { Story, Meta } from '@storybook/react/types-6-0';
 
@@ -10,7 +10,45 @@ export default {
   component: FileUploader
 } as Meta;
 
-const Template: Story<Props> = (args: Props) => <FileUploader {...args} />;
+const Template: Story<Props> = (args: Props) => {
+  const [drag, setDrag] = useState<boolean>(false);
+  const [drop, setDrop] = useState<boolean>(false);
+
+  const onDragEnter = useCallback((event: React.SyntheticEvent) => {
+    event.preventDefault();
+
+    document.body.style.backgroundColor = '#333';
+
+    setDrag(true);
+  }, []);
+
+  const onDragOver = useCallback((event: React.SyntheticEvent) => {
+    event.preventDefault();
+
+    document.body.style.backgroundColor = '#999';
+  }, []);
+
+  const onDragLeave = useCallback((event: React.SyntheticEvent) => {
+    event.preventDefault();
+
+    document.body.style.backgroundColor = '#000';
+
+    setDrag(false);
+  }, []);
+
+  const onDrop = useCallback((event: React.SyntheticEvent) => {
+    event.preventDefault();
+
+    alert(event.type);
+
+    setDrag(false);
+    setDrop(true);
+  }, []);
+
+  const props = { ...args, drag, drop, onDragEnter, onDragOver, onDragLeave, onDrop };
+
+  return <FileUploader {...props} />;
+};
 
 export const Primary = Template.bind({});
 
@@ -20,21 +58,6 @@ Primary.args = {
   placeholder: 'MP3, Ogg, WAV ... etc',
   filename   : '',
   onChange   : (event: React.SyntheticEvent) => {
-    alert(event.type);
-  },
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  onDragEnter: (event: React.SyntheticEvent) => {
-    document.body.style.backgroundColor = '#333';
-  },
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  onDragOver : (event: React.SyntheticEvent) => {
-    document.body.style.backgroundColor = '#999';
-  },
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  onDragLeave: (event: React.SyntheticEvent) => {
-    document.body.style.backgroundColor = '#000';
-  },
-  onDrop     : (event: React.SyntheticEvent) => {
     alert(event.type);
   }
 };
@@ -47,21 +70,6 @@ Secondary.args = {
   placeholder: 'MP3, Ogg, WAV ... etc',
   filename   : 'Default filename',
   onChange   : (event: React.SyntheticEvent) => {
-    alert(event.type);
-  },
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  onDragEnter: (event: React.SyntheticEvent) => {
-    document.body.style.backgroundColor = '#333';
-  },
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  onDragOver : (event: React.SyntheticEvent) => {
-    document.body.style.backgroundColor = '#999';
-  },
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  onDragLeave: (event: React.SyntheticEvent) => {
-    document.body.style.backgroundColor = '#000';
-  },
-  onDrop     : (event: React.SyntheticEvent) => {
     alert(event.type);
   }
 };
