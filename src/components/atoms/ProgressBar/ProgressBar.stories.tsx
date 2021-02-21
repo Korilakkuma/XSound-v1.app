@@ -15,7 +15,7 @@ const Template: Story<Props> = (args: Props) => {
 
   const label = `Loaded ${rate <= 100 ? rate : 100} %`;
 
-  const props = args.id ? Object.assign({}, args, { rate, label }) : args;
+  const props = args.id ? { ...args, rate, label } : args;
 
   return (
     <React.Fragment>
