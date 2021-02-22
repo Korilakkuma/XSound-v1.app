@@ -12,7 +12,6 @@
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  outline: none;
   border-top: 2px solid rgba(255, 255, 255, 0.3);
   border-bottom: 2px solid rgba(255, 255, 255, 0.3);
   border-left: none;
@@ -25,6 +24,10 @@
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -webkit-tap-highlight-color: var(--transparent);
+}
+
+.Slider > label > input[type="range"]:focus:not(:focus-visible) {
+  outline: none;
 }
 
 .Slider > label > input[type="range"]::-webkit-slider-thumb {
