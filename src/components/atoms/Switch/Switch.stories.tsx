@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 // also exported from '@storybook/react' if you can deal with breaking changes in 6.1
 import { Story, Meta } from '@storybook/react/types-6-0';
 
@@ -10,26 +10,24 @@ export default {
   component: Switch
 } as Meta;
 
-const Template: Story<Props> = (args: Props) => <Switch {...args} />;
+const Template: Story<Props> = (args: Props) => {
+  const [checked, setChecked] = useState<boolean>(args.checked);
+
+  return <Switch {...args} checked={checked} onChange={() => setChecked(!checked)} />;
+};
 
 export const Primary = Template.bind({});
 
 Primary.args = {
-  id            : 'primary-switch',
-  label         : 'Default false',
-  defaultChecked: false,
-  onChange      : (event: React.SyntheticEvent) => {
-    alert(`${event.type} ${(event.currentTarget as HTMLInputElement).checked}`);
-  }
+  id     : 'primary-switch',
+  label  : 'checked false',
+  checked: false
 };
 
 export const Secondary = Template.bind({});
 
 Secondary.args = {
-  id            : 'secondary-switch',
-  label         : 'Default true',
-  defaultChecked: true,
-  onChange      : (event: React.SyntheticEvent) => {
-    alert(`${event.type} ${(event.currentTarget as HTMLInputElement).checked}`);
-  }
+  id     : 'secondary-switch',
+  label  : 'checked true',
+  checked: true
 };

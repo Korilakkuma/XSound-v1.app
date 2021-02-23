@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
 import { OscillatorSelector } from '../../helpers/OscillatorSelector';
@@ -18,14 +18,18 @@ export const OscillatorFieldset: React.FC<Props> = (props: Props) => {
     radioName
   } = props;
 
+  const [oscillator, setOscillator] = useState<boolean>(oscillatorNumber === 0);
+
   const onChangeStateCallback = useCallback((event: React.SyntheticEvent) => {
     const state = (event.currentTarget as HTMLInputElement).checked;
 
     for (let i = 0, len = X('oscillator').length(); i < len; i++) {
       if (oscillatorNumber === 0) {
         X('oscillator').get(i).state(state);
+        setOscillator(state);
       } else {
         window.C('oscillator').get(i).state(state);
+        setOscillator(state);
       }
     }
   }, [oscillatorNumber]);
@@ -85,7 +89,7 @@ export const OscillatorFieldset: React.FC<Props> = (props: Props) => {
           <Switch
             id={`oscillator-fieldset-state-${oscillatorNumber}`}
             label={label}
-            defaultChecked={oscillatorNumber === 0}
+            checked={oscillator}
             onChange={onChangeStateCallback}
           />
         </legend>

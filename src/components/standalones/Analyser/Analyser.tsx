@@ -21,6 +21,7 @@ export const Analyser: React.FC<Props> = (props: Props) => {
   const canvasForFrequencyDomainRef   = useRef<HTMLCanvasElement>(null);
 
   const [loaded, setLoaded] = useState<boolean>(false);
+  const [analyser, setAnalyser] = useState<boolean>(false);
   const [dragTime, setDragTime] = useState<string>('00 : 00 - 00 : 00');
   const [showDragTime, setShowDragTime] = useState<boolean>(false);
   const [showTimeOverview, setShowTimeOverview] = useState<'left' | 'right'>('left');
@@ -47,6 +48,8 @@ export const Analyser: React.FC<Props> = (props: Props) => {
       X('audio').param('loop', false);
       X('audio').stop().start(currentTime, duration);
     }
+
+    setAnalyser(checked);
   }, []);
 
   const onChangeIntervalCallback = useCallback((event: React.SyntheticEvent) => {
@@ -241,7 +244,7 @@ export const Analyser: React.FC<Props> = (props: Props) => {
         <Switch
           label="Audio Sprite"
           id="analyser-audio-sprite-mode"
-          defaultChecked={false}
+          checked={analyser}
           onChange={onChangeModeCallback}
         />
         <Spacer direction="right" space={12} />

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { XSoundSource } from '../../../types';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
@@ -10,12 +10,16 @@ export interface Props {
 }
 
 export const CompressorFieldset: React.FC<Props> = (props: Props) => {
+  const [compressor, setCompressor] = useState<boolean>(true);
+
   const onChangeStateCallback = useCallback((event: React.SyntheticEvent) => {
     const state = (event.currentTarget as HTMLInputElement).checked;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('compressor').state(state);
     });
+
+    setCompressor(state);
   }, [props.sources]);
 
   const onChangeThresholdCallback = useCallback((event: React.SyntheticEvent) => {
@@ -63,9 +67,9 @@ export const CompressorFieldset: React.FC<Props> = (props: Props) => {
       <fieldset>
         <legend>
           <Switch
-            defaultChecked
             id="compressor-state"
             label="Compressor"
+            checked={compressor}
             onChange={onChangeStateCallback}
           />
         </legend>

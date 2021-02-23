@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { XSoundSource, RIRInfo } from '../../../types';
 import { Spacer } from '../../atoms/Spacer';
 import { GroupSelect } from '../../atoms/GroupSelect';
@@ -13,6 +13,8 @@ export interface Props {
 
 export const ReverbFieldset: React.FC<Props> = (props: Props) => {
   const { sources, rirInfos } = props;
+
+  const [reverb, setReverb] = useState<boolean>(false);
 
   const groups: string[] = [];
   const values: { [group: string]: string[] } = {};
@@ -44,6 +46,8 @@ export const ReverbFieldset: React.FC<Props> = (props: Props) => {
     sources.forEach((source: XSoundSource) => {
       X(source).module('reverb').state(state);
     });
+
+    setReverb(state);
   }, [sources]);
 
   const onChangeTypeCallback = useCallback((event: React.SyntheticEvent) => {
@@ -85,7 +89,7 @@ export const ReverbFieldset: React.FC<Props> = (props: Props) => {
           <Switch
             id="reverb-state"
             label="Reverb"
-            defaultChecked={false}
+            checked={reverb}
             onChange={onChangeStateCallback}
           />
         </legend>

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { XSoundSource } from '../../../types';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
@@ -10,12 +10,16 @@ export interface Props {
 }
 
 export const FlangerFieldset: React.FC<Props> = (props: Props) => {
+  const [flanger, setFlanger] = useState<boolean>(false);
+
   const onChangeStateCallback = useCallback((event: React.SyntheticEvent) => {
     const state = (event.currentTarget as HTMLInputElement).checked;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('flanger').state(state);
     });
+
+    setFlanger(state);
   }, [props.sources]);
 
   const onChangeTimeCallback = useCallback((event: React.SyntheticEvent) => {
@@ -73,7 +77,7 @@ export const FlangerFieldset: React.FC<Props> = (props: Props) => {
           <Switch
             id="flanger-state"
             label="Flanger"
-            defaultChecked={false}
+            checked={flanger}
             onChange={onChangeStateCallback}
           />
         </legend>

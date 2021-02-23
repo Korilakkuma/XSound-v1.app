@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { XSoundSource } from '../../../types';
 import { Spacer } from '../../atoms/Spacer';
 import { Select } from '../../atoms/Select';
@@ -11,12 +11,16 @@ export interface Props {
 }
 
 export const DistortionFieldset: React.FC<Props> = (props: Props) => {
+  const [distortion, setDistortion] = useState<boolean>(false);
+
   const onChangeStateCallback = useCallback((event: React.SyntheticEvent) => {
     const state = (event.currentTarget as HTMLInputElement).checked;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('distortion').state(state);
     });
+
+    setDistortion(state);
   }, [props.sources]);
 
   const onChangeCurveCallback = useCallback((event: React.SyntheticEvent) => {
@@ -74,7 +78,7 @@ export const DistortionFieldset: React.FC<Props> = (props: Props) => {
           <Switch
             id="distortion-state"
             label="Distortion"
-            defaultChecked={false}
+            checked={distortion}
             onChange={onChangeStateCallback}
           />
         </legend>

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { XSoundSource } from '../../../types';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
@@ -10,12 +10,16 @@ export interface Props {
 }
 
 export const RingModulatorFieldset: React.FC<Props> = (props: Props) => {
+  const [ringmodulator, setRingmodulator] = useState<boolean>(false);
+
   const onChangeStateCallback = useCallback((event: React.SyntheticEvent) => {
     const state = (event.currentTarget as HTMLInputElement).checked;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('ringmodulator').state(state);
     });
+
+    setRingmodulator(state);
   }, [props.sources]);
 
   const onChangeDepthCallback = useCallback((event: React.SyntheticEvent) => {
@@ -41,7 +45,7 @@ export const RingModulatorFieldset: React.FC<Props> = (props: Props) => {
           <Switch
             id="ringmodulator-state"
             label="Ring MOD."
-            defaultChecked={false}
+            checked={ringmodulator}
             onChange={onChangeStateCallback}
           />
         </legend>

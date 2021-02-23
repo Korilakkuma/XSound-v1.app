@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { XSoundSource } from '../../../types';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
@@ -10,12 +10,16 @@ export interface Props {
 }
 
 export const AutopanFieldset: React.FC<Props> = (props: Props) => {
+  const [autopan, setAutopan] = useState<boolean>(false);
+
   const onChangeStateCallback = useCallback((event: React.SyntheticEvent) => {
     const state = (event.currentTarget as HTMLInputElement).checked;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('autopanner').state(state);
     });
+
+    setAutopan(state);
   }, [props.sources]);
 
   const onChangeDepthCallback = useCallback((event: React.SyntheticEvent) => {
@@ -41,7 +45,7 @@ export const AutopanFieldset: React.FC<Props> = (props: Props) => {
           <Switch
             id="autopan-state"
             label="Autopan"
-            defaultChecked={false}
+            checked={autopan}
             onChange={onChangeStateCallback}
           />
         </legend>

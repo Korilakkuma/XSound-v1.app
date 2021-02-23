@@ -460,7 +460,7 @@ export const MML: React.FC<Props> = (props: Props) => {
         <Switch
           id="mml-switch-highlight"
           label="Highlight"
-          defaultChecked={highlight}
+          checked={highlight}
           onChange={onChangeHightlightCallback}
         />
         <FileUploader

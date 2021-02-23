@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { XSoundSource } from '../../../types';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
@@ -10,12 +10,16 @@ export interface Props {
 }
 
 export const EqualizerFieldset: React.FC<Props> = (props: Props) => {
+  const [equalizer, setEqualizer] = useState<boolean>(false);
+
   const onChangeStateCallback = useCallback((event: React.SyntheticEvent) => {
     const state = (event.currentTarget as HTMLInputElement).checked;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('equalizer').state(state);
     });
+
+    setEqualizer(state);
   }, [props.sources]);
 
   const onChangeBassCallback = useCallback((event: React.SyntheticEvent) => {
@@ -57,7 +61,7 @@ export const EqualizerFieldset: React.FC<Props> = (props: Props) => {
           <Switch
             id="equalizer-state"
             label="Equalizer"
-            defaultChecked={false}
+            checked={equalizer}
             onChange={onChangeStateCallback}
           />
         </legend>

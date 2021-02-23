@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { XSoundSource } from '../../../types';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
@@ -10,12 +10,16 @@ export interface Props {
 }
 
 export const DelayFieldset: React.FC<Props> = (props: Props) => {
+  const [delay, setDelay] = useState<boolean>(false);
+
   const onChangeStateCallback = useCallback((event: React.SyntheticEvent) => {
     const state = (event.currentTarget as HTMLInputElement).checked;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('delay').state(state);
     });
+
+    setDelay(state);
   }, [props.sources]);
 
   const onChangeTimeCallback = useCallback((event: React.SyntheticEvent) => {
@@ -65,7 +69,7 @@ export const DelayFieldset: React.FC<Props> = (props: Props) => {
           <Switch
             id="delay-state"
             label="Delay"
-            defaultChecked={false}
+            checked={delay}
             onChange={onChangeStateCallback}
           />
         </legend>
