@@ -28,6 +28,10 @@
   background-repeat: no-repeat;
 }
 
-.Switch.-checked > label > span {
+.Switch > input[type="checkbox"]:checked + label > span {
   background-position: left bottom;
+}
+
+.Switch > label:focus:not(:focus-visible) {
+  outline: none;
 }
