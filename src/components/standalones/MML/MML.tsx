@@ -206,11 +206,9 @@ export const MML: React.FC<Props> = (props: Props) => {
 
     const currentMelody = event.currentTarget.textContent;
 
-    readyMMLCallback(currentMelody, bass);
-
     setMelody(currentMelody);
     setPaused(true);
-  }, [bass, readyMMLCallback]);
+  }, []);
 
   const onBlurBassCallback = useCallback((event: React.SyntheticEvent) => {
     if ((event.currentTarget === null) || (event.currentTarget.textContent === null)) {
@@ -219,11 +217,9 @@ export const MML: React.FC<Props> = (props: Props) => {
 
     const currentBass = event.currentTarget.textContent;
 
-    readyMMLCallback(melody, currentBass);
-
     setBass(currentBass);
     setPaused(true);
-  }, [melody, readyMMLCallback]);
+  }, []);
 
   const onClickMMLControllerCallback = useCallback(() => {
     if (paused) {
