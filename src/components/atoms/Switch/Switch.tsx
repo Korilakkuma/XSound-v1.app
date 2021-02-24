@@ -18,9 +18,13 @@ export const Switch: React.FC<Props> = (props: Props) => {
     if ((nativeEvent.code === 'Space') || (nativeEvent.keyCode === 13)) {
       event.preventDefault();
 
-      if (checkboxRef.current) {
-        checkboxRef.current.click();
+      const node = checkboxRef.current;
+
+      if (node === null) {
+        return;
       }
+
+      node.click();
     }
   }, []);
 
