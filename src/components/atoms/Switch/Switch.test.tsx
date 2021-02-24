@@ -30,8 +30,33 @@ describe('atoms/Switch', () => {
       }
     } as Props;
 
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    const spy = jest.spyOn(React, 'useRef').mockReturnValueOnce({ current: { click: () => {} } });
+
     render(<Switch {...props} />);
 
     fireEvent.keyDown(screen.getByText('checked'), { key: 13, code: 'Space' });
+
+    spy.mockRestore();
+  });
+
+  it('keyboard access (checkbox is `null`)', () => {
+    const props = {
+      id      : 'switch',
+      label   : 'checked',
+      checked : false,
+      onChange: (event: React.SyntheticEvent) => {
+        // eslint-disable-next-line no-console
+        console.log((event.currentTarget as HTMLInputElement).checked);
+      }
+    } as Props;
+
+    const spy = jest.spyOn(React, 'useRef').mockReturnValueOnce({ current: null });
+
+    render(<Switch {...props} />);
+
+    fireEvent.keyDown(screen.getByText('checked'), { key: 13, code: 'Space' });
+
+    spy.mockRestore();
   });
 });
