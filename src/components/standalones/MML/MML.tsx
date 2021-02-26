@@ -9,11 +9,20 @@ import {
 } from '../../../actions';
 import { createFilename } from '../../../utils';
 import { Switch } from '../../atoms/Switch';
+import { Select } from '../../atoms/Select';
 import { FileUploader } from '../../atoms/FileUploader';
 import { ProgressBar } from '../../atoms/ProgressBar';
 import { Modal } from '../../atoms/Modal';
 import { SelectableModal } from '../../helpers/SelectableModal';
 import { X } from 'xsound';
+
+interface MMLInfo {
+  title: string;
+  artist: string;
+  description: string;
+  melody: string;
+  bass: string;
+}
 
 interface Sequence {
   indexes: number[];
@@ -52,6 +61,8 @@ export const MML: React.FC<Props> = (props: Props) => {
   const [showProgress, setShowProgress] = useState<boolean>(false);
   const [loadedByte, setLoadedByte] = useState<number>(0);
   const [rate, setRate] = useState<number>(0);
+  const [values, setValues] = useState<string[]>([]);
+  const [texts, setTexts] = useState<string[]>([]);
   const [errorMessage, setErrorMessage] = useState<string>('');
   // const [errorMessageForMML, setErrorMessageForMML] = useState<string>('');
   const [isShowModalForFileUploadError, setIsShowModalForFileUploadError] = useState<boolean>(false);
@@ -283,7 +294,15 @@ export const MML: React.FC<Props> = (props: Props) => {
     const currentMelody = melody.replace(CLEAR_HIGHLIGHT_REGEXP, '$1');
     const currentBass   = bass.replace(CLEAR_HIGHLIGHT_REGEXP, '$1');
 
-    setDataURL(X.toTextFile(`${currentMelody}||||${currentBass}`));
+    const json = JSON.stringify({
+      title      : '',
+      artist     : '',
+      description: '',
+      melody     : currentMelody,
+      bass       : currentBass
+    });
+
+    setDataURL(X.toTextFile(json));
   }, [melody, bass]);
 
   const onChangeHightlightCallback = useCallback((event: React.SyntheticEvent) => {
@@ -333,6 +352,13 @@ export const MML: React.FC<Props> = (props: Props) => {
     setIsShowModalConfirmation(false);
   }, []);
 
+  const onChangeSampleMMLCallback = useCallback((event: React.SyntheticEvent) => {
+    const sampleMML = JSON.parse((event.currentTarget as HTMLInputElement).value);
+
+    setMelody(sampleMML.melody);
+    setBass(sampleMML.bass);
+  }, []);
+
   useEffect(() => {
     if (!loadedApp) {
       return;
@@ -371,20 +397,55 @@ export const MML: React.FC<Props> = (props: Props) => {
       error: errorCallback
     });
 
-    const sampleMMLs = ['forever-love', 'tears'];
-    const sampleMML  = sampleMMLs[Date.now() % 2];
-
-    fetch(`/assets/mmls/${sampleMML}.txt`)
-      .then((response: Response) => {
-        return response.text();
+    Promise
+      .all([
+        fetch('/assets/mmls/endless-rain.json'),
+        fetch('/assets/mmls/forever-love.json'),
+        fetch('/assets/mmls/tears.json')
+      ])
+      .then((responses: Response[]) => {
+        return responses.map((response: Response) => response.json());
       })
-      .then((text: string) => {
-        const mmls = text.split(/\|+/);
+      .then((promises: Promise<MMLInfo>[]) => {
+        promises.forEach((promise: Promise<MMLInfo>) => {
+          promise
+            .then((json: MMLInfo) => {
+              const { title, artist, melody, bass } = json;
 
-        readyMMLCallback(mmls[0], mmls[1]);
+              let index = 0;
 
-        setMelody(mmls[0]);
-        setBass(mmls[1]);
+              switch (title) {
+                case 'ENDLESS RAIN':
+                  index = 0;
+                  break;
+                case 'Forever Love':
+                  index = 1;
+                  break;
+                case 'Tears':
+                  index = 2;
+                  break;
+                default:
+                  break;
+              }
+
+              values[index] = JSON.stringify({ melody, bass });
+              texts[index]  = `${title} | ${artist}`;
+
+              if (title === 'ENDLESS RAIN') {
+                setMelody(melody);
+                setBass(bass);
+              }
+
+              if ((values.length === 3) && (texts.length === 3)) {
+                setValues(values);
+                setTexts(texts);
+              }
+            })
+            .catch((error: Error) => {
+              // eslint-disable-next-line no-console
+              console.error(error);
+            });
+        });
       })
       .catch((error: Error) => {
         // eslint-disable-next-line no-console
@@ -398,6 +459,8 @@ export const MML: React.FC<Props> = (props: Props) => {
     loaded,
     melody,
     bass,
+    values,
+    texts,
     readyMMLCallback,
     startMelodyCallback,
     startBassCallback,
@@ -446,7 +509,7 @@ export const MML: React.FC<Props> = (props: Props) => {
         </button>
         <a
           href={dataURL}
-          download={dataURL ? createFilename('mml-', '.txt') : null}
+          download={dataURL ? createFilename('mml-', '.json') : null}
           role="button"
           className="MML__download"
           aria-label="Download"
@@ -471,6 +534,14 @@ export const MML: React.FC<Props> = (props: Props) => {
           onDragOver={onDragOverCallback}
           onDragLeave={onDragLeaveCallback}
           onDrop={onDropCallback}
+        />
+        <Select
+          id="select-mml"
+          label="Select Sample MML"
+          values={values}
+          texts={texts}
+          width="200px"
+          onChange={onChangeSampleMMLCallback}
         />
       </div>
       <Modal
