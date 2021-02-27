@@ -85,6 +85,6 @@
 
 @-moz-document url-prefix() {
   .Slider__value {
-    top: 8px;
+    top: 10.5px;
   }
 }
