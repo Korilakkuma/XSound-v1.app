@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import { OscillatorType } from '../../../types';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
 import { OscillatorSelector } from '../../helpers/OscillatorSelector';
@@ -12,13 +13,10 @@ export interface Props {
 }
 
 export const OscillatorFieldset: React.FC<Props> = (props: Props) => {
-  const {
-    oscillatorNumber,
-    label,
-    radioName
-  } = props;
+  const { oscillatorNumber, label, radioName } = props;
 
   const [oscillator, setOscillator] = useState<boolean>(oscillatorNumber === 0);
+  const [type, setType] = useState<OscillatorType>('sawtooth');
 
   const onChangeStateCallback = useCallback((event: React.SyntheticEvent) => {
     const state = (event.currentTarget as HTMLInputElement).checked;
@@ -35,6 +33,31 @@ export const OscillatorFieldset: React.FC<Props> = (props: Props) => {
   }, [oscillatorNumber]);
 
   const onChangeTypeCallback = useCallback((event: React.SyntheticEvent) => {
+    const form  = event.currentTarget as HTMLFormElement;
+    const name  = `radio-${radioName}`;
+    const items = form.elements.namedItem(name) as RadioNodeList;
+
+    if (items === null) {
+      return;
+    }
+
+    for (let i = 0, len = items.length; i < len; i++) {
+      const item = items[i] as HTMLInputElement;
+
+      const { checked, value } = item;
+
+      if (checked) {
+        if ((value === 'sine') || (value === 'square') || (value === 'sawtooth') || (value === 'triangle')) {
+          setType(value);
+          return;
+        }
+
+        return;
+      }
+    }
+  }, [radioName]);
+
+  const onChangeRadioCallback = useCallback((event: React.SyntheticEvent) => {
     const type = (event.currentTarget as HTMLInputElement).value;
 
     for (let i = 0, len = X('oscillator').length(); i < len; i++) {
@@ -96,8 +119,9 @@ export const OscillatorFieldset: React.FC<Props> = (props: Props) => {
         <Spacer space={2} />
         <OscillatorSelector
           radioName={radioName}
-          defaultType="sawtooth"
+          type={type}
           onChange={onChangeTypeCallback}
+          onChangeRadio={onChangeRadioCallback}
         />
         <Spacer space={16} />
         <ValueController
