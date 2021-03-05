@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 import { Props, SelectableModal } from './SelectableModal';
 
 describe('helpers/SelectableModal', () => {
-  it('render', () => {
+  test('render', () => {
     const props = {
       isShow    : true,
       hasOverlay: true,

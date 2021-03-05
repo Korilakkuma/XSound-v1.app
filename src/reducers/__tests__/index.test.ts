@@ -17,7 +17,7 @@ import {
 } from '../../types';
 
 describe('Reducers', () => {
-  it('should handle CHANGE_CURRENT_SOUND_SOURCE', () => {
+  test('should handle CHANGE_CURRENT_SOUND_SOURCE', () => {
     const expectedState = 'piano' as SoundSource;
     const action        = {
       type   : ActionTypes.CHANGE_CURRENT_SOUND_SOURCE,
@@ -29,7 +29,7 @@ describe('Reducers', () => {
     expect(currentSoundSource('oscillator' as SoundSource, action)).toStrictEqual(expectedState);
   });
 
-  it('should handle CHANGE_ANALYSER_STATE', () => {
+  test('should handle CHANGE_ANALYSER_STATE', () => {
     const expectedState = true;
     const action        = {
       type   : ActionTypes.CHANGE_ANALYSER_STATE,
@@ -41,7 +41,7 @@ describe('Reducers', () => {
     expect(analyserState(false, action)).toStrictEqual(expectedState);
   });
 
-  it('should handle CHANGE_MML_STATE', () => {
+  test('should handle CHANGE_MML_STATE', () => {
     const expectedState = true;
     const action        = {
       type   : ActionTypes.CHANGE_MML_STATE,
@@ -53,7 +53,7 @@ describe('Reducers', () => {
     expect(mmlState(false, action)).toStrictEqual(expectedState);
   });
 
-  it('should handle DOWN_MELODY_KEYBOARDS', () => {
+  test('should handle DOWN_MELODY_KEYBOARDS', () => {
     const expectedState = [40, 44, 47];
     const action        = {
       type   : ActionTypes.DOWN_MELODY_KEYBOARDS,
@@ -65,7 +65,7 @@ describe('Reducers', () => {
     expect(downMelodyKeyboardIndexes([] as number[], action)).toStrictEqual(expectedState);
   });
 
-  it('should handle DOWN_BASS_KEYBOARDS', () => {
+  test('should handle DOWN_BASS_KEYBOARDS', () => {
     const expectedState = [28, 32, 35];
     const action        = {
       type   : ActionTypes.DOWN_BASS_KEYBOARDS,
@@ -77,7 +77,7 @@ describe('Reducers', () => {
     expect(downBassKeyboardIndexes([] as number[], action)).toStrictEqual(expectedState);
   });
 
-  it('should handle UP_MELODY_KEYBOARDS', () => {
+  test('should handle UP_MELODY_KEYBOARDS', () => {
     const expectedState = [40, 44, 47];
     const action        = {
       type   : ActionTypes.UP_MELODY_KEYBOARDS,
@@ -89,7 +89,7 @@ describe('Reducers', () => {
     expect(upMelodyKeyboardIndexes([] as number[], action)).toStrictEqual(expectedState);
   });
 
-  it('should handle UP_BASS_KEYBOARDS', () => {
+  test('should handle UP_BASS_KEYBOARDS', () => {
     const expectedState = [28, 32, 35];
     const action        = {
       type   : ActionTypes.UP_BASS_KEYBOARDS,

@@ -4,7 +4,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { Props, ValueController } from './ValueController';
 
 describe('helpers/ValueController', () => {
-  it('render without width', () => {
+  test('render without width', () => {
     const props = {
       label       : 'Value Controller',
       id          : 'value-controller',
@@ -22,7 +22,7 @@ describe('helpers/ValueController', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('render with width', () => {
+  test('render with width', () => {
     const props = {
       label       : 'Value Controller',
       id          : 'value-controller',
@@ -41,7 +41,7 @@ describe('helpers/ValueController', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('change', () => {
+  test('change', () => {
     const props = {
       label       : 'Value Controller',
       id          : 'value-controller',
@@ -60,7 +60,7 @@ describe('helpers/ValueController', () => {
     fireEvent.change(screen.getByRole('slider'), { target: { valueAsNumber: 100 } });
   });
 
-  it('change (id is `audio-fieldset-current-time`)', () => {
+  test('change (id is `audio-fieldset-current-time`)', () => {
     const props = {
       label       : 'Value Controller',
       id          : 'audio-fieldset-current-time',

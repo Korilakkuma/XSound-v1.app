@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 import { Props, Slider } from './Slider';
 
 describe('atoms/Slider', () => {
-  it('render', () => {
+  test('render', () => {
     const props = {
       value   : 0,
       min     : -100,

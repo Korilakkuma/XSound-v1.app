@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 import { Props, Spinner } from './Spinner';
 
 describe('atoms/Spinner', () => {
-  it('render', () => {
+  test('render', () => {
     const props = {
       value   : 0,
       min     : -100,

@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 import { Props, ProgressBar } from './ProgressBar';
 
 describe('atoms/ProgressBar', () => {
-  it('manual', () => {
+  test('manual', () => {
     const props = {
       id   : 'progress-bar-manual',
       label: 'Progress Bar',
@@ -15,7 +15,7 @@ describe('atoms/ProgressBar', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('manual max', () => {
+  test('manual max', () => {
     const props = {
       id   : 'progress-bar-manual',
       label: 'Progress Bar',
@@ -27,7 +27,7 @@ describe('atoms/ProgressBar', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('auto', () => {
+  test('auto', () => {
     const props = {
       id   : 'progress-bar-auto',
       label: 'Progress Bar'

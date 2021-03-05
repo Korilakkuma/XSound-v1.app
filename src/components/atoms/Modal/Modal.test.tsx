@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 import { Props, Modal } from './Modal';
 
 describe('atoms/Modal', () => {
-  it('not show', () => {
+  test('not show', () => {
     const props = { isShow: false } as Props;
 
     const tree = renderer.create(<Modal {...props}><div>Content</div></Modal>).toJSON();
@@ -11,7 +11,7 @@ describe('atoms/Modal', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('not has overlay', () => {
+  test('not has overlay', () => {
     const props = {
       isShow    : true,
       hasOverlay: false,
@@ -26,7 +26,7 @@ describe('atoms/Modal', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('has overlay', () => {
+  test('has overlay', () => {
     const props = {
       isShow    : true,
       hasOverlay: true,
@@ -41,7 +41,7 @@ describe('atoms/Modal', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('not close handler', () => {
+  test('not close handler', () => {
     const props = {
       isShow    : true,
       hasOverlay: true,

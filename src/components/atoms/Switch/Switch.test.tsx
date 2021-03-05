@@ -4,7 +4,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { Props, Switch } from './Switch';
 
 describe('atoms/Switch', () => {
-  it('render', () => {
+  test('render', () => {
     const props = {
       id      : 'switch',
       label   : 'checked',
@@ -19,7 +19,7 @@ describe('atoms/Switch', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('keyboard access', () => {
+  test('keyboard access', () => {
     const props = {
       id      : 'switch',
       label   : 'checked',
@@ -40,7 +40,7 @@ describe('atoms/Switch', () => {
     spy.mockRestore();
   });
 
-  it('keyboard access (checkbox is `null`)', () => {
+  test('keyboard access (checkbox is `null`)', () => {
     const props = {
       id      : 'switch',
       label   : 'checked',

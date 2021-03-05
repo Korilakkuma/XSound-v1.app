@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 import { Props, GroupSelect } from './GroupSelect';
 
 describe('atoms/GroupSelect', () => {
-  it('render without width', () => {
+  test('render without width', () => {
     const props = {
       id      : 'group-select',
       label   : 'Group Select',
@@ -28,7 +28,7 @@ describe('atoms/GroupSelect', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('render with width', () => {
+  test('render with width', () => {
     const props = {
       id      : 'group-select',
       label   : 'Group Select',

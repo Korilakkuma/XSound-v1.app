@@ -4,7 +4,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { Props, FileUploader } from './FileUploader';
 
 describe('atoms/FileUploader', () => {
-  it('no drag, no drop', () => {
+  test('no drag, no drop', () => {
     const props = {
       id         : 'uploader-1',
       accept     : 'audio/*',
@@ -34,7 +34,7 @@ describe('atoms/FileUploader', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('drag, no drop', () => {
+  test('drag, no drop', () => {
     const props = {
       id         : 'uploader-1',
       accept     : 'audio/*',
@@ -64,7 +64,7 @@ describe('atoms/FileUploader', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('drop', () => {
+  test('drop', () => {
     const props = {
       id         : 'uploader-1',
       accept     : 'audio/*',
@@ -94,7 +94,7 @@ describe('atoms/FileUploader', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('click', () => {
+  test('click', () => {
     const props = {
       id         : 'uploader-1',
       accept     : 'audio/*',
@@ -129,7 +129,7 @@ describe('atoms/FileUploader', () => {
     spy.mockRestore();
   });
 
-  it('click (file is `null`', () => {
+  test('click (file is `null`)', () => {
     const props = {
       id         : 'uploader-1',
       accept     : 'audio/*',

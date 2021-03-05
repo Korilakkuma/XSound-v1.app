@@ -17,7 +17,7 @@ import {
 } from '../../types';
 
 describe('Actions', () => {
-  it('should create an action to change current sound source', () => {
+  test('should create an action to change current sound source', () => {
     const payload        = 'oscillator' as SoundSource;
     const expectedAction = {
       type: ActionTypes.CHANGE_CURRENT_SOUND_SOURCE,
@@ -27,7 +27,7 @@ describe('Actions', () => {
     expect(changeCurrentSoundSource(payload)).toStrictEqual(expectedAction);
   });
 
-  it('should create an action to change analyser state', () => {
+  test('should create an action to change analyser state', () => {
     const payload        = true;
     const expectedAction = {
       type: ActionTypes.CHANGE_ANALYSER_STATE,
@@ -37,7 +37,7 @@ describe('Actions', () => {
     expect(changeAnalyserState(payload)).toStrictEqual(expectedAction);
   });
 
-  it('should create an action to change MML state', () => {
+  test('should create an action to change MML state', () => {
     const payload        = true;
     const expectedAction = {
       type: ActionTypes.CHANGE_MML_STATE,
@@ -47,7 +47,7 @@ describe('Actions', () => {
     expect(changeMMLState(payload)).toStrictEqual(expectedAction);
   });
 
-  it('should create an action to down keyboards for melody', () => {
+  test('should create an action to down keyboards for melody', () => {
     const payload        = [40, 44, 47];
     const expectedAction = {
       type: ActionTypes.DOWN_MELODY_KEYBOARDS,
@@ -57,7 +57,7 @@ describe('Actions', () => {
     expect(downMelodyKeyboards(payload)).toStrictEqual(expectedAction);
   });
 
-  it('should create an action to down keyboards for bass', () => {
+  test('should create an action to down keyboards for bass', () => {
     const payload        = [28, 32, 35];
     const expectedAction = {
       type: ActionTypes.DOWN_BASS_KEYBOARDS,
@@ -67,7 +67,7 @@ describe('Actions', () => {
     expect(downBassKeyboards(payload)).toStrictEqual(expectedAction);
   });
 
-  it('should create an action to up keyboards for melody', () => {
+  test('should create an action to up keyboards for melody', () => {
     const payload        = [40, 44, 47];
     const expectedAction = {
       type: ActionTypes.UP_MELODY_KEYBOARDS,
@@ -77,7 +77,7 @@ describe('Actions', () => {
     expect(upMelodyKeyboards(payload)).toStrictEqual(expectedAction);
   });
 
-  it('should create an action to up keyboards for bass', () => {
+  test('should create an action to up keyboards for bass', () => {
     const payload        = [28, 32, 35];
     const expectedAction = {
       type: ActionTypes.UP_BASS_KEYBOARDS,

@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 import { Props, Button } from './Button';
 
 describe('atoms/Button', () => {
-  it('inactive', () => {
+  test('inactive', () => {
     const props = {
       active : false,
       label  : 'Start',
@@ -21,7 +21,7 @@ describe('atoms/Button', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('active', () => {
+  test('active', () => {
     const props = {
       active : true,
       label  : 'Stop',

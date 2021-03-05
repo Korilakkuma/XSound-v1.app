@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 import { Flexbox } from './Flexbox';
 
 describe('atoms/Flexbox', () => {
-  it('render', () => {
+  test('render', () => {
     const tree = renderer.create(
       <Flexbox>
         <div style={{ width: '150px', height: '150px', backgroundColor: '#333' }} />

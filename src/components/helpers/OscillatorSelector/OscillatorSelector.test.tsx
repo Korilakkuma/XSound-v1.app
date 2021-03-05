@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 import { Props, OscillatorSelector } from './OscillatorSelector';
 
 describe('helpers/OscillatorSelector', () => {
-  it('render (type is sawtooth)', () => {
+  test('render (type is sawtooth)', () => {
     const props = {
       radioName    : 'oscillator-selector',
       type         : 'sawtooth',
@@ -20,7 +20,7 @@ describe('helpers/OscillatorSelector', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('render (type is sine)', () => {
+  test('render (type is sine)', () => {
     const props = {
       radioName    : 'oscillator-selector',
       type         : 'sine',
@@ -37,7 +37,7 @@ describe('helpers/OscillatorSelector', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('render (type is square)', () => {
+  test('render (type is square)', () => {
     const props = {
       radioName    : 'oscillator-selector',
       type         : 'square',
@@ -54,7 +54,7 @@ describe('helpers/OscillatorSelector', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('render (type is triangle)', () => {
+  test('render (type is triangle)', () => {
     const props = {
       radioName    : 'oscillator-selector',
       type         : 'triangle',

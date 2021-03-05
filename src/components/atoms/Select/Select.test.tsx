@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 import { Props, Select } from './Select';
 
 describe('atoms/Select', () => {
-  it('render without width', () => {
+  test('render without width', () => {
     const props = {
       id      : 'select',
       label   : 'Select',
@@ -20,7 +20,7 @@ describe('atoms/Select', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('render with width', () => {
+  test('render with width', () => {
     const props = {
       id      : 'select',
       label   : 'Select',

@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 import { Props, Spacer } from './Spacer';
 
 describe('atoms/Spacer', () => {
-  it('default', () => {
+  test('default', () => {
     const props = { space: 4 } as Props;
 
     const tree = renderer.create(<Spacer {...props} />).toJSON();
@@ -11,7 +11,7 @@ describe('atoms/Spacer', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('top', () => {
+  test('top', () => {
     const props = {
       space    : 4,
       direction: 'top'
@@ -22,7 +22,7 @@ describe('atoms/Spacer', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('right', () => {
+  test('right', () => {
     const props = {
       space    : 4,
       direction: 'right'
@@ -33,7 +33,7 @@ describe('atoms/Spacer', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('bottom', () => {
+  test('bottom', () => {
     const props = {
       space    : 4,
       direction: 'bottom'
@@ -44,7 +44,7 @@ describe('atoms/Spacer', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('left', () => {
+  test('left', () => {
     const props = {
       space    : 4,
       direction: 'left'

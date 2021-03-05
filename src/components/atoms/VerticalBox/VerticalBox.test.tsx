@@ -3,7 +3,7 @@ import renderer from 'react-test-renderer';
 import { VerticalBox } from './VerticalBox';
 
 describe('atoms/VerticalBox', () => {
-  it('render', () => {
+  test('render', () => {
     const tree = renderer.create(
       <VerticalBox>
         <div style={{ height: '150px', backgroundColor: '#333' }} />
