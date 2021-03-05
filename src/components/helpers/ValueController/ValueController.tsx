@@ -28,8 +28,8 @@ export const ValueController: React.FC<Props> = (props: Props) => {
   const [value, setValue] = useState<number>(defaultValue);
 
   const onChangeCallback = useCallback((event: React.SyntheticEvent) => {
-    setValue((event.currentTarget as HTMLInputElement).valueAsNumber);
     onChange(event);
+    setValue((event.currentTarget as HTMLInputElement).valueAsNumber);
   }, [onChange]);
 
   useEffect(() => {
