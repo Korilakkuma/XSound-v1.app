@@ -17,7 +17,27 @@ export const ProgressBar: React.FC<Props> = (props: Props) => {
       {manual && label ? <p id={id} className="ProgressBar__label">{label}</p> : null}
       <div className="ProgressBar__wrapper">
         <div role="presetation" className="ProgressBar__mask" />
-        {manual ? <div aria-labelledby={id} className="ProgressBar__bar" style={style} /> : <div className="ProgressBar__bar -auto" />}
+        {manual
+          ? (
+            <div
+              role="progressbar"
+              aria-valuenow={rate}
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-labelledby={id}
+              style={style}
+              className="ProgressBar__bar"
+            />
+          )
+          : (
+            <div
+              role="progressbar"
+              aria-valuemin={0}
+              aria-valuemax={100}
+              style={style}
+              className="ProgressBar__bar -auto"
+            />
+          )}
       </div>
     </div>
   );
