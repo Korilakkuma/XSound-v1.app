@@ -1,5 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { Props, OscillatorSelector } from './OscillatorSelector';
 
 describe('helpers/OscillatorSelector', () => {
@@ -7,12 +8,8 @@ describe('helpers/OscillatorSelector', () => {
     const props = {
       radioName    : 'oscillator-selector',
       type         : 'sawtooth',
-      onChange     : (event: React.SyntheticEvent) => {
-        alert(event.type);
-      },
-      onChangeRadio: (event: React.SyntheticEvent) => {
-        alert(event.type);
-      }
+      onChange     : () => {},
+      onChangeRadio: () => {}
     } as Props;
 
     const tree = renderer.create(<OscillatorSelector {...props} />).toJSON();
@@ -24,12 +21,8 @@ describe('helpers/OscillatorSelector', () => {
     const props = {
       radioName    : 'oscillator-selector',
       type         : 'sine',
-      onChange     : (event: React.SyntheticEvent) => {
-        alert(event.type);
-      },
-      onChangeRadio: (event: React.SyntheticEvent) => {
-        alert(event.type);
-      }
+      onChange     : () => {},
+      onChangeRadio: () => {}
     } as Props;
 
     const tree = renderer.create(<OscillatorSelector {...props} />).toJSON();
@@ -41,12 +34,8 @@ describe('helpers/OscillatorSelector', () => {
     const props = {
       radioName    : 'oscillator-selector',
       type         : 'square',
-      onChange     : (event: React.SyntheticEvent) => {
-        alert(event.type);
-      },
-      onChangeRadio: (event: React.SyntheticEvent) => {
-        alert(event.type);
-      }
+      onChange     : () => {},
+      onChangeRadio: () => {}
     } as Props;
 
     const tree = renderer.create(<OscillatorSelector {...props} />).toJSON();
@@ -58,16 +47,35 @@ describe('helpers/OscillatorSelector', () => {
     const props = {
       radioName    : 'oscillator-selector',
       type         : 'triangle',
-      onChange     : (event: React.SyntheticEvent) => {
-        alert(event.type);
-      },
-      onChangeRadio: (event: React.SyntheticEvent) => {
-        alert(event.type);
-      }
+      onChange     : () => {},
+      onChangeRadio: () => {}
     } as Props;
 
     const tree = renderer.create(<OscillatorSelector {...props} />).toJSON();
 
     expect(tree).toMatchSnapshot();
+  });
+
+  test('change', () => {
+    const mockOnChange      = jest.fn();
+    const mockOnChangeRadio = jest.fn();
+
+    const props = {
+      radioName    : 'oscillator-selector',
+      type         : 'sawtooth',
+      onChange     : mockOnChange,
+      onChangeRadio: mockOnChangeRadio
+    } as Props;
+
+    render(<OscillatorSelector {...props} />);
+
+    const radios = screen.getAllByRole('radio');
+
+    radios.forEach((radio: HTMLElement) => {
+      fireEvent.click(radio);
+    });
+
+    expect(mockOnChange.mock.calls.length).toBe(3);
+    expect(mockOnChangeRadio.mock.calls.length).toBe(3);
   });
 });

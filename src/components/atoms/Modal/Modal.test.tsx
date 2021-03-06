@@ -1,5 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { Props, Modal } from './Modal';
 
 describe('atoms/Modal', () => {
@@ -16,10 +17,8 @@ describe('atoms/Modal', () => {
       isShow    : true,
       hasOverlay: false,
       title     : 'not has overlay',
-      onClose   : (event: React.SyntheticEvent) => {
-        alert(event.type);
-      }
-    } as Props;
+      onClose   : () => {}
+    } as Omit<Props, 'children'>;
 
     const tree = renderer.create(<Modal {...props}><div>Content</div></Modal>).toJSON();
 
@@ -31,10 +30,8 @@ describe('atoms/Modal', () => {
       isShow    : true,
       hasOverlay: true,
       title     : 'has overlay',
-      onClose   : (event: React.SyntheticEvent) => {
-        alert(event.type);
-      }
-    } as Props;
+      onClose   : () => {}
+    } as Omit<Props, 'children'>;
 
     const tree = renderer.create(<Modal {...props}><div>Content</div></Modal>).toJSON();
 
@@ -46,10 +43,44 @@ describe('atoms/Modal', () => {
       isShow    : true,
       hasOverlay: true,
       title     : 'has overlay'
-    } as Props;
+    } as Omit<Props, 'children'>;
 
     const tree = renderer.create(<Modal {...props}><div>Content</div></Modal>).toJSON();
 
     expect(tree).toMatchSnapshot();
+  });
+
+  test('click close button', () => {
+    const mockOnClose = jest.fn();
+
+    const props = {
+      isShow    : true,
+      hasOverlay: true,
+      title     : 'has overlay',
+      onClose   : mockOnClose
+    } as Omit<Props, 'children'>;
+
+    render(<Modal {...props}><div>Content</div></Modal>);
+
+    fireEvent.click(screen.getAllByRole('button')[1]);
+
+    expect(mockOnClose.mock.calls.length).toBe(1);
+  });
+
+  test('click overlay', () => {
+    const mockOnClose = jest.fn();
+
+    const props = {
+      isShow    : true,
+      hasOverlay: true,
+      title     : 'has overlay',
+      onClose   : mockOnClose
+    } as Omit<Props, 'children'>;
+
+    render(<Modal {...props}><div>Content</div></Modal>);
+
+    fireEvent.click(screen.getAllByRole('button')[0]);
+
+    expect(mockOnClose.mock.calls.length).toBe(1);
   });
 });

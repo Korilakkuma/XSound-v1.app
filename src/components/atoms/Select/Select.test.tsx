@@ -1,5 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { Props, Select } from './Select';
 
 describe('atoms/Select', () => {
@@ -10,9 +11,7 @@ describe('atoms/Select', () => {
       values  : ['A', 'B', 'C'],
       texts   : ['0 - 0', '0 - 1', '0 - 2'],
       groups  : ['group0', 'group1', 'group2'],
-      onChange: (event: React.SyntheticEvent) => {
-        alert((event.currentTarget as HTMLInputElement).value);
-      }
+      onChange: () => {}
     } as Props;
 
     const tree = renderer.create(<Select {...props} />).toJSON();
@@ -27,13 +26,30 @@ describe('atoms/Select', () => {
       values  : ['A', 'B', 'C'],
       texts   : ['0 - 0', '0 - 1', '0 - 2'],
       width   : '50%',
-      onChange: (event: React.SyntheticEvent) => {
-        alert((event.currentTarget as HTMLInputElement).value);
-      }
+      onChange: () => {}
     } as Props;
 
     const tree = renderer.create(<Select {...props} />).toJSON();
 
     expect(tree).toMatchSnapshot();
+  });
+
+  test('change', () => {
+    const mockOnChange = jest.fn();
+
+    const props = {
+      id      : 'select',
+      label   : 'Select',
+      values  : ['A', 'B', 'C'],
+      texts   : ['0 - 0', '0 - 1', '0 - 2'],
+      groups  : ['group0', 'group1', 'group2'],
+      onChange: mockOnChange
+    } as Props;
+
+    render(<Select {...props} />);
+
+    fireEvent.change(screen.getByRole('combobox'));
+
+    expect(mockOnChange.mock.calls.length).toBe(1);
   });
 });

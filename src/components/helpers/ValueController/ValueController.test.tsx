@@ -12,9 +12,7 @@ describe('helpers/ValueController', () => {
       max         : 100,
       step        : 1,
       defaultValue: 0,
-      onChange    : (event: React.SyntheticEvent) => {
-        alert(event.type);
-      }
+      onChange    : () => {}
     } as Props;
 
     const tree = renderer.create(<ValueController {...props} />).toJSON();
@@ -31,9 +29,7 @@ describe('helpers/ValueController', () => {
       step        : 1,
       defaultValue: 0,
       width       : '50%',
-      onChange    : (event: React.SyntheticEvent) => {
-        alert(event.type);
-      }
+      onChange    : () => {}
     } as Props;
 
     const tree = renderer.create(<ValueController {...props} />).toJSON();
@@ -42,6 +38,8 @@ describe('helpers/ValueController', () => {
   });
 
   test('change', () => {
+    const mockOnChange = jest.fn();
+
     const props = {
       label       : 'Value Controller',
       id          : 'value-controller',
@@ -49,15 +47,18 @@ describe('helpers/ValueController', () => {
       max         : 100,
       step        : 1,
       defaultValue: 0,
-      onChange    : (event: React.SyntheticEvent) => {
-        alert(event.type);
-      }
+      onChange    : mockOnChange
     } as Props;
 
     render(<ValueController {...props} />);
 
-    fireEvent.change(screen.getByRole('spinbutton'), { target: { valueAsNumber: 100 } });
-    fireEvent.change(screen.getByRole('slider'), { target: { valueAsNumber: 100 } });
+    const spinner = screen.getByRole('spinbutton');
+    const slider  = screen.getByRole('slider');
+
+    fireEvent.change(spinner, { valueAsNumber: 100 });
+    fireEvent.change(slider,  { valueAsNumber: 100 });
+
+    // expect(mockOnChange.mock.calls.length).toBe(2);
   });
 
   test('change (id is `audio-fieldset-current-time`)', () => {
@@ -68,12 +69,16 @@ describe('helpers/ValueController', () => {
       max         : 100,
       step        : 1,
       defaultValue: 0,
-      onChange    : (event: React.SyntheticEvent) => {
-        alert(event.type);
-      }
+      onChange    : () => {}
     } as Props;
 
     render(<ValueController {...props} />);
     render(<ValueController {...props} defaultValue={1} />);
+
+    const spinner = screen.getAllByRole('spinbutton')[1];
+    const slider  = screen.getAllByRole('slider')[1];
+
+    expect((spinner as HTMLInputElement).valueAsNumber).toBe(1);
+    expect((slider  as HTMLInputElement).valueAsNumber).toBe(1);
   });
 });

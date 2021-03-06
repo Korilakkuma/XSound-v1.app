@@ -9,9 +9,7 @@ describe('atoms/Switch', () => {
       id      : 'switch',
       label   : 'checked',
       checked : false,
-      onChange: (event: React.SyntheticEvent) => {
-        alert((event.currentTarget as HTMLInputElement).checked);
-      }
+      onChange: () => {}
     } as Props;
 
     const tree = renderer.create(<Switch {...props} />).toJSON();
@@ -19,43 +17,68 @@ describe('atoms/Switch', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  test('keyboard access', () => {
+  test('change', () => {
+    const mockOnChange = jest.fn();
+
     const props = {
       id      : 'switch',
       label   : 'checked',
       checked : false,
-      onChange: (event: React.SyntheticEvent) => {
-        // eslint-disable-next-line no-console
-        console.log((event.currentTarget as HTMLInputElement).checked);
-      }
+      onChange: mockOnChange
     } as Props;
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    render(<Switch {...props} />);
+
+    const checkbox = screen.getByText('checked');
+
+    fireEvent.click(checkbox);
+
+    expect(mockOnChange.mock.calls.length).toBe(1);
+    // expect((checkbox as HTMLInputElement).checked).toBe(true);
+  });
+
+  test('keyboard access', () => {
+    const mockOnChange = jest.fn();
+
+    const props = {
+      id      : 'switch',
+      label   : 'checked',
+      checked : false,
+      onChange: mockOnChange
+    } as Props;
+
     const spy = jest.spyOn(React, 'useRef').mockReturnValueOnce({ current: { click: () => {} } });
 
     render(<Switch {...props} />);
 
-    fireEvent.keyDown(screen.getByText('checked'), { key: 13, code: 'Space' });
+    const checkbox = screen.getByText('checked');
+
+    fireEvent.keyDown(checkbox, { key: 13, code: 'Space' });
+
+    expect(mockOnChange.mock.calls.length).toBe(1);
 
     spy.mockRestore();
   });
 
   test('keyboard access (checkbox is `null`)', () => {
+    const mockOnChange = jest.fn();
+
     const props = {
       id      : 'switch',
       label   : 'checked',
       checked : false,
-      onChange: (event: React.SyntheticEvent) => {
-        // eslint-disable-next-line no-console
-        console.log((event.currentTarget as HTMLInputElement).checked);
-      }
+      onChange: mockOnChange
     } as Props;
 
     const spy = jest.spyOn(React, 'useRef').mockReturnValueOnce({ current: null });
 
     render(<Switch {...props} />);
 
-    fireEvent.keyDown(screen.getByText('checked'), { key: 13, code: 'Space' });
+    const checkbox = screen.getByText('checked');
+
+    fireEvent.keyDown(checkbox, { key: 13, code: 'Space' });
+
+    expect(mockOnChange.mock.calls.length).toBe(1);
 
     spy.mockRestore();
   });

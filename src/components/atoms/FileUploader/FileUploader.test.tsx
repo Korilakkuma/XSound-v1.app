@@ -12,21 +12,11 @@ describe('atoms/FileUploader', () => {
       filename   : '',
       drag       : false,
       drop       : false,
-      onChange   : (event: React.SyntheticEvent) => {
-        alert(event.type);
-      },
-      onDragEnter: (event: React.SyntheticEvent) => {
-        alert(event.type);
-      },
-      onDragOver : (event: React.SyntheticEvent) => {
-        alert(event.type);
-      },
-      onDragLeave: (event: React.SyntheticEvent) => {
-        alert(event.type);
-      },
-      onDrop     : (event: React.SyntheticEvent) => {
-        alert(event.type);
-      }
+      onChange   : () => {},
+      onDragEnter: () => {},
+      onDragOver : () => {},
+      onDragLeave: () => {},
+      onDrop     : () => {}
     } as Props;
 
     const tree = renderer.create(<FileUploader {...props} />).toJSON();
@@ -42,21 +32,11 @@ describe('atoms/FileUploader', () => {
       filename   : '',
       drag       : true,
       drop       : false,
-      onChange   : (event: React.SyntheticEvent) => {
-        alert(event.type);
-      },
-      onDragEnter: (event: React.SyntheticEvent) => {
-        alert(event.type);
-      },
-      onDragOver : (event: React.SyntheticEvent) => {
-        alert(event.type);
-      },
-      onDragLeave: (event: React.SyntheticEvent) => {
-        alert(event.type);
-      },
-      onDrop     : (event: React.SyntheticEvent) => {
-        alert(event.type);
-      }
+      onChange   : () => {},
+      onDragEnter: () => {},
+      onDragOver : () => {},
+      onDragLeave: () => {},
+      onDrop     : () => {}
     } as Props;
 
     const tree = renderer.create(<FileUploader {...props} />).toJSON();
@@ -72,21 +52,11 @@ describe('atoms/FileUploader', () => {
       filename   : '',
       drag       : false,
       drop       : true,
-      onChange   : (event: React.SyntheticEvent) => {
-        alert(event.type);
-      },
-      onDragEnter: (event: React.SyntheticEvent) => {
-        alert(event.type);
-      },
-      onDragOver : (event: React.SyntheticEvent) => {
-        alert(event.type);
-      },
-      onDragLeave: (event: React.SyntheticEvent) => {
-        alert(event.type);
-      },
-      onDrop     : (event: React.SyntheticEvent) => {
-        alert(event.type);
-      }
+      onChange   : () => {},
+      onDragEnter: () => {},
+      onDragOver : () => {},
+      onDragLeave: () => {},
+      onDrop     : () => {}
     } as Props;
 
     const tree = renderer.create(<FileUploader {...props} />).toJSON();
@@ -102,25 +72,16 @@ describe('atoms/FileUploader', () => {
       filename   : '',
       drag       : false,
       drop       : true,
-      onChange   : (event: React.SyntheticEvent) => {
-        alert(event.type);
-      },
-      onDragEnter: (event: React.SyntheticEvent) => {
-        alert(event.type);
-      },
-      onDragOver : (event: React.SyntheticEvent) => {
-        alert(event.type);
-      },
-      onDragLeave: (event: React.SyntheticEvent) => {
-        alert(event.type);
-      },
-      onDrop     : (event: React.SyntheticEvent) => {
-        alert(event.type);
-      }
+      onChange   : () => {},
+      onDragEnter: () => {},
+      onDragOver : () => {},
+      onDragLeave: () => {},
+      onDrop     : () => {}
     } as Props;
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    const spy = jest.spyOn(React, 'useRef').mockReturnValueOnce({ current: { click: () => {} } });
+    const mockOnClick = jest.fn();
+
+    const spy = jest.spyOn(React, 'useRef').mockReturnValueOnce({ current: { click: mockOnClick } });
 
     render(<FileUploader {...props} />);
 
@@ -137,21 +98,11 @@ describe('atoms/FileUploader', () => {
       filename   : '',
       drag       : false,
       drop       : true,
-      onChange   : (event: React.SyntheticEvent) => {
-        alert(event.type);
-      },
-      onDragEnter: (event: React.SyntheticEvent) => {
-        alert(event.type);
-      },
-      onDragOver : (event: React.SyntheticEvent) => {
-        alert(event.type);
-      },
-      onDragLeave: (event: React.SyntheticEvent) => {
-        alert(event.type);
-      },
-      onDrop     : (event: React.SyntheticEvent) => {
-        alert(event.type);
-      }
+      onChange   : () => {},
+      onDragEnter: () => {},
+      onDragOver : () => {},
+      onDragLeave: () => {},
+      onDrop     : () => {}
     } as Props;
 
     const spy = jest.spyOn(React, 'useRef').mockReturnValueOnce({ current: null });
