@@ -92,6 +92,11 @@
   background-position: left top;
 }
 
+.Piano__whites > .Piano__keyboard:focus:not(:focus-visible),
+.Piano__blacks > .Piano__keyboard:focus:not(:focus-visible) {
+  outline: none;
+}
+
 .Piano__blacks > .Piano__keyboard.-skip {
   height: 1px;
   visibility: hidden;

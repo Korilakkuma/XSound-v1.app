@@ -214,3 +214,7 @@
 .Header__startButton > button:active {
   background-position: left bottom;
 }
+
+.Header__startButton > button:focus {
+  background-position: left bottom;
+}

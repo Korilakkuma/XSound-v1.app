@@ -24,6 +24,10 @@
   background-repeat: no-repeat;
 }
 
+.OscillatorSelector > label:focus:not(:focus-visible) {
+  outline: none;
+}
+
 .OscillatorSelector > label > input[type="radio"] {
   display: none;
 }

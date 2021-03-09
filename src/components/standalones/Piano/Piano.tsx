@@ -23,6 +23,12 @@ export const Piano: React.FC<Props> = (props: Props) => {
       return;  // skip
     }
 
+    const e = event.nativeEvent as KeyboardEvent;
+
+    if ((e.code || e.keyCode) && (e.code !== 'Enter') && (e.keyCode !== 13)) {
+      return;
+    }
+
     const dataIndex = (event.currentTarget as Element).getAttribute('data-index');
 
     if (dataIndex === null) {
@@ -103,6 +109,12 @@ export const Piano: React.FC<Props> = (props: Props) => {
   const stopSoundCallback = useCallback((event: React.SyntheticEvent) => {
     if ((event.currentTarget as Element).classList.contains('skip')) {
       return;  // skip
+    }
+
+    const e = event.nativeEvent as KeyboardEvent;
+
+    if ((e.code || e.keyCode) && (e.code !== 'Enter') && (e.keyCode !== 13)) {
+      return;
     }
 
     event.stopPropagation();
@@ -274,15 +286,20 @@ export const Piano: React.FC<Props> = (props: Props) => {
               key={pitch}
               className={`Piano__keyboard${(downKeyboards[index] || isAutoActive) ? ' -active' : ''} text-hidden`}
               role="button"
+              tabIndex={index}
+              aria-selected={downKeyboards[index] || isAutoActive}
+              aria-pressed={downKeyboards[index] || isAutoActive}
               data-pitch={pitch}
               data-index={indexMap[pitch]}
               onMouseDown={startSoundCallback}
               onTouchStart={startSoundCallback}
+              onKeyDown={startSoundCallback}
               onMouseUp={stopSoundCallback}
               onTouchEnd={stopSoundCallback}
               onMouseOver={startSoundCallback}
               onTouchMove={startSoundCallback}
               onMouseOut={stopSoundCallback}
+              onKeyUp={stopSoundCallback}
             >
               {pitch}
             </li>
@@ -305,15 +322,20 @@ export const Piano: React.FC<Props> = (props: Props) => {
               key={pitch}
               className={`Piano__keyboard${(downKeyboards[index] || isAutoActive) ? ' -active' : ''} text-hidden`}
               role="button"
+              tabIndex={index}
+              aria-selected={downKeyboards[index] || isAutoActive}
+              aria-pressed={downKeyboards[index] || isAutoActive}
               data-pitch={pitch}
               data-index={indexMap[pitch]}
               onMouseDown={startSoundCallback}
               onTouchStart={startSoundCallback}
+              onKeyDown={startSoundCallback}
               onMouseUp={stopSoundCallback}
               onTouchEnd={stopSoundCallback}
               onMouseOver={startSoundCallback}
               onTouchMove={startSoundCallback}
               onMouseOut={stopSoundCallback}
+              onKeyUp={stopSoundCallback}
             >
               {pitch}
             </li>
