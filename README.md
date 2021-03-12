@@ -28,11 +28,23 @@ $ npm run dev
 $ open http://localhost:8080/
 ```
 
+## Test
+
+```bash
+$ npm test
+```
+
+## Storybook
+
+```
+$ npm run storybook
+```
+
 # Technologies
 
 - [XSound](https://github.com/Korilakkuma/XSound)
 - TypeScript
-- React / Redux (Flux Architecture)
+- React Hooks / Redux (Flux Architecture)
 - Atomic Design
 - BEM
 - Service Worker (Cache)
@@ -40,6 +52,8 @@ $ open http://localhost:8080/
   - ESLint
   - webpack
   - npm scripts
+- Jest
+- Storybook
 
 ## License
   
