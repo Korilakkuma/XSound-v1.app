@@ -73,29 +73,32 @@ export const MML: React.FC<Props> = (props: Props) => {
 
   const active = useSelector((state: IState) => state.mmlState);
 
-  const readyMMLCallback = useCallback((currentMelody?: string, currentBass?: string) => {
+  const readyMMLCallback = useCallback((currentMelody: string, currentBass: string) => {
+    const melody = currentMelody.replace(CLEAR_HIGHLIGHT_REGEXP, '$1');
+    const bass   = currentBass.replace(CLEAR_HIGHLIGHT_REGEXP, '$1');
+
     switch (currentSoundSource) {
       case 'oscillator':
-        X('mml').ready(X('oscillator'), currentMelody);
-        window.C('mml').ready(window.C('oscillator'), currentBass);
+        X('mml').ready(X('oscillator'), melody);
+        window.C('mml').ready(window.C('oscillator'), bass);
         break;
       case 'piano':
-        X('mml').ready(X('oneshot'), currentMelody, 0);
-        window.C('mml').ready(X('oneshot'), currentBass, 0);
+        X('mml').ready(X('oneshot'), melody, 0);
+        window.C('mml').ready(X('oneshot'), bass, 0);
         break;
       case 'guitar':
-        X('mml').ready(X('oneshot'), currentMelody, NUMBER_OF_PIANO_KEYBOARDS);
-        window.C('mml').ready(X('oneshot'), currentBass, NUMBER_OF_PIANO_KEYBOARDS);
+        X('mml').ready(X('oneshot'), melody, NUMBER_OF_PIANO_KEYBOARDS);
+        window.C('mml').ready(X('oneshot'), bass, NUMBER_OF_PIANO_KEYBOARDS);
         break;
       case 'electric-guitar':
-        X('mml').ready(X('oneshot'), currentMelody, NUMBER_OF_PIANO_KEYBOARDS + NUMBER_OF_PIANO_KEYBOARDS);
-        window.C('mml').ready(X('oneshot'), currentBass, NUMBER_OF_PIANO_KEYBOARDS + NUMBER_OF_PIANO_KEYBOARDS);
+        X('mml').ready(X('oneshot'), melody, NUMBER_OF_PIANO_KEYBOARDS + NUMBER_OF_PIANO_KEYBOARDS);
+        window.C('mml').ready(X('oneshot'), bass, NUMBER_OF_PIANO_KEYBOARDS + NUMBER_OF_PIANO_KEYBOARDS);
         break;
       case 'whitenoise'   :
       case 'pinknoise'    :
       case 'browniannoise':
-        X('mml').ready(X('noise'), currentMelody);
-        window.C('mml').ready(window.C('noise'), currentBass);
+        X('mml').ready(X('noise'), melody);
+        window.C('mml').ready(window.C('noise'), bass);
         break;
       default:
         break;
@@ -276,7 +279,15 @@ export const MML: React.FC<Props> = (props: Props) => {
     }
 
     setPaused(!paused);
-  }, [currentSoundSource, paused, melody, bass, melodyIndex, bassIndex, readyMMLCallback]);
+  }, [
+    currentSoundSource,
+    paused,
+    melody,
+    bass,
+    melodyIndex,
+    bassIndex,
+    readyMMLCallback
+  ]);
 
   const onClickRewindButtonCallback = useCallback(() => {
     X('mml').stop().clear();
