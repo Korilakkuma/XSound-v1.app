@@ -105,26 +105,31 @@ export const MML: React.FC<Props> = (props: Props) => {
   const readFileCallback = useCallback((event: React.SyntheticEvent) => {
     const options = {
       event   : event.nativeEvent,
-      type    : 'Text',
+      type    : 'JSON',
       success : (event: Event, text: string) => {
         (event.currentTarget as HTMLInputElement).value = '';
 
-        const mmls = text.split(/\|+/);
+        try {
+          const mmls = JSON.parse(text);
 
-        if (melody || bass) {
-          savedMMLs[0] = mmls[0];
-          savedMMLs[1] = mmls[1];
+          if (melody || bass) {
+            savedMMLs[0] = mmls.melody;
+            savedMMLs[1] = mmls.bass;
 
-          setIsShowModalConfirmation(true);
-        } else {
-          readyMMLCallback(mmls[0], mmls[1]);
+            setIsShowModalConfirmation(true);
+          } else {
+            readyMMLCallback(mmls.melody, mmls.bass);
 
-          setMelody(mmls[0]);
-          setBass(mmls[1]);
+            setMelody(mmls.melody);
+            setBass(mmls.bass);
+          }
+
+          setShowProgress(false);
+          setIsShowModalForProgress(false);
+        } catch (error) {
+          // eslint-disable-next-line no-console
+          console.error(error);
         }
-
-        setShowProgress(false);
-        setIsShowModalForProgress(false);
       },
       error   : (error: Error) => {
         setShowProgress(false);
@@ -524,8 +529,8 @@ export const MML: React.FC<Props> = (props: Props) => {
         />
         <FileUploader
           id="uploader-mml"
-          accept="text/plain"
-          placeholder="MML text file"
+          accept="application/json"
+          placeholder="MML JSON file"
           filename={filename}
           drag={drag}
           drop={drop}
