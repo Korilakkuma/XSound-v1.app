@@ -176,8 +176,15 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
 
     switch (source) {
       case 'stream':
-        X('stream').start();
-        X('stream').module('session').start();
+        X('stream').ready()
+          .then(() => {
+            X('stream').start();
+            X('stream').module('session').start();
+          })
+          .catch((error: Error) => {
+            // eslint-disable-next-lint no-console
+            console.error(error);
+          });
 
         break;
       case 'midi':

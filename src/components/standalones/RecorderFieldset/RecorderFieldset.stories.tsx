@@ -26,7 +26,10 @@ const Template: Story<Props> = () => {
     try {
       X('stream').setup(constraints).ready();
       X('stream').param('output', false);
-      X('stream').start();
+      X('stream').ready()
+        .then(() => {
+          X('stream').start();
+        });
     } catch (error) {
       window.alert(error.message);
     }
