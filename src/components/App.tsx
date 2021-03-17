@@ -50,13 +50,13 @@ export const App: React.FC<Props> = () => {
   const sources = useMemo(() => ['mixer', 'oscillator', 'oneshot', 'audio', 'stream', 'noise'] as XSoundSource[], []);
 
   const oneshots = useMemo(() => [
-    `${BASE_URL}/one-shots/piano-2/C.wav`,
-    `${BASE_URL}/one-shots/piano-2/D.wav`,
-    `${BASE_URL}/one-shots/piano-2/E.wav`,
-    `${BASE_URL}/one-shots/piano-2/F.wav`,
-    `${BASE_URL}/one-shots/piano-2/G.wav`,
-    `${BASE_URL}/one-shots/piano-2/A.wav`,
-    `${BASE_URL}/one-shots/piano-2/B.wav`,
+    `${BASE_URL}/one-shots/piano-2/C.mp3`,
+    `${BASE_URL}/one-shots/piano-2/D.mp3`,
+    `${BASE_URL}/one-shots/piano-2/E.mp3`,
+    `${BASE_URL}/one-shots/piano-2/F.mp3`,
+    `${BASE_URL}/one-shots/piano-2/G.mp3`,
+    `${BASE_URL}/one-shots/piano-2/A.mp3`,
+    `${BASE_URL}/one-shots/piano-2/B.mp3`,
     `${BASE_URL}/one-shots/guitar/C.mp3`,
     `${BASE_URL}/one-shots/e-guitar/C.mp3`
   ], []);
