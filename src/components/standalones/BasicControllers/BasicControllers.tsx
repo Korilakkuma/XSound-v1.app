@@ -182,7 +182,7 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
             X('stream').module('session').start();
           })
           .catch((error: Error) => {
-            // eslint-disable-next-lint no-console
+            // eslint-disable-next-line no-console
             console.error(error);
           });
 
