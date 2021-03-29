@@ -191,6 +191,7 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
             className="RecorderFieldset__download"
             aria-label="Download"
             aria-disabled={Boolean(objectURL === '')}
+            tabIndex={objectURL === '' ? -1 : 0}
             onClick={onClickDownloadButtonCallback}
           >
           </a>
