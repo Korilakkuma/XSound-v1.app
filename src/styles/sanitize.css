@@ -261,7 +261,6 @@ button {
   overflow: visible; /* 1 */
   text-transform: none; /* 2 */
   cursor: pointer;
-  outline: none;
   border: none;
   background: none;
 }
@@ -588,4 +587,8 @@ nav {
 ul,
 ol {
   list-style: none;
+}
+
+button:focus:not(:focus-visible) {
+  outline: none;
 }
