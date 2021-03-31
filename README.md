@@ -23,6 +23,8 @@ You can use the following features.
 
 # Setup
 
+## Start App
+
 ```bash
 $ git clone git@github.com:Korilakkuma/XSound.app.git
 $ cd XSound
