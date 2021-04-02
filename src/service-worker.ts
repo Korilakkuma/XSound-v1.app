@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 'use strict';
 
 const CACHE_VERSION = '1.0.0';
