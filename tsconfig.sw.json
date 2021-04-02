@@ -11,20 +11,17 @@
     "noUnusedParameters": false,
     "forceConsistentCasingInFileNames": true,
     "lib": [
-      "dom",
       "es2015",
       "webworker"
     ],
-    "outDir": "./assets/",
-    "esModuleInterop": true,
-    "jsx": "react"
+    "outDir": "./",
+    "esModuleInterop": true
   },
   "include": [
-    "src/**/*"
+    "src/service-worker.ts"
   ],
   "exclude": [
     "node_modules",
-    "assets/**/*",
-    "src/service-worker.ts"
+    "assets/**/*"
   ]
 }
