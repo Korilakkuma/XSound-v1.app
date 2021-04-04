@@ -137,7 +137,7 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
 
   const startCallback = useCallback(() => {
     X('audio').module('recorder').start();
-    X('audio').module('session').start();
+    // X('audio').module('session').start();
   }, []);
 
   const stopCallback = useCallback(() => {
@@ -150,9 +150,8 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
     }
 
     const index = Math.floor(currentTime * source.buffer.sampleRate);
-    const n100msec = 0.100 * source.buffer.sampleRate;
 
-    if ((index % n100msec) !== 0) {
+    if ((index % source.buffer.sampleRate) !== 0) {
       return;
     }
 
