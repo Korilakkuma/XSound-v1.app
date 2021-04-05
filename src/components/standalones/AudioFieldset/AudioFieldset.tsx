@@ -1,6 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { ConvertedTime } from '../../../types';
-import { formatAudioTime } from '../../../utils';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Spacer } from '../../atoms/Spacer';
 import { FileUploader } from '../../atoms/FileUploader';
 import { Button } from '../../atoms/Button';
@@ -17,8 +15,6 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
   const [loaded, setLoaded] = useState<boolean>(false);
   const [filename, setFilename] = useState<string>('');
   const [paused, setPaused] = useState<boolean>(true);
-  const [currentTime, setCurrentTime] = useState<number>(0);
-  const [duration, setDuration] = useState<number>(0);
   const [drag, setDrag] = useState<boolean>(false);
   const [drop, setDrop] = useState<boolean>(false);
   const [showProgress, setShowProgress] = useState<boolean>(false);
@@ -112,8 +108,8 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
     }
   }, []);
 
-  const onChangeCurrentTimeCallback = useCallback((event: React.SyntheticEvent) => {
-    X('audio').param('currentTime', (event.currentTarget as HTMLInputElement).valueAsNumber);
+  const onChangePlaybackRateCallback = useCallback((event: React.SyntheticEvent) => {
+    X('audio').param('playbackRate', (event.currentTarget as HTMLInputElement).valueAsNumber);
   }, []);
 
   const onChangePitchCallback = useCallback((event: React.SyntheticEvent) => {
@@ -130,8 +126,7 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
     setIsShowModalForDecodingError(false);
   }, []);
 
-  const readyCallback = useCallback((buffer: AudioBuffer) => {
-    setDuration(buffer.duration);
+  const readyCallback = useCallback(() => {
     setIsShowModalForDecoding(false);
   }, []);
 
@@ -144,23 +139,12 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
     // TODO: do something ...
   }, []);
 
-  const updateCallback = useCallback((source: AudioBufferSourceNode, currentTime: number) => {
-    if (source.buffer === null) {
-      return;
-    }
-
-    const index = Math.floor(currentTime * source.buffer.sampleRate);
-
-    if ((index % source.buffer.sampleRate) !== 0) {
-      return;
-    }
-
-    setCurrentTime(currentTime);
+  const updateCallback = useCallback(() => {
+    // noop
   }, []);
 
   const endedCallback = useCallback(() => {
     setPaused(true);
-    setCurrentTime(0);
 
     X('audio').module('analyser').domain('timeoverview', 0).update(0);
     X('audio').module('analyser').domain('timeoverview', 1).update(0);
@@ -170,12 +154,6 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
     setErrorMessage(error.message);
     setIsShowModalForDecodingError(true);
   }, []);
-
-  const convertedCurrenTime = useMemo(() => X.convertTime(currentTime) as ConvertedTime, [currentTime]);
-  const convertedDuration   = useMemo(() => X.convertTime(duration) as ConvertedTime, [duration]);
-
-  const currentTimeText = useMemo(() => `${formatAudioTime(convertedCurrenTime)}`, [convertedCurrenTime]);
-  const durationText    = useMemo(() => `${formatAudioTime(convertedDuration)}`, [convertedDuration]);
 
   useEffect(() => {
     if (!props.loadedApp || loaded) {
@@ -234,13 +212,13 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
           />
         </div>
         <ValueController
-          label={`${currentTimeText} / ${durationText}`}
-          id="audio-fieldset-current-time"
-          defaultValue={Math.floor(currentTime)}
-          min={0}
-          max={duration > 0 ? duration : 0}
-          step={1}
-          onChange={onChangeCurrentTimeCallback}
+          label="Playback Rate"
+          id="audio-fieldset-playback-rate"
+          defaultValue={1}
+          min={0.05}
+          max={4}
+          step={0.05}
+          onChange={onChangePlaybackRateCallback}
         />
         <Spacer space={8} />
         <ValueController
