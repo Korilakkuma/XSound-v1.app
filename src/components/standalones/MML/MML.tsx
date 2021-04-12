@@ -61,8 +61,8 @@ export const MML: React.FC<Props> = (props: Props) => {
   const [showProgress, setShowProgress] = useState<boolean>(false);
   const [loadedByte, setLoadedByte] = useState<number>(0);
   const [rate, setRate] = useState<number>(0);
-  const [values, setValues] = useState<string[]>([]);
-  const [texts, setTexts] = useState<string[]>([]);
+  const [values, setValues] = useState<string[]>(['{"melody":"","bass":""}']);
+  const [texts, setTexts] = useState<string[]>(['SAMPLE MML']);
   const [errorMessage, setErrorMessage] = useState<string>('');
   // const [errorMessageForMML, setErrorMessageForMML] = useState<string>('');
   const [isShowModalForFileUploadError, setIsShowModalForFileUploadError] = useState<boolean>(false);
@@ -432,13 +432,13 @@ export const MML: React.FC<Props> = (props: Props) => {
 
               switch (title) {
                 case 'ENDLESS RAIN':
-                  index = 0;
-                  break;
-                case 'Forever Love':
                   index = 1;
                   break;
-                case 'Tears':
+                case 'Forever Love':
                   index = 2;
+                  break;
+                case 'Tears':
+                  index = 3;
                   break;
                 default:
                   break;
@@ -447,12 +447,7 @@ export const MML: React.FC<Props> = (props: Props) => {
               values[index] = JSON.stringify({ melody, bass });
               texts[index]  = `${title} | ${artist}`;
 
-              if (title === 'ENDLESS RAIN') {
-                setMelody(melody);
-                setBass(bass);
-              }
-
-              if ((values.length === 3) && (texts.length === 3)) {
+              if ((values.length === 4) && (texts.length === 4)) {
                 setValues(values);
                 setTexts(texts);
               }
