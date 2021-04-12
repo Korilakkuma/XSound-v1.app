@@ -19,6 +19,7 @@ Primary.args = {
   label   : 'Primary Select',
   values  : ['A', 'B', 'C'],
   texts   : ['0 - 0', '0 - 1', '0 - 2'],
+  disabled: false,
   onChange: (event: React.SyntheticEvent) => {
     alert((event.currentTarget as HTMLInputElement).value);
   }
@@ -31,6 +32,7 @@ Secondary.args = {
   label   : 'Secondary Select',
   values  : ['A', 'B', 'C'],
   texts   : ['0 - 0', '0 - 1', '0 - 2'],
+  disabled: false,
   width   : '50%',
   onChange: (event: React.SyntheticEvent) => {
     alert((event.currentTarget as HTMLInputElement).value);
@@ -44,6 +46,7 @@ Tertiary.args = {
   label       : 'Tertiary Select',
   values      : ['A', 'B', 'C'],
   texts       : ['0 - 0', '0 - 1', '0 - 2'],
+  disabled    : false,
   defaultValue: 'C',
   onChange    : (event: React.SyntheticEvent) => {
     alert((event.currentTarget as HTMLInputElement).value);

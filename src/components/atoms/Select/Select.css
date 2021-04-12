@@ -20,3 +20,7 @@
   outline: none;
   background-image: linear-gradient(to bottom, var(--assort-color), var(--base-color));
 }
+
+.Select:disabled {
+  cursor: not-allowed;
+}

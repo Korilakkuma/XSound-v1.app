@@ -209,6 +209,7 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
           label="Select Track"
           values={['0', '1', '2', '3']}
           texts={['TRACK 1', 'TRACK 2', 'TRACK 3', 'TRACK 4']}
+          disabled={false}
           onChange={onChangeTrackCallback}
         />
         <Spacer space={16} />

@@ -551,6 +551,7 @@ export const MML: React.FC<Props> = (props: Props) => {
           label="Select Sample MML"
           values={values}
           texts={texts}
+          disabled={false}
           width="200px"
           onChange={onChangeSampleMMLCallback}
         />

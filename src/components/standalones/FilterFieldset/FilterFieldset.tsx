@@ -121,6 +121,7 @@ export const FilterFieldset: React.FC<Props> = (props: Props) => {
             'NOTCH',
             'ALLPASS'
           ]}
+          disabled={false}
           onChange={onChangeTypeCallback}
         />
         <Spacer space={8} />

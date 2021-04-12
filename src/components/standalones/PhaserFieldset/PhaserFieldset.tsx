@@ -101,6 +101,7 @@ export const PhaserFieldset: React.FC<Props> = (props: Props) => {
             '12 STAGES',
             '24 STAGES'
           ]}
+          disabled={false}
           onChange={onChangeStageCallback}
           defaultValue="12"
         />

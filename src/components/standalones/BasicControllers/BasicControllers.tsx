@@ -278,6 +278,7 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
           'MICROPHONE',
           'MIDI'
         ]}
+        disabled={false}
         width="20%"
         onChange={onChangeSoundSourceCallback}
       />

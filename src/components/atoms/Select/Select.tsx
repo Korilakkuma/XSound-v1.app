@@ -5,6 +5,7 @@ export interface Props {
   label: string;
   values: string[];
   texts: string[];
+  disabled: boolean;
   width?: string;
   defaultValue?: string;
   onChange(event: React.SyntheticEvent): void;
@@ -16,6 +17,7 @@ export const Select: React.FC<Props> = (props: Props) => {
     label,
     values,
     texts,
+    disabled,
     width,
     defaultValue,
     onChange
@@ -27,9 +29,10 @@ export const Select: React.FC<Props> = (props: Props) => {
       <select
         id={id}
         className="Select"
-        onChange={onChange}
-        defaultValue={defaultValue}
         style={width ? { width } : undefined}
+        disabled={disabled}
+        defaultValue={defaultValue}
+        onChange={onChange}
       >
         {values.map((value: string, index: number) => {
           return <option key={value} value={value}>{texts[index]}</option>;

@@ -99,6 +99,7 @@ export const DistortionFieldset: React.FC<Props> = (props: Props) => {
             'DISTORTION',
             'FUZZ'
           ]}
+          disabled={false}
           onChange={onChangeCurveCallback}
         />
         <Spacer space={8} />
@@ -137,6 +138,7 @@ export const DistortionFieldset: React.FC<Props> = (props: Props) => {
             '32768',
             '65536'
           ]}
+          disabled={false}
           onChange={onChangeSamplesCallback}
           defaultValue="32768"
         />

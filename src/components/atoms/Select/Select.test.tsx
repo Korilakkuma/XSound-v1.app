@@ -10,6 +10,7 @@ describe('atoms/Select', () => {
       label   : 'Select',
       values  : ['A', 'B', 'C'],
       texts   : ['0 - 0', '0 - 1', '0 - 2'],
+      disabled: false,
       onChange: () => {}
     } as Props;
 
@@ -25,6 +26,7 @@ describe('atoms/Select', () => {
       values  : ['A', 'B', 'C'],
       texts   : ['0 - 0', '0 - 1', '0 - 2'],
       width   : '50%',
+      disabled: false,
       onChange: () => {}
     } as Props;
 
@@ -41,6 +43,7 @@ describe('atoms/Select', () => {
       label   : 'Select',
       values  : ['A', 'B', 'C'],
       texts   : ['0 - 0', '0 - 1', '0 - 2'],
+      disabled: false,
       onChange: mockOnChange
     } as Props;
 
