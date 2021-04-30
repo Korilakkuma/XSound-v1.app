@@ -4,11 +4,12 @@ export interface Props {
   id: string;
   label: string;
   checked: boolean;
+  controls?: string;
   onChange(event: React.SyntheticEvent): void;
 }
 
 export const Switch: React.FC<Props> = (props: Props) => {
-  const { id, label, checked, onChange } = props;
+  const { id, label, checked, controls, onChange } = props;
 
   const checkboxRef = useRef<HTMLInputElement>(null);
 
@@ -30,7 +31,7 @@ export const Switch: React.FC<Props> = (props: Props) => {
 
   return (
     <div className={`Switch${checked ? ' -checked' : ''}`} onKeyDown={onKeyDownCallback}>
-      <input type="checkbox" ref={checkboxRef} id={id} checked={checked} className="visually-hidden" onChange={onChange} />
+      {controls ? <input type="checkbox" ref={checkboxRef} id={id} checked={checked} aria-controls={controls} aria-expanded={checked} className="visually-hidden" onChange={onChange} /> : <input type="checkbox" ref={checkboxRef} id={id} checked={checked} className="visually-hidden" onChange={onChange} />}
       <label htmlFor={id} tabIndex={0}>{label}<span aria-label={`${label} switch`} /></label>
     </div>
   );
