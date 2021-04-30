@@ -482,7 +482,7 @@ export const MML: React.FC<Props> = (props: Props) => {
   ]);
 
   return (
-    <div className={`MML${active ? ' -active' : ''}`}>
+    <div id="mml-fieldset" aria-hidden={!active} className={`MML${active ? ' -active' : ''}`}>
       <div className="MML__editor">
         <dl>
           <dt>Melody</dt>

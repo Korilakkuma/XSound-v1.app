@@ -212,7 +212,7 @@ export const Analyser: React.FC<Props> = (props: Props) => {
   }, [loadedApp, loaded, active, sources]);
 
   return (
-    <div className={`Analyser${active ? ' -active' : ''}`}>
+    <div id="analyser-fieldset" aria-hidden={!active} className={`Analyser${active ? ' -active' : ''}`}>
       <div className="Analyser__canvas">
         <dl>
           <dt>

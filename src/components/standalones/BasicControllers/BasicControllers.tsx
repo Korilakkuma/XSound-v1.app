@@ -286,12 +286,14 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
         id="analyser"
         label="Analyser"
         checked={analyserState}
+        controls="analyser-fieldset"
         onChange={onChangeAnalyserStateCallback}
       />
       <Switch
         id="mml"
         label="MML"
         checked={mmlState}
+        controls="mml-fieldset"
         onChange={onChangeMMLStateCallback}
       />
       <Modal
