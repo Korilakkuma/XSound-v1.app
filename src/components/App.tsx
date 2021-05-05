@@ -889,7 +889,7 @@ export const App: React.FC<Props> = () => {
             loadRIRsCallback();
           }
         },
-        error   : () => {
+        error    : () => {
           setErrorMessage('The loading of audio files failed.');
           setIsShowModalForAjax(true);
         }
@@ -907,16 +907,8 @@ export const App: React.FC<Props> = () => {
       <Header progress={progress} rate={rate} />
       <main>
         <Flexbox>
-          <OscillatorFieldset
-            oscillatorNumber={0}
-            label="Oscillator - 1"
-            radioName="oscillator-type-0"
-          />
-          <OscillatorFieldset
-            oscillatorNumber={1}
-            label="Oscillator - 2"
-            radioName="oscillator-type-1"
-          />
+          <OscillatorFieldset oscillatorNumber={0} label="Oscillator - 1" radioName="oscillator-type-0" />
+          <OscillatorFieldset oscillatorNumber={1} label="Oscillator - 2" radioName="oscillator-type-1" />
           <EnvelopeGeneratorFieldset />
           <RecorderFieldset loadedApp={loadedApp} sources={sources} />
           <AudioFieldset loadedApp={loadedApp} />
@@ -954,20 +946,10 @@ export const App: React.FC<Props> = () => {
         </Flexbox>
       </main>
       <Footer />
-      <Modal
-        hasOverlay
-        isShow={isShowModalForAjax}
-        title="Error"
-        onClose={onCloseModalForAjaxCallback}
-      >
+      <Modal hasOverlay isShow={isShowModalForAjax} title="Error" onClose={onCloseModalForAjaxCallback}>
         {errorMessage}
       </Modal>
-      <Modal
-        hasOverlay
-        isShow={isShowModalForDecoding}
-        title="Error"
-        onClose={onCloseModalForDecodingCallback}
-      >
+      <Modal hasOverlay isShow={isShowModalForDecoding} title="Error" onClose={onCloseModalForDecodingCallback}>
         {errorMessage}
       </Modal>
     </React.Fragment>
