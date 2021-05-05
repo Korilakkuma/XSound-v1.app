@@ -840,11 +840,10 @@ export const App: React.FC<Props> = () => {
 
     X('stream').module('pitchshifter').state(true);
 
-    const constraints = {
+    const constraints: MediaStreamConstraints = {
       audio: {
         autoGainControl     : true,
         echoCancellation    : true,
-        echoCancellationType: 'system',
         noiseSuppression    : false
       },
       video: false
