@@ -1,12 +1,11 @@
-XSound.app
-=========
+# XSound.app
   
 [![Node.js CI](https://github.com/Korilakkuma/XSound.app/workflows/Node.js%20CI/badge.svg)](https://github.com/Korilakkuma/XSound.app/actions?query=workflow%3A%22Node.js+CI%22)
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
   
 **[XSound.app](https://xsound.app)** is Multifunctional Synthesizer by [XSound](https://github.com/Korilakkuma/XSound) (Web Audio API Library).
   
-# Features
+## Features
 
 You can use the following features.
 
@@ -21,9 +20,9 @@ You can use the following features.
 - MML (Music Macro Language)
 - Effectors (Compressor / Wah / Equalizer / Tremolo / Phaser / Chorus / Delay / Reverb ... etc)
 
-# Setup
+## Setup
 
-## Start App
+### Start App
 
 ```bash
 $ git clone git@github.com:Korilakkuma/XSound.app.git
@@ -33,13 +32,13 @@ $ npm run dev
 $ open http://localhost:8080/
 ```
 
-## Test
+### Test
 
 ```bash
 $ npm test
 ```
 
-## Storybook
+### Storybook
 
 ```
 $ npm run storybook
