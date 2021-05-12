@@ -38,7 +38,6 @@
 
 .Piano__whites > .Piano__keyboard {
   box-sizing: border-box;
-  cursor: pointer;
   width: 23px;
   height: 150px;
 
@@ -92,8 +91,18 @@
   background-position: left top;
 }
 
-.Piano__whites > .Piano__keyboard:focus:not(:focus-visible),
-.Piano__blacks > .Piano__keyboard:focus:not(:focus-visible) {
+.Piano__keyboard > button {
+  cursor: pointer;
+  display: block;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.Piano__keyboard > button:focus:not(:focus-visible) {
   outline: none;
 }
 

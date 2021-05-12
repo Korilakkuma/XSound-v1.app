@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import ReactDOM from 'react-dom';
 
 export interface Props {
@@ -17,8 +17,20 @@ interface OverlayProps {
 const Overlay: React.FC<OverlayProps> = (props: OverlayProps) => {
   const { className, onClose } = props;
 
+  const onKeyDownCallback = useCallback((event: React.SyntheticEvent) => {
+    if (!onClose) {
+      return;
+    }
+
+    const nativeEvent = event.nativeEvent as KeyboardEvent;
+
+    if ((nativeEvent.key === 'Enter') || (nativeEvent.keyCode === 13)) {
+      onClose(event);
+    }
+  }, [onClose]);
+
   if (onClose) {
-    return <div role="button" className={className} onClick={onClose} />;
+    return <div role="button" tabIndex={0} className={className} onClick={onClose} onKeyDown={onKeyDownCallback} />;
   }
 
   return <div role="presentation" className={className} />;

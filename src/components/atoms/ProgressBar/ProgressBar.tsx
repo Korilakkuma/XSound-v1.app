@@ -16,7 +16,7 @@ export const ProgressBar: React.FC<Props> = (props: Props) => {
     <div className="ProgressBar">
       {manual && label ? <p id={id} className="ProgressBar__label">{label}</p> : null}
       <div className="ProgressBar__wrapper">
-        <div role="presetation" className="ProgressBar__mask" />
+        <div role="presentation" className="ProgressBar__mask" />
         {manual
           ? (
             <div

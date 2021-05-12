@@ -282,26 +282,26 @@ export const Piano: React.FC<Props> = (props: Props) => {
           const isAutoActive = hasMelody || hasBass;
 
           return (
-            <li
-              key={pitch}
-              className={`Piano__keyboard${(downKeyboards[index] || isAutoActive) ? ' -active' : ''} text-hidden`}
-              role="button"
-              tabIndex={index}
-              aria-selected={downKeyboards[index] || isAutoActive}
-              aria-pressed={downKeyboards[index] || isAutoActive}
-              data-pitch={pitch}
-              data-index={indexMap[pitch]}
-              onMouseDown={startSoundCallback}
-              onTouchStart={startSoundCallback}
-              onKeyDown={startSoundCallback}
-              onMouseUp={stopSoundCallback}
-              onTouchEnd={stopSoundCallback}
-              onMouseOver={startSoundCallback}
-              onTouchMove={startSoundCallback}
-              onMouseOut={stopSoundCallback}
-              onKeyUp={stopSoundCallback}
-            >
-              {pitch}
+            <li key={pitch} className={`Piano__keyboard${(downKeyboards[index] || isAutoActive) ? ' -active' : ''}`}>
+              <button
+                type="button"
+                aria-pressed={downKeyboards[index] || isAutoActive}
+                data-pitch={pitch}
+                data-index={indexMap[pitch]}
+                onMouseDown={startSoundCallback}
+                onTouchStart={startSoundCallback}
+                onKeyDown={startSoundCallback}
+                onMouseUp={stopSoundCallback}
+                onTouchEnd={stopSoundCallback}
+                onMouseOver={startSoundCallback}
+                onTouchMove={startSoundCallback}
+                onMouseOut={stopSoundCallback}
+                onKeyUp={stopSoundCallback}
+                onFocus={startSoundCallback}
+                onBlur={stopSoundCallback}
+              >
+                {pitch}
+              </button>
             </li>
           );
         })}
@@ -318,26 +318,26 @@ export const Piano: React.FC<Props> = (props: Props) => {
           const isAutoActive = hasMelody || hasBass;
 
           return (
-            <li
-              key={pitch}
-              className={`Piano__keyboard${(downKeyboards[index] || isAutoActive) ? ' -active' : ''} text-hidden`}
-              role="button"
-              tabIndex={index}
-              aria-selected={downKeyboards[index] || isAutoActive}
-              aria-pressed={downKeyboards[index] || isAutoActive}
-              data-pitch={pitch}
-              data-index={indexMap[pitch]}
-              onMouseDown={startSoundCallback}
-              onTouchStart={startSoundCallback}
-              onKeyDown={startSoundCallback}
-              onMouseUp={stopSoundCallback}
-              onTouchEnd={stopSoundCallback}
-              onMouseOver={startSoundCallback}
-              onTouchMove={startSoundCallback}
-              onMouseOut={stopSoundCallback}
-              onKeyUp={stopSoundCallback}
-            >
-              {pitch}
+            <li key={pitch} className={`Piano__keyboard${(downKeyboards[index] || isAutoActive) ? ' -active' : ''}`}>
+              <button
+                type="button"
+                aria-pressed={downKeyboards[index] || isAutoActive}
+                data-pitch={pitch}
+                data-index={indexMap[pitch]}
+                onMouseDown={startSoundCallback}
+                onTouchStart={startSoundCallback}
+                onKeyDown={startSoundCallback}
+                onMouseUp={stopSoundCallback}
+                onTouchEnd={stopSoundCallback}
+                onMouseOver={startSoundCallback}
+                onTouchMove={startSoundCallback}
+                onMouseOut={stopSoundCallback}
+                onKeyUp={stopSoundCallback}
+                onFocus={startSoundCallback}
+                onBlur={stopSoundCallback}
+              >
+                {pitch}
+              </button>
             </li>
           );
         })}

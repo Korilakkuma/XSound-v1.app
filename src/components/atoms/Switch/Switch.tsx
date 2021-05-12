@@ -30,9 +30,15 @@ export const Switch: React.FC<Props> = (props: Props) => {
   }, []);
 
   return (
-    <div className={`Switch${checked ? ' -checked' : ''}`} onKeyDown={onKeyDownCallback}>
+    <div
+      role="switch"
+      aria-checked={checked}
+      tabIndex={0}
+      className={`Switch${checked ? ' -checked' : ''}`}
+      onKeyDown={onKeyDownCallback}
+    >
       {controls ? <input type="checkbox" ref={checkboxRef} id={id} checked={checked} aria-controls={controls} aria-expanded={checked} className="visually-hidden" onChange={onChange} /> : <input type="checkbox" ref={checkboxRef} id={id} checked={checked} className="visually-hidden" onChange={onChange} />}
-      <label htmlFor={id} tabIndex={0}>{label}<span aria-label={`${label} switch`} /></label>
+      <label htmlFor={id}>{label}<span aria-label={`${label} switch`} /></label>
     </div>
   );
 };
