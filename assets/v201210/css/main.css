@@ -1,0 +1,295 @@
+@charset "UTF-8";
+/* CSS Document */
+
+body {
+    /*Font*/
+    font-family:
+    "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro",
+    "メイリオ", Meiryo,
+    Osaka,
+    "ＭＳ Ｐゴシック", "MS PGothic",
+    sans-serif;
+    line-height:1.6;
+
+    background-color:#333;
+    background-image:-webkit-gradient(linear, left top, left bottom, from(#333), color-stop(75%, #ffffff), to(#333));
+}
+
+#page {
+    width:98%;
+    max-width:1600px;
+    min-width:1320px;
+    margin:auto;
+}
+
+#upContainer {
+    width:100%;
+    height:580px;
+}
+
+#audioSource {
+    width:30%;
+    float:left;
+}
+
+#audioWave {
+    width:40%;
+    float:left;
+}
+
+#controller {
+    width:30%;
+    float:left;
+}
+
+fieldset {
+    box-shadow:1px 1px 3px 3px #000000;
+    -webkit-box-shadow:1px 1px 3px 3px #000000;
+
+    border-radius:2px;
+    -webkit-border-radius:2px;
+}
+
+legend {
+    color:#800080;
+    font-size:20px;
+    font-weight:700;
+    text-shadow:1px 1px 3px #ffffff;
+}
+
+select {
+    width:90%;
+    margin-left:5%;
+}
+
+input[type="range"] {
+    width:90%;
+    margin-left:5%;
+}
+
+    #upContainer dt,
+    #upContainer dd {
+        color:#ffffff;
+        font-size:16px;
+        text-shadow:2px 2px 0px #000000;
+    }
+
+    #piano dt, 
+    #piano dd {
+        margin:2px 0px;
+        color:#ffffff;
+        font-size:16px;
+        text-shadow:2px 2px 0px #000000;
+    }
+
+#audioList {
+    width:72%;
+    margin:0px auto;
+    margin-left:5%;
+    border-radius:4px;
+    -webkit-border-radius:4px;
+}
+
+#progress {
+    margin-left:5%;
+    color:#ffffff;
+    font-size:14px;
+    text-shadow:2px 2px 0px #000000;
+}
+
+progress {
+    width:34%;
+}
+
+input[type="button"] {
+    cursor:pointer;
+    width:auto;
+    height:auto;
+    padding:6px 12px;
+    border:1px solid #333;
+    color:#ffffff;
+    font-size:16px;
+    text-align:center;
+    background-color:#333;
+    background-image:-webkit-gradient(linear, left top, left bottom, from(#333), color-stop(50%, #CCC), to(#333));
+    box-shadow:0px 0px 3px 0px #ffffff;
+    -webkit-box-shadow:0px 0px 3px 0px #ffffff;
+    border-radius:8px;
+    -webkit-border-radius:8px;
+    text-shadow:1px 1px 0px #000000;
+}
+
+#dropArea,
+#dropAreaIR,
+.dropOff,
+.dropOn {
+    width:90%;
+    margin:auto;
+    padding:75px 0px;
+    border:1px solid #000000;
+    color:#ffffff;
+    font-size:16px;
+    text-align:center;
+    box-shadow:0px 0px 10px 1px #ffffff;
+    -webkit-box-shadow:0px 0px 10px 1px #ffffff;
+    border-radius:6px;
+    -webkit-border-radius:6px;
+    text-shadow:2px 2px 0px #000000;
+}
+
+.dropOff {
+    background-color:#000000;
+    background-image:-webkit-gradient(linear, left top, left bottom, from(#000000), color-stop(50%, #666), to(#000000));
+}
+
+.dropOn {
+    opacity:0.8;
+    background-color:#ff00ff;
+    background-image:-webkit-gradient(linear, left top, left bottom, from(#800080), color-stop(50%, #ffffff), to(#800080));
+}
+
+canvas {
+    width:100%;
+    height:118px;
+    background-color:#333;
+    background-image:-webkit-gradient(linear, left top, left bottom, from(#000000), color-stop(50%, #333), to(#000000));
+    box-shadow:0px 0px 10px 1px #ffffff;
+    -webkit-box-shadow:0px 0px 10px 1px #ffffff;
+    border-radius:6px;
+    -webkit-border-radius:6px;
+}
+
+#piano {
+    clear:both;
+    position:relative;
+    width:1250px;;
+    margin:10px auto;
+    border:30px groove #111111;
+
+    box-shadow:0px 10px 30px 1px #000000;
+    -webkit-box-shadow:0px 10px 30px 1px #000000;
+
+    -webkit-border-radius:8px;
+}
+
+#white {
+    height:300px;
+}
+
+    #white li {
+        /*Keyboard*/
+        float:left;
+        display:block;
+        width:auto;
+        height:auto;
+        border:1px solid #000000;
+        background-color:#ffffff;
+        /*Keyboard Navigation*/
+        color:#333;
+        font-size:24px;
+        padding-top:260px;
+        padding-left:14px;
+        padding-right:14px;
+    }
+
+#black {
+    clear:both;
+    position:absolute;
+    top:0px;
+    left:262px;
+    height:190px;
+}
+
+    #black li {
+        /*Keyboard*/
+        float:left;
+        display:block;
+        margin-left:24px;
+        width:10px;
+        height:auto;
+        border:6px outset #111111;
+        background-color:#000000;
+        /*Keyboard Navigation*/
+        color:#ffffff;
+        font-size:20px;
+        padding-top:146px;
+    }
+
+    #white .keyOff {
+        box-shadow:0px 0px 3px 0px #000000;
+        -webkit-box-shadow:0px 0px 3px 0px #000000;
+    }
+
+    #white .keyOn {
+        box-shadow:0px 0px 10px 1px #ff00ff inset;
+        -webkit-box-shadow:0px 0px 10px 1px #ff00ff inset;
+    }
+
+    #black .keyOff {
+        box-shadow:0px 0px 3px 0px #000000;
+        -webkit-box-shadow:0px 0px 3px 0px #000000;
+    }
+
+    #black .keyOn {
+        box-shadow:0px 0px 20px 0px #ff00ff;
+        -webkit-box-shadow:0px 0px 20px 0px #ff00ff;
+    }
+
+.skip {
+    float:left;
+    display:block;
+    margin-left:24px;
+    width:10px;
+    height:190px;
+    opacity:0;
+}
+
+#pianoControllerLeft {
+    float:left;
+    width:220px;
+    height:280px;
+    color:#ffffff;
+    font-size:16px;
+    background-color:#000000;
+    background-image:-webkit-gradient(linear, left top, left bottom, from(#000000), color-stop(50%, #666), to(#000000));
+}
+
+#pianoControllerRight {
+    position:absolute;
+    top:0px;
+    right:1px;
+    width:325px;
+    height:280px;
+    color:#ffffff;
+    font-size:16px;
+    background-color:#000000;
+    background-image:-webkit-gradient(linear, left top, left bottom, from(#000000), color-stop(50%, #666), to(#000000));
+}
+
+footer {
+    clear:both;
+    margin:100px auto;
+    color:#ffffff;
+    text-align:right;
+    text-shadow:1px 1px 0px #000000;
+}
+
+    footer p {
+        font-size:16px;
+    }
+
+a {
+    text-decoration:none;
+}
+
+a:link {
+    color:#800080;
+}
+
+a:visited {
+    color:#0000ff;
+}
+
+a:hover {
+    text-decoration:underline;
+}

@@ -1,0 +1,39 @@
+@charset "UTF-8";
+/* CSS Document */
+/* Reset Style */
+
+html, body, 
+h1, h2, h3, h4, h5, h6,
+p, ul, ol, dl, dt, dd, 
+header, hgroup, section, article, aside, hgroup, footer, figure,
+figcaption, nav {
+    margin:0px;
+    padding:0px;
+    font-size:100%;
+}
+
+/*Disabling automatic font size adjustment*/
+body {
+    line-height:1.0;
+    -webkit-text-size-adjust:none;
+}
+
+article, aside, canvas, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section, summary {
+    display:block;
+}
+
+ul {
+    list-style:none;
+}
+
+table {
+    border-collapse:collapse;
+    border-spacing:0px;
+    empty-cells:show;
+}
+
+img {
+    border:none;
+    vertical-align:bottom;
+}
