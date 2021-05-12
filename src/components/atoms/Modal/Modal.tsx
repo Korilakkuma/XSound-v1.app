@@ -20,7 +20,7 @@ const Overlay: React.FC<OverlayProps> = (props: OverlayProps) => {
     return <div role="button" className={className} onClick={onClose} />;
   }
 
-  return <div className={className} />;
+  return <div role="presentation" className={className} />;
 };
 
 export const Modal: React.FC<Props> = (props: Props) => {
