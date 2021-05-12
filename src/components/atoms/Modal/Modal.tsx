@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 export interface Props {
   isShow: boolean;
@@ -23,7 +24,7 @@ const Overlay: React.FC<OverlayProps> = (props: OverlayProps) => {
   return <div role="presentation" className={className} />;
 };
 
-export const Modal: React.FC<Props> = (props: Props) => {
+const ModalBody: React.FC<Props> = (props: Props) => {
   const { isShow, hasOverlay, title, children, onClose } = props;
 
   return (
@@ -36,4 +37,10 @@ export const Modal: React.FC<Props> = (props: Props) => {
       </div>
     </div>
   );
+};
+
+export const Modal: React.FC<Props> = (props: Props) => {
+  const { children, ...bodyProps } = props;
+
+  return ReactDOM.createPortal(<ModalBody {...bodyProps}>{children}</ModalBody>, document.body);
 };

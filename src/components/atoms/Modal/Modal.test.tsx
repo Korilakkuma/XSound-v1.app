@@ -3,6 +3,15 @@ import renderer from 'react-test-renderer';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { Props, Modal } from './Modal';
 
+jest.mock('react-dom', () => {
+  const original = jest.requireActual('react-dom');
+
+  return {
+    ...original,
+    createPortal: (node: Node) => node
+  };
+});
+
 describe('atoms/Modal', () => {
   test('not show', () => {
     const props = { isShow: false } as Props;
