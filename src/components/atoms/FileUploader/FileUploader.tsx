@@ -61,6 +61,7 @@ export const FileUploader: React.FC<Props> = (props: Props) => {
       <input
         type="file"
         ref={fileUploaderRef}
+        id={id}
         accept={accept}
         placeholder={placeholder}
         className="visually-hidden"
