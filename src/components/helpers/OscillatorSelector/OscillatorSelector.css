@@ -29,7 +29,7 @@
 }
 
 .OscillatorSelector > label > input[type="radio"] {
-  display: none;
+  opacity: 0;
 }
 
 .OscillatorSelector__sine {
