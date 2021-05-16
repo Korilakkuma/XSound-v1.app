@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { Props, SelectableModal } from './SelectableModal';
+import { SelectableModal } from './SelectableModal';
 
 jest.mock('react-dom', () => {
   const original = jest.requireActual('react-dom');
@@ -27,7 +27,7 @@ describe('helpers/SelectableModal', () => {
         action: () => {}
       },
       onClose   : () => {}
-    } as Omit<Props, 'children'>;
+    };
 
     const tree = renderer.create(<SelectableModal {...props}><div>Contents</div></SelectableModal>).toJSON();
 
@@ -50,7 +50,7 @@ describe('helpers/SelectableModal', () => {
         action: () => {}
       },
       onClose   : () => {}
-    } as Omit<Props, 'children'>;
+    };
 
     render(<SelectableModal {...props}><div>Contents</div></SelectableModal>);
 
@@ -75,7 +75,7 @@ describe('helpers/SelectableModal', () => {
         action: mockOnClick
       },
       onClose   : () => {}
-    } as Omit<Props, 'children'>;
+    };
 
     render(<SelectableModal {...props}><div>Contents</div></SelectableModal>);
 

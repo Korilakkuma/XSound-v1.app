@@ -5,7 +5,7 @@ export interface Props {
   min: number;
   max: number;
   step: number;
-  onChange(event: React.SyntheticEvent): void;
+  onChange(event: React.ChangeEvent<HTMLInputElement>): void;
 }
 
 export const Slider: React.FC<Props> = (props: Props) => {

@@ -13,8 +13,8 @@ export default {
 const Template: Story<Props> = (args: Props) => {
   const [value, setValue] = useState<number>(0);
 
-  const onChange = useCallback((event: React.SyntheticEvent) => {
-    setValue((event.currentTarget as HTMLInputElement).valueAsNumber);
+  const onChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(event.currentTarget.valueAsNumber);
   }, []);
 
   const props = Object.assign({}, args, { value, onChange });

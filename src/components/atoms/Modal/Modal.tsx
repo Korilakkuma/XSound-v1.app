@@ -6,25 +6,23 @@ export interface Props {
   hasOverlay: boolean;
   title: string;
   children: React.ReactNode;
-  onClose?(event: React.SyntheticEvent): void;
+  onClose?(event: React.MouseEvent<HTMLButtonElement | HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>): void;
 }
 
 interface OverlayProps {
   className: string;
-  onClose?(event: React.SyntheticEvent): void;
+  onClose?(event: React.MouseEvent<HTMLButtonElement | HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>): void;
 }
 
 const Overlay: React.FC<OverlayProps> = (props: OverlayProps) => {
   const { className, onClose } = props;
 
-  const onKeyDownCallback = useCallback((event: React.SyntheticEvent) => {
+  const onKeyDownCallback = useCallback((event: React.KeyboardEvent<HTMLDivElement>) => {
     if (!onClose) {
       return;
     }
 
-    const nativeEvent = event.nativeEvent as KeyboardEvent;
-
-    if ((nativeEvent.key === 'Enter') || (nativeEvent.keyCode === 13)) {
+    if ((event.nativeEvent.key === 'Enter') || (event.nativeEvent.keyCode === 13)) {
       onClose(event);
     }
   }, [onClose]);

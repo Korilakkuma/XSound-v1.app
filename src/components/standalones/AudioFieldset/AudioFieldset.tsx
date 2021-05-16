@@ -38,7 +38,7 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
     setIsShowModalForDecoding(true);
   }, []);
 
-  const readFileCallback = useCallback((event: React.SyntheticEvent) => {
+  const readFileCallback = useCallback((event: React.ChangeEvent<HTMLInputElement> | React.DragEvent<HTMLDivElement>) => {
     const options = {
       event   : event.nativeEvent,
       type    : 'ArrayBuffer',
@@ -71,25 +71,25 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
     }
   }, []);
 
-  const onChangeFileCallback = useCallback((event: React.SyntheticEvent) => {
+  const onChangeFileCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     readFileCallback(event);
   }, [readFileCallback]);
 
-  const onDragEnterCallback = useCallback((event: React.SyntheticEvent) => {
+  const onDragEnterCallback = useCallback((event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     setDrag(true);
   }, []);
 
-  const onDragOverCallback = useCallback((event: React.SyntheticEvent) => {
+  const onDragOverCallback = useCallback((event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     setDrag(false);
   }, []);
 
-  const onDragLeaveCallback = useCallback((event: React.SyntheticEvent) => {
+  const onDragLeaveCallback = useCallback((event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
   }, []);
 
-  const onDropCallback = useCallback((event: React.SyntheticEvent) => {
+  const onDropCallback = useCallback((event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
 
     readFileCallback(event);
@@ -112,17 +112,17 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
     }
   }, []);
 
-  const onChangeCurrentTimeCallback = useCallback((event: React.SyntheticEvent) => {
-    X('audio').param('currentTime', (event.currentTarget as HTMLInputElement).valueAsNumber);
+  const onChangeCurrentTimeCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    X('audio').param('currentTime', event.currentTarget.valueAsNumber);
   }, []);
 
-  const onChangePitchCallback = useCallback((event: React.SyntheticEvent) => {
-    X('audio').module('pitchshifter').param('pitch', (event.currentTarget as HTMLInputElement).valueAsNumber);
-    X('stream').module('pitchshifter').param('pitch', (event.currentTarget as HTMLInputElement).valueAsNumber);
+  const onChangePitchCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    X('audio').module('pitchshifter').param('pitch', event.currentTarget.valueAsNumber);
+    X('stream').module('pitchshifter').param('pitch', event.currentTarget.valueAsNumber);
   }, []);
 
-  const onChangeDepthCallback = useCallback((event: React.SyntheticEvent) => {
-    X('audio').module('vocalcanceler').param('depth', (event.currentTarget as HTMLInputElement).valueAsNumber);
+  const onChangeDepthCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    X('audio').module('vocalcanceler').param('depth', event.currentTarget.valueAsNumber);
   }, []);
 
   const onCloseModalCallback = useCallback(() => {

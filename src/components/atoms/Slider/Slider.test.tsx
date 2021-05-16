@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { Props, Slider } from './Slider';
+import { Slider } from './Slider';
 
 describe('atoms/Slider', () => {
   test('render', () => {
@@ -11,7 +11,7 @@ describe('atoms/Slider', () => {
       max     : 100,
       step    : 1,
       onChange: () => {}
-    } as Props;
+    };
 
     const tree = renderer.create(<Slider {...props} />).toJSON();
 
@@ -27,7 +27,7 @@ describe('atoms/Slider', () => {
       max     : 100,
       step    : 1,
       onChange: mockOnChange
-    } as Props;
+    };
 
     render(<Slider {...props} />);
 

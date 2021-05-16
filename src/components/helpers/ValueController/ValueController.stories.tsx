@@ -21,9 +21,9 @@ Primary.args = {
   max         : 100,
   step        : 1,
   defaultValue: 0,
-  onChange    : (event: React.SyntheticEvent) => {
+  onChange    : (event: React.ChangeEvent<HTMLInputElement>) => {
     // eslint-disable-next-line no-console
-    console.log(`${event.type} ${(event.currentTarget as HTMLInputElement).valueAsNumber}`);
+    console.log(`${event.type} ${event.currentTarget.valueAsNumber}`);
   }
 };
 
@@ -37,8 +37,8 @@ Secondary.args = {
   step        : 1,
   defaultValue: 0,
   width       : '50%',
-  onChange    : (event: React.SyntheticEvent) => {
+  onChange    : (event: React.ChangeEvent<HTMLInputElement>) => {
     // eslint-disable-next-line no-console
-    console.log(`${event.type} ${(event.currentTarget as HTMLInputElement).valueAsNumber}`);
+    console.log(`${event.type} ${event.currentTarget.valueAsNumber}`);
   }
 };

@@ -1,16 +1,16 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { Props, OscillatorSelector } from './OscillatorSelector';
+import { OscillatorSelector } from './OscillatorSelector';
 
 describe('helpers/OscillatorSelector', () => {
   test('render (type is sawtooth)', () => {
     const props = {
       radioName    : 'oscillator-selector',
-      type         : 'sawtooth',
+      type         : 'sawtooth' as const,
       onChange     : () => {},
       onChangeRadio: () => {}
-    } as Props;
+    };
 
     const tree = renderer.create(<OscillatorSelector {...props} />).toJSON();
 
@@ -20,10 +20,10 @@ describe('helpers/OscillatorSelector', () => {
   test('render (type is sine)', () => {
     const props = {
       radioName    : 'oscillator-selector',
-      type         : 'sine',
+      type         : 'sine' as const,
       onChange     : () => {},
       onChangeRadio: () => {}
-    } as Props;
+    };
 
     const tree = renderer.create(<OscillatorSelector {...props} />).toJSON();
 
@@ -33,10 +33,10 @@ describe('helpers/OscillatorSelector', () => {
   test('render (type is square)', () => {
     const props = {
       radioName    : 'oscillator-selector',
-      type         : 'square',
+      type         : 'square' as const,
       onChange     : () => {},
       onChangeRadio: () => {}
-    } as Props;
+    };
 
     const tree = renderer.create(<OscillatorSelector {...props} />).toJSON();
 
@@ -46,10 +46,10 @@ describe('helpers/OscillatorSelector', () => {
   test('render (type is triangle)', () => {
     const props = {
       radioName    : 'oscillator-selector',
-      type         : 'triangle',
+      type         : 'triangle' as const,
       onChange     : () => {},
       onChangeRadio: () => {}
-    } as Props;
+    };
 
     const tree = renderer.create(<OscillatorSelector {...props} />).toJSON();
 
@@ -62,10 +62,10 @@ describe('helpers/OscillatorSelector', () => {
 
     const props = {
       radioName    : 'oscillator-selector',
-      type         : 'sawtooth',
+      type         : 'sawtooth' as const,
       onChange     : mockOnChange,
       onChangeRadio: mockOnChangeRadio
-    } as Props;
+    };
 
     render(<OscillatorSelector {...props} />);
 

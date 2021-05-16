@@ -1,6 +1,6 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { Props, ProgressBar } from './ProgressBar';
+import { ProgressBar } from './ProgressBar';
 
 describe('atoms/ProgressBar', () => {
   test('manual', () => {
@@ -8,7 +8,7 @@ describe('atoms/ProgressBar', () => {
       id   : 'progress-bar-manual',
       label: 'Progress Bar',
       rate : 50
-    } as Props;
+    };
 
     const tree = renderer.create(<ProgressBar {...props} />).toJSON();
 
@@ -20,7 +20,7 @@ describe('atoms/ProgressBar', () => {
       id   : 'progress-bar-manual',
       label: 'Progress Bar',
       rate : 101
-    } as Props;
+    };
 
     const tree = renderer.create(<ProgressBar {...props} />).toJSON();
 
@@ -31,7 +31,7 @@ describe('atoms/ProgressBar', () => {
     const props = {
       id   : 'progress-bar-auto',
       label: 'Progress Bar'
-    } as Props;
+    };
 
     const tree = renderer.create(<ProgressBar {...props} />).toJSON();
 

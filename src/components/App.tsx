@@ -47,7 +47,7 @@ export const App: React.FC<Props> = () => {
 
   const currentSoundSource = useSelector((state: IState) => state.currentSoundSource);
 
-  const sources = useMemo(() => ['mixer', 'oscillator', 'oneshot', 'audio', 'stream', 'noise'] as XSoundSource[], []);
+  const sources: XSoundSource[] = useMemo(() => ['mixer', 'oscillator', 'oneshot', 'audio', 'stream', 'noise'], []);
 
   const oneshots = useMemo(() => [
     `${BASE_URL}/one-shots/piano-2/C.mp3`,

@@ -3,7 +3,7 @@ import { Modal } from '../../atoms/Modal';
 
 interface Selection {
   label: string;
-  action(event: React.SyntheticEvent): void;
+  action(event: React.MouseEvent<HTMLButtonElement>): void;
 }
 
 export interface Props {
@@ -13,7 +13,7 @@ export interface Props {
   first: Selection;
   second: Selection;
   children: React.ReactNode;
-  onClose(event: React.SyntheticEvent): void;
+  onClose(event: React.MouseEvent<HTMLButtonElement | HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>): void;
 }
 
 export const SelectableModal: React.FC<Props> = (props: Props) => {

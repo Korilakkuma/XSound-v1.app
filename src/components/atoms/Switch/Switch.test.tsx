@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { Props, Switch } from './Switch';
+import { Switch } from './Switch';
 
 describe('atoms/Switch', () => {
   test('render', () => {
@@ -10,7 +10,7 @@ describe('atoms/Switch', () => {
       label   : 'checked',
       checked : false,
       onChange: () => {}
-    } as Props;
+    };
 
     const tree = renderer.create(<Switch {...props} />).toJSON();
 
@@ -25,7 +25,7 @@ describe('atoms/Switch', () => {
       label   : 'checked',
       checked : false,
       onChange: mockOnChange
-    } as Props;
+    };
 
     render(<Switch {...props} />);
 
@@ -34,7 +34,6 @@ describe('atoms/Switch', () => {
     fireEvent.click(checkbox);
 
     expect(mockOnChange.mock.calls.length).toBe(1);
-    // expect((checkbox as HTMLInputElement).checked).toBe(true);
   });
 
   test('keyboard access', () => {
@@ -45,7 +44,7 @@ describe('atoms/Switch', () => {
       label   : 'checked',
       checked : false,
       onChange: mockOnChange
-    } as Props;
+    };
 
     const spy = jest.spyOn(React, 'useRef').mockReturnValueOnce({ current: { click: () => {} } });
 
@@ -68,7 +67,7 @@ describe('atoms/Switch', () => {
       label   : 'checked',
       checked : false,
       onChange: mockOnChange
-    } as Props;
+    };
 
     const spy = jest.spyOn(React, 'useRef').mockReturnValueOnce({ current: null });
 

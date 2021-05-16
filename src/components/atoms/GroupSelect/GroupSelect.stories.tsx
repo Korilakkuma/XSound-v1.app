@@ -28,8 +28,8 @@ Primary.args = {
     group2: ['2 - 0', '2 - 1', '2 - 2']
   },
   groups  : ['group0', 'group1', 'group2'],
-  onChange: (event: React.SyntheticEvent) => {
-    alert((event.currentTarget as HTMLInputElement).value);
+  onChange: (event: React.ChangeEvent<HTMLSelectElement>) => {
+    alert(event.currentTarget.value);
   }
 };
 
@@ -50,8 +50,8 @@ Secondary.args = {
   },
   groups  : ['group0', 'group1', 'group2'],
   width   : '50%',
-  onChange: (event: React.SyntheticEvent) => {
-    alert((event.currentTarget as HTMLInputElement).value);
+  onChange: (event: React.ChangeEvent<HTMLSelectElement>) => {
+    alert(event.currentTarget.value);
   }
 };
 
@@ -72,7 +72,7 @@ Tertiary.args = {
   },
   groups      : ['group0', 'group1', 'group2'],
   defaultValue: 'I',
-  onChange    : (event: React.SyntheticEvent) => {
-    alert((event.currentTarget as HTMLInputElement).value);
+  onChange    : (event: React.ChangeEvent<HTMLSelectElement>) => {
+    alert(event.currentTarget.value);
   }
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { Props, GroupSelect } from './GroupSelect';
+import { GroupSelect } from './GroupSelect';
 
 describe('atoms/GroupSelect', () => {
   test('render without width', () => {
@@ -20,7 +20,7 @@ describe('atoms/GroupSelect', () => {
       },
       groups  : ['group0', 'group1', 'group2'],
       onChange: () => {}
-    } as Props;
+    };
 
     const tree = renderer.create(<GroupSelect {...props} />).toJSON();
 
@@ -44,7 +44,7 @@ describe('atoms/GroupSelect', () => {
       groups  : ['group0', 'group1', 'group2'],
       width   : '50%',
       onChange: () => {}
-    } as Props;
+    };
 
     const tree = renderer.create(<GroupSelect {...props} />).toJSON();
 
@@ -69,7 +69,7 @@ describe('atoms/GroupSelect', () => {
       },
       groups  : ['group0', 'group1', 'group2'],
       onChange: mockOnChange
-    } as Props;
+    };
 
     render(<GroupSelect {...props} />);
 

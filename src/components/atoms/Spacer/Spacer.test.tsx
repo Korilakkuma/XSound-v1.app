@@ -1,10 +1,10 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { Props, Spacer } from './Spacer';
+import { Spacer } from './Spacer';
 
 describe('atoms/Spacer', () => {
   test('default', () => {
-    const props = { space: 4 } as Props;
+    const props = { space: 4 as const };
 
     const tree = renderer.create(<Spacer {...props} />).toJSON();
 
@@ -13,9 +13,9 @@ describe('atoms/Spacer', () => {
 
   test('top', () => {
     const props = {
-      space    : 4,
-      direction: 'top'
-    } as Props;
+      space    : 4 as const,
+      direction: 'top' as const
+    };
 
     const tree = renderer.create(<Spacer {...props} />).toJSON();
 
@@ -24,9 +24,9 @@ describe('atoms/Spacer', () => {
 
   test('right', () => {
     const props = {
-      space    : 4,
-      direction: 'right'
-    } as Props;
+      space    : 4 as const,
+      direction: 'right' as const
+    };
 
     const tree = renderer.create(<Spacer {...props} />).toJSON();
 
@@ -35,9 +35,9 @@ describe('atoms/Spacer', () => {
 
   test('bottom', () => {
     const props = {
-      space    : 4,
-      direction: 'bottom'
-    } as Props;
+      space    : 4 as const,
+      direction: 'bottom' as const
+    };
 
     const tree = renderer.create(<Spacer {...props} />).toJSON();
 
@@ -46,9 +46,9 @@ describe('atoms/Spacer', () => {
 
   test('left', () => {
     const props = {
-      space    : 4,
-      direction: 'left'
-    } as Props;
+      space    : 4 as const,
+      direction: 'left' as const
+    };
 
     const tree = renderer.create(<Spacer {...props} />).toJSON();
 

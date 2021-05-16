@@ -16,8 +16,8 @@ export const Header: React.FC<Props> = (props: Props) => {
     setRunning(true);
   }, []);
 
-  const onAnimationEndCallback = useCallback((event: React.SyntheticEvent) => {
-    if ((event.nativeEvent as AnimationEvent).animationName === 'fade-out-header-animation') {
+  const onAnimationEndCallback = useCallback((event: React.AnimationEvent<HTMLElement>) => {
+    if (event.nativeEvent.animationName === 'fade-out-header-animation') {
       setAnimationEnd(true);
     }
   }, []);

@@ -7,7 +7,7 @@ export interface Props {
   height: number;
   image: string;
   size: string;
-  onClick(event: React.SyntheticEvent): void;
+  onClick(event: React.MouseEvent<HTMLButtonElement>): void;
 }
 
 export const Button: React.FC<Props> = (props: Props) => {

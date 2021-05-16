@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { Props, Select } from './Select';
+import { Select } from './Select';
 
 describe('atoms/Select', () => {
   test('render without width', () => {
@@ -12,7 +12,7 @@ describe('atoms/Select', () => {
       texts   : ['0 - 0', '0 - 1', '0 - 2'],
       disabled: false,
       onChange: () => {}
-    } as Props;
+    };
 
     const tree = renderer.create(<Select {...props} />).toJSON();
 
@@ -28,7 +28,7 @@ describe('atoms/Select', () => {
       width   : '50%',
       disabled: false,
       onChange: () => {}
-    } as Props;
+    };
 
     const tree = renderer.create(<Select {...props} />).toJSON();
 
@@ -45,7 +45,7 @@ describe('atoms/Select', () => {
       texts   : ['0 - 0', '0 - 1', '0 - 2'],
       disabled: false,
       onChange: mockOnChange
-    } as Props;
+    };
 
     render(<Select {...props} />);
 

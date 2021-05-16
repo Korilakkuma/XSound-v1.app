@@ -8,7 +8,7 @@ export interface Props {
   disabled: boolean;
   width?: string;
   defaultValue?: string;
-  onChange(event: React.SyntheticEvent): void;
+  onChange(event: React.ChangeEvent<HTMLSelectElement>): void;
 }
 
 export const Select: React.FC<Props> = (props: Props) => {

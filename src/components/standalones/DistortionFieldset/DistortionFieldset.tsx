@@ -13,8 +13,8 @@ export interface Props {
 export const DistortionFieldset: React.FC<Props> = (props: Props) => {
   const [distortion, setDistortion] = useState<boolean>(false);
 
-  const onChangeStateCallback = useCallback((event: React.SyntheticEvent) => {
-    const state = (event.currentTarget as HTMLInputElement).checked;
+  const onChangeStateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const state = event.currentTarget.checked;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('distortion').state(state);
@@ -23,48 +23,48 @@ export const DistortionFieldset: React.FC<Props> = (props: Props) => {
     setDistortion(state);
   }, [props.sources]);
 
-  const onChangeCurveCallback = useCallback((event: React.SyntheticEvent) => {
-    const curve = (event.currentTarget as HTMLInputElement).value;
+  const onChangeCurveCallback = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
+    const curve = event.currentTarget.value;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('distortion').param('curve', curve);
     });
   }, [props.sources]);
 
-  const onChangeSamplesCallback = useCallback((event: React.SyntheticEvent) => {
-    const samples = parseInt((event.currentTarget as HTMLInputElement).value, 10);
+  const onChangeSamplesCallback = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
+    const samples = parseInt(event.currentTarget.value, 10);
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('distortion').param('samples', samples);
     });
   }, [props.sources]);
 
-  const onChangeAmountCallback = useCallback((event: React.SyntheticEvent) => {
-    const amount = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeAmountCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const amount = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('distortion').param('amount', amount);
     });
   }, [props.sources]);
 
-  const onChangeDriveCallback = useCallback((event: React.SyntheticEvent) => {
-    const drive = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeDriveCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const drive = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('distortion').param('drive', drive);
     });
   }, [props.sources]);
 
-  const onChangeColorCallback = useCallback((event: React.SyntheticEvent) => {
-    const color = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeColorCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const color = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('distortion').param('color', color);
     });
   }, [props.sources]);
 
-  const onChangeToneCallback = useCallback((event: React.SyntheticEvent) => {
-    const tone = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeToneCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const tone = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('distortion').param('tone', tone);

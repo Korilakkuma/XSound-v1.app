@@ -12,8 +12,8 @@ export interface Props {
 export const FlangerFieldset: React.FC<Props> = (props: Props) => {
   const [flanger, setFlanger] = useState<boolean>(false);
 
-  const onChangeStateCallback = useCallback((event: React.SyntheticEvent) => {
-    const state = (event.currentTarget as HTMLInputElement).checked;
+  const onChangeStateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const state = event.currentTarget.checked;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('flanger').state(state);
@@ -22,48 +22,48 @@ export const FlangerFieldset: React.FC<Props> = (props: Props) => {
     setFlanger(state);
   }, [props.sources]);
 
-  const onChangeTimeCallback = useCallback((event: React.SyntheticEvent) => {
-    const time = (event.currentTarget as HTMLInputElement).valueAsNumber / 1000;
+  const onChangeTimeCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const time = event.currentTarget.valueAsNumber / 1000;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('flanger').param('time', time);
     });
   }, [props.sources]);
 
-  const onChangeDepthCallback = useCallback((event: React.SyntheticEvent) => {
-    const depth = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeDepthCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const depth = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('flanger').param('depth', depth);
     });
   }, [props.sources]);
 
-  const onChangeRateCallback = useCallback((event: React.SyntheticEvent) => {
-    const rate = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeRateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const rate = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('flanger').param('rate', rate);
     });
   }, [props.sources]);
 
-  const onChangeMixCallback = useCallback((event: React.SyntheticEvent) => {
-    const mix = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeMixCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const mix = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('flanger').param('mix', mix);
     });
   }, [props.sources]);
 
-  const onChangeToneCallback = useCallback((event: React.SyntheticEvent) => {
-    const tone = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeToneCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const tone = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('flanger').param('tone', tone);
     });
   }, [props.sources]);
 
-  const onChangeFeedbackCallback = useCallback((event: React.SyntheticEvent) => {
-    const feedback = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeFeedbackCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const feedback = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('flanger').param('feedback', feedback);

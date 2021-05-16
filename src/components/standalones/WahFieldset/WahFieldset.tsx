@@ -12,8 +12,8 @@ export interface Props {
 export const WahFieldset: React.FC<Props> = (props: Props) => {
   const [wah, setWah] = useState<boolean>(false);
 
-  const onChangeStateCallback = useCallback((event: React.SyntheticEvent) => {
-    const state = (event.currentTarget as HTMLInputElement).checked;
+  const onChangeStateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const state = event.currentTarget.checked;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('wah').state(state);
@@ -22,32 +22,32 @@ export const WahFieldset: React.FC<Props> = (props: Props) => {
     setWah(state);
   }, [props.sources]);
 
-  const onChangeCutoffCallback = useCallback((event: React.SyntheticEvent) => {
-    const cutoff = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeCutoffCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const cutoff = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('wah').param('cutoff', cutoff);
     });
   }, [props.sources]);
 
-  const onChangeDepthCallback = useCallback((event: React.SyntheticEvent) => {
-    const depth = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeDepthCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const depth = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('wah').param('depth', depth);
     });
   }, [props.sources]);
 
-  const onChangeRateCallback = useCallback((event: React.SyntheticEvent) => {
-    const rate = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeRateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const rate = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('wah').param('rate', rate);
     });
   }, [props.sources]);
 
-  const onChangeResonanceCallback = useCallback((event: React.SyntheticEvent) => {
-    const resonance = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeResonanceCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const resonance = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('wah').param('resonance', resonance);

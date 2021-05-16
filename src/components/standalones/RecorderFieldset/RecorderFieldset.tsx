@@ -79,7 +79,7 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
     setCreating(false);
   }, [sources]);
 
-  const onClickDownloadButtonCallback = useCallback((event: React.SyntheticEvent) => {
+  const onClickDownloadButtonCallback = useCallback((event: React.MouseEvent<HTMLAnchorElement>) => {
     if (!objectURL || running) {
       // In the case of recording
       event.preventDefault();
@@ -109,13 +109,13 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
     setIsShowModal(false);
   }, []);
 
-  const onChangeTrackCallback = useCallback((event: React.SyntheticEvent) => {
+  const onChangeTrackCallback = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
     if (running) {
       // In the case of recording
       return;
     }
 
-    const nextActiveTrack = parseInt((event.currentTarget as HTMLInputElement).value, 10);
+    const nextActiveTrack = parseInt(event.currentTarget.value, 10);
 
     sources.forEach((source: XSoundSource) => {
       if (source !== 'oscillator') {
@@ -136,18 +136,18 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
     setActiveTrack(nextActiveTrack);
   }, [sources, running]);
 
-  const onChangeLeftChannelGainCallback = useCallback((event: React.SyntheticEvent) => {
+  const onChangeLeftChannelGainCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     sources.forEach((source: XSoundSource) => {
       if (source !== 'oscillator') {
-        X(source).module('recorder').param('gainL', (event.currentTarget as HTMLInputElement).valueAsNumber);
+        X(source).module('recorder').param('gainL', event.currentTarget.valueAsNumber);
       }
     });
   }, [sources]);
 
-  const onChangeRightChannelGainCallback = useCallback((event: React.SyntheticEvent) => {
+  const onChangeRightChannelGainCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     sources.forEach((source: XSoundSource) => {
       if (source !== 'oscillator') {
-        X(source).module('recorder').param('gainR', (event.currentTarget as HTMLInputElement).valueAsNumber);
+        X(source).module('recorder').param('gainR', event.currentTarget.valueAsNumber);
       }
     });
   }, [sources]);

@@ -18,18 +18,20 @@ export const Piano: React.FC<Props> = (props: Props) => {
   const upMelodyIndexes   = useSelector((state: IState) => state.upMelodyKeyboardIndexes);
   const upBassIndexes     = useSelector((state: IState) => state.upBassKeyboardIndexes);
 
-  const startSoundCallback = useCallback((event: React.SyntheticEvent) => {
-    if ((event.currentTarget as Element).classList.contains('skip')) {
+  const startSoundCallback = useCallback((event: React.MouseEvent<HTMLButtonElement> | React.TouchEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement> | React.FocusEvent<HTMLButtonElement>) => {
+    if (event.currentTarget.classList.contains('skip')) {
       return;  // skip
     }
 
-    const e = event.nativeEvent as KeyboardEvent;
-
-    if ((e.code || e.keyCode) && (e.code !== 'Enter') && (e.keyCode !== 13)) {
+    if (('code' in event.nativeEvent) && (event.nativeEvent.code === 'Enter')) {
       return;
     }
 
-    const dataIndex = (event.currentTarget as Element).getAttribute('data-index');
+    if (('keyCode' in event.nativeEvent) && (event.nativeEvent.keyCode === 13)) {
+      return;
+    }
+
+    const dataIndex = event.currentTarget.getAttribute('data-index');
 
     if (dataIndex === null) {
       return;
@@ -106,20 +108,22 @@ export const Piano: React.FC<Props> = (props: Props) => {
     setIsDown(true);
   }, [props.currentSoundSource, downKeyboards, isDown]);
 
-  const stopSoundCallback = useCallback((event: React.SyntheticEvent) => {
-    if ((event.currentTarget as Element).classList.contains('skip')) {
+  const stopSoundCallback = useCallback((event: React.MouseEvent<HTMLButtonElement> | React.TouchEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement> | React.FocusEvent<HTMLButtonElement>) => {
+    if (event.currentTarget.classList.contains('skip')) {
       return;  // skip
     }
 
-    const e = event.nativeEvent as KeyboardEvent;
+    if (('code' in event.nativeEvent) && (event.nativeEvent.code === 'Enter')) {
+      return;
+    }
 
-    if ((e.code || e.keyCode) && (e.code !== 'Enter') && (e.keyCode !== 13)) {
+    if (('keyCode' in event.nativeEvent) && (event.nativeEvent.keyCode === 13)) {
       return;
     }
 
     event.stopPropagation();
 
-    const dataIndex = (event.currentTarget as Element).getAttribute('data-index');
+    const dataIndex = event.currentTarget.getAttribute('data-index');
 
     if (dataIndex === null) {
       return;

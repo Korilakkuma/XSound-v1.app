@@ -17,7 +17,7 @@ export const Primary = Template.bind({});
 Primary.args = {
   radioName  : 'oscillator-selector',
   type       : 'sawtooth',
-  onChange   : (event: React.SyntheticEvent) => {
-    alert(`${event.type} ${(event.currentTarget as HTMLInputElement).value}`);
+  onChange   : (event: React.ChangeEvent<HTMLFormElement>) => {
+    alert(`${event.type} ${event.currentTarget.value}`);
   }
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { Props, Spinner } from './Spinner';
+import { Spinner } from './Spinner';
 
 describe('atoms/Spinner', () => {
   test('render', () => {
@@ -12,7 +12,7 @@ describe('atoms/Spinner', () => {
       step    : 1,
       id      : 'spinner',
       onChange: () => {}
-    } as Props;
+    };
 
     const tree = renderer.create(<Spinner {...props} />).toJSON();
 
@@ -29,7 +29,7 @@ describe('atoms/Spinner', () => {
       step    : 1,
       id      : 'spinner',
       onChange: mockOnChange
-    } as Props;
+    };
 
     render(<Spinner {...props} />);
 

@@ -36,7 +36,7 @@ export function mmlState(state = false, action: MMLStateAction): boolean {
   }
 }
 
-export function downMelodyKeyboardIndexes(state = [] as number[], action: KeyboardAction): number[] {
+export function downMelodyKeyboardIndexes(state: number[] = [], action: KeyboardAction): number[] {
   switch (action.type) {
     case ActionTypes.DOWN_MELODY_KEYBOARDS:
       return action.payload;
@@ -45,7 +45,7 @@ export function downMelodyKeyboardIndexes(state = [] as number[], action: Keyboa
   }
 }
 
-export function downBassKeyboardIndexes(state = [] as number[], action: KeyboardAction): number[] {
+export function downBassKeyboardIndexes(state: number[] = [], action: KeyboardAction): number[] {
   switch (action.type) {
     case ActionTypes.DOWN_BASS_KEYBOARDS:
       return action.payload;
@@ -54,7 +54,7 @@ export function downBassKeyboardIndexes(state = [] as number[], action: Keyboard
   }
 }
 
-export function upMelodyKeyboardIndexes(state = [] as number[], action: KeyboardAction): number[] {
+export function upMelodyKeyboardIndexes(state: number[] = [], action: KeyboardAction): number[] {
   switch (action.type) {
     case ActionTypes.UP_MELODY_KEYBOARDS:
       return action.payload;
@@ -63,7 +63,7 @@ export function upMelodyKeyboardIndexes(state = [] as number[], action: Keyboard
   }
 }
 
-export function upBassKeyboardIndexes(state = [] as number[], action: KeyboardAction): number[] {
+export function upBassKeyboardIndexes(state: number[] = [], action: KeyboardAction): number[] {
   switch (action.type) {
     case ActionTypes.UP_BASS_KEYBOARDS:
       return action.payload;

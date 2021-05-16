@@ -8,7 +8,7 @@ export interface Props {
   groups: string[];
   width?: string;
   defaultValue?: string;
-  onChange(event: React.SyntheticEvent): void;
+  onChange(event: React.ChangeEvent<HTMLSelectElement>): void;
 }
 
 export const GroupSelect: React.FC<Props> = (props: Props) => {

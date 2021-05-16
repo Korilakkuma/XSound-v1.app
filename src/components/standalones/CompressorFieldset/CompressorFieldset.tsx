@@ -12,8 +12,8 @@ export interface Props {
 export const CompressorFieldset: React.FC<Props> = (props: Props) => {
   const [compressor, setCompressor] = useState<boolean>(true);
 
-  const onChangeStateCallback = useCallback((event: React.SyntheticEvent) => {
-    const state = (event.currentTarget as HTMLInputElement).checked;
+  const onChangeStateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const state = event.currentTarget.checked;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('compressor').state(state);
@@ -22,40 +22,40 @@ export const CompressorFieldset: React.FC<Props> = (props: Props) => {
     setCompressor(state);
   }, [props.sources]);
 
-  const onChangeThresholdCallback = useCallback((event: React.SyntheticEvent) => {
-    const threshold = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeThresholdCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const threshold = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('compressor').param('threshold', threshold);
     });
   }, [props.sources]);
 
-  const onChangeKneeCallback = useCallback((event: React.SyntheticEvent) => {
-    const knee = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeKneeCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const knee = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('compressor').param('knee', knee);
     });
   }, [props.sources]);
 
-  const onChangeRatioCallback = useCallback((event: React.SyntheticEvent) => {
-    const ratio = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeRatioCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const ratio = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('compressor').param('ratio', ratio);
     });
   }, [props.sources]);
 
-  const onChangeAttackCallback = useCallback((event: React.SyntheticEvent) => {
-    const attack = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeAttackCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const attack = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('compressor').param('attack', attack);
     });
   }, [props.sources]);
 
-  const onChangeReleaseCallback = useCallback((event: React.SyntheticEvent) => {
-    const release = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeReleaseCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const release = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('compressor').param('release', release);

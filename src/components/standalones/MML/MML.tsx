@@ -105,7 +105,7 @@ export const MML: React.FC<Props> = (props: Props) => {
     }
   }, [currentSoundSource]);
 
-  const readFileCallback = useCallback((event: React.SyntheticEvent) => {
+  const readFileCallback = useCallback((event: React.ChangeEvent<HTMLInputElement> | React.DragEvent<HTMLDivElement>) => {
     const options = {
       event   : event.nativeEvent,
       type    : 'JSON',
@@ -218,7 +218,7 @@ export const MML: React.FC<Props> = (props: Props) => {
     }
   }, []);
 
-  const onBlurMelodyCallback = useCallback((event: React.SyntheticEvent) => {
+  const onBlurMelodyCallback = useCallback((event: React.FocusEvent<HTMLDivElement>) => {
     if ((event.currentTarget === null) || (event.currentTarget.textContent === null)) {
       return;
     }
@@ -229,7 +229,7 @@ export const MML: React.FC<Props> = (props: Props) => {
     setPaused(true);
   }, []);
 
-  const onBlurBassCallback = useCallback((event: React.SyntheticEvent) => {
+  const onBlurBassCallback = useCallback((event: React.FocusEvent<HTMLDivElement>) => {
     if ((event.currentTarget === null) || (event.currentTarget.textContent === null)) {
       return;
     }
@@ -321,29 +321,29 @@ export const MML: React.FC<Props> = (props: Props) => {
     setDataURL(X.toTextFile(json));
   }, [melody, bass]);
 
-  const onChangeHightlightCallback = useCallback((event: React.SyntheticEvent) => {
-    setHighlight((event.currentTarget as HTMLInputElement).checked);
+  const onChangeHightlightCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    setHighlight(event.currentTarget.checked);
   }, []);
 
-  const onChangeFileCallback = useCallback((event: React.SyntheticEvent) => {
+  const onChangeFileCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     readFileCallback(event);
   }, [readFileCallback]);
 
-  const onDragEnterCallback = useCallback((event: React.SyntheticEvent) => {
+  const onDragEnterCallback = useCallback((event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     setDrag(true);
   }, []);
 
-  const onDragOverCallback = useCallback((event: React.SyntheticEvent) => {
+  const onDragOverCallback = useCallback((event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
   }, []);
 
-  const onDragLeaveCallback = useCallback((event: React.SyntheticEvent) => {
+  const onDragLeaveCallback = useCallback((event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     setDrag(false);
   }, []);
 
-  const onDropCallback = useCallback((event: React.SyntheticEvent) => {
+  const onDropCallback = useCallback((event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
 
     readFileCallback(event);
@@ -368,8 +368,8 @@ export const MML: React.FC<Props> = (props: Props) => {
     setIsShowModalConfirmation(false);
   }, []);
 
-  const onChangeSampleMMLCallback = useCallback((event: React.SyntheticEvent) => {
-    const sampleMML = JSON.parse((event.currentTarget as HTMLInputElement).value);
+  const onChangeSampleMMLCallback = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
+    const sampleMML = JSON.parse(event.currentTarget.value);
 
     setMelody(sampleMML.melody);
     setBass(sampleMML.bass);

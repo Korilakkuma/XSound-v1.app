@@ -12,8 +12,8 @@ export interface Props {
 export const DelayFieldset: React.FC<Props> = (props: Props) => {
   const [delay, setDelay] = useState<boolean>(false);
 
-  const onChangeStateCallback = useCallback((event: React.SyntheticEvent) => {
-    const state = (event.currentTarget as HTMLInputElement).checked;
+  const onChangeStateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const state = event.currentTarget.checked;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('delay').state(state);
@@ -22,40 +22,40 @@ export const DelayFieldset: React.FC<Props> = (props: Props) => {
     setDelay(state);
   }, [props.sources]);
 
-  const onChangeTimeCallback = useCallback((event: React.SyntheticEvent) => {
-    const time = (event.currentTarget as HTMLInputElement).valueAsNumber / 1000;
+  const onChangeTimeCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const time = event.currentTarget.valueAsNumber / 1000;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('delay').param('time', time);
     });
   }, [props.sources]);
 
-  const onChangeDryCallback = useCallback((event: React.SyntheticEvent) => {
-    const dry = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeDryCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const dry = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('delay').param('dry', dry);
     });
   }, [props.sources]);
 
-  const onChangeWetCallback = useCallback((event: React.SyntheticEvent) => {
-    const wet = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeWetCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const wet = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('delay').param('wet', wet);
     });
   }, [props.sources]);
 
-  const onChangeToneCallback = useCallback((event: React.SyntheticEvent) => {
-    const tone = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeToneCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const tone = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('delay').param('tone', tone);
     });
   }, [props.sources]);
 
-  const onChangeFeedbackCallback = useCallback((event: React.SyntheticEvent) => {
-    const feedback = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeFeedbackCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const feedback = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('delay').param('feedback', feedback);

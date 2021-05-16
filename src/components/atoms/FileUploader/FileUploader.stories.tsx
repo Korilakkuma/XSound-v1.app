@@ -14,7 +14,7 @@ const Template: Story<Props> = (args: Props) => {
   const [drag, setDrag] = useState<boolean>(false);
   const [drop, setDrop] = useState<boolean>(false);
 
-  const onDragEnter = useCallback((event: React.SyntheticEvent) => {
+  const onDragEnter = useCallback((event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
 
     document.body.style.backgroundColor = '#333';
@@ -22,13 +22,13 @@ const Template: Story<Props> = (args: Props) => {
     setDrag(true);
   }, []);
 
-  const onDragOver = useCallback((event: React.SyntheticEvent) => {
+  const onDragOver = useCallback((event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
 
     document.body.style.backgroundColor = '#999';
   }, []);
 
-  const onDragLeave = useCallback((event: React.SyntheticEvent) => {
+  const onDragLeave = useCallback((event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
 
     document.body.style.backgroundColor = '#000';
@@ -36,7 +36,7 @@ const Template: Story<Props> = (args: Props) => {
     setDrag(false);
   }, []);
 
-  const onDrop = useCallback((event: React.SyntheticEvent) => {
+  const onDrop = useCallback((event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
 
     alert(event.type);
@@ -57,7 +57,7 @@ Primary.args = {
   accept     : 'audio/*',
   placeholder: 'MP3, Ogg, WAV ... etc',
   filename   : '',
-  onChange   : (event: React.SyntheticEvent) => {
+  onChange   : (event: React.ChangeEvent<HTMLInputElement>) => {
     alert(event.type);
   }
 };
@@ -69,7 +69,7 @@ Secondary.args = {
   accept     : 'audio/*',
   placeholder: 'MP3, Ogg, WAV ... etc',
   filename   : 'Default filename',
-  onChange   : (event: React.SyntheticEvent) => {
+  onChange   : (event: React.ChangeEvent<HTMLInputElement>) => {
     alert(event.type);
   }
 };

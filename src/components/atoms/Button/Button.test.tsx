@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { Props, Button } from './Button';
+import { Button } from './Button';
 
 describe('atoms/Button', () => {
   test('inactive', () => {
@@ -13,7 +13,7 @@ describe('atoms/Button', () => {
       image  : 'https://xsound.app/assets/images/button-audio.png',
       size   : '70px 99px',
       onClick: () => {}
-    } as Props;
+    };
 
     const tree = renderer.create(<Button {...props} />).toJSON();
 
@@ -29,7 +29,7 @@ describe('atoms/Button', () => {
       image  : 'https://xsound.app/assets/images/button-audio.png',
       size   : '70px 99px',
       onClick: () => {}
-    } as Props;
+    };
 
     const tree = renderer.create(<Button {...props} />).toJSON();
 
@@ -47,7 +47,7 @@ describe('atoms/Button', () => {
       image  : 'https://xsound.app/assets/images/button-audio.png',
       size   : '70px 99px',
       onClick: mockOnClick
-    } as Props;
+    };
 
     render(<Button {...props} />);
 

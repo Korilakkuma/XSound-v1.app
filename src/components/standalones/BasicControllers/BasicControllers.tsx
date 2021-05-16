@@ -54,8 +54,8 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
       if (source === 'oscillator') {
         indexes.push(targetIndex);
 
-        volumes[0] = X('oscillator', 0).param('volume') as number;
-        volumes[1] = window.C('oscillator', 0).param('volume') as number;
+        volumes[0] = X('oscillator', 0).param('volume');
+        volumes[1] = window.C('oscillator', 0).param('volume');
 
         for (let i = 0, len = X('oscillator').length(); i < len; i++) {
           if (i !== 0) {
@@ -137,9 +137,9 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
     }
   }, []);
 
-  const onChangeMasterVolumeCallback = useCallback((event: React.SyntheticEvent) => {
+  const onChangeMasterVolumeCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     props.sources.forEach((source: XSoundSource) => {
-      const mastervolume = (event.currentTarget as HTMLInputElement).valueAsNumber;
+      const mastervolume = event.currentTarget.valueAsNumber;
 
       if (X(source) !== null) {
         X(source).param('mastervolume', mastervolume);
@@ -151,24 +151,25 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
     });
   }, [props.sources]);
 
-  const onChangeGlideCallback = useCallback((event: React.SyntheticEvent) => {
-    const time = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeGlideCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const time = event.currentTarget.valueAsNumber;
 
     X('oscillator').module('glide').param('time', time);
     window.C('oscillator').module('glide').param('time', time);
   }, []);
 
-  const onChangeTransposeCallback = useCallback((event: React.SyntheticEvent) => {
-    X('oneshot').param('transpose', (((event.currentTarget as HTMLInputElement).valueAsNumber + 12) / 12));
+  const onChangeTransposeCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    X('oneshot').param('transpose', ((event.currentTarget.valueAsNumber + 12) / 12));
   }, []);
 
-  const onChangeSoundSourceCallback = useCallback((event: React.SyntheticEvent) => {
+  const onChangeSoundSourceCallback = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('analyser').stop('time').domain('time').clear();
       X(source).module('analyser').stop('fft').domain('fft').clear();
     });
 
-    const source = (event.currentTarget as HTMLInputElement).value as SoundSource;
+    // HACK
+    const source = event.currentTarget.value as SoundSource;
 
     dispatch(changeCurrentSoundSource(source));
 
@@ -206,13 +207,13 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
     }
   }, [props.sources, dispatch, successCallback]);
 
-  const onChangeAnalyserStateCallback = useCallback((event: React.SyntheticEvent) => {
-    dispatch(changeAnalyserState((event.currentTarget as HTMLInputElement).checked));
+  const onChangeAnalyserStateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(changeAnalyserState(event.currentTarget.checked));
     setAnalyserState(!analyserState);
   }, [dispatch, analyserState]);
 
-  const onChangeMMLStateCallback = useCallback((event: React.SyntheticEvent) => {
-    dispatch(changeMMLState((event.currentTarget as HTMLInputElement).checked));
+  const onChangeMMLStateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(changeMMLState(event.currentTarget.checked));
     setMMLState(!mmlState);
   }, [dispatch, mmlState]);
 

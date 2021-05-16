@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { Props, ValueController } from './ValueController';
+import { ValueController } from './ValueController';
 
 describe('helpers/ValueController', () => {
   test('render without width', () => {
@@ -13,7 +13,7 @@ describe('helpers/ValueController', () => {
       step        : 1,
       defaultValue: 0,
       onChange    : () => {}
-    } as Props;
+    };
 
     const tree = renderer.create(<ValueController {...props} />).toJSON();
 
@@ -30,7 +30,7 @@ describe('helpers/ValueController', () => {
       defaultValue: 0,
       width       : '50%',
       onChange    : () => {}
-    } as Props;
+    };
 
     const tree = renderer.create(<ValueController {...props} />).toJSON();
 
@@ -48,7 +48,7 @@ describe('helpers/ValueController', () => {
       step        : 1,
       defaultValue: 0,
       onChange    : mockOnChange
-    } as Props;
+    };
 
     render(<ValueController {...props} />);
 
@@ -70,7 +70,7 @@ describe('helpers/ValueController', () => {
       step        : 1,
       defaultValue: 0,
       onChange    : () => {}
-    } as Props;
+    };
 
     render(<ValueController {...props} />);
     render(<ValueController {...props} defaultValue={1} />);

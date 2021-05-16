@@ -13,8 +13,8 @@ export interface Props {
 export const PhaserFieldset: React.FC<Props> = (props: Props) => {
   const [phaser, setPhaser] = useState<boolean>(false);
 
-  const onChangeStateCallback = useCallback((event: React.SyntheticEvent) => {
-    const state = (event.currentTarget as HTMLInputElement).checked;
+  const onChangeStateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const state = event.currentTarget.checked;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('phaser').state(state);
@@ -23,48 +23,48 @@ export const PhaserFieldset: React.FC<Props> = (props: Props) => {
     setPhaser(state);
   }, [props.sources]);
 
-  const onChangeStageCallback = useCallback((event: React.SyntheticEvent) => {
-    const stage = parseInt((event.currentTarget as HTMLInputElement).value, 10);
+  const onChangeStageCallback = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
+    const stage = parseInt(event.currentTarget.value, 10);
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('phaser').param('stage', stage);
     });
   }, [props.sources]);
 
-  const onChangeFrequencyCallback = useCallback((event: React.SyntheticEvent) => {
-    const frequency = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeFrequencyCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const frequency = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('phaser').param('frequency', frequency);
     });
   }, [props.sources]);
 
-  const onChangeDepthCallback = useCallback((event: React.SyntheticEvent) => {
-    const depth = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeDepthCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const depth = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('phaser').param('depth', depth);
     });
   }, [props.sources]);
 
-  const onChangeRateCallback = useCallback((event: React.SyntheticEvent) => {
-    const rate = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeRateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const rate = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('phaser').param('rate', rate);
     });
   }, [props.sources]);
 
-  const onChangeMixCallback = useCallback((event: React.SyntheticEvent) => {
-    const mix = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeMixCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const mix = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('phaser').param('mix', mix);
     });
   }, [props.sources]);
 
-  const onChangeFeedbackCallback = useCallback((event: React.SyntheticEvent) => {
-    const feedback = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeFeedbackCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const feedback = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('phaser').param('feedback', feedback);

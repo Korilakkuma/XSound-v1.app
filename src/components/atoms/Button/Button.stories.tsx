@@ -21,7 +21,7 @@ Primary.args = {
   height : 33,
   image  : 'https://xsound.app/assets/images/button-audio.png',
   size   : '70px 99px',
-  onClick: (event: React.SyntheticEvent) => {
+  onClick: (event: React.MouseEvent<HTMLButtonElement>) => {
     alert(`${event.type} start`);
   }
 };
@@ -35,7 +35,7 @@ Secondary.args = {
   height : 33,
   image  : 'https://xsound.app/assets/images/button-audio.png',
   size   : '70px 99px',
-  onClick: (event: React.SyntheticEvent) => {
+  onClick: (event: React.MouseEvent<HTMLButtonElement>) => {
     alert(`${event.type} stop`);
   }
 };

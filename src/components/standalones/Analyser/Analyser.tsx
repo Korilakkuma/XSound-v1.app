@@ -32,8 +32,8 @@ export const Analyser: React.FC<Props> = (props: Props) => {
     setShowTimeOverview(showTimeOverview === 'right' ? 'left' : 'right');
   }, [showTimeOverview]);
 
-  const onChangeModeCallback = useCallback((event: React.SyntheticEvent) => {
-    const checked = (event.currentTarget as HTMLInputElement).checked;
+  const onChangeModeCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const checked = event.currentTarget.checked;
 
     if (checked) {
       X('audio').module('analyser').domain('timeoverview', 0).param('mode', 'sprite');
@@ -52,8 +52,8 @@ export const Analyser: React.FC<Props> = (props: Props) => {
     setAnalyser(checked);
   }, []);
 
-  const onChangeIntervalCallback = useCallback((event: React.SyntheticEvent) => {
-    const value = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeIntervalCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.currentTarget.valueAsNumber;
 
     sources.forEach((source: XSoundSource) => {
       X(source).module('analyser').domain('time').param('interval', ((value > 0) ? value : 'auto'));
@@ -61,9 +61,9 @@ export const Analyser: React.FC<Props> = (props: Props) => {
     });
   }, [sources]);
 
-  const onChangeSmoothingCallback = useCallback((event: React.SyntheticEvent) => {
+  const onChangeSmoothingCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     sources.forEach((source: XSoundSource) => {
-      X(source).module('analyser').param('smoothingTimeConstant', (event.currentTarget as HTMLInputElement).valueAsNumber);
+      X(source).module('analyser').param('smoothingTimeConstant', event.currentTarget.valueAsNumber);
     });
   }, [sources]);
 

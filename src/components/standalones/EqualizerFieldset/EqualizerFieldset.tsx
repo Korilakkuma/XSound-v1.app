@@ -12,8 +12,8 @@ export interface Props {
 export const EqualizerFieldset: React.FC<Props> = (props: Props) => {
   const [equalizer, setEqualizer] = useState<boolean>(false);
 
-  const onChangeStateCallback = useCallback((event: React.SyntheticEvent) => {
-    const state = (event.currentTarget as HTMLInputElement).checked;
+  const onChangeStateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const state = event.currentTarget.checked;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('equalizer').state(state);
@@ -22,32 +22,32 @@ export const EqualizerFieldset: React.FC<Props> = (props: Props) => {
     setEqualizer(state);
   }, [props.sources]);
 
-  const onChangeBassCallback = useCallback((event: React.SyntheticEvent) => {
-    const bass = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeBassCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const bass = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('equalizer').param('bass', bass);
     });
   }, [props.sources]);
 
-  const onChangeMiddleCallback = useCallback((event: React.SyntheticEvent) => {
-    const middle = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeMiddleCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const middle = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('equalizer').param('middle', middle);
     });
   }, [props.sources]);
 
-  const onChangeTrebleCallback = useCallback((event: React.SyntheticEvent) => {
-    const treble = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeTrebleCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const treble = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('equalizer').param('treble', treble);
     });
   }, [props.sources]);
 
-  const onChangePresenceCallback = useCallback((event: React.SyntheticEvent) => {
-    const presence = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangePresenceCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const presence = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('equalizer').param('presence', presence);

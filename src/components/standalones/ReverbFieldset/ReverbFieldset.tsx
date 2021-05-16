@@ -40,8 +40,8 @@ export const ReverbFieldset: React.FC<Props> = (props: Props) => {
     }
   });
 
-  const onChangeStateCallback = useCallback((event: React.SyntheticEvent) => {
-    const state = (event.currentTarget as HTMLInputElement).checked;
+  const onChangeStateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const state = event.currentTarget.checked;
 
     sources.forEach((source: XSoundSource) => {
       X(source).module('reverb').state(state);
@@ -50,32 +50,32 @@ export const ReverbFieldset: React.FC<Props> = (props: Props) => {
     setReverb(state);
   }, [sources]);
 
-  const onChangeTypeCallback = useCallback((event: React.SyntheticEvent) => {
-    const type = parseInt((event.currentTarget as HTMLInputElement).value, 10);
+  const onChangeTypeCallback = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
+    const type = parseInt(event.currentTarget.value, 10);
 
     sources.forEach((source: XSoundSource) => {
       X(source).module('reverb').param('type', type);
     });
   }, [sources]);
 
-  const onChangeDryCallback = useCallback((event: React.SyntheticEvent) => {
-    const dry = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeDryCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const dry = event.currentTarget.valueAsNumber;
 
     sources.forEach((source: XSoundSource) => {
       X(source).module('reverb').param('dry', dry);
     });
   }, [sources]);
 
-  const onChangeWetCallback = useCallback((event: React.SyntheticEvent) => {
-    const wet = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeWetCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const wet = event.currentTarget.valueAsNumber;
 
     sources.forEach((source: XSoundSource) => {
       X(source).module('reverb').param('wet', wet);
     });
   }, [sources]);
 
-  const onChangeToneCallback = useCallback((event: React.SyntheticEvent) => {
-    const tone = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeToneCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const tone = event.currentTarget.valueAsNumber;
 
     sources.forEach((source: XSoundSource) => {
       X(source).module('reverb').param('tone', tone);

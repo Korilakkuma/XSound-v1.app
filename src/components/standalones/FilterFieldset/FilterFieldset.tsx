@@ -13,8 +13,8 @@ export interface Props {
 export const FilterFieldset: React.FC<Props> = (props: Props) => {
   const [filter, setFilter] = useState<boolean>(false);
 
-  const onChangeStateCallback = useCallback((event: React.SyntheticEvent) => {
-    const state = (event.currentTarget as HTMLInputElement).checked;
+  const onChangeStateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const state = event.currentTarget.checked;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('filter').state(state);
@@ -23,64 +23,64 @@ export const FilterFieldset: React.FC<Props> = (props: Props) => {
     setFilter(state);
   }, [props.sources]);
 
-  const onChangeTypeCallback = useCallback((event: React.SyntheticEvent) => {
-    const type = (event.currentTarget as HTMLInputElement).value;
+  const onChangeTypeCallback = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
+    const type = event.currentTarget.value;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('filter').param('type', type);
     });
   }, [props.sources]);
 
-  const onChangeFrequencyCallback = useCallback((event: React.SyntheticEvent) => {
-    const frequency = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeFrequencyCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const frequency = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('filter').param('frequency', frequency);
     });
   }, [props.sources]);
 
-  const onChangeQualityCallback = useCallback((event: React.SyntheticEvent) => {
-    const quality = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeQualityCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const quality = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('filter').param('Q', quality);
     });
   }, [props.sources]);
 
-  const onChangeGainCallback = useCallback((event: React.SyntheticEvent) => {
-    const gain = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeGainCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const gain = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('filter').param('gain', gain);
     });
   }, [props.sources]);
 
-  const onChangeAttackCallback = useCallback((event: React.SyntheticEvent) => {
-    const attack = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeAttackCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const attack = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('filter').param('attack', attack);
     });
   }, [props.sources]);
 
-  const onChangeDecayCallback = useCallback((event: React.SyntheticEvent) => {
-    const decay = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeDecayCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const decay = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('filter').param('decay', decay);
     });
   }, [props.sources]);
 
-  const onChangeSustainCallback = useCallback((event: React.SyntheticEvent) => {
-    const sustain = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeSustainCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const sustain = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('filter').param('sustain', sustain);
     });
   }, [props.sources]);
 
-  const onChangeReleaseCallback = useCallback((event: React.SyntheticEvent) => {
-    const release = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeReleaseCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const release = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('filter').param('release', release);

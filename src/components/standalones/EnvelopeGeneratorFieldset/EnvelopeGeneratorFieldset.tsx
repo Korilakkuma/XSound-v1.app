@@ -8,32 +8,32 @@ export interface Props {
 }
 
 export const EnvelopeGeneratorFieldset: React.FC<Props> = () => {
-  const onChangeAttackCallback = useCallback((event: React.SyntheticEvent) => {
-    const attack = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeAttackCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const attack = event.currentTarget.valueAsNumber;
 
     X('oscillator').module('envelopegenerator').param('attack', attack);
     window.C('oscillator').module('envelopegenerator').param('attack', attack);
     X('oneshot').module('envelopegenerator').param('attack', attack);
   }, []);
 
-  const onChangeDecayCallback = useCallback((event: React.SyntheticEvent) => {
-    const decay = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeDecayCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const decay = event.currentTarget.valueAsNumber;
 
     X('oscillator').module('envelopegenerator').param('decay', decay);
     window.C('oscillator').module('envelopegenerator').param('decay', decay);
     X('oneshot').module('envelopegenerator').param('decay', decay);
   }, []);
 
-  const onChangeSustainCallback = useCallback((event: React.SyntheticEvent) => {
-    const sustain = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeSustainCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const sustain = event.currentTarget.valueAsNumber;
 
     X('oscillator').module('envelopegenerator').param('sustain', sustain);
     window.C('oscillator').module('envelopegenerator').param('sustain', sustain);
     X('oneshot').module('envelopegenerator').param('sustain', sustain);
   }, []);
 
-  const onChangeReleaseCallback = useCallback((event: React.SyntheticEvent) => {
-    const release = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeReleaseCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const release = event.currentTarget.valueAsNumber;
 
     X('oscillator').module('envelopegenerator').param('release', release);
     window.C('oscillator').module('envelopegenerator').param('release', release);

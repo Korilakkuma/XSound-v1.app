@@ -12,8 +12,8 @@ export interface Props {
 export const RingModulatorFieldset: React.FC<Props> = (props: Props) => {
   const [ringmodulator, setRingmodulator] = useState<boolean>(false);
 
-  const onChangeStateCallback = useCallback((event: React.SyntheticEvent) => {
-    const state = (event.currentTarget as HTMLInputElement).checked;
+  const onChangeStateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const state = event.currentTarget.checked;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('ringmodulator').state(state);
@@ -22,16 +22,16 @@ export const RingModulatorFieldset: React.FC<Props> = (props: Props) => {
     setRingmodulator(state);
   }, [props.sources]);
 
-  const onChangeDepthCallback = useCallback((event: React.SyntheticEvent) => {
-    const depth = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeDepthCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const depth = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('ringmodulator').param('depth', depth);
     });
   }, [props.sources]);
 
-  const onChangeRateCallback = useCallback((event: React.SyntheticEvent) => {
-    const rate = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeRateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const rate = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('ringmodulator').param('rate', rate);

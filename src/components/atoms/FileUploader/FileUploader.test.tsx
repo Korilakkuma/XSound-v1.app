@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { Props, FileUploader } from './FileUploader';
+import { FileUploader } from './FileUploader';
 
 describe('atoms/FileUploader', () => {
   test('no drag, no drop', () => {
@@ -17,7 +17,7 @@ describe('atoms/FileUploader', () => {
       onDragOver : () => {},
       onDragLeave: () => {},
       onDrop     : () => {}
-    } as Props;
+    };
 
     const tree = renderer.create(<FileUploader {...props} />).toJSON();
 
@@ -37,7 +37,7 @@ describe('atoms/FileUploader', () => {
       onDragOver : () => {},
       onDragLeave: () => {},
       onDrop     : () => {}
-    } as Props;
+    };
 
     const tree = renderer.create(<FileUploader {...props} />).toJSON();
 
@@ -57,7 +57,7 @@ describe('atoms/FileUploader', () => {
       onDragOver : () => {},
       onDragLeave: () => {},
       onDrop     : () => {}
-    } as Props;
+    };
 
     const tree = renderer.create(<FileUploader {...props} />).toJSON();
 
@@ -77,7 +77,7 @@ describe('atoms/FileUploader', () => {
       onDragOver : () => {},
       onDragLeave: () => {},
       onDrop     : () => {}
-    } as Props;
+    };
 
     const mockOnClick = jest.fn();
 
@@ -103,7 +103,7 @@ describe('atoms/FileUploader', () => {
       onDragOver : () => {},
       onDragLeave: () => {},
       onDrop     : () => {}
-    } as Props;
+    };
 
     const spy = jest.spyOn(React, 'useRef').mockReturnValueOnce({ current: null });
 

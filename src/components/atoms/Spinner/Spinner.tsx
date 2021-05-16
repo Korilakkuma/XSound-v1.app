@@ -6,7 +6,7 @@ export interface Props {
   max: number;
   step: number;
   id?: string;
-  onChange(event: React.SyntheticEvent): void;
+  onChange(event: React.ChangeEvent<HTMLInputElement>): void;
 }
 
 export const Spinner: React.FC<Props> = (props: Props) => {

@@ -7,11 +7,11 @@ export interface Props {
   filename: string;
   drag: boolean;
   drop: boolean;
-  onChange(event: React.SyntheticEvent): void;
-  onDragEnter(event: React.SyntheticEvent): void;
-  onDragOver(event: React.SyntheticEvent): void;
-  onDragLeave(event: React.SyntheticEvent): void;
-  onDrop(event: React.SyntheticEvent): void;
+  onChange(event: React.ChangeEvent<HTMLInputElement>): void;
+  onDragEnter(event: React.DragEvent<HTMLDivElement>): void;
+  onDragOver(event: React.DragEvent<HTMLDivElement>): void;
+  onDragLeave(event: React.DragEvent<HTMLDivElement>): void;
+  onDrop(event: React.DragEvent<HTMLDivElement>): void;
 }
 
 export const FileUploader: React.FC<Props> = (props: Props) => {

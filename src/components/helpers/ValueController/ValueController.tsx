@@ -27,9 +27,9 @@ export const ValueController: React.FC<Props> = (props: Props) => {
 
   const [value, setValue] = useState<number>(defaultValue);
 
-  const onChangeCallback = useCallback((event: React.SyntheticEvent) => {
+  const onChangeCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     onChange(event);
-    setValue((event.currentTarget as HTMLInputElement).valueAsNumber);
+    setValue(event.currentTarget.valueAsNumber);
   }, [onChange]);
 
   useEffect(() => {

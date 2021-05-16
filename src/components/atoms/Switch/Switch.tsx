@@ -5,7 +5,7 @@ export interface Props {
   label: string;
   checked: boolean;
   controls?: string;
-  onChange(event: React.SyntheticEvent): void;
+  onChange(event: React.ChangeEvent<HTMLInputElement>): void;
 }
 
 export const Switch: React.FC<Props> = (props: Props) => {
@@ -13,8 +13,8 @@ export const Switch: React.FC<Props> = (props: Props) => {
 
   const checkboxRef = useRef<HTMLInputElement>(null);
 
-  const onKeyDownCallback = useCallback((event: React.SyntheticEvent) => {
-    const nativeEvent = event.nativeEvent as KeyboardEvent;
+  const onKeyDownCallback = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
+    const nativeEvent = event.nativeEvent;
 
     if ((nativeEvent.code === 'Space') || (nativeEvent.keyCode === 13)) {
       event.preventDefault();

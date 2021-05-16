@@ -18,8 +18,8 @@ export const OscillatorFieldset: React.FC<Props> = (props: Props) => {
   const [oscillator, setOscillator] = useState<boolean>(oscillatorNumber === 0);
   const [type, setType] = useState<OscillatorType>('sawtooth');
 
-  const onChangeStateCallback = useCallback((event: React.SyntheticEvent) => {
-    const state = (event.currentTarget as HTMLInputElement).checked;
+  const onChangeStateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const state = event.currentTarget.checked;
 
     for (let i = 0, len = X('oscillator').length(); i < len; i++) {
       if (oscillatorNumber === 0) {
@@ -32,33 +32,22 @@ export const OscillatorFieldset: React.FC<Props> = (props: Props) => {
     }
   }, [oscillatorNumber]);
 
-  const onChangeTypeCallback = useCallback((event: React.SyntheticEvent) => {
-    const form  = event.currentTarget as HTMLFormElement;
-    const name  = `radio-${radioName}`;
-    const items = form.elements.namedItem(name) as RadioNodeList;
+  const onChangeTypeCallback = useCallback((event: React.ChangeEvent<HTMLFormElement>) => {
+    const items = event.currentTarget.elements.namedItem(`radio-${radioName}`);
 
-    if (items === null) {
+    if (!(items instanceof RadioNodeList)) {
       return;
     }
 
-    for (let i = 0, len = items.length; i < len; i++) {
-      const item = items[i] as HTMLInputElement;
+    const value = items.value;
 
-      const { checked, value } = item;
-
-      if (checked) {
-        if ((value === 'sine') || (value === 'square') || (value === 'sawtooth') || (value === 'triangle')) {
-          setType(value);
-          return;
-        }
-
-        return;
-      }
+    if ((value === 'sine') || (value === 'square') || (value === 'sawtooth') || (value === 'triangle')) {
+      setType(value);
     }
   }, [radioName]);
 
-  const onChangeRadioCallback = useCallback((event: React.SyntheticEvent) => {
-    const type = (event.currentTarget as HTMLInputElement).value;
+  const onChangeRadioCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const type = event.currentTarget.value;
 
     for (let i = 0, len = X('oscillator').length(); i < len; i++) {
       if (oscillatorNumber === 0) {
@@ -69,8 +58,8 @@ export const OscillatorFieldset: React.FC<Props> = (props: Props) => {
     }
   }, [oscillatorNumber]);
 
-  const onChangeVolumeCallback = useCallback((event: React.SyntheticEvent) => {
-    const volume = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeVolumeCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const volume = event.currentTarget.valueAsNumber;
 
     for (let i = 0, len = X('oscillator').length(); i < len; i++) {
       if (oscillatorNumber === 0) {
@@ -81,8 +70,8 @@ export const OscillatorFieldset: React.FC<Props> = (props: Props) => {
     }
   }, [oscillatorNumber]);
 
-  const onChangeOctaveCallback = useCallback((event: React.SyntheticEvent) => {
-    const octave = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeOctaveCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const octave = event.currentTarget.valueAsNumber;
 
     for (let i = 0, len = X('oscillator').length(); i < len; i++) {
       if (oscillatorNumber === 0) {
@@ -93,8 +82,8 @@ export const OscillatorFieldset: React.FC<Props> = (props: Props) => {
     }
   }, [oscillatorNumber]);
 
-  const onChangeFineCallback = useCallback((event: React.SyntheticEvent) => {
-    const fine = (event.currentTarget as HTMLInputElement).valueAsNumber;
+  const onChangeFineCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const fine = event.currentTarget.valueAsNumber;
 
     for (let i = 0, len = X('oscillator').length(); i < len; i++) {
       if (oscillatorNumber === 0) {
