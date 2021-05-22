@@ -236,11 +236,11 @@ export const Analyser: React.FC<Props> = (props: Props) => {
         </dl>
         <dl>
           <dt>Time Domain</dt>
-          <dd><canvas ref={canvasForTimeDomainRef} width="360" height="120" /></dd>
+          <dd><canvas ref={canvasForTimeDomainRef} width="420" height="120" /></dd>
         </dl>
         <dl>
           <dt>Frequency Domain</dt>
-          <dd><canvas ref={canvasForFrequencyDomainRef} width="360" height="120" /></dd>
+          <dd><canvas ref={canvasForFrequencyDomainRef} width="420" height="120" /></dd>
         </dl>
       </div>
       <div className="Analyser__controllers">
