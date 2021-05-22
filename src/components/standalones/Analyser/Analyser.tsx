@@ -106,6 +106,7 @@ export const Analyser: React.FC<Props> = (props: Props) => {
           interval: 0,
           shape   : 'line',
           wave    : 'rgba(0, 0, 255, 1.0)',
+          grid    : 'rgba(255, 255, 255, 0.2)',
           font    : {
             family: 'Arial',
             size  : '12px',
@@ -125,6 +126,7 @@ export const Analyser: React.FC<Props> = (props: Props) => {
           interval: 0,
           shape   : 'rect',
           wave    : 'gradient',
+          grid    : 'rgba(255, 255, 255, 0.2)',
           grad    : [
             { offset: 0, color: 'rgba(0, 128, 255, 1.0)' },
             { offset: 1, color: 'rgba(0,   0, 255, 1.0)' }
@@ -149,6 +151,7 @@ export const Analyser: React.FC<Props> = (props: Props) => {
         { offset: 0, color: 'rgba(0, 128, 255, 1.0)' },
         { offset: 1, color: 'rgba(0,   0, 255, 1.0)' }
       ],
+      grid : 'rgba(255, 255, 255, 0.2)',
       font : {
         family: 'Arial',
         size  : '12px',
