@@ -52,7 +52,7 @@
   "bugs": {
     "url": "https://github.com/Korilakkuma/XSound.app/issues"
   },
-  "homepage": "https://xsound.app/",
+  "homepage": "https://xsound.app",
   "files": [
     "assets",
     "index.html",
