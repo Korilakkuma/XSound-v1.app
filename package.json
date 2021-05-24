@@ -7,7 +7,7 @@
   "description": "Multifunctional Synthesizer by XSound (Web Audio API Library)",
   "main": "./assets/app.js",
   "scripts": {
-    "clean": "rm -rf register.js sw.js ./assets/app.* ./assets/vendor.*",
+    "clean": "rimraf register.js sw.js ./assets/app.* ./assets/vendor.*",
     "lint:js": "eslint src",
     "lint:css": "stylelint src",
     "lint": "run-p lint:js lint:css",
@@ -112,6 +112,7 @@
     "postcss-easy-import": "^3.0.0",
     "postcss-loader": "^5.1.0",
     "react-test-renderer": "^17.0.1",
+    "rimraf": "^3.0.2",
     "stylelint": "^13.11.0",
     "stylelint-config-standard": "^20.0.0",
     "terser-webpack-plugin": "^5.1.1",
