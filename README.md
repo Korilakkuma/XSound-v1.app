@@ -46,7 +46,7 @@ $ npm test
 $ npm run storybook
 ```
 
-# Technologies
+## Technologies
 
 - [XSound](https://github.com/Korilakkuma/XSound)
 - TypeScript
