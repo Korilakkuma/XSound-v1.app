@@ -27,15 +27,12 @@ import { FlangerFieldset } from './standalones/FlangerFieldset';
 import { DelayFieldset } from './standalones/DelayFieldset';
 import { ReverbFieldset } from './standalones/ReverbFieldset';
 import { Footer } from './standalones/Footer';
+import { BASE_URL, NUMBER_OF_ONESHOTS, AJAX_TIMEOUT } from '../config';
 import { X } from 'xsound';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Props {
 }
-
-const BASE_URL = '/assets';
-const NUMBER_OF_ONESHOTS = 88;
-const AJAX_TIMEOUT = 60000;
 
 export const App: React.FC<Props> = () => {
   const [loadedApp, setLoadedApp] = useState<boolean>(false);
