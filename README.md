@@ -3,6 +3,8 @@
 [![Node.js CI](https://github.com/Korilakkuma/XSound.app/workflows/Node.js%20CI/badge.svg)](https://github.com/Korilakkuma/XSound.app/actions?query=workflow%3A%22Node.js+CI%22)
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
   
+[![XSound.app](https://user-images.githubusercontent.com/4006693/119640903-09731780-be54-11eb-9329-733a6afd86de.png)](https://xsound.app)
+  
 **[XSound.app](https://xsound.app)** is Multifunctional Synthesizer by [XSound](https://github.com/Korilakkuma/XSound) (Web Audio API Library).
   
 ## Features
