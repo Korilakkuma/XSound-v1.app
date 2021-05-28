@@ -3,7 +3,6 @@ CNAME
 node_modules
 npm-debug.log
 coverage/
-__snapshots__/
 app.js*
 app.css*
 vendor.js*
