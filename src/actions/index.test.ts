@@ -1,4 +1,4 @@
-import { ActionTypes } from '../ActionTypes';
+import { ActionTypes } from './ActionTypes';
 import {
   changeCurrentSoundSource,
   changeAnalyserState,
@@ -7,8 +7,8 @@ import {
   downBassKeyboards,
   upMelodyKeyboards,
   upBassKeyboards
-} from '../';
-import { SoundSource } from '../../types';
+} from './';
+import { SoundSource } from '../types';
 
 describe('Actions', () => {
   test('should create an action to change current sound source', () => {

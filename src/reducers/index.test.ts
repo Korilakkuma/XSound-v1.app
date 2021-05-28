@@ -6,15 +6,15 @@ import {
   downBassKeyboardIndexes,
   upMelodyKeyboardIndexes,
   upBassKeyboardIndexes
-} from '../';
-import { ActionTypes } from '../../actions/ActionTypes';
+} from './';
+import { ActionTypes } from '../actions/ActionTypes';
 import {
   SoundSource,
   CurrentSoundSourceAction,
   AnalyserStateAction,
   MMLStateAction,
   KeyboardAction
-} from '../../types';
+} from '../types';
 
 describe('Reducers', () => {
   test('should handle CHANGE_CURRENT_SOUND_SOURCE', () => {
