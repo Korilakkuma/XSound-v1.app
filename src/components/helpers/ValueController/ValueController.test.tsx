@@ -1,42 +1,8 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { ValueController } from './ValueController';
 
 describe('helpers/ValueController', () => {
-  test('render without width', () => {
-    const props = {
-      label       : 'Value Controller',
-      id          : 'value-controller',
-      min         : -100,
-      max         : 100,
-      step        : 1,
-      defaultValue: 0,
-      onChange    : () => {}
-    };
-
-    const tree = renderer.create(<ValueController {...props} />).toJSON();
-
-    expect(tree).toMatchSnapshot();
-  });
-
-  test('render with width', () => {
-    const props = {
-      label       : 'Value Controller',
-      id          : 'value-controller',
-      min         : -100,
-      max         : 100,
-      step        : 1,
-      defaultValue: 0,
-      width       : '50%',
-      onChange    : () => {}
-    };
-
-    const tree = renderer.create(<ValueController {...props} />).toJSON();
-
-    expect(tree).toMatchSnapshot();
-  });
-
   test('change', () => {
     const mockOnChange = jest.fn();
 

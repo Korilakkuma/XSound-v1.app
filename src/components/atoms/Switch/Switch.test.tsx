@@ -1,22 +1,8 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { Switch } from './Switch';
 
 describe('atoms/Switch', () => {
-  test('render', () => {
-    const props = {
-      id      : 'switch',
-      label   : 'checked',
-      checked : false,
-      onChange: () => {}
-    };
-
-    const tree = renderer.create(<Switch {...props} />).toJSON();
-
-    expect(tree).toMatchSnapshot();
-  });
-
   test('change', () => {
     const mockOnChange = jest.fn();
 

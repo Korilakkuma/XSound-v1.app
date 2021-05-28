@@ -1,5 +1,4 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { SelectableModal } from './SelectableModal';
 
@@ -13,27 +12,6 @@ jest.mock('react-dom', () => {
 });
 
 describe('helpers/SelectableModal', () => {
-  test('render', () => {
-    const props = {
-      isShow    : true,
-      hasOverlay: true,
-      title     : 'with overlay',
-      first     : {
-        label : 'first',
-        action: () => {}
-      },
-      second    : {
-        label : 'second',
-        action: () => {}
-      },
-      onClose   : () => {}
-    };
-
-    const tree = renderer.create(<SelectableModal {...props}><div>Contents</div></SelectableModal>).toJSON();
-
-    expect(tree).toMatchSnapshot();
-  });
-
   test('click first', () => {
     const mockOnClick = jest.fn();
 
