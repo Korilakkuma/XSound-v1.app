@@ -188,15 +188,15 @@ export const MML: React.FC<Props> = (props: Props) => {
     dispatch(downMelodyKeyboards([]));
     dispatch(downBassKeyboards([]));
 
-    const currentMelody = melody.replace(CLEAR_HIGHLIGHT_REGEXP, '$1');
-    const currentBass   = bass.replace(CLEAR_HIGHLIGHT_REGEXP, '$1');
+    const currentMelody = X('mml').get(0, true).replace(CLEAR_HIGHLIGHT_REGEXP, '$1');
+    const currentBass   = window.C('mml').get(0, true).replace(CLEAR_HIGHLIGHT_REGEXP, '$1');
 
     readyMMLCallback(currentMelody, currentBass);
 
     setMelody(currentMelody);
     setBass(currentBass);
     setPaused(true);
-  }, [dispatch, melody, bass, readyMMLCallback]);
+  }, [dispatch, readyMMLCallback]);
 
   const errorCallback = useCallback((error: string, note: string) => {
     // TODO:
@@ -376,26 +376,7 @@ export const MML: React.FC<Props> = (props: Props) => {
   }, []);
 
   useEffect(() => {
-    if (!loadedApp) {
-      return;
-    }
-
-    if (loaded) {
-      // HACK:
-      X('mml').setup({
-        start: startMelodyCallback,
-        stop : stopMelodyCallback,
-        ended: endedCallback,
-        error: errorCallback
-      });
-
-      window.C('mml').setup({
-        start: startBassCallback,
-        stop : stopBassCallback,
-        ended: endedCallback,
-        error: errorCallback
-      });
-
+    if (!loadedApp || loaded) {
       return;
     }
 
