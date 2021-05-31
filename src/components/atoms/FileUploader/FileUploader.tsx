@@ -3,6 +3,7 @@ import React, { useCallback, useRef } from 'react';
 export interface Props {
   id: string;
   accept: string;
+  disabled: boolean;
   placeholder: string;
   filename: string;
   drag: boolean;
@@ -18,6 +19,7 @@ export const FileUploader: React.FC<Props> = (props: Props) => {
   const {
     id,
     accept,
+    disabled,
     placeholder,
     filename,
     drag,
@@ -53,6 +55,7 @@ export const FileUploader: React.FC<Props> = (props: Props) => {
       <button
         type="button"
         aria-controls={id}
+        disabled={disabled}
         className="text-ellipsis"
         onClick={onClickCallback}
       >
@@ -63,6 +66,7 @@ export const FileUploader: React.FC<Props> = (props: Props) => {
         ref={fileUploaderRef}
         id={id}
         accept={accept}
+        disabled={disabled}
         placeholder={placeholder}
         className="visually-hidden"
         onChange={onChange}

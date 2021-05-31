@@ -55,6 +55,7 @@ export const Primary = Template.bind({});
 Primary.args = {
   id         : 'uploader-1',
   accept     : 'audio/*',
+  disabled    : false,
   placeholder: 'MP3, Ogg, WAV ... etc',
   filename   : '',
   onChange   : (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,6 +68,7 @@ export const Secondary = Template.bind({});
 Secondary.args = {
   id         : 'uploader-2',
   accept     : 'audio/*',
+  disabled   : false,
   placeholder: 'MP3, Ogg, WAV ... etc',
   filename   : 'Default filename',
   onChange   : (event: React.ChangeEvent<HTMLInputElement>) => {

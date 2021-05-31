@@ -517,6 +517,7 @@ export const MML: React.FC<Props> = (props: Props) => {
         <FileUploader
           id="uploader-mml"
           accept="application/json"
+          disabled={!paused}
           placeholder="MML JSON file"
           filename={filename}
           drag={drag}

@@ -7,6 +7,7 @@ describe('atoms/FileUploader', () => {
     const props = {
       id         : 'uploader-1',
       accept     : 'audio/*',
+      disabled   : false,
       placeholder: 'MP3, Ogg, WAV ... etc',
       filename   : '',
       drag       : false,
@@ -33,6 +34,7 @@ describe('atoms/FileUploader', () => {
     const props = {
       id         : 'uploader-1',
       accept     : 'audio/*',
+      disabled   : false,
       placeholder: 'MP3, Ogg, WAV ... etc',
       filename   : '',
       drag       : false,
