@@ -24,3 +24,8 @@
 .Select:disabled {
   cursor: not-allowed;
 }
+
+.Select > option {
+  /* for Edge and Windows */
+  color: var(--black-light);
+}

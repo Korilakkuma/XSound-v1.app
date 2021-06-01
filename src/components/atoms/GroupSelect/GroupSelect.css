@@ -20,3 +20,8 @@
   outline: none;
   background-image: linear-gradient(to bottom, var(--assort-color), var(--base-color));
 }
+
+.GroupSelect > optgroup > option {
+  /* for Edge and Windows */
+  color: var(--black-light);
+}
