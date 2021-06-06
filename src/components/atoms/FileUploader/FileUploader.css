@@ -18,5 +18,5 @@
   border: 2px solid rgba(255, 255, 255, 0.05);
   background-color: var(--assort-color);
   background-image: linear-gradient(to bottom, var(--base-color), var(--assort-color));
-  box-shadow: 0 0 0 1px var(--base-color) inset, 0 0 1px 3px rgba(0, 0, 0, 0.3)));  /* outer (for emboss) */
+  box-shadow: 0 0 0 1px var(--base-color) inset, 0 0 1px 3px rgba(0, 0, 0, 0.3);  /* outer (for emboss) */
 }
