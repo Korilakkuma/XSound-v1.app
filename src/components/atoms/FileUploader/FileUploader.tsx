@@ -68,6 +68,7 @@ export const FileUploader: React.FC<Props> = (props: Props) => {
         accept={accept}
         disabled={disabled}
         placeholder={placeholder}
+        tabIndex={-1}
         className="visually-hidden"
         onChange={onChange}
       />
