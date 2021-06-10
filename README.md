@@ -22,6 +22,10 @@ You can use the following features.
 - MML (Music Macro Language)
 - Effectors (Compressor / Wah / Equalizer / Tremolo / Phaser / Chorus / Delay / Reverb ... etc)
 
+## Supported Browsers
+  
+<img src="./assets/images/supported-browsers.png" alt="Supported Browsers are Chrome, Edge, Firefox, Opera and Safari" style="max-width: 100%;" />
+  
 ## Setup
 
 ### Start App
