@@ -31,7 +31,7 @@ export const Header: React.FC<Props> = (props: Props) => {
       <div hidden={progress}>
         <div className="Header__forkMeOnGitHub">
           <a href="https://github.com/Korilakkuma/XSound.app" target="_blank" rel="noopener noreferrer">
-            <img src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub" width="149" height="149" />
+            Fork me on GitHub
           </a>
         </div>
         <div>
