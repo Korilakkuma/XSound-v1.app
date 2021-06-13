@@ -132,7 +132,7 @@ export const ReverbFieldset: React.FC<Props> = (props: Props) => {
           onChange={onChangeToneCallback}
         />
         <Spacer space={8} />
-        <aside>Reverb effect requires Impulse Response data. <a href="http://legacy.spa.aalto.fi/projects/poririrs/" target="_blank" rel="noopener noreferrer">Here</a>, you can get Impulse Response file !</aside>
+        <aside><a href="http://legacy.spa.aalto.fi/projects/poririrs/" target="_blank" rel="noopener noreferrer">This website enables to get RIR (Room Impulse Response) files !</a></aside>
       </fieldset>
     </div>
   );
