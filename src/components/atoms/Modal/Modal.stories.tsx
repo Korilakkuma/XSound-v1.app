@@ -37,12 +37,22 @@ export const Primary = Template.bind({});
 
 Primary.args = {
   hasOverlay: false,
-  title     : 'without overlay'
+  title     : 'without overlay',
+  asAlert   : false
 };
 
 export const Secondary = Template.bind({});
 
 Secondary.args = {
   hasOverlay: true,
-  title     : 'with overlay'
+  title     : 'with overlay',
+  asAlert   : false
+};
+
+export const Tertiary = Template.bind({});
+
+Tertiary.args = {
+  hasOverlay: false,
+  title     : 'without overlay',
+  asAlert   : true
 };

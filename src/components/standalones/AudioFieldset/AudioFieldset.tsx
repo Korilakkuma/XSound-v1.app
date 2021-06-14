@@ -268,6 +268,7 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
         hasOverlay
         isShow={isShowModalForFileUploadError}
         title="Error"
+        asAlert={true}
         onClose={onCloseModalCallback}
       >
         {errorMessage}
@@ -276,6 +277,7 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
         hasOverlay
         isShow={isShowModalForDecodingError}
         title="Error"
+        asAlert={true}
         onClose={onCloseModalCallback}
       >
         {errorMessage}
@@ -284,6 +286,7 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
         hasOverlay
         isShow={isShowModalForProgress}
         title="Progress ..."
+        asAlert={false}
       >
         {showProgress ? <ProgressBar id="progress-bar-read-audio" label={`${loadedByte} bytes (${rate} %)`} rate={rate} /> : null}
       </Modal>
@@ -291,6 +294,7 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
         hasOverlay
         isShow={isShowModalForDecoding}
         title="Decoding ..."
+        asAlert={false}
       >
         {showProgress ? <ProgressBar /> : null}
       </Modal>

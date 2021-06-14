@@ -942,10 +942,10 @@ export const App: React.FC<Props> = () => {
         </Flexbox>
       </main>
       <Footer />
-      <Modal hasOverlay isShow={isShowModalForAjax} title="Error" onClose={onCloseModalForAjaxCallback}>
+      <Modal hasOverlay isShow={isShowModalForAjax} title="Error" asAlert={true} onClose={onCloseModalForAjaxCallback}>
         {errorMessage}
       </Modal>
-      <Modal hasOverlay isShow={isShowModalForDecoding} title="Error" onClose={onCloseModalForDecodingCallback}>
+      <Modal hasOverlay isShow={isShowModalForDecoding} title="Error" asAlert={true} onClose={onCloseModalForDecodingCallback}>
         {errorMessage}
       </Modal>
     </React.Fragment>

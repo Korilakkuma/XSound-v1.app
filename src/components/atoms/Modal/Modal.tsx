@@ -5,6 +5,7 @@ export interface Props {
   isShow: boolean;
   hasOverlay: boolean;
   title: string;
+  asAlert: boolean;
   children: React.ReactNode;
   onClose?(event: React.MouseEvent<HTMLButtonElement | HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>): void;
 }
@@ -35,10 +36,10 @@ const Overlay: React.FC<OverlayProps> = (props: OverlayProps) => {
 };
 
 const ModalBody: React.FC<Props> = (props: Props) => {
-  const { isShow, hasOverlay, title, children, onClose } = props;
+  const { isShow, hasOverlay, title, asAlert, children, onClose } = props;
 
   return (
-    <div className={`Modal${isShow ? ' -show' : ''}`}>
+    <div className={`Modal${isShow ? ' -show' : ''}`} role={asAlert ? 'alert' : undefined}>
       {hasOverlay ?  <Overlay className="Modal__overlay" onClose={onClose} /> : null}
       <div className="Modal__inner">
         {onClose ? <button type="button" aria-label="Close modal" className="Modal__closer" onClick={onClose}>X</button> : null}

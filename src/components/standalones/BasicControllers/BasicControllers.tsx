@@ -301,6 +301,7 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
         hasOverlay
         isShow={isShowModalForMIDIError}
         title="Error"
+        asAlert={true}
         onClose={onCloseModalCallback}
       >
         {errorMessage}

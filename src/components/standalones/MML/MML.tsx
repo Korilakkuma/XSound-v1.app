@@ -544,6 +544,7 @@ export const MML: React.FC<Props> = (props: Props) => {
         hasOverlay
         isShow={isShowModalForFileUploadError}
         title="Error"
+        asAlert={true}
         onClose={onCloseModalCallback}
       >
         {errorMessage}
@@ -552,6 +553,7 @@ export const MML: React.FC<Props> = (props: Props) => {
         hasOverlay
         isShow={isShowModalForProgress}
         title="Progress ..."
+        asAlert={false}
       >
         {showProgress ? <ProgressBar id="progress-bar-read-mml" label={`${loadedByte} bytes (${rate} %)`} rate={rate} /> : null}
       </Modal>

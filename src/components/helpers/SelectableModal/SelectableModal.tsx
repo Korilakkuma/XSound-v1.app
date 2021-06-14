@@ -29,7 +29,7 @@ export const SelectableModal: React.FC<Props> = (props: Props) => {
 
   return (
     <div className="SelectableModal">
-      <Modal isShow={isShow} hasOverlay={hasOverlay} title={title} onClose={onClose}>
+      <Modal isShow={isShow} hasOverlay={hasOverlay} title={title} asAlert={false} onClose={onClose}>
         <div className="SelectableModal__contents">{children}</div>
         <div className="SelectableModal__buttons">
           <button type="button" onClick={first.action}>{first.label}</button>

@@ -19,6 +19,7 @@ describe('atoms/Modal', () => {
       isShow    : true,
       hasOverlay: true,
       title     : 'has overlay',
+      asAlert   : false,
       onClose   : mockOnClose
     };
 
@@ -36,6 +37,7 @@ describe('atoms/Modal', () => {
       isShow    : true,
       hasOverlay: true,
       title     : 'has overlay',
+      asAlert   : false,
       onClose   : mockOnClose
     };
 
