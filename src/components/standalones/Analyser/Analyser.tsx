@@ -169,7 +169,10 @@ export const Analyser: React.FC<Props> = (props: Props) => {
       }
 
       if ((event.type === 'mousemove') || (event.type === 'touchmove')) {
-        setDragTime(`${formatAudioTime(X.convertTime(startTime) as ConvertedTime)} - ${formatAudioTime(X.convertTime(endTime) as ConvertedTime)}`);
+        const convertedStartTime: ConvertedTime = X.convertTime(startTime);
+        const convertedEndTime: ConvertedTime   = X.convertTime(endTime);
+
+        setDragTime(`${formatAudioTime(convertedStartTime)} - ${formatAudioTime(convertedEndTime)}`);
         return;
       }
 
