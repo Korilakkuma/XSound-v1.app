@@ -43,7 +43,7 @@ const ModalBody: React.FC<Props> = (props: Props) => {
       {hasOverlay ?  <Overlay className="Modal__overlay" onClose={onClose} /> : null}
       <div className="Modal__inner">
         {onClose ? <button type="button" aria-label="Close modal" className="Modal__closer" onClick={onClose}>X</button> : null}
-        <h1 className="Modal__title">{title}</h1>
+        <h2 className="Modal__title">{title}</h2>
         <div className="Modal__contents">{children}</div>
       </div>
     </div>
