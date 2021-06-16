@@ -23,6 +23,10 @@
   width: 100%;
 }
 
+.MML__editor > dl:last-child {
+  margin-left: 12px;
+}
+
 .MML__editor > dl > dt {
   margin-bottom: 8px;
   font-size: 12px;
