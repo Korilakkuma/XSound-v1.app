@@ -18,11 +18,11 @@
   /* opacity: 0; */
 }
 
-.Footer > small {
+.Footer > p {
   display: inline-block;
   margin-right: 16px;
 }
 
-.Footer > small > a {
+.Footer > p > a {
   vertical-align: middle;
 }
