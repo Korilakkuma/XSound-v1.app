@@ -93,11 +93,11 @@
   cursor: not-allowed;
 }
 
-.RecorderFieldset__download:hover {
+.RecorderFieldset__download:not([aria-disabled="true"]):hover {
   background-position: -119px top;
 }
 
-.RecorderFieldset__download:active {
+.RecorderFieldset__download:not([aria-disabled="true"]):active {
   background-position: -119px center;
 }
 

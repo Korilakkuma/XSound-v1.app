@@ -490,6 +490,7 @@ export const MML: React.FC<Props> = (props: Props) => {
         <button
           type="button"
           className={`MML__controller${paused ? ' -paused' : ''}`}
+          disabled={!melody && !bass}
           aria-label={paused ? 'Start' : 'Pause'}
           onClick={onClickMMLControllerCallback}
         >

@@ -88,11 +88,11 @@
   background-position: 0 bottom;
 }
 
-.MML__controller.-paused:hover {
+.MML__controller:not(:disabled).-paused:hover {
   background-position: 0 center;
 }
 
-.MML__controller:active {
+.MML__controller:not(:disabled):active {
   background-position: 0 bottom;
 }
 
