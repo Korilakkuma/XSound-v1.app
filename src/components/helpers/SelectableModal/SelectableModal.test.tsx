@@ -16,6 +16,7 @@ describe('helpers/SelectableModal', () => {
     const mockOnClick = jest.fn();
 
     const props = {
+      id        : 'modal-click-first',
       isShow    : true,
       hasOverlay: true,
       title     : 'with overlay',
@@ -41,6 +42,7 @@ describe('helpers/SelectableModal', () => {
     const mockOnClick = jest.fn();
 
     const props = {
+      id        : 'modal-click-second',
       isShow    : true,
       hasOverlay: true,
       title     : 'with overlay',

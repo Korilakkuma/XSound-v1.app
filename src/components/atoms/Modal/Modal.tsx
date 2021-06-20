@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import ReactDOM from 'react-dom';
 
 export interface Props {
+  id: string;
   isShow: boolean;
   hasOverlay: boolean;
   title: string;
@@ -36,15 +37,25 @@ const Overlay: React.FC<OverlayProps> = (props: OverlayProps) => {
 };
 
 const ModalBody: React.FC<Props> = (props: Props) => {
-  const { isShow, hasOverlay, title, asAlert, children, onClose } = props;
+  const { id, isShow, hasOverlay, title, asAlert, children, onClose } = props;
+
+  const labelId    = `label-${id}`;
+  const describeId = `describe-${id}`;
 
   return (
-    <div className={`Modal${isShow ? ' -show' : ''}`} role={asAlert ? 'alert' : undefined}>
+    <div
+      role="dialog"
+      tabIndex={-1}
+      aria-modal={isShow}
+      aria-labelledby={labelId}
+      aria-describedby={describeId}
+      className={`Modal${isShow ? ' -show' : ''}`}
+    >
       {hasOverlay ?  <Overlay className="Modal__overlay" onClose={onClose} /> : null}
       <div className="Modal__inner">
         {onClose ? <button type="button" aria-label="Close modal" className="Modal__closer" onClick={onClose}>X</button> : null}
-        <h2 className="Modal__title">{title}</h2>
-        <div className="Modal__contents">{children}</div>
+        <h2 id={labelId} className="Modal__title">{title}</h2>
+        <div role={asAlert ? 'alert' : undefined} id={describeId} className="Modal__contents">{children}</div>
       </div>
     </div>
   );

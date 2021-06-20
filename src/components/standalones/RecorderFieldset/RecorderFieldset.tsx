@@ -235,6 +235,7 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
       </fieldset>
       <SelectableModal
         hasOverlay
+        id="modal-recorder-confirmation"
         isShow={isShowModal}
         title="Confirmation"
         first={{

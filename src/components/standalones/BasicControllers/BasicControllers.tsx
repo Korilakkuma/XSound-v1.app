@@ -299,6 +299,7 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
       />
       <Modal
         hasOverlay
+        id="modal-basic-midi-error"
         isShow={isShowModalForMIDIError}
         title="Error"
         asAlert={true}

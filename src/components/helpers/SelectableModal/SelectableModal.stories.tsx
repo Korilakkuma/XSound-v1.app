@@ -50,6 +50,7 @@ const Template: Story<Props> = (args: Props) => {
 export const Primary = Template.bind({});
 
 Primary.args = {
+  id        : 'modal-without-overlay',
   hasOverlay: false,
   title     : 'without overlay'
 };
@@ -57,6 +58,7 @@ Primary.args = {
 export const Secondary = Template.bind({});
 
 Secondary.args = {
+  id        : 'modal-with-overlay',
   hasOverlay: true,
   title     : 'with overlay'
 };

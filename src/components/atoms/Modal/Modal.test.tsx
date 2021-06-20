@@ -16,6 +16,7 @@ describe('atoms/Modal', () => {
     const mockOnClose = jest.fn();
 
     const props = {
+      id        : 'modal-click-button',
       isShow    : true,
       hasOverlay: true,
       title     : 'has overlay',
@@ -34,6 +35,7 @@ describe('atoms/Modal', () => {
     const mockOnClose = jest.fn();
 
     const props = {
+      id        : 'modal-click-overlay',
       isShow    : true,
       hasOverlay: true,
       title     : 'has overlay',

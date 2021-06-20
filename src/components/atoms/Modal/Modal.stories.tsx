@@ -36,6 +36,7 @@ const Template: Story<Props> = (args: Props) => {
 export const Primary = Template.bind({});
 
 Primary.args = {
+  id        : 'modal-without-overlay',
   hasOverlay: false,
   title     : 'without overlay',
   asAlert   : false
@@ -44,6 +45,7 @@ Primary.args = {
 export const Secondary = Template.bind({});
 
 Secondary.args = {
+  id        : 'modal-with-overlay',
   hasOverlay: true,
   title     : 'with overlay',
   asAlert   : false
@@ -52,7 +54,8 @@ Secondary.args = {
 export const Tertiary = Template.bind({});
 
 Tertiary.args = {
+  id        : 'modal-alert',
   hasOverlay: false,
-  title     : 'without overlay',
+  title     : 'Alert',
   asAlert   : true
 };
