@@ -380,6 +380,8 @@ export const MML: React.FC<Props> = (props: Props) => {
       return;
     }
 
+    let unmounted = false;
+
     X('mml').setup({
       start: startMelodyCallback,
       stop : stopMelodyCallback,
@@ -401,9 +403,17 @@ export const MML: React.FC<Props> = (props: Props) => {
         fetch('/assets/mmls/tears.json')
       ])
       .then((responses: Response[]) => {
+        if (unmounted) {
+          return Promise.reject();
+        }
+
         return responses.map((response: Response) => response.json());
       })
       .then((promises: Promise<MMLInfo>[]) => {
+        if (unmounted) {
+          return;
+        }
+
         promises.forEach((promise: Promise<MMLInfo>) => {
           promise
             .then((json: MMLInfo) => {
@@ -446,6 +456,10 @@ export const MML: React.FC<Props> = (props: Props) => {
       .finally(() => {
         setLoaded(true);
       });
+
+    return () => {
+      unmounted = true;
+    };
   }, [
     loadedApp,
     loaded,
