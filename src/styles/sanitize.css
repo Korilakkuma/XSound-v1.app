@@ -535,6 +535,8 @@ textarea,
 [aria-disabled="true"],
 [disabled] {
   cursor: not-allowed !important;
+  opacity: 0.6;
+  transition: opacity ease 0.6s;
 }
 
 /*
