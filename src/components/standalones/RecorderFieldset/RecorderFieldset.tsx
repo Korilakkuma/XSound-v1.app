@@ -173,32 +173,34 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
         <div className="RecorderFieldset__buttons">
           <button
             type="button"
-            className={`RecorderFieldset__controller${running ? ' -active' : ''}`}
             aria-label={running ? 'Stop Recording' : 'Start Recording'}
+            className={`RecorderFieldset__controller${running ? ' -active' : ''}`}
             onClick={onClickRecordButtonCallback}
           >
           </button>
           <button
             type="button"
-            className={`RecorderFieldset__creator${creating ? ' -active' : ''}`}
+            disabled={running}
             aria-label={creating ? 'Now creating WAVE file' : 'Create WAVE file'}
+            className={`RecorderFieldset__creator${creating ? ' -active' : ''}`}
             onClick={onClickCreateButtonCallback}
           >
           </button>
           <a
             href={objectURL}
             download={objectURL ? createFilename('record-', '.wav') : null}
-            className="RecorderFieldset__download"
             aria-label="Download"
-            aria-disabled={Boolean(objectURL === '')}
+            aria-disabled={running || Boolean(objectURL === '')}
             tabIndex={objectURL === '' ? -1 : 0}
+            className="RecorderFieldset__download"
             onClick={onClickDownloadButtonCallback}
           >
           </a>
           <button
             type="button"
-            className="RecorderFieldset__clear"
+            disabled={running}
             aria-label="Clear Track"
+            className="RecorderFieldset__clear"
             onClick={onClickClearButtonCallback}
           >
           </button>
@@ -209,7 +211,7 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
           label="Select Track"
           values={['0', '1', '2', '3']}
           texts={['TRACK 1', 'TRACK 2', 'TRACK 3', 'TRACK 4']}
-          disabled={false}
+          disabled={running}
           onChange={onChangeTrackCallback}
         />
         <Spacer space={16} />
