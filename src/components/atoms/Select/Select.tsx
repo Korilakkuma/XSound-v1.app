@@ -8,6 +8,7 @@ export interface Props {
   disabled: boolean;
   width?: string;
   defaultValue?: string;
+  tabIndex?: number;
   onChange(event: React.ChangeEvent<HTMLSelectElement>): void;
 }
 
@@ -20,6 +21,7 @@ export const Select: React.FC<Props> = (props: Props) => {
     disabled,
     width,
     defaultValue,
+    tabIndex,
     onChange
   } = props;
 
@@ -32,6 +34,7 @@ export const Select: React.FC<Props> = (props: Props) => {
         style={width ? { width } : undefined}
         disabled={disabled}
         defaultValue={defaultValue}
+        tabIndex={tabIndex}
         onChange={onChange}
       >
         {values.map((value: string, index: number) => {

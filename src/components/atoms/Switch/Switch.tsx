@@ -5,11 +5,12 @@ export interface Props {
   label: string;
   checked: boolean;
   controls?: string;
+  tabIndex?: number;
   onChange(event: React.ChangeEvent<HTMLInputElement>): void;
 }
 
 export const Switch: React.FC<Props> = (props: Props) => {
-  const { id, label, checked, controls, onChange } = props;
+  const { id, label, checked, controls, tabIndex = 0, onChange } = props;
 
   const checkboxRef = useRef<HTMLInputElement>(null);
 
@@ -33,7 +34,7 @@ export const Switch: React.FC<Props> = (props: Props) => {
     <div
       role="switch"
       aria-checked={checked}
-      tabIndex={0}
+      tabIndex={tabIndex}
       className={`Switch${checked ? ' -checked' : ''}`}
       onKeyDown={onKeyDownCallback}
     >

@@ -503,16 +503,18 @@ export const MML: React.FC<Props> = (props: Props) => {
       <div className="MML__controllers">
         <button
           type="button"
-          className={`MML__controller${paused ? ' -paused' : ''}`}
           disabled={!melody && !bass}
           aria-label={paused ? 'Start' : 'Pause'}
+          tabIndex={active ? 0 : -1}
+          className={`MML__controller${paused ? ' -paused' : ''}`}
           onClick={onClickMMLControllerCallback}
         >
         </button>
         <button
           type="button"
-          className="MML__rewinder"
           aria-label="Rewind"
+          tabIndex={active ? 0 : -1}
+          className="MML__rewinder"
           onClick={onClickRewindButtonCallback}
         >
         </button>
@@ -520,8 +522,9 @@ export const MML: React.FC<Props> = (props: Props) => {
           href={dataURL}
           download={dataURL ? createFilename('mml-', '.json') : null}
           role="button"
-          className="MML__download"
+          tabIndex={active ? 0 : -1}
           aria-label="Download"
+          className="MML__download"
           onClick={onClickDownloadButtonCallback}
         >
         </a>
@@ -529,6 +532,7 @@ export const MML: React.FC<Props> = (props: Props) => {
           id="mml-switch-highlight"
           label="Highlight"
           checked={highlight}
+          tabIndex={active ? 0 : -1}
           onChange={onChangeHightlightCallback}
         />
         <FileUploader
@@ -539,6 +543,7 @@ export const MML: React.FC<Props> = (props: Props) => {
           filename={filename}
           drag={drag}
           drop={drop}
+          tabIndex={active ? 0 : -1}
           onChange={onChangeFileCallback}
           onDragEnter={onDragEnterCallback}
           onDragOver={onDragOverCallback}
@@ -552,6 +557,7 @@ export const MML: React.FC<Props> = (props: Props) => {
           texts={texts}
           disabled={!paused}
           width="200px"
+          tabIndex={active ? 0 : -1}
           onChange={onChangeSampleMMLCallback}
         />
       </div>

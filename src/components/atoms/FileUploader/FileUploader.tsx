@@ -8,6 +8,7 @@ export interface Props {
   filename: string;
   drag: boolean;
   drop: boolean;
+  tabIndex?: number;
   onChange(event: React.ChangeEvent<HTMLInputElement>): void;
   onDragEnter(event: React.DragEvent<HTMLDivElement>): void;
   onDragOver(event: React.DragEvent<HTMLDivElement>): void;
@@ -24,6 +25,7 @@ export const FileUploader: React.FC<Props> = (props: Props) => {
     filename,
     drag,
     drop,
+    tabIndex,
     onChange,
     onDragEnter,
     onDragOver,
@@ -56,6 +58,7 @@ export const FileUploader: React.FC<Props> = (props: Props) => {
         type="button"
         aria-controls={id}
         disabled={disabled}
+        tabIndex={tabIndex}
         className="text-ellipsis"
         onClick={onClickCallback}
       >

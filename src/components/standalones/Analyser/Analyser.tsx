@@ -227,6 +227,7 @@ export const Analyser: React.FC<Props> = (props: Props) => {
                 type="button"
                 className={`Analyser__channelSelector -${showTimeOverview}`}
                 aria-label="Select Channel"
+                tabIndex={active ? 0 : -1}
                 onClick={onClickChannelCallback}
               >
               </button>
@@ -251,6 +252,7 @@ export const Analyser: React.FC<Props> = (props: Props) => {
           label="Audio Sprite"
           id="analyser-audio-sprite-mode"
           checked={analyser}
+          tabIndex={active ? 0 : -1}
           onChange={onChangeModeCallback}
         />
         <Spacer direction="right" space={12} />
@@ -262,6 +264,7 @@ export const Analyser: React.FC<Props> = (props: Props) => {
           max={1000}
           step={10}
           width="20%"
+          tabIndex={active ? 0 : -1}
           onChange={onChangeIntervalCallback}
         />
         <Spacer direction="right" space={12} />
@@ -273,6 +276,7 @@ export const Analyser: React.FC<Props> = (props: Props) => {
           max={1}
           step={0.05}
           width="20%"
+          tabIndex={active ? 0 : -1}
           onChange={onChangeSmoothingCallback}
         />
       </div>

@@ -10,6 +10,7 @@ export interface Props {
   step: number;
   defaultValue: number;
   width?: string;
+  tabIndex?: number;
   onChange(event: React.SyntheticEvent): void;
 }
 
@@ -22,6 +23,7 @@ export const ValueController: React.FC<Props> = (props: Props) => {
     step,
     defaultValue,
     width,
+    tabIndex,
     onChange
   } = props;
 
@@ -48,6 +50,7 @@ export const ValueController: React.FC<Props> = (props: Props) => {
           min={min}
           max={max}
           step={step}
+          tabIndex={tabIndex}
           onChange={onChangeCallback}
         />
       </dt>
@@ -57,6 +60,7 @@ export const ValueController: React.FC<Props> = (props: Props) => {
           min={min}
           max={max}
           step={step}
+          tabIndex={tabIndex}
           onChange={onChangeCallback}
         />
       </dd>
