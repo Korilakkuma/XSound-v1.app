@@ -482,9 +482,9 @@ export const MML: React.FC<Props> = (props: Props) => {
         <dl>
           <dt>Melody</dt>
           <dd
-            contentEditable={paused}
+            contentEditable={active && paused}
             dangerouslySetInnerHTML={{ __html: melody }}
-            aria-disabled={!paused}
+            aria-disabled={!active || !paused}
             className={highlight ? '-highlight' : ''}
             onBlur={onBlurMelodyCallback}
           />
@@ -492,9 +492,9 @@ export const MML: React.FC<Props> = (props: Props) => {
         <dl>
           <dt>Bass</dt>
           <dd
-            contentEditable={paused}
+            contentEditable={active && paused}
             dangerouslySetInnerHTML={{ __html: bass }}
-            aria-disabled={!paused}
+            aria-disabled={!active || !paused}
             className={highlight ? '-highlight' : ''}
             onBlur={onBlurBassCallback}
           />
