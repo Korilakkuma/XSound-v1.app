@@ -49,8 +49,13 @@
   background-color: var(--assort-color);
 }
 
+.MML__editor > dl > dd[contentEditable][aria-disabled="true"] {
+  opacity: 1;
+  color: rgba(255, 255, 255, 0.6);
+}
+
 .MML__editor > dl > dd[contentEditable].-highlight > span:last-of-type {
-  color: var(--assort-color);
+  color: var(--white);
 }
 
 .MML__controllers {
