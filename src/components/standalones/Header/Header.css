@@ -231,6 +231,9 @@
   margin: 0 auto;
   width: 136px;
   height: 50px;
+  text-indent: 136px;
+  white-space: nowrap;
+  overflow: hidden;
 
   /* for Retina Display */
   background-size: 136px 150px;
