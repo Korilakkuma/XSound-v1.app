@@ -1,5 +1,6 @@
 import React, { useEffect, useCallback } from 'react';
 import ReactDOM from 'react-dom';
+import { FOCUSABLE_ELEMENTS } from '../../../config';
 
 export interface Props {
   id: string;
@@ -15,8 +16,6 @@ interface OverlayProps {
   className: string;
   onClose?(event: React.MouseEvent<HTMLButtonElement | HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>): void;
 }
-
-const FOCUSABLE_ELEMENTS = 'a, button, input:not([type="checkbox"]):not([type="file"]), select, textarea, svg, [tabindex], [contentEditable]';
 
 const Overlay: React.FC<OverlayProps> = (props: OverlayProps) => {
   const { className, onClose } = props;

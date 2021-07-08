@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { ProgressBar } from '../../atoms/ProgressBar';
+import { FOCUSABLE_ELEMENTS } from '../../../config';
 
 export interface Props {
   progress: boolean;
   rate: number;
 }
-
-const FOCUSABLE_ELEMENTS = 'a, button, input:not([type="checkbox"]):not([type="file"]), select, textarea, svg, [tabindex], [contentEditable]';
 
 export const Header: React.FC<Props> = (props: Props) => {
   const { progress, rate } = props;
