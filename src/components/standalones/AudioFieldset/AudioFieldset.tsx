@@ -151,7 +151,7 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
 
     const index = Math.floor(currentTime * source.buffer.sampleRate);
 
-    if ((index % source.buffer.sampleRate) !== 0) {
+    if ((index % (source.buffer.sampleRate / 100)) !== 0) {
       return;
     }
 
