@@ -152,6 +152,7 @@ export const Analyser: React.FC<Props> = (props: Props) => {
         { offset: 1, color: 'rgba(0,   0, 255, 1.0)' }
       ],
       grid : 'rgba(255, 255, 255, 0.2)',
+      currentTime: 'rgba(255, 255, 255, 0.1)',
       font : {
         family: 'Arial',
         size  : '12px',
