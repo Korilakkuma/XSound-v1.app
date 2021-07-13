@@ -95,7 +95,7 @@ export const Analyser: React.FC<Props> = (props: Props) => {
           fftSize              : 2048,
           minDecibels          : -100,
           maxDecibels          : -30,
-          smoothingTimeConstant: 0.1
+          smoothingTimeConstant: 0.8
         });
 
       X(source)
