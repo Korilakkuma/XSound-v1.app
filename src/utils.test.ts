@@ -25,7 +25,7 @@ describe(createFilename.name, () => {
     jest.spyOn(Date.prototype, 'getMinutes').mockReturnValueOnce(1);
     jest.spyOn(Date.prototype, 'getSeconds').mockReturnValueOnce(1);
 
-    const actual   = createFilename('prefix-', '.wav');
+    const actual   = createFilename('prefix-', 'wav');
     const expected = 'prefix-19700101010101.wav';
 
     expect(actual).toBe(expected);
@@ -39,7 +39,7 @@ describe(createFilename.name, () => {
     jest.spyOn(Date.prototype, 'getMinutes').mockReturnValueOnce(59);
     jest.spyOn(Date.prototype, 'getSeconds').mockReturnValueOnce(59);
 
-    const actual   = createFilename('prefix-', '.wav');
+    const actual   = createFilename('prefix-', 'wav');
     const expected = 'prefix-19701231235959.wav';
 
     expect(actual).toBe(expected);

@@ -20,5 +20,5 @@ export function createFilename(prefix: string, ext: string): string {
   const i = format(date.getMinutes());
   const s = format(date.getSeconds());
 
-  return `${prefix}${y}${m}${d}${h}${i}${s}${ext}`;
+  return `${prefix}${y}${m}${d}${h}${i}${s}.${ext}`;
 }

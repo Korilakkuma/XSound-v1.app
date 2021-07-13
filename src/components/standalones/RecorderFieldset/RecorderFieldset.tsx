@@ -188,7 +188,7 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
           </button>
           <a
             href={objectURL}
-            download={objectURL ? createFilename('record-', '.wav') : null}
+            download={objectURL ? createFilename('record-', 'wav') : null}
             aria-label="Download"
             aria-disabled={running || Boolean(objectURL === '')}
             tabIndex={objectURL === '' ? -1 : 0}

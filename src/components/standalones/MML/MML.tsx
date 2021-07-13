@@ -520,7 +520,7 @@ export const MML: React.FC<Props> = (props: Props) => {
         </button>
         <a
           href={dataURL}
-          download={dataURL ? createFilename('mml-', '.json') : null}
+          download={dataURL ? createFilename('mml-', 'json') : null}
           role="button"
           tabIndex={active ? 0 : -1}
           aria-label="Download"
