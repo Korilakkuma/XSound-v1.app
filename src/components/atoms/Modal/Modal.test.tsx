@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { act, render, screen, fireEvent } from '@testing-library/react';
 import { Modal } from './Modal';
 
 jest.mock('react-dom', () => {
@@ -10,6 +10,8 @@ jest.mock('react-dom', () => {
     createPortal: (node: Node) => node
   };
 });
+
+jest.useFakeTimers();
 
 describe('atoms/Modal', () => {
   test('click close button', () => {
@@ -28,7 +30,11 @@ describe('atoms/Modal', () => {
 
     fireEvent.click(screen.getAllByRole('button')[1]);
 
-    expect(mockOnClose.mock.calls.length).toBe(1);
+    act(() => {
+      jest.advanceTimersByTime(600);
+    });
+
+    expect(mockOnClose).toBeCalledTimes(1);
   });
 
   test('click overlay', () => {
@@ -47,6 +53,10 @@ describe('atoms/Modal', () => {
 
     fireEvent.click(screen.getAllByRole('button')[0]);
 
-    expect(mockOnClose.mock.calls.length).toBe(1);
+    act(() => {
+      jest.advanceTimersByTime(600);
+    });
+
+    expect(mockOnClose).toBeCalledTimes(1);
   });
 });

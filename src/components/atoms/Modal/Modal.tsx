@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import { FOCUSABLE_ELEMENTS } from '../../../config';
 
@@ -40,8 +40,23 @@ const Overlay: React.FC<OverlayProps> = (props: OverlayProps) => {
 const ModalBody: React.FC<Props> = (props: Props) => {
   const { id, isShow, hasOverlay, title, asAlert, children, onClose } = props;
 
+  const [closing, setClosing] = useState<boolean>(false);
+
   const labelId    = `label-${id}`;
   const describeId = `describe-${id}`;
+
+  const onCloseCallback = useCallback((event: React.MouseEvent<HTMLButtonElement | HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => {
+    if (!onClose) {
+      return;
+    }
+
+    setClosing(true);
+
+    setTimeout(() => {
+      onClose(event);
+      setClosing(false);
+    }, 600);
+  }, [onClose]);
 
   useEffect(() => {
     const root = document.getElementById('app');
@@ -82,11 +97,11 @@ const ModalBody: React.FC<Props> = (props: Props) => {
       aria-modal={isShow}
       aria-labelledby={labelId}
       aria-describedby={describeId}
-      className={`Modal${isShow ? ' -show' : ''}`}
+      className={`Modal${isShow ? ' -show' : ''}${closing ? ' -closing' : ''}`}
     >
-      {hasOverlay ?  <Overlay className="Modal__overlay" onClose={onClose} /> : null}
+      {hasOverlay ? <Overlay className="Modal__overlay" onClose={onCloseCallback} /> : null}
       <div className="Modal__inner">
-        {onClose ? <button type="button" aria-label="Close modal" className="Modal__closer" onClick={onClose}>X</button> : null}
+        {onClose ? <button type="button" aria-label="Close modal" className="Modal__closer" onClick={onCloseCallback}>X</button> : null}
         <h2 id={labelId} className="Modal__title">{title}</h2>
         <div role={asAlert ? 'alert' : undefined} id={describeId} className="Modal__contents">{children}</div>
       </div>
