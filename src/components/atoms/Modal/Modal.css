@@ -1,5 +1,7 @@
 .Modal {
-  display: none;
+  visibility: hidden;
+  opacity: 0;
+  animation: modal-fade-out-animation 0.6s ease 1 normal 0s forwards;
 }
 
 .Modal.-show {
@@ -19,33 +21,29 @@
   justify-content: center;
   -webkit-align-items: center;
   align-items: center;
-  animation: modal-fade-in-animation 0.6s ease 1 normal 0s;
-}
-
-.Modal.-closing {
-  animation: modal-fade-out-animation 0.6s ease 1 normal 0s;
+  animation: modal-fade-in-animation 0.6s ease 1 normal 0s forwards;
 }
 
 @keyframes modal-fade-in-animation {
   0% {
-    display: block;
+    visibility: hidden;
     opacity: 0;
   }
 
   100% {
-    display: block;
+    visibility: visible;
     opacity: 1;
   }
 }
 
 @keyframes modal-fade-out-animation {
   0% {
-    display: block;
+    visibility: visible;
     opacity: 1;
   }
 
   100% {
-    display: block;
+    visibility: hidden;
     opacity: 0;
   }
 }
