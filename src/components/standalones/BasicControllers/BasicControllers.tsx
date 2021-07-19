@@ -11,7 +11,9 @@ import {
 import {
   changeCurrentSoundSource,
   changeAnalyserState,
-  changeMMLState
+  changeMMLState,
+  downMelodyKeyboards,
+  upMelodyKeyboards
 } from '../../../actions';
 import { Switch } from '../../atoms/Switch';
 import { Select } from '../../atoms/Select';
@@ -51,9 +53,9 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
       const targetIndex = noteNumber - MIN_NOTE_NUMBER;
       const volume      = velocity / MAX_VELOCITY;
 
-      if (source === 'oscillator') {
-        indexes.push(targetIndex);
+      indexes.push(targetIndex);
 
+      if (source === 'oscillator') {
         volumes[0] = X('oscillator', 0).param('volume');
         volumes[1] = window.C('oscillator', 0).param('volume');
 
@@ -80,6 +82,8 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
         X('oneshot').module('recorder').start();
         X('oneshot').module('session').start();
       }
+
+      dispatch(downMelodyKeyboards(indexes));
     };
 
     const noteOff = (noteNumber: number, velocity: number) => {
@@ -93,13 +97,13 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
 
       const targetIndex = noteNumber - MIN_NOTE_NUMBER;
 
+      const index = indexes.indexOf(targetIndex);
+
+      if (index !== -1) {
+        indexes.splice(index, 1);
+      }
+
       if (source === 'oscillator') {
-        const index = indexes.indexOf(targetIndex);
-
-        if (index !== -1) {
-          indexes.splice(index, 1);
-        }
-
         X('oscillator').stop();
         window.C('oscillator').stop();
 
@@ -115,6 +119,8 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
       } else {
         X('oneshot').stop(targetIndex).reset(targetIndex, 'volume', 1);
       }
+
+      dispatch(upMelodyKeyboards(indexes));
     };
 
     if (inputs.length > 0) {
@@ -135,7 +141,7 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
     if (outputs.length > 0) {
       // TODO: do something ...
     }
-  }, []);
+  }, [dispatch]);
 
   const onChangeMasterVolumeCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     props.sources.forEach((source: XSoundSource) => {
