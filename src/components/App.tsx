@@ -925,7 +925,7 @@ export const App: React.FC<Props> = () => {
         </Flexbox>
         <Analyser loadedApp={loadedApp} sources={sources} />
         <MML loadedApp={loadedApp} currentSoundSource={currentSoundSource} />
-        <BasicControllers sources={sources} />
+        <BasicControllers sources={sources} currentSoundSource={currentSoundSource} />
         <Piano currentSoundSource={currentSoundSource} />
         <Flexbox>
           <VerticalBox>

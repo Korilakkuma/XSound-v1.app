@@ -23,6 +23,7 @@ import { X } from 'xsound';
 
 export interface Props {
   sources: XSoundSource[];
+  currentSoundSource: SoundSource;
 }
 
 const MIN_NOTE_NUMBER = 21;
@@ -37,7 +38,7 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
 
   const dispatch = useDispatch();
 
-  const successCallback = useCallback((source: SoundSource, midiAccess: MIDIAccess, inputs: MIDIInput[], outputs: MIDIOutput[]) => {
+  const successCallback = useCallback((source: XSoundSource, midiAccess: MIDIAccess, inputs: MIDIInput[], outputs: MIDIOutput[], offset: number) => {
     const indexes: number[] = [];
     const volumes: number[] = [];
 
@@ -77,7 +78,7 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
         X('mixer').module('recorder').start();
         X('mixer').module('session').start();
       } else {
-        X('oneshot').reset(targetIndex, 'volume', volume).ready(0, 0).start(targetIndex);
+        X('oneshot').reset(targetIndex, 'volume', volume).ready(0, 0).start(targetIndex + offset);
 
         X('oneshot').module('recorder').start();
         X('oneshot').module('session').start();
@@ -117,7 +118,7 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
           window.C('oscillator').get(i).param('volume', volumes[1]);
         }
       } else {
-        X('oneshot').stop(targetIndex).reset(targetIndex, 'volume', 1);
+        X('oneshot').stop(targetIndex + offset).reset(targetIndex, 'volume', 1);
       }
 
       dispatch(upMelodyKeyboards(indexes));
@@ -197,7 +198,23 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
       case 'midi':
         try {
           X('midi').setup(true, (midiAccess: MIDIAccess, inputs: MIDIInput[], outputs: MIDIOutput[]) => {
-            successCallback(source, midiAccess, inputs, outputs);
+            switch (props.currentSoundSource) {
+              case 'oscillator':
+                successCallback('oscillator', midiAccess, inputs, outputs, 0);
+                break;
+              case 'piano':
+                successCallback('oneshot', midiAccess, inputs, outputs, 0);
+                break;
+              case 'guitar':
+                successCallback('oneshot', midiAccess, inputs, outputs, 88);
+                break;
+              case 'electric-guitar':
+                successCallback('oneshot', midiAccess, inputs, outputs, 88 + 88);
+                break;
+              default:
+                successCallback('noise', midiAccess, inputs, outputs, 0);
+                break;
+            }
           }, () => {
             setErrorMessage('Cannot use Web MIDI API.');
             setIsShowModalForMIDIError(true);
@@ -211,7 +228,7 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
       default:
         break;
     }
-  }, [props.sources, dispatch, successCallback]);
+  }, [props.sources, props.currentSoundSource, dispatch, successCallback]);
 
   const onChangeAnalyserStateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(changeAnalyserState(event.currentTarget.checked));
