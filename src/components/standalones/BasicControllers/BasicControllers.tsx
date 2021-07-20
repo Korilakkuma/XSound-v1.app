@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import {
   SoundSource,
@@ -12,8 +12,7 @@ import {
   changeCurrentSoundSource,
   changeAnalyserState,
   changeMMLState,
-  downMelodyKeyboards,
-  upMelodyKeyboards
+  downMelodyKeyboards
 } from '../../../actions';
 import { Switch } from '../../atoms/Switch';
 import { Select } from '../../atoms/Select';
@@ -38,10 +37,9 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
 
   const dispatch = useDispatch();
 
-  const successCallback = useCallback((source: XSoundSource, midiAccess: MIDIAccess, inputs: MIDIInput[], outputs: MIDIOutput[], offset: number) => {
-    const indexes: number[] = [];
-    const volumes: number[] = [];
+  const indexes: number[] = useMemo(() => [], []);
 
+  const successCallback = useCallback((source: XSoundSource, midiAccess: MIDIAccess, inputs: MIDIInput[], outputs: MIDIOutput[], offset: number) => {
     const noteOn = (noteNumber: number, velocity: number) => {
       if ((noteNumber < MIN_NOTE_NUMBER) || (noteNumber > MAX_NOTE_NUMBER)) {
         return;
@@ -57,9 +55,6 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
       indexes.push(targetIndex);
 
       if (source === 'oscillator') {
-        volumes[0] = X('oscillator', 0).param('volume');
-        volumes[1] = window.C('oscillator', 0).param('volume');
-
         for (let i = 0, len = X('oscillator').length(); i < len; i++) {
           if (i !== 0) {
             X('oscillator').get(i).state(true);
@@ -113,15 +108,12 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
             X('oscillator').get(i).state(false);
             window.C('oscillator').get(i).state(false);
           }
-
-          X('oscillator').get(i).param('volume', volumes[0]);
-          window.C('oscillator').get(i).param('volume', volumes[1]);
         }
       } else {
         X('oneshot').stop(targetIndex + offset).reset(targetIndex, 'volume', 1);
       }
 
-      dispatch(upMelodyKeyboards(indexes));
+      dispatch(downMelodyKeyboards(indexes));
     };
 
     if (inputs.length > 0) {
@@ -142,7 +134,7 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
     if (outputs.length > 0) {
       // TODO: do something ...
     }
-  }, [dispatch]);
+  }, [dispatch, indexes]);
 
   const onChangeMasterVolumeCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     props.sources.forEach((source: XSoundSource) => {
