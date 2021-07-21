@@ -16,6 +16,8 @@ import { Modal } from '../../atoms/Modal';
 import { SelectableModal } from '../../helpers/SelectableModal';
 import { X } from 'xsound';
 
+type MMLErrors = 'tempo' | 'octave' | 'note' | 'rest' | 'tie' | 'unknown';
+
 interface MMLInfo {
   title: string;
   artist: string;
@@ -64,7 +66,7 @@ export const MML: React.FC<Props> = (props: Props) => {
   const [values, setValues] = useState<string[]>(['{"melody":"","bass":""}']);
   const [texts, setTexts] = useState<string[]>(['SAMPLE MML']);
   const [errorMessage, setErrorMessage] = useState<string>('');
-  // const [errorMessageForMML, setErrorMessageForMML] = useState<string>('');
+  const [errorMessageForMML, setErrorMessageForMML] = useState<string>('');
   const [isShowModalForFileUploadError, setIsShowModalForFileUploadError] = useState<boolean>(false);
   const [isShowModalForProgress, setIsShowModalForProgress] = useState<boolean>(false);
   const [isShowModalConfirmation, setIsShowModalConfirmation] = useState<boolean>(false);
@@ -198,22 +200,17 @@ export const MML: React.FC<Props> = (props: Props) => {
     setPaused(true);
   }, [dispatch, readyMMLCallback]);
 
-  const errorCallback = useCallback((error: string, note: string) => {
-    // TODO:
+  const errorCallback = useCallback((error: MMLErrors) => {
     switch (error) {
-      case 'TEMPO' :
-      case 'OCTAVE':
-      case 'NOTE'  :
-        // eslint-disable-next-line no-console
-        console.error(`Maybe, ${note} is invalid.`);
-        break;
-      case 'MML':
-        // eslint-disable-next-line no-console
-        console.error('The designated MML is invalid.');
+      case 'tempo' :
+      case 'octave':
+      case 'note'  :
+      case 'rest'  :
+      case 'tie'   :
+        setErrorMessageForMML(`${error} is invalid`);
         break;
       default:
-        // eslint-disable-next-line no-console
-        console.error('The designated MML is invalid.');
+        setErrorMessageForMML('MML is invalid');
         break;
     }
   }, []);
@@ -480,7 +477,7 @@ export const MML: React.FC<Props> = (props: Props) => {
     <div id="mml-fieldset" aria-hidden={!active} className={`MML${active ? ' -active' : ''}`}>
       <div className="MML__editor">
         <dl>
-          <dt>Melody</dt>
+          <dt>Melody{errorMessageForMML ? <span>{errorMessageForMML}</span> : null}</dt>
           <dd
             contentEditable={active && paused}
             dangerouslySetInnerHTML={{ __html: melody }}
@@ -490,7 +487,7 @@ export const MML: React.FC<Props> = (props: Props) => {
           />
         </dl>
         <dl>
-          <dt>Bass</dt>
+          <dt>Bass{errorMessageForMML ? <span>{errorMessageForMML}</span> : null}</dt>
           <dd
             contentEditable={active && paused}
             dangerouslySetInnerHTML={{ __html: bass }}
