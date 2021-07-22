@@ -18,6 +18,7 @@ import { Switch } from '../../atoms/Switch';
 import { Select } from '../../atoms/Select';
 import { Modal } from '../../atoms/Modal';
 import { ValueController } from '../../helpers/ValueController';
+import { NUMBER_OF_ONESHOTS } from '../../../config';
 import { X } from 'xsound';
 
 export interface Props {
@@ -198,10 +199,10 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
                 successCallback('oneshot', midiAccess, inputs, outputs, 0);
                 break;
               case 'guitar':
-                successCallback('oneshot', midiAccess, inputs, outputs, 88);
+                successCallback('oneshot', midiAccess, inputs, outputs, NUMBER_OF_ONESHOTS);
                 break;
               case 'electric-guitar':
-                successCallback('oneshot', midiAccess, inputs, outputs, 88 + 88);
+                successCallback('oneshot', midiAccess, inputs, outputs, (NUMBER_OF_ONESHOTS + NUMBER_OF_ONESHOTS));
                 break;
               default:
                 successCallback('noise', midiAccess, inputs, outputs, 0);
