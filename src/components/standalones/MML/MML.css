@@ -70,11 +70,6 @@
   margin-top: 24px;
 }
 
-.MML__meta {
-  font-size: 18px;
-  color: var(--assort-color);
-}
-
 .MML__controller {
   display: block;
   width: 63px;
