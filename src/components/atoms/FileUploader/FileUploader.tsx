@@ -59,7 +59,6 @@ export const FileUploader: React.FC<Props> = (props: Props) => {
         aria-controls={id}
         disabled={disabled}
         tabIndex={tabIndex}
-        className="text-ellipsis"
         onClick={onClickCallback}
       >
         {filename ? filename : placeholder}
@@ -72,7 +71,6 @@ export const FileUploader: React.FC<Props> = (props: Props) => {
         disabled={disabled}
         placeholder={placeholder}
         tabIndex={-1}
-        className="visually-hidden"
         onChange={onChange}
       />
     </div>

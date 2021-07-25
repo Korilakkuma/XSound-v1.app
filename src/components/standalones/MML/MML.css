@@ -158,7 +158,7 @@
 }
 
 /* HACK */
-.MML__controllers > .Select {
+.MML__controllers > .Select > select {
   margin: 0 0 0 12px;
   padding-left: 12px;
   font-size: 9px;

@@ -24,13 +24,11 @@ export const GroupSelect: React.FC<Props> = (props: Props) => {
   } = props;
 
   return (
-    <React.Fragment>
-      <label htmlFor={id} className="visually-hidden">{label}</label>
+    <div className="GroupSelect" style={width ? { width } : undefined}>
+      <label htmlFor={id}>{label}</label>
       <select
         id={id}
-        style={width ? { width } : undefined}
         defaultValue={defaultValue}
-        className="GroupSelect"
         onChange={onChange}
       >
         {groups.map((group: string, key: number) => {
@@ -43,6 +41,6 @@ export const GroupSelect: React.FC<Props> = (props: Props) => {
           );
         })}
       </select>
-    </React.Fragment>
+    </div>
   );
 };

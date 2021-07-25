@@ -10,6 +10,9 @@
   background-color: var(--black);
   background-image: linear-gradient(to bottom, var(--gray), var(--black));
   box-shadow: 0 0 0 1px var(--black) inset, 0 0 1px 3px rgba(0, 0, 0, 0.3);  /* outer (for emboss) */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .FileUploader > button:focus,
@@ -19,4 +22,16 @@
   background-color: var(--assort-color);
   background-image: linear-gradient(to bottom, var(--base-color), var(--assort-color));
   box-shadow: 0 0 0 1px var(--base-color) inset, 0 0 1px 3px rgba(0, 0, 0, 0.3);  /* outer (for emboss) */
+}
+
+.FileUploader > input[type="file"] {
+  position: absolute;
+  margin: -1px;
+  border: none;
+  padding: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
 }

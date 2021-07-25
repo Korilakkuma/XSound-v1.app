@@ -26,12 +26,10 @@ export const Select: React.FC<Props> = (props: Props) => {
   } = props;
 
   return (
-    <React.Fragment>
-      <label htmlFor={id} className="visually-hidden">{label}</label>
+    <div className="Select" style={width ? { width } : undefined}>
+      <label htmlFor={id}>{label}</label>
       <select
         id={id}
-        className="Select"
-        style={width ? { width } : undefined}
         disabled={disabled}
         defaultValue={defaultValue}
         tabIndex={tabIndex}
@@ -41,6 +39,6 @@ export const Select: React.FC<Props> = (props: Props) => {
           return <option key={value} value={value}>{texts[index]}</option>;
         })}
       </select>
-    </React.Fragment>
+    </div>
   );
 };

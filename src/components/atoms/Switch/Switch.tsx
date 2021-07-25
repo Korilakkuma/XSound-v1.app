@@ -38,7 +38,7 @@ export const Switch: React.FC<Props> = (props: Props) => {
       className={`Switch${checked ? ' -checked' : ''}`}
       onKeyDown={onKeyDownCallback}
     >
-      {controls ? <input type="checkbox" ref={checkboxRef} id={id} checked={checked} aria-controls={controls} tabIndex={-1} className="visually-hidden" onChange={onChange} /> : <input type="checkbox" ref={checkboxRef} id={id} checked={checked} tabIndex={-1} className="visually-hidden" onChange={onChange} />}
+      {controls ? <input type="checkbox" ref={checkboxRef} id={id} checked={checked} aria-controls={controls} tabIndex={-1} onChange={onChange} /> : <input type="checkbox" ref={checkboxRef} id={id} checked={checked} tabIndex={-1} onChange={onChange} />}
       <label htmlFor={id}>{label}<span role="presentation" /></label>
     </div>
   );

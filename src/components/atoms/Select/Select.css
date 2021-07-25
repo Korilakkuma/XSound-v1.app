@@ -1,4 +1,4 @@
-.Select {
+.Select > select {
   -webkit-appearance: none;
   appearance: none;
   cursor: pointer;
@@ -16,16 +16,28 @@
   text-transform: uppercase;
 }
 
-.Select:focus {
+.Select > select:focus {
   outline: none;
   background-image: linear-gradient(to bottom, var(--assort-color), var(--base-color));
 }
 
-.Select:disabled {
+.Select > select:disabled {
   cursor: not-allowed;
 }
 
-.Select > option {
+.Select > select > option {
   /* for Edge and Windows */
   color: var(--black-light);
+}
+
+.Select > label {
+  position: absolute;
+  margin: -1px;
+  border: none;
+  padding: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
 }

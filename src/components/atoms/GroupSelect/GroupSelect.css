@@ -1,4 +1,4 @@
-.GroupSelect {
+.GroupSelect > select {
   -webkit-appearance: none;
   appearance: none;
   cursor: pointer;
@@ -16,12 +16,24 @@
   text-transform: uppercase;
 }
 
-.GroupSelect:focus {
+.GroupSelect > select:focus {
   outline: none;
   background-image: linear-gradient(to bottom, var(--assort-color), var(--base-color));
 }
 
-.GroupSelect > optgroup > option {
+.GroupSelect > select > optgroup > option {
   /* for Edge and Windows */
   color: var(--black-light);
+}
+
+.GroupSelect > label {
+  position: absolute;
+  margin: -1px;
+  border: none;
+  padding: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
 }
