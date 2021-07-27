@@ -55,7 +55,3 @@ a:hover {
   color: var(--base-color);
   text-decoration: underline;
 }
-
-label {
-  cursor: pointer;
-}
