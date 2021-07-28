@@ -21,7 +21,7 @@ const Template: Story<Props> = (args: Props) => {
     setIsShow(false);
   }, []);
 
-  const props = Object.assign({}, args, { isShow, onClose });
+  const props = { ...args, isShow, onClose };
 
   return (
     <React.Fragment>

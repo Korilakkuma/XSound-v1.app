@@ -17,7 +17,7 @@ const Template: Story<Props> = (args: Props) => {
     setValue(event.currentTarget.valueAsNumber);
   }, []);
 
-  const props = Object.assign({}, args, { value, onChange });
+  const props = { ...args, value, onChange };
 
   return (
     <React.Fragment>

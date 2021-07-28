@@ -23,7 +23,7 @@ const Template: Story<Props> = (args: Props) => {
 
   const first = {
     label : 'first',
-    action: useCallback((event: React.MouseEvent<HTMLDivElement>) => {
+    action: useCallback((event: React.MouseEvent<HTMLButtonElement | HTMLDivElement>) => {
       alert(`${event.type} first`);
       onClose();
     }, [onClose])
@@ -31,13 +31,13 @@ const Template: Story<Props> = (args: Props) => {
 
   const second = {
     label : 'second',
-    action: useCallback((event: React.MouseEvent<HTMLDivElement>) => {
+    action: useCallback((event: React.MouseEvent<HTMLButtonElement | HTMLDivElement>) => {
       alert(`${event.type} second`);
       onClose();
     }, [onClose])
   };
 
-  const props = Object.assign({}, args, { isShow, onClose, first, second });
+  const props = { ...args, isShow, onClose, first, second };
 
   return (
     <React.Fragment>
