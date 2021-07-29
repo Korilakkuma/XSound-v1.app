@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { IState, SoundSource } from '../../../types';
+import { IState, SoundSource, MMLErrors, MMLInfo, Sequence } from '../../../types';
 import {
   downMelodyKeyboards,
   downBassKeyboards,
@@ -15,25 +15,6 @@ import { ProgressBar } from '../../atoms/ProgressBar';
 import { Modal } from '../../atoms/Modal';
 import { SelectableModal } from '../../helpers/SelectableModal';
 import { X } from 'xsound';
-
-type MMLErrors = 'tempo' | 'octave' | 'note' | 'rest' | 'tie' | 'unknown';
-
-interface MMLInfo {
-  title: string;
-  artist: string;
-  description: string;
-  melody: string;
-  bass: string;
-}
-
-interface Sequence {
-  indexes: number[];
-  frequencies: number[];
-  start: number;
-  duration: number;
-  stop: number;
-  note: string;
-}
 
 export interface Props {
   loadedApp: boolean;

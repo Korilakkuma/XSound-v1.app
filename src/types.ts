@@ -30,6 +30,8 @@ export type XSoundSource = 'mixer'
 
 export type OscillatorType = 'sine' | 'square' | 'sawtooth' | 'triangle';
 
+export type MMLErrors = 'tempo' | 'octave' | 'note' | 'rest' | 'tie' | 'unknown';
+
 export interface OneshotSettings {
   buffer: number;
   rate: number;
@@ -50,6 +52,23 @@ export interface ConvertedTime {
   minutes: number;
   seconds: number;
   milliseconds: number;
+}
+
+export interface MMLInfo {
+  title: string;
+  artist: string;
+  description: string;
+  melody: string;
+  bass: string;
+}
+
+export interface Sequence {
+  indexes: number[];
+  frequencies: number[];
+  start: number;
+  duration: number;
+  stop: number;
+  note: string;
 }
 
 // HACK:
