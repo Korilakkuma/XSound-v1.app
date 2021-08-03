@@ -4,7 +4,8 @@ import {
   CurrentSoundSourceAction,
   AnalyserStateAction,
   MMLStateAction,
-  KeyboardAction
+  KeyboardAction,
+  MIDIAction
 } from '../types';
 
 export function changeCurrentSoundSource(source: SoundSource): CurrentSoundSourceAction {
@@ -52,6 +53,13 @@ export function upMelodyKeyboards(indexes: number[]): KeyboardAction {
 export function upBassKeyboards(indexes: number[]): KeyboardAction {
   return {
     type   : ActionTypes.UP_BASS_KEYBOARDS,
+    payload: indexes
+  };
+}
+
+export function activateMIDIKeyboards(indexes: number[]): MIDIAction {
+  return {
+    type   : ActionTypes.ACTIVATE_MIDI_KEYBOARDS,
     payload: indexes
   };
 }

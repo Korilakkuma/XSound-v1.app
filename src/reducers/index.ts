@@ -6,7 +6,8 @@ import {
   CurrentSoundSourceAction,
   AnalyserStateAction,
   MMLStateAction,
-  KeyboardAction
+  KeyboardAction,
+  MIDIAction
 } from '../types';
 
 export function currentSoundSource(state = 'oscillator', action: CurrentSoundSourceAction): string {
@@ -66,7 +67,16 @@ export function upMelodyKeyboardIndexes(state: number[] = [], action: KeyboardAc
 export function upBassKeyboardIndexes(state: number[] = [], action: KeyboardAction): number[] {
   switch (action.type) {
     case ActionTypes.UP_BASS_KEYBOARDS:
-      return action.payload;
+      return action.payload.slice(0);  // Return new state by shallow copy
+    default:
+      return state;
+  }
+}
+
+export function activeMIDIKeyboardIndexes(state: number[] = [], action: MIDIAction): number[] {
+  switch (action.type) {
+    case ActionTypes.ACTIVATE_MIDI_KEYBOARDS:
+      return action.payload.slice(0);  // Return new state by shallow copy
     default:
       return state;
   }
@@ -80,5 +90,6 @@ export const rootReducer = (history: History): Reducer => combineReducers({
   downBassKeyboardIndexes,
   upMelodyKeyboardIndexes,
   upBassKeyboardIndexes,
+  activeMIDIKeyboardIndexes,
   router: connectRouter(history)
 });

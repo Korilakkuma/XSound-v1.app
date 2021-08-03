@@ -6,7 +6,8 @@ import {
   downMelodyKeyboards,
   downBassKeyboards,
   upMelodyKeyboards,
-  upBassKeyboards
+  upBassKeyboards,
+  activateMIDIKeyboards
 } from './';
 import { SoundSource } from '../types';
 
@@ -86,5 +87,16 @@ describe('Actions', () => {
     };
 
     expect(upBassKeyboards(payload)).toStrictEqual(expectedAction);
+  });
+
+  test('should create an action to activate MIDI keyboards', () => {
+    const payload = [40, 44, 47];
+
+    const expectedAction = {
+      type: ActionTypes.ACTIVATE_MIDI_KEYBOARDS,
+      payload
+    };
+
+    expect(activateMIDIKeyboards(payload)).toStrictEqual(expectedAction);
   });
 });

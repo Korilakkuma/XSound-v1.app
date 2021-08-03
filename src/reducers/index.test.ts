@@ -5,7 +5,8 @@ import {
   downMelodyKeyboardIndexes,
   downBassKeyboardIndexes,
   upMelodyKeyboardIndexes,
-  upBassKeyboardIndexes
+  upBassKeyboardIndexes,
+  activeMIDIKeyboardIndexes
 } from './';
 import { ActionTypes } from '../actions/ActionTypes';
 import {
@@ -13,7 +14,8 @@ import {
   CurrentSoundSourceAction,
   AnalyserStateAction,
   MMLStateAction,
-  KeyboardAction
+  KeyboardAction,
+  MIDIAction
 } from '../types';
 
 describe('Reducers', () => {
@@ -106,5 +108,19 @@ describe('Reducers', () => {
     expect(upBassKeyboardIndexes(undefined, {} as KeyboardAction)).toStrictEqual([] as number[]);
     expect(upBassKeyboardIndexes(undefined, action)).toStrictEqual(expectedState);
     expect(upBassKeyboardIndexes([] as number[], action)).toStrictEqual(expectedState);
+  });
+
+  test('should handle ACTIVATE_MIDI_KEYBOARDS', () => {
+    const expectedState = [28, 32, 35];
+
+    const action = {
+      type   : ActionTypes.ACTIVATE_MIDI_KEYBOARDS,
+      payload: expectedState
+    };
+
+    expect(activeMIDIKeyboardIndexes(undefined, {} as MIDIAction)).toStrictEqual([] as number[]);
+    expect(activeMIDIKeyboardIndexes(undefined, action)).toStrictEqual(expectedState);
+    expect(activeMIDIKeyboardIndexes([] as number[], action)).toStrictEqual(expectedState);
+    expect(activeMIDIKeyboardIndexes(expectedState, action)).not.toBe(expectedState);
   });
 });

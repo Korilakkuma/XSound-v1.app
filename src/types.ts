@@ -113,3 +113,8 @@ export interface KeyboardAction extends Action {
       | typeof ActionTypes.UP_BASS_KEYBOARDS;
   payload: number[];
 }
+
+export interface MIDIAction extends Action {
+  type: typeof ActionTypes.ACTIVATE_MIDI_KEYBOARDS;
+  payload: number[];
+}
