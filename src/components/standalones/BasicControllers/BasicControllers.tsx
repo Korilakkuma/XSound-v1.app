@@ -12,7 +12,7 @@ import {
   changeCurrentSoundSource,
   changeAnalyserState,
   changeMMLState,
-  downMelodyKeyboards
+  activateMIDIKeyboards
 } from '../../../actions';
 import { Switch } from '../../atoms/Switch';
 import { Select } from '../../atoms/Select';
@@ -80,7 +80,7 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
         X('oneshot').module('session').start();
       }
 
-      dispatch(downMelodyKeyboards(indexes));
+      dispatch(activateMIDIKeyboards(indexes));
     };
 
     const noteOff = (noteNumber: number, velocity: number) => {
@@ -114,7 +114,7 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
         X('oneshot').stop(targetIndex + offset).reset(targetIndex, 'volume', 1);
       }
 
-      dispatch(downMelodyKeyboards(indexes));
+      dispatch(activateMIDIKeyboards(indexes));
     };
 
     if (inputs.length > 0) {

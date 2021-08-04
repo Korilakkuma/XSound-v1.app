@@ -17,6 +17,7 @@ export const Piano: React.FC<Props> = (props: Props) => {
   const downBassIndexes   = useSelector((state: IState) => state.downBassKeyboardIndexes);
   const upMelodyIndexes   = useSelector((state: IState) => state.upMelodyKeyboardIndexes);
   const upBassIndexes     = useSelector((state: IState) => state.upBassKeyboardIndexes);
+  const activeMIDIIndexes = useSelector((state: IState) => state.activeMIDIKeyboardIndexes);
 
   const startSoundCallback = useCallback((event: React.MouseEvent<HTMLButtonElement> | React.TouchEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement> | React.FocusEvent<HTMLButtonElement>) => {
     if (event.currentTarget.classList.contains('skip')) {
@@ -284,9 +285,10 @@ export const Piano: React.FC<Props> = (props: Props) => {
           const hasMelody    = downMelodyIndexes.includes(index) && !upMelodyIndexes.includes(index);
           const hasBass      = downBassIndexes.includes(index) && !upBassIndexes.includes(index);
           const isAutoActive = hasMelody || hasBass;
+          const isActive     = isAutoActive || activeMIDIIndexes.includes(index);
 
           return (
-            <li key={pitch} className={`Piano__keyboard${(downKeyboards[index] || isAutoActive) ? ' -active' : ''}`}>
+            <li key={pitch} className={`Piano__keyboard${(downKeyboards[index] || isActive) ? ' -active' : ''}`}>
               <button
                 type="button"
                 aria-pressed={downKeyboards[index] || isAutoActive}
@@ -320,9 +322,10 @@ export const Piano: React.FC<Props> = (props: Props) => {
           const hasMelody    = downMelodyIndexes.includes(index) && !upMelodyIndexes.includes(index);
           const hasBass      = downBassIndexes.includes(index) && !upBassIndexes.includes(index);
           const isAutoActive = hasMelody || hasBass;
+          const isActive     = isAutoActive || activeMIDIIndexes.includes(index);
 
           return (
-            <li key={pitch} className={`Piano__keyboard${(downKeyboards[index] || isAutoActive) ? ' -active' : ''}`}>
+            <li key={pitch} className={`Piano__keyboard${(downKeyboards[index] || isActive) ? ' -active' : ''}`}>
               <button
                 type="button"
                 aria-pressed={downKeyboards[index] || isAutoActive}
