@@ -40,83 +40,113 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
 
   const indexes: number[] = useMemo(() => [], []);
 
-  const successCallback = useCallback((source: XSoundSource, midiAccess: MIDIAccess, inputs: MIDIInput[], outputs: MIDIOutput[], offset: number) => {
-    const noteOn = (noteNumber: number, velocity: number) => {
-      if ((noteNumber < MIN_NOTE_NUMBER) || (noteNumber > MAX_NOTE_NUMBER)) {
-        return;
-      }
+  const midiSource = useMemo(() => {
+    switch (props.currentSoundSource) {
+      case 'oscillator':
+        return 'oscillator';
+      case 'piano':
+        return 'oneshot';
+      case 'guitar':
+        return 'oneshot';
+      case 'electric-guitar':
+        return 'oneshot';
+      default:
+        return 'noise';
+    }
+  }, [props.currentSoundSource]);
 
-      if ((velocity < 0) || (velocity > MAX_VELOCITY)) {
-        return;
-      }
+  const offset = useMemo(() => {
+    switch (props.currentSoundSource) {
+      case 'oscillator':
+        return 0;
+      case 'piano':
+        return 0;
+      case 'guitar':
+        return NUMBER_OF_ONESHOTS;
+      case 'electric-guitar':
+        return NUMBER_OF_ONESHOTS + NUMBER_OF_ONESHOTS;
+      default:
+        return 0;
+    }
+  }, [props.currentSoundSource]);
 
-      const targetIndex = noteNumber - MIN_NOTE_NUMBER;
-      const volume      = velocity / MAX_VELOCITY;
+  const noteOn = useCallback((noteNumber: number, velocity: number) => {
+    if ((noteNumber < MIN_NOTE_NUMBER) || (noteNumber > MAX_NOTE_NUMBER)) {
+      return;
+    }
 
-      indexes.push(targetIndex);
+    if ((velocity < 0) || (velocity > MAX_VELOCITY)) {
+      return;
+    }
 
-      if (source === 'oscillator') {
-        for (let i = 0, len = X('oscillator').length(); i < len; i++) {
-          if (i !== 0) {
-            X('oscillator').get(i).state(true);
-            window.C('oscillator').get(i).state(true);
-          }
+    const targetIndex = noteNumber - MIN_NOTE_NUMBER;
+    const volume      = velocity / MAX_VELOCITY;
 
-          X('oscillator').get(i).param('volume', volume);
-          window.C('oscillator').get(i).param('volume', volume);
+    indexes.push(targetIndex);
+
+    if (midiSource === 'oscillator') {
+      for (let i = 0, len = X('oscillator').length(); i < len; i++) {
+        if (i !== 0) {
+          X('oscillator').get(i).state(true);
+          window.C('oscillator').get(i).state(true);
         }
 
-        X('oscillator').ready(0, 0).start(X.toFrequencies(indexes));
-        window.C('oscillator').ready(0, 0).start(X.toFrequencies(indexes));
-
-        X('mixer').mix([X('oscillator'), window.C('oscillator')]);
-
-        X('mixer').module('recorder').start();
-        X('mixer').module('session').start();
-      } else {
-        X('oneshot').reset(targetIndex, 'volume', volume).ready(0, 0).start(targetIndex + offset);
-
-        X('oneshot').module('recorder').start();
-        X('oneshot').module('session').start();
+        X('oscillator').get(i).param('volume', volume);
+        window.C('oscillator').get(i).param('volume', volume);
       }
 
-      dispatch(activateMIDIKeyboards(indexes));
-    };
+      X('oscillator').ready(0, 0).start(X.toFrequencies(indexes));
+      window.C('oscillator').ready(0, 0).start(X.toFrequencies(indexes));
 
-    const noteOff = (noteNumber: number, velocity: number) => {
-      if ((noteNumber < MIN_NOTE_NUMBER) || (noteNumber > MAX_NOTE_NUMBER)) {
-        return;
-      }
+      X('mixer').mix([X('oscillator'), window.C('oscillator')]);
 
-      if ((velocity < 0) || (velocity > MAX_VELOCITY)) {
-        return;
-      }
+      X('mixer').module('recorder').start();
+      X('mixer').module('session').start();
+    } else {
+      X('oneshot').reset(targetIndex, 'volume', volume).ready(0, 0).start(targetIndex + offset);
 
-      const targetIndex = noteNumber - MIN_NOTE_NUMBER;
+      X('oneshot').module('recorder').start();
+      X('oneshot').module('session').start();
+    }
 
-      const index = indexes.indexOf(targetIndex);
+    dispatch(activateMIDIKeyboards(indexes));
+  }, [dispatch, midiSource, indexes, offset]);
 
-      if (index !== -1) {
-        indexes.splice(index, 1);
-      }
+  const noteOff = useCallback((noteNumber: number, velocity: number) => {
+    if ((noteNumber < MIN_NOTE_NUMBER) || (noteNumber > MAX_NOTE_NUMBER)) {
+      return;
+    }
 
-      if (source === 'oscillator') {
-        X('oscillator').stop();
-        window.C('oscillator').stop();
+    if ((velocity < 0) || (velocity > MAX_VELOCITY)) {
+      return;
+    }
 
-        for (let i = 0, len = X('oscillator').length(); i < len; i++) {
-          if (i !== 0) {
-            X('oscillator').get(i).state(false);
-            window.C('oscillator').get(i).state(false);
-          }
+    const targetIndex = noteNumber - MIN_NOTE_NUMBER;
+
+    const index = indexes.indexOf(targetIndex);
+
+    if (index !== -1) {
+      indexes.splice(index, 1);
+    }
+
+    if (midiSource === 'oscillator') {
+      X('oscillator').stop();
+      window.C('oscillator').stop();
+
+      for (let i = 0, len = X('oscillator').length(); i < len; i++) {
+        if (i !== 0) {
+          X('oscillator').get(i).state(false);
+          window.C('oscillator').get(i).state(false);
         }
-      } else {
-        X('oneshot').stop(targetIndex + offset).reset(targetIndex, 'volume', 1);
       }
+    } else {
+      X('oneshot').stop(targetIndex + offset).reset(targetIndex, 'volume', 1);
+    }
 
-      dispatch(activateMIDIKeyboards(indexes));
-    };
+    dispatch(activateMIDIKeyboards(indexes));
+  }, [dispatch, midiSource, indexes, offset]);
 
+  const successCallback = useCallback((midiAccess: MIDIAccess, inputs: MIDIInput[], outputs: MIDIOutput[]) => {
     if (inputs.length > 0) {
       inputs[0].onmidimessage = (event: MIDIMessageEvent) => {
         switch (event.data[0] & 0xf0) {
@@ -135,7 +165,7 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
     if (outputs.length > 0) {
       // TODO: do something ...
     }
-  }, [dispatch, indexes]);
+  }, [noteOn, noteOff]);
 
   const onChangeMasterVolumeCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     props.sources.forEach((source: XSoundSource) => {
@@ -191,23 +221,7 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
       case 'midi':
         try {
           X('midi').setup(true, (midiAccess: MIDIAccess, inputs: MIDIInput[], outputs: MIDIOutput[]) => {
-            switch (props.currentSoundSource) {
-              case 'oscillator':
-                successCallback('oscillator', midiAccess, inputs, outputs, 0);
-                break;
-              case 'piano':
-                successCallback('oneshot', midiAccess, inputs, outputs, 0);
-                break;
-              case 'guitar':
-                successCallback('oneshot', midiAccess, inputs, outputs, NUMBER_OF_ONESHOTS);
-                break;
-              case 'electric-guitar':
-                successCallback('oneshot', midiAccess, inputs, outputs, (NUMBER_OF_ONESHOTS + NUMBER_OF_ONESHOTS));
-                break;
-              default:
-                successCallback('noise', midiAccess, inputs, outputs, 0);
-                break;
-            }
+            successCallback(midiAccess, inputs, outputs);
           }, () => {
             setErrorMessage('Cannot use Web MIDI API.');
             setIsShowModalForMIDIError(true);
@@ -221,7 +235,7 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
       default:
         break;
     }
-  }, [props.sources, props.currentSoundSource, dispatch, successCallback]);
+  }, [props.sources, dispatch, successCallback]);
 
   const onChangeAnalyserStateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(changeAnalyserState(event.currentTarget.checked));
