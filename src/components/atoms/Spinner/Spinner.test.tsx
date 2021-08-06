@@ -21,6 +21,6 @@ describe('atoms/Spinner', () => {
 
     fireEvent.change(spinner, { valueAsNumber: 100 });
 
-    // expect(mockOnChange.mock.calls.length).toBe(1);
+    // expect(mockOnChange).toBeCalledTimes(1);
   });
 });

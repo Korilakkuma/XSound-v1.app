@@ -20,6 +20,6 @@ describe('atoms/Button', () => {
 
     fireEvent.click(screen.getByRole('button'));
 
-    expect(mockOnClick.mock.calls.length).toBe(1);
+    expect(mockOnClick).toBeCalledTimes(1);
   });
 });

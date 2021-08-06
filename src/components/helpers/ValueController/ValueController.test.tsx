@@ -24,7 +24,7 @@ describe('helpers/ValueController', () => {
     fireEvent.change(spinner, { valueAsNumber: 100 });
     fireEvent.change(slider,  { valueAsNumber: 100 });
 
-    // expect(mockOnChange.mock.calls.length).toBe(2);
+    // expect(mockOnChange).toBeCalledTimes(1);
   });
 
   test('change (id is `audio-fieldset-current-time`)', () => {

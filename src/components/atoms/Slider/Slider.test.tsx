@@ -20,6 +20,6 @@ describe('atoms/Slider', () => {
 
     fireEvent.change(slider, { valueAsNumber: 100 });
 
-    // expect(mockOnChange.mock.calls.length).toBe(1);
+    // expect(mockOnChange).toBeCalledTimes(1);
   });
 });

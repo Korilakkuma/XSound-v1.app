@@ -22,7 +22,7 @@ describe('helpers/OscillatorSelector', () => {
       fireEvent.click(radio);
     });
 
-    expect(mockOnChange.mock.calls.length).toBe(3);
-    expect(mockOnChangeRadio.mock.calls.length).toBe(3);
+    expect(mockOnChange).toBeCalledTimes(3);
+    expect(mockOnChangeRadio).toBeCalledTimes(3);
   });
 });
