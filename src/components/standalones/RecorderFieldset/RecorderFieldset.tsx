@@ -61,7 +61,7 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
 
       setCreating(true);
 
-      const url = X(source).module('recorder').create('all', CHANNEL, BIT, TYPE);
+      const url = X(source).module('recorder').create(-1, CHANNEL, BIT, TYPE);
 
       if (url) {
         const audio = new Audio(url);
@@ -139,7 +139,7 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
   const onChangeLeftChannelGainCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     sources.forEach((source: XSoundSource) => {
       if (source !== 'oscillator') {
-        X(source).module('recorder').param('gainL', event.currentTarget.valueAsNumber);
+        X(source).module('recorder').param('left', event.currentTarget.valueAsNumber);
       }
     });
   }, [sources]);
@@ -147,7 +147,7 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
   const onChangeRightChannelGainCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     sources.forEach((source: XSoundSource) => {
       if (source !== 'oscillator') {
-        X(source).module('recorder').param('gainR', event.currentTarget.valueAsNumber);
+        X(source).module('recorder').param('right', event.currentTarget.valueAsNumber);
       }
     });
   }, [sources]);
