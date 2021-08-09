@@ -47,6 +47,8 @@ export const ReverbFieldset: React.FC<Props> = (props: Props) => {
       X(source).module('reverb').state(state);
     });
 
+    window.C('oscillator').module('reverb').state(state);
+
     setReverb(state);
   }, [sources]);
 
@@ -56,6 +58,8 @@ export const ReverbFieldset: React.FC<Props> = (props: Props) => {
     sources.forEach((source: XSoundSource) => {
       X(source).module('reverb').param('type', type);
     });
+
+    window.C('oscillator').module('reverb').param('type', type);
   }, [sources]);
 
   const onChangeDryCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,6 +68,8 @@ export const ReverbFieldset: React.FC<Props> = (props: Props) => {
     sources.forEach((source: XSoundSource) => {
       X(source).module('reverb').param('dry', dry);
     });
+
+    window.C('oscillator').module('reverb').param('dry', dry);
   }, [sources]);
 
   const onChangeWetCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -72,6 +78,8 @@ export const ReverbFieldset: React.FC<Props> = (props: Props) => {
     sources.forEach((source: XSoundSource) => {
       X(source).module('reverb').param('wet', wet);
     });
+
+    window.C('oscillator').module('reverb').param('wet', wet);
   }, [sources]);
 
   const onChangeToneCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -80,6 +88,8 @@ export const ReverbFieldset: React.FC<Props> = (props: Props) => {
     sources.forEach((source: XSoundSource) => {
       X(source).module('reverb').param('tone', tone);
     });
+
+    window.C('oscillator').module('reverb').param('tone', tone);
   }, [sources]);
 
   return (

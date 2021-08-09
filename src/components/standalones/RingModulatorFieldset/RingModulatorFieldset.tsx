@@ -19,6 +19,8 @@ export const RingModulatorFieldset: React.FC<Props> = (props: Props) => {
       X(source).module('ringmodulator').state(state);
     });
 
+    window.C('oscillator').module('ringmodulator').state(state);
+
     setRingmodulator(state);
   }, [props.sources]);
 
@@ -28,6 +30,8 @@ export const RingModulatorFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('ringmodulator').param('depth', depth);
     });
+
+    window.C('oscillator').module('ringmodulator').param('depth', depth);
   }, [props.sources]);
 
   const onChangeRateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,6 +40,8 @@ export const RingModulatorFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('ringmodulator').param('rate', rate);
     });
+
+    window.C('oscillator').module('ringmodulator').param('rate', rate);
   }, [props.sources]);
 
   return (

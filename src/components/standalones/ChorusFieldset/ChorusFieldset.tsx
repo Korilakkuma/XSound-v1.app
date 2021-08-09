@@ -19,6 +19,8 @@ export const ChorusFieldset: React.FC<Props> = (props: Props) => {
       X(source).module('chorus').state(state);
     });
 
+    window.C('oscillator').module('chorus').state(state);
+
     setChorus(state);
   }, [props.sources]);
 
@@ -28,6 +30,8 @@ export const ChorusFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('chorus').param('time', time);
     });
+
+    window.C('oscillator').module('chorus').param('time', time);
   }, [props.sources]);
 
   const onChangeDepthCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,6 +40,8 @@ export const ChorusFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('chorus').param('depth', depth);
     });
+
+    window.C('oscillator').module('chorus').param('depth', depth);
   }, [props.sources]);
 
   const onChangeRateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,6 +50,8 @@ export const ChorusFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('chorus').param('rate', rate);
     });
+
+    window.C('oscillator').module('chorus').param('rate', rate);
   }, [props.sources]);
 
   const onChangeMixCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,6 +60,8 @@ export const ChorusFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('chorus').param('mix', mix);
     });
+
+    window.C('oscillator').module('chorus').param('mix', mix);
   }, [props.sources]);
 
   const onChangeToneCallabck = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -60,6 +70,8 @@ export const ChorusFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('chorus').param('tone', tone);
     });
+
+    window.C('oscillator').module('chorus').param('tone', tone);
   }, [props.sources]);
 
   return (

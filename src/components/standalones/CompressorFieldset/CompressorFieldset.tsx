@@ -19,6 +19,8 @@ export const CompressorFieldset: React.FC<Props> = (props: Props) => {
       X(source).module('compressor').state(state);
     });
 
+    window.C('oscillator').module('compressor').state(state);
+
     setCompressor(state);
   }, [props.sources]);
 
@@ -28,6 +30,8 @@ export const CompressorFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('compressor').param('threshold', threshold);
     });
+
+    window.C('oscillator').module('compressor').param('threshold', threshold);
   }, [props.sources]);
 
   const onChangeKneeCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,6 +40,8 @@ export const CompressorFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('compressor').param('knee', knee);
     });
+
+    window.C('oscillator').module('compressor').param('knee', knee);
   }, [props.sources]);
 
   const onChangeRatioCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,6 +50,8 @@ export const CompressorFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('compressor').param('ratio', ratio);
     });
+
+    window.C('oscillator').module('compressor').param('ratio', ratio);
   }, [props.sources]);
 
   const onChangeAttackCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,6 +60,8 @@ export const CompressorFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('compressor').param('attack', attack);
     });
+
+    window.C('oscillator').module('compressor').param('attack', attack);
   }, [props.sources]);
 
   const onChangeReleaseCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -60,6 +70,8 @@ export const CompressorFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('compressor').param('release', release);
     });
+
+    window.C('oscillator').module('compressor').param('release', release);
   }, [props.sources]);
 
   return (

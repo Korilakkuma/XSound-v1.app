@@ -20,6 +20,8 @@ export const DistortionFieldset: React.FC<Props> = (props: Props) => {
       X(source).module('distortion').state(state);
     });
 
+    window.C('oscillator').module('distortion').state(state);
+
     setDistortion(state);
   }, [props.sources]);
 
@@ -29,6 +31,8 @@ export const DistortionFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('distortion').param('curve', curve);
     });
+
+    window.C('oscillator').module('distortion').param('curve', curve);
   }, [props.sources]);
 
   const onChangeSamplesCallback = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -37,6 +41,8 @@ export const DistortionFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('distortion').param('samples', samples);
     });
+
+    window.C('oscillator').module('distortion').param('samples', samples);
   }, [props.sources]);
 
   const onChangeAmountCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,6 +51,8 @@ export const DistortionFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('distortion').param('amount', amount);
     });
+
+    window.C('oscillator').module('distortion').param('amount', amount);
   }, [props.sources]);
 
   const onChangeDriveCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,6 +61,8 @@ export const DistortionFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('distortion').param('drive', drive);
     });
+
+    window.C('oscillator').module('distortion').param('drive', drive);
   }, [props.sources]);
 
   const onChangeColorCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,6 +71,8 @@ export const DistortionFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('distortion').param('color', color);
     });
+
+    window.C('oscillator').module('distortion').param('color', color);
   }, [props.sources]);
 
   const onChangeToneCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,6 +81,8 @@ export const DistortionFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('distortion').param('tone', tone);
     });
+
+    window.C('oscillator').module('distortion').param('tone', tone);
   }, [props.sources]);
 
   return (

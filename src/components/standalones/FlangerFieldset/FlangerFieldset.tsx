@@ -19,6 +19,8 @@ export const FlangerFieldset: React.FC<Props> = (props: Props) => {
       X(source).module('flanger').state(state);
     });
 
+    window.C('oscillator').module('flanger').state(state);
+
     setFlanger(state);
   }, [props.sources]);
 
@@ -28,6 +30,8 @@ export const FlangerFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('flanger').param('time', time);
     });
+
+    window.C('oscillator').module('flanger').param('time', time);
   }, [props.sources]);
 
   const onChangeDepthCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,6 +40,8 @@ export const FlangerFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('flanger').param('depth', depth);
     });
+
+    window.C('oscillator').module('flanger').param('depth', depth);
   }, [props.sources]);
 
   const onChangeRateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,6 +50,8 @@ export const FlangerFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('flanger').param('rate', rate);
     });
+
+    window.C('oscillator').module('flanger').param('rate', rate);
   }, [props.sources]);
 
   const onChangeMixCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,6 +60,8 @@ export const FlangerFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('flanger').param('mix', mix);
     });
+
+    window.C('oscillator').module('flanger').param('mix', mix);
   }, [props.sources]);
 
   const onChangeToneCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -60,6 +70,8 @@ export const FlangerFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('flanger').param('tone', tone);
     });
+
+    window.C('oscillator').module('flanger').param('tone', tone);
   }, [props.sources]);
 
   const onChangeFeedbackCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,6 +80,8 @@ export const FlangerFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('flanger').param('feedback', feedback);
     });
+
+    window.C('oscillator').module('flanger').param('feedback', feedback);
   }, [props.sources]);
 
   return (

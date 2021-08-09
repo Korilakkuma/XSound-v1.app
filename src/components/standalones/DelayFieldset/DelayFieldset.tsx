@@ -19,6 +19,8 @@ export const DelayFieldset: React.FC<Props> = (props: Props) => {
       X(source).module('delay').state(state);
     });
 
+    window.C('oscillator').module('delay').state(state);
+
     setDelay(state);
   }, [props.sources]);
 
@@ -28,6 +30,8 @@ export const DelayFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('delay').param('time', time);
     });
+
+    window.C('oscillator').module('delay').param('time', time);
   }, [props.sources]);
 
   const onChangeDryCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,6 +40,8 @@ export const DelayFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('delay').param('dry', dry);
     });
+
+    window.C('oscillator').module('delay').param('dry', dry);
   }, [props.sources]);
 
   const onChangeWetCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,6 +50,8 @@ export const DelayFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('delay').param('wet', wet);
     });
+
+    window.C('oscillator').module('delay').param('wet', wet);
   }, [props.sources]);
 
   const onChangeToneCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,6 +60,8 @@ export const DelayFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('delay').param('tone', tone);
     });
+
+    window.C('oscillator').module('delay').param('tone', tone);
   }, [props.sources]);
 
   const onChangeFeedbackCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -60,6 +70,8 @@ export const DelayFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('delay').param('feedback', feedback);
     });
+
+    window.C('oscillator').module('delay').param('feedback', feedback);
   }, [props.sources]);
 
   return (

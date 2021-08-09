@@ -20,6 +20,8 @@ export const PhaserFieldset: React.FC<Props> = (props: Props) => {
       X(source).module('phaser').state(state);
     });
 
+    window.C('oscillator').module('phaser').state(state);
+
     setPhaser(state);
   }, [props.sources]);
 
@@ -29,6 +31,8 @@ export const PhaserFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('phaser').param('stage', stage);
     });
+
+    window.C('oscillator').module('phaser').param('stage', stage);
   }, [props.sources]);
 
   const onChangeFrequencyCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,6 +41,8 @@ export const PhaserFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('phaser').param('frequency', frequency);
     });
+
+    window.C('oscillator').module('phaser').param('frequency', frequency);
   }, [props.sources]);
 
   const onChangeDepthCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,6 +51,8 @@ export const PhaserFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('phaser').param('depth', depth);
     });
+
+    window.C('oscillator').module('phaser').param('depth', depth);
   }, [props.sources]);
 
   const onChangeRateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,6 +61,8 @@ export const PhaserFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('phaser').param('rate', rate);
     });
+
+    window.C('oscillator').module('phaser').param('rate', rate);
   }, [props.sources]);
 
   const onChangeMixCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,6 +71,8 @@ export const PhaserFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('phaser').param('mix', mix);
     });
+
+    window.C('oscillator').module('phaser').param('mix', mix);
   }, [props.sources]);
 
   const onChangeFeedbackCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,6 +81,8 @@ export const PhaserFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('phaser').param('feedback', feedback);
     });
+
+    window.C('oscillator').module('phaser').param('feedback', feedback);
   }, [props.sources]);
 
   return (

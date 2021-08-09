@@ -19,6 +19,8 @@ export const TremoloFieldset: React.FC<Props> = (props: Props) => {
       X(source).module('tremolo').state(state);
     });
 
+    window.C('oscillator').module('tremolo').state(state);
+
     setTremolo(state);
   }, [props.sources]);
 
@@ -28,6 +30,8 @@ export const TremoloFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('tremolo').param('depth', depth);
     });
+
+    window.C('oscillator').module('tremolo').param('depth', depth);
   }, [props.sources]);
 
   const onChangeRateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,6 +40,8 @@ export const TremoloFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('tremolo').param('rate', rate);
     });
+
+    window.C('oscillator').module('tremolo').param('rate', rate);
   }, [props.sources]);
 
   return (

@@ -19,6 +19,8 @@ export const AutopanFieldset: React.FC<Props> = (props: Props) => {
       X(source).module('autopanner').state(state);
     });
 
+    window.C('oscillator').module('autopanner').state(state);
+
     setAutopan(state);
   }, [props.sources]);
 
@@ -28,6 +30,8 @@ export const AutopanFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('autopanner').param('depth', depth);
     });
+
+    window.C('oscillator').module('autopanner').param('depth', depth);
   }, [props.sources]);
 
   const onChangeRateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,6 +40,8 @@ export const AutopanFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('autopanner').param('rate', rate);
     });
+
+    window.C('oscillator').module('autopanner').param('rate', rate);
   }, [props.sources]);
 
   return (

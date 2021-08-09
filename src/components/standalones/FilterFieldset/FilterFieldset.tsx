@@ -20,6 +20,8 @@ export const FilterFieldset: React.FC<Props> = (props: Props) => {
       X(source).module('filter').state(state);
     });
 
+    window.C('oscillator').module('filter').state(state);
+
     setFilter(state);
   }, [props.sources]);
 
@@ -29,6 +31,8 @@ export const FilterFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('filter').param('type', type);
     });
+
+    window.C('oscillator').module('filter').param('type', type);
   }, [props.sources]);
 
   const onChangeFrequencyCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,6 +41,8 @@ export const FilterFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('filter').param('frequency', frequency);
     });
+
+    window.C('oscillator').module('filter').param('frequency', frequency);
   }, [props.sources]);
 
   const onChangeQualityCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,6 +51,8 @@ export const FilterFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('filter').param('Q', quality);
     });
+
+    window.C('oscillator').module('filter').param('Q', quality);
   }, [props.sources]);
 
   const onChangeGainCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,6 +61,8 @@ export const FilterFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('filter').param('gain', gain);
     });
+
+    window.C('oscillator').module('filter').param('gain', gain);
   }, [props.sources]);
 
   const onChangeAttackCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,6 +71,8 @@ export const FilterFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('filter').param('attack', attack);
     });
+
+    window.C('oscillator').module('filter').param('attack', attack);
   }, [props.sources]);
 
   const onChangeDecayCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,6 +81,8 @@ export const FilterFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('filter').param('decay', decay);
     });
+
+    window.C('oscillator').module('filter').param('decay', decay);
   }, [props.sources]);
 
   const onChangeSustainCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -77,6 +91,8 @@ export const FilterFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('filter').param('sustain', sustain);
     });
+
+    window.C('oscillator').module('filter').param('sustain', sustain);
   }, [props.sources]);
 
   const onChangeReleaseCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -85,6 +101,8 @@ export const FilterFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('filter').param('release', release);
     });
+
+    window.C('oscillator').module('filter').param('release', release);
   }, [props.sources]);
 
   return (

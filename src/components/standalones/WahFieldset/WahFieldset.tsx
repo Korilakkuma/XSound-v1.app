@@ -19,6 +19,8 @@ export const WahFieldset: React.FC<Props> = (props: Props) => {
       X(source).module('wah').state(state);
     });
 
+    window.C('oscillator').module('wah').state(state);
+
     setWah(state);
   }, [props.sources]);
 
@@ -28,6 +30,8 @@ export const WahFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('wah').param('cutoff', cutoff);
     });
+
+    window.C('oscillator').module('wah').param('cutoff', cutoff);
   }, [props.sources]);
 
   const onChangeDepthCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,6 +40,8 @@ export const WahFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('wah').param('depth', depth);
     });
+
+    window.C('oscillator').module('wah').param('depth', depth);
   }, [props.sources]);
 
   const onChangeRateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,6 +50,8 @@ export const WahFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('wah').param('rate', rate);
     });
+
+    window.C('oscillator').module('wah').param('rate', rate);
   }, [props.sources]);
 
   const onChangeResonanceCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,6 +60,8 @@ export const WahFieldset: React.FC<Props> = (props: Props) => {
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('wah').param('resonance', resonance);
     });
+
+    window.C('oscillator').module('wah').param('resonance', resonance);
   }, [props.sources]);
 
   return (
