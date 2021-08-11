@@ -299,14 +299,14 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
           'midi'
         ]}
         texts={[
-          'OSCILLATOR',
-          'PIANO',
-          'A. GUITAR',
-          'E. GUITAR',
-          'WHITE NOISE',
-          'PINK NOISE',
-          'BROWNIAN NOISE',
-          'MICROPHONE',
+          'oscillator',
+          'piano',
+          'A. guitar',
+          'E. guitar',
+          'white noise',
+          'pink noise',
+          'brownian noise',
+          'microphone',
           'MIDI'
         ]}
         disabled={false}

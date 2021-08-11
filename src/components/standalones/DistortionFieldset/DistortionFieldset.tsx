@@ -107,11 +107,11 @@ export const DistortionFieldset: React.FC<Props> = (props: Props) => {
             'fuzz'
           ]}
           texts={[
-            'CLEAN',
-            'CRUNCH',
-            'OVERDRIVE',
-            'DISTORTION',
-            'FUZZ'
+            'clean',
+            'crunch',
+            'overdrive',
+            'distortion',
+            'fuzz'
           ]}
           disabled={false}
           onChange={onChangeCurveCallback}

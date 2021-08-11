@@ -108,12 +108,12 @@ export const PhaserFieldset: React.FC<Props> = (props: Props) => {
             '24'
           ]}
           texts={[
-            'ALL-PASS FILTER',
-            '2 STAGES',
-            '4 STAGES',
-            '8 STAGES',
-            '12 STAGES',
-            '24 STAGES'
+            'all-pass filter',
+            '2 stages',
+            '4 stages',
+            '8 stages',
+            '12 stages',
+            '24 stages'
           ]}
           disabled={false}
           onChange={onChangeStageCallback}

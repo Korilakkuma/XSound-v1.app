@@ -130,14 +130,14 @@ export const FilterFieldset: React.FC<Props> = (props: Props) => {
             'allpass'
           ]}
           texts={[
-            'LOWPASS',
-            'HIGHPASS',
-            'BANDPASS',
-            'LOWSHELF',
-            'HIGHSHELF',
-            'PEAKING',
-            'NOTCH',
-            'ALLPASS'
+            'lowpass',
+            'highpass',
+            'bandpass',
+            'lowshelf',
+            'highshelf',
+            'peaking',
+            'notch',
+            'allpass'
           ]}
           disabled={false}
           onChange={onChangeTypeCallback}

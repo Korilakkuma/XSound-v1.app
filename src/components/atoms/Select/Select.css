@@ -28,6 +28,7 @@
 .Select > select > option {
   /* for Edge and Windows */
   color: var(--black-light);
+  text-transform: uppercase;
 }
 
 .Select > label {
