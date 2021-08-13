@@ -84,7 +84,12 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
 
     indexes.push(targetIndex);
 
-    if (midiSource === 'oscillator') {
+    if (midiSource === 'noise') {
+      X('noise').start();
+
+      X('noise').module('recorder').start();
+      X('noise').module('session').start();
+    } else if (midiSource === 'oscillator') {
       for (let i = 0, len = X('oscillator').length(); i < len; i++) {
         if (i !== 0) {
           X('oscillator').get(i).state(true);
@@ -129,7 +134,12 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
       indexes.splice(index, 1);
     }
 
-    if (midiSource === 'oscillator') {
+    if (midiSource === 'noise') {
+      X('noise').start();
+
+      X('noise').module('recorder').start();
+      X('noise').module('session').start();
+    } else if (midiSource === 'oscillator') {
       X('oscillator').stop();
       window.C('oscillator').stop();
 
