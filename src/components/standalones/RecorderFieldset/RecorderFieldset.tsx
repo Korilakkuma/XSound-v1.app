@@ -27,6 +27,8 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
   const [creating, setCreating] = useState<boolean>(false);
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
 
+  const hasRecordedData = sources.some((source: XSoundSource) => X(source).module('recorder').has());
+
   const onClickRecordButtonCallback = useCallback(() => {
     if (running) {
       sources.forEach((source: XSoundSource) => {
@@ -180,7 +182,7 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
           </button>
           <button
             type="button"
-            disabled={running}
+            disabled={running || !hasRecordedData}
             aria-label={creating ? 'Now creating WAVE file' : 'Create WAVE file'}
             className={`RecorderFieldset__creator${creating ? ' -active' : ''}`}
             onClick={onClickCreateButtonCallback}
