@@ -163,7 +163,7 @@ export const Analyser: React.FC<Props> = (props: Props) => {
       right: 15
     };
 
-    const dragCallback = (event: Event, startTime: number, endTime: number, mode: 'update' | 'sprite') => {
+    const dragCallback = (event: Event, startTime: number, endTime: number, mode: 'update' | 'sprite', direction: boolean) => {
       if ((event.type === 'mousedown') || (event.type === 'touchstart')) {
         setShowDragTime(true);
         return;
@@ -178,12 +178,14 @@ export const Analyser: React.FC<Props> = (props: Props) => {
       }
 
       if ((event.type === 'mouseup') || (event.type === 'touchend')) {
+        const time = direction ? endTime : startTime;
+
         switch (mode) {
           case 'update':
-            if ((endTime >= 0) && (endTime <= X('audio').param('duration'))) {
-              X('audio').param('currentTime', endTime);
-              X('audio').module('analyser').domain('timeoverview', 0).update(endTime);
-              X('audio').module('analyser').domain('timeoverview', 1).update(endTime);
+            if ((time >= 0) && (time <= X('audio').param('duration'))) {
+              X('audio').module('analyser').domain('timeoverview', 0).update(time);
+              X('audio').module('analyser').domain('timeoverview', 1).update(time);
+              X('audio').param('currentTime', time);
             }
 
             break;
