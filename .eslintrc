@@ -38,6 +38,7 @@
     "quote-props": 0,
     "radix": 1,
     "react/prop-types": 0,
+    "react/self-closing-comp": 2,
     "semi": [2, "always"],
     "space-before-function-paren": 0,
     "template-curly-spacing": 0,
