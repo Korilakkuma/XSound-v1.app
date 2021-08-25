@@ -178,16 +178,14 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
             aria-label={running ? 'Stop Recording' : 'Start Recording'}
             className={`RecorderFieldset__controller${running ? ' -active' : ''}`}
             onClick={onClickRecordButtonCallback}
-          >
-          </button>
+          />
           <button
             type="button"
             disabled={running || !hasRecordedData}
             aria-label={creating ? 'Now creating WAVE file' : 'Create WAVE file'}
             className={`RecorderFieldset__creator${creating ? ' -active' : ''}`}
             onClick={onClickCreateButtonCallback}
-          >
-          </button>
+          />
           <a
             href={objectURL}
             download={objectURL ? createFilename('record-', 'wav') : null}
@@ -197,6 +195,7 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
             className="RecorderFieldset__download"
             onClick={onClickDownloadButtonCallback}
           >
+            Download
           </a>
           <button
             type="button"
@@ -204,8 +203,7 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
             aria-label="Clear Track"
             className="RecorderFieldset__clear"
             onClick={onClickClearButtonCallback}
-          >
-          </button>
+          />
         </div>
         <Spacer space={16} />
         <Select

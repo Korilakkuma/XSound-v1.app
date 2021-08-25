@@ -486,25 +486,23 @@ export const MML: React.FC<Props> = (props: Props) => {
           tabIndex={active ? 0 : -1}
           className={`MML__controller${paused ? ' -paused' : ''}`}
           onClick={onClickMMLControllerCallback}
-        >
-        </button>
+        />
         <button
           type="button"
           aria-label="Rewind"
           tabIndex={active ? 0 : -1}
           className="MML__rewinder"
           onClick={onClickRewindButtonCallback}
-        >
-        </button>
+        />
         <a
           href={dataURL}
           download={dataURL ? createFilename('mml-', 'json') : null}
           role="button"
           tabIndex={active ? 0 : -1}
-          aria-label="Download"
           className="MML__download"
           onClick={onClickDownloadButtonCallback}
         >
+          Download
         </a>
         <Switch
           id="mml-switch-highlight"

@@ -232,8 +232,7 @@ export const Analyser: React.FC<Props> = (props: Props) => {
                 aria-label="Select Channel"
                 tabIndex={active ? 0 : -1}
                 onClick={onClickChannelCallback}
-              >
-              </button>
+              />
               Time Overview [{showTimeOverview}]
             </label>
             {showDragTime ? <span className="Analyser__dragTime">{dragTime}</span> : null}
