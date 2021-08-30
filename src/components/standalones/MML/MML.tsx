@@ -14,6 +14,7 @@ import { FileUploader } from '../../atoms/FileUploader';
 import { ProgressBar } from '../../atoms/ProgressBar';
 import { Modal } from '../../atoms/Modal';
 import { SelectableModal } from '../../helpers/SelectableModal';
+import { NUMBER_OF_PIANO_KEYBOARDS } from '../../../config';
 import { X } from 'xsound';
 
 export interface Props {
@@ -21,7 +22,6 @@ export interface Props {
   currentSoundSource: SoundSource;
 }
 
-const NUMBER_OF_PIANO_KEYBOARDS = 88;
 const CLEAR_HIGHLIGHT_REGEXP = /<span class="x-highlight">(.+?)<\/span>/g;
 
 // HACK:
