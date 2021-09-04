@@ -47,7 +47,8 @@ export const MML: React.FC<Props> = (props: Props) => {
   const [values, setValues] = useState<string[]>(['{"melody":"","bass":""}']);
   const [texts, setTexts] = useState<string[]>(['SAMPLE MML']);
   const [errorMessage, setErrorMessage] = useState<string>('');
-  const [errorMessageForMML, setErrorMessageForMML] = useState<string>('');
+  const [errorMessageForMMLMelody, setErrorMessageForMMLMelody] = useState<string>('');
+  const [errorMessageForMMLBass, setErrorMessageForMMLBass] = useState<string>('');
   const [isShowModalForFileUploadError, setIsShowModalForFileUploadError] = useState<boolean>(false);
   const [isShowModalForProgress, setIsShowModalForProgress] = useState<boolean>(false);
   const [isShowModalConfirmation, setIsShowModalConfirmation] = useState<boolean>(false);
@@ -181,17 +182,32 @@ export const MML: React.FC<Props> = (props: Props) => {
     setPaused(true);
   }, [dispatch, readyMMLCallback]);
 
-  const errorCallback = useCallback((error: MMLErrors) => {
+  const errorCallbackForMelody = useCallback((error: MMLErrors) => {
     switch (error) {
       case 'tempo' :
       case 'octave':
       case 'note'  :
       case 'rest'  :
       case 'tie'   :
-        setErrorMessageForMML(`${error} is invalid`);
+        setErrorMessageForMMLMelody(`${error} is invalid`);
         break;
       default:
-        setErrorMessageForMML('MML is invalid');
+        setErrorMessageForMMLMelody('MML is invalid');
+        break;
+    }
+  }, []);
+
+  const errorCallbackForBass = useCallback((error: MMLErrors) => {
+    switch (error) {
+      case 'tempo' :
+      case 'octave':
+      case 'note'  :
+      case 'rest'  :
+      case 'tie'   :
+        setErrorMessageForMMLBass(`${error} is invalid`);
+        break;
+      default:
+        setErrorMessageForMMLBass('MML is invalid');
         break;
     }
   }, []);
@@ -220,6 +236,9 @@ export const MML: React.FC<Props> = (props: Props) => {
 
   const onClickMMLControllerCallback = useCallback(() => {
     if (paused) {
+      setErrorMessageForMMLMelody('');
+      setErrorMessageForMMLBass('');
+
       readyMMLCallback(melody, bass);
 
       X('mml').currentIndex(0, melodyIndex);
@@ -364,14 +383,14 @@ export const MML: React.FC<Props> = (props: Props) => {
       start: startMelodyCallback,
       stop : stopMelodyCallback,
       ended: endedCallback,
-      error: errorCallback
+      error: errorCallbackForMelody
     });
 
     window.C('mml').setup({
       start: startBassCallback,
       stop : stopBassCallback,
       ended: endedCallback,
-      error: errorCallback
+      error: errorCallbackForBass
     });
 
     Promise
@@ -451,14 +470,15 @@ export const MML: React.FC<Props> = (props: Props) => {
     stopMelodyCallback,
     stopBassCallback,
     endedCallback,
-    errorCallback
+    errorCallbackForMelody,
+    errorCallbackForBass
   ]);
 
   return (
     <div id="mml-fieldset" aria-hidden={!active} className={`MML${active ? ' -active' : ''}`}>
       <div className="MML__editor">
         <dl>
-          <dt>Melody{errorMessageForMML ? <span>{errorMessageForMML}</span> : null}</dt>
+          <dt>Melody{errorMessageForMMLMelody ? <span className="MML__error">{errorMessageForMMLMelody}</span> : null}</dt>
           <dd
             contentEditable={active && paused}
             dangerouslySetInnerHTML={{ __html: melody }}
@@ -468,7 +488,7 @@ export const MML: React.FC<Props> = (props: Props) => {
           />
         </dl>
         <dl>
-          <dt>Bass{errorMessageForMML ? <span>{errorMessageForMML}</span> : null}</dt>
+          <dt>Bass{errorMessageForMMLBass ? <span className="MML__error">{errorMessageForMMLBass}</span> : null}</dt>
           <dd
             contentEditable={active && paused}
             dangerouslySetInnerHTML={{ __html: bass }}
