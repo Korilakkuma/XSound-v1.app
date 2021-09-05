@@ -287,8 +287,8 @@ export const MML: React.FC<Props> = (props: Props) => {
   ]);
 
   const onClickRewindButtonCallback = useCallback(() => {
-    X('mml').stop().clear();
-    window.C('mml').stop().clear();
+    X('mml').stop();
+    window.C('mml').stop();
 
     dispatch(downMelodyKeyboards([]));
     dispatch(downBassKeyboards([]));
