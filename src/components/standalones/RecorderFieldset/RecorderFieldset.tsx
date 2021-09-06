@@ -30,28 +30,25 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
   const hasRecordedData = sources.some((source: XSoundSource) => X(source).module('recorder').has());
 
   const onClickRecordButtonCallback = useCallback(() => {
-    if (running) {
-      sources.forEach((source: XSoundSource) => {
-        if (source !== 'oscillator') {
+    sources.forEach((source: XSoundSource) => {
+      if (source !== 'oscillator') {
+        if (X(source).module('recorder').get() !== -1) {
           X(source).module('recorder').stop();
-        }
-      });
 
-      setRunning(false);
-    } else {
-      sources.forEach((source: XSoundSource) => {
-        if (source !== 'oscillator') {
+          setRunning(false);
+        } else {
           X(source).module('recorder').ready(activeTrack);
 
           if (source === 'stream') {
+            X(source).start();
             X(source).module('recorder').start();
           }
-        }
-      });
 
-      setRunning(true);
-    }
-  }, [sources, activeTrack, running]);
+          setRunning(true);
+        }
+      }
+    });
+  }, [sources, activeTrack]);
 
   const onClickCreateButtonCallback = useCallback(() => {
     setRunning(false);
@@ -119,24 +116,11 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
 
     const nextActiveTrack = parseInt(event.currentTarget.value, 10);
 
-    sources.forEach((source: XSoundSource) => {
-      if (source !== 'oscillator') {
-        if (source === 'stream') {
-          X('stream').stop();
-          X('stream').module('recorder').stop();
-        }
-
-        X(source).module('recorder').ready(nextActiveTrack);
-
-        if (source === 'stream') {
-          X('stream').start();
-          X('stream').module('recorder').start();
-        }
-      }
-    });
+    X('stream').stop();
+    X('stream').module('recorder').stop();
 
     setActiveTrack(nextActiveTrack);
-  }, [sources, running]);
+  }, [running]);
 
   const onChangeLeftChannelGainCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     sources.forEach((source: XSoundSource) => {
