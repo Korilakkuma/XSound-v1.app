@@ -84,7 +84,8 @@ module.exports = [{
   },
   devtool: 'source-map',
   devServer: {
-    contentBase: __dirname
+    static: __dirname,
+    host: '0.0.0.0'
   }
 },
 {
