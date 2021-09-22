@@ -114,8 +114,10 @@ export const MML: React.FC<Props> = (props: Props) => {
           setShowProgress(false);
           setIsShowModalForProgress(false);
         } catch (error) {
-          // eslint-disable-next-line no-console
-          console.error(error);
+          if (error instanceof Error) {
+            // eslint-disable-next-line no-console
+            console.error(error);
+          }
         }
       },
       error   : (error: Error) => {
@@ -138,7 +140,10 @@ export const MML: React.FC<Props> = (props: Props) => {
 
       setFilename(file.name);
     } catch (error) {
-      setErrorMessage(error.message);
+      if (error instanceof Error) {
+        setErrorMessage(error.message);
+      }
+
       setIsShowModalForFileUploadError(true);
     }
   }, [melody, bass, readyMMLCallback]);

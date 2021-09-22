@@ -166,7 +166,9 @@ const Template: Story<Props> = () => {
         }
       });
     } catch (error) {
-      alert(error.message);
+      if (error instanceof Error) {
+        alert(error.message);
+      }
     }
   }, [loaded, createOneshotSettingsCallback]);
 

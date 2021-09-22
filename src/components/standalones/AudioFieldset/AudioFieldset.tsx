@@ -66,7 +66,10 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
 
       setFilename(file.name);
     } catch (error) {
-      setErrorMessage(error.message);
+      if (error instanceof Error) {
+        setErrorMessage(error.message);
+      }
+
       setIsShowModalForFileUploadError(true);
     }
   }, []);

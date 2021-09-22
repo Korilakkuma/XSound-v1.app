@@ -841,9 +841,7 @@ export const App: React.FC<Props> = () => {
 
     const constraints: MediaStreamConstraints = {
       audio: {
-        autoGainControl     : true,
-        echoCancellation    : true,
-        noiseSuppression    : false
+        echoCancellation: true
       },
       video: false
     };
@@ -901,7 +899,10 @@ export const App: React.FC<Props> = () => {
         }
       });
     } catch (error) {
-      setErrorMessage(error.message);
+      if (error instanceof Error) {
+        setErrorMessage(error.message);
+      }
+
       setIsShowModalForAjax(true);
     }
 

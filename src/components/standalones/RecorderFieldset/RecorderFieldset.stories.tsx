@@ -31,7 +31,9 @@ const Template: Story<Props> = () => {
           X('stream').start();
         });
     } catch (error) {
-      window.alert(error.message);
+      if (error instanceof Error) {
+        window.alert(error.message);
+      }
     }
 
     setLoaded(true);

@@ -237,7 +237,10 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
             setIsShowModalForMIDIError(true);
           });
         } catch (error) {
-          setErrorMessage(error.message);
+          if (error instanceof Error) {
+            setErrorMessage(error.message);
+          }
+
           setIsShowModalForMIDIError(true);
         }
 
