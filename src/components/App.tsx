@@ -27,7 +27,7 @@ import { FlangerFieldset } from './standalones/FlangerFieldset';
 import { DelayFieldset } from './standalones/DelayFieldset';
 import { ReverbFieldset } from './standalones/ReverbFieldset';
 import { Footer } from './standalones/Footer';
-import { BASE_URL, NUMBER_OF_ONESHOTS, AJAX_TIMEOUT } from '../config';
+import { BASE_URL, NUMBER_OF_ONESHOTS, NUMBER_OF_CHANNELS, NUMBER_OF_TRACKS, AJAX_TIMEOUT } from '../config';
 import { X } from 'xsound';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -905,6 +905,12 @@ export const App: React.FC<Props> = () => {
 
       setIsShowModalForAjax(true);
     }
+
+    sources.forEach((source: XSoundSource) => {
+      if (source !== 'oscillator') {
+        X(source).module('recorder').setup(NUMBER_OF_CHANNELS, NUMBER_OF_TRACKS);
+      }
+    });
 
     setLoadedApp(true);
 

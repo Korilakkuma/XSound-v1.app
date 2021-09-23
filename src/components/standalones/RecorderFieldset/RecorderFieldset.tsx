@@ -12,8 +12,6 @@ export interface Props {
   sources: XSoundSource[];
 }
 
-const NUMBER_OF_TRACKS = 4;
-
 const CHANNEL = 2;   // Stereo
 const BIT     = 16;  // 16 bit
 const TYPE    = 'objectURL';
@@ -142,12 +140,6 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
     if (!loadedApp || (activeTrack > -1)) {
       return;
     }
-
-    sources.forEach((source: XSoundSource) => {
-      if (source !== 'oscillator') {
-        X(source).module('recorder').setup(NUMBER_OF_TRACKS);
-      }
-    });
 
     setActiveTrack(0);
   }, [loadedApp, sources, activeTrack]);
