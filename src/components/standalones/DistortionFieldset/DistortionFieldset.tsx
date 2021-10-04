@@ -18,9 +18,13 @@ export const DistortionFieldset: React.FC<Props> = (props: Props) => {
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('distortion').state(state);
+      X(source).module('distortion').param('pre', state);
+      X(source).module('distortion').param('post', state);
     });
 
     window.C('oscillator').module('distortion').state(state);
+    window.C('oscillator').module('distortion').param('pre', state);
+    window.C('oscillator').module('distortion').param('post', state);
 
     setDistortion(state);
   }, [props.sources]);
@@ -55,34 +59,34 @@ export const DistortionFieldset: React.FC<Props> = (props: Props) => {
     window.C('oscillator').module('distortion').param('amount', amount);
   }, [props.sources]);
 
-  const onChangeDriveCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const drive = event.currentTarget.valueAsNumber;
+  const onChangeHighTrebleGainCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const high = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
-      X(source).module('distortion').param('drive', drive);
+      X(source).module('distortion').param('high', high);
     });
 
-    window.C('oscillator').module('distortion').param('drive', drive);
+    window.C('oscillator').module('distortion').param('high', high);
   }, [props.sources]);
 
-  const onChangeColorCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const color = event.currentTarget.valueAsNumber;
+  const onChangeNormalGainCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const normal = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
-      X(source).module('distortion').param('color', color);
+      X(source).module('distortion').param('normal', normal);
     });
 
-    window.C('oscillator').module('distortion').param('color', color);
+    window.C('oscillator').module('distortion').param('normal', normal);
   }, [props.sources]);
 
-  const onChangeToneCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const tone = event.currentTarget.valueAsNumber;
+  const onChangeMiddleFrequencyCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const frequency = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
-      X(source).module('distortion').param('tone', tone);
+      X(source).module('distortion').param('frequency', frequency);
     });
 
-    window.C('oscillator').module('distortion').param('tone', tone);
+    window.C('oscillator').module('distortion').param('frequency', frequency);
   }, [props.sources]);
 
   return (
@@ -168,33 +172,33 @@ export const DistortionFieldset: React.FC<Props> = (props: Props) => {
         />
         <Spacer space={8} />
         <ValueController
-          label="Drive"
-          id="distortion-drive"
+          label="High Treble Gain"
+          id="distortion-high-treble-gain"
           defaultValue={1}
           min={0}
-          max={100}
-          step={1}
-          onChange={onChangeDriveCallback}
+          max={1}
+          step={0.05}
+          onChange={onChangeHighTrebleGainCallback}
         />
         <Spacer space={8} />
         <ValueController
-          label="Color"
-          id="distortion-color"
-          defaultValue={2000}
-          min={20}
-          max={2000}
-          step={1}
-          onChange={onChangeColorCallback}
+          label="Normal Gain"
+          id="distortion-normal-gain"
+          defaultValue={1}
+          min={0}
+          max={1}
+          step={0.05}
+          onChange={onChangeNormalGainCallback}
         />
         <Spacer space={8} />
         <ValueController
-          label="Tone"
-          id="distortion-tone"
-          defaultValue={4000}
+          label="Middle Frequency"
+          id="distortion-middle-frequency"
+          defaultValue={500}
           min={20}
-          max={8000}
+          max={22050}
           step={1}
-          onChange={onChangeToneCallback}
+          onChange={onChangeMiddleFrequencyCallback}
         />
         <Spacer space={8} />
       </fieldset>
