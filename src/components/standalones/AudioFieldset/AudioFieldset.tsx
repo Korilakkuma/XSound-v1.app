@@ -30,6 +30,12 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
   const [isShowModalForProgress, setIsShowModalForProgress] = useState<boolean>(false);
   const [isShowModalForDecoding, setIsShowModalForDecoding] = useState<boolean>(false);
 
+  const isDesktop = useMemo(() => {
+    const mediaQueryList = window.matchMedia('(min-width: 1024px)');
+
+    return mediaQueryList.matches;
+  }, []);
+
   const decodeCallback = useCallback(() => {
     setShowProgress(true);
     setLoadedByte(0);
@@ -122,6 +128,10 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
   const onChangePitchCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     X('audio').module('pitchshifter').param('pitch', event.currentTarget.valueAsNumber);
     X('stream').module('pitchshifter').param('pitch', event.currentTarget.valueAsNumber);
+  }, []);
+
+  const onChangePlaybackRate = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    X('audio').param('playbackRate', event.currentTarget.valueAsNumber);
   }, []);
 
   const onChangeDepthCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -247,15 +257,29 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
           onChange={onChangeCurrentTimeCallback}
         />
         <Spacer space={8} />
-        <ValueController
-          label="Pitch Shifter"
-          id="audio-fieldset-pitch"
-          defaultValue={1}
-          min={0.05}
-          max={4}
-          step={0.05}
-          onChange={onChangePitchCallback}
-        />
+        {isDesktop
+          ? (
+            <ValueController
+              label="Pitch Shifter"
+              id="audio-fieldset-pitch"
+              defaultValue={1}
+              min={0.05}
+              max={4}
+              step={0.05}
+              onChange={onChangePitchCallback}
+            />
+          )
+          : (
+            <ValueController
+              label="Playback Rate"
+              id="audio-fieldset-playback-rate"
+              defaultValue={1}
+              min={0.05}
+              max={2}
+              step={0.05}
+              onChange={onChangePlaybackRate}
+            />
+          )}
         <Spacer space={8} />
         <ValueController
           label="Vocal Canceler"
