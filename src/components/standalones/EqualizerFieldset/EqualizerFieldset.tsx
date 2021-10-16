@@ -29,11 +29,9 @@ export const EqualizerFieldset: React.FC<Props> = (props: Props) => {
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('equalizer').param('bass', bass);
-      X(source).module('distortion').param('bass', bass);
     });
 
     window.C('oscillator').module('equalizer').param('bass', bass);
-    window.C('oscillator').module('distortion').param('bass', bass);
   }, [props.sources]);
 
   const onChangeMiddleCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,11 +39,9 @@ export const EqualizerFieldset: React.FC<Props> = (props: Props) => {
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('equalizer').param('middle', middle);
-      X(source).module('distortion').param('middle', middle);
     });
 
     window.C('oscillator').module('equalizer').param('middle', middle);
-    window.C('oscillator').module('distortion').param('middle', middle);
   }, [props.sources]);
 
   const onChangeTrebleCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,11 +49,9 @@ export const EqualizerFieldset: React.FC<Props> = (props: Props) => {
 
     props.sources.forEach((source: XSoundSource) => {
       X(source).module('equalizer').param('treble', treble);
-      X(source).module('distortion').param('treble', treble);
     });
 
     window.C('oscillator').module('equalizer').param('treble', treble);
-    window.C('oscillator').module('distortion').param('treble', treble);
   }, [props.sources]);
 
   const onChangePresenceCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {

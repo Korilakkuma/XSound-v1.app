@@ -39,26 +39,6 @@ export const DistortionFieldset: React.FC<Props> = (props: Props) => {
     window.C('oscillator').module('distortion').param('curve', curve);
   }, [props.sources]);
 
-  const onChangeSamplesCallback = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
-    const samples = parseInt(event.currentTarget.value, 10);
-
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('distortion').param('samples', samples);
-    });
-
-    window.C('oscillator').module('distortion').param('samples', samples);
-  }, [props.sources]);
-
-  const onChangeAmountCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const amount = event.currentTarget.valueAsNumber;
-
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('distortion').param('amount', amount);
-    });
-
-    window.C('oscillator').module('distortion').param('amount', amount);
-  }, [props.sources]);
-
   const onChangeHighTrebleGainCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const high = event.currentTarget.valueAsNumber;
 
@@ -77,6 +57,36 @@ export const DistortionFieldset: React.FC<Props> = (props: Props) => {
     });
 
     window.C('oscillator').module('distortion').param('normal', normal);
+  }, [props.sources]);
+
+  const onChangeBassCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const bass = event.currentTarget.valueAsNumber;
+
+    props.sources.forEach((source: XSoundSource) => {
+      X(source).module('distortion').param('bass', bass);
+    });
+
+    window.C('oscillator').module('distortion').param('bass', bass);
+  }, [props.sources]);
+
+  const onChangeMiddleCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const middle = event.currentTarget.valueAsNumber;
+
+    props.sources.forEach((source: XSoundSource) => {
+      X(source).module('distortion').param('middle', middle);
+    });
+
+    window.C('oscillator').module('distortion').param('middle', middle);
+  }, [props.sources]);
+
+  const onChangeTrebleCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const treble = event.currentTarget.valueAsNumber;
+
+    props.sources.forEach((source: XSoundSource) => {
+      X(source).module('distortion').param('treble', treble);
+    });
+
+    window.C('oscillator').module('distortion').param('treble', treble);
   }, [props.sources]);
 
   const onChangeMiddleFrequencyCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -121,60 +131,20 @@ export const DistortionFieldset: React.FC<Props> = (props: Props) => {
           onChange={onChangeCurveCallback}
         />
         <Spacer space={8} />
-        <Select
-          id="select-curve-size"
-          label="Select Curve Size"
-          values={[
-            '8',
-            '16',
-            '32',
-            '64',
-            '128',
-            '256',
-            '512',
-            '1024',
-            '2048',
-            '4096',
-            '8192',
-            '16384',
-            '32768',
-            '65536'
-          ]}
-          texts={[
-            '8',
-            '16',
-            '32',
-            '64',
-            '128',
-            '256',
-            '512',
-            '1024',
-            '2048',
-            '4096',
-            '8192',
-            '16384',
-            '32768',
-            '65536'
-          ]}
-          disabled={false}
-          onChange={onChangeSamplesCallback}
-          defaultValue="32768"
-        />
-        <Spacer space={8} />
         <ValueController
-          label="Amount"
-          id="distortion-amount"
+          label="Gain"
+          id="distortion-gain"
           defaultValue={0.5}
-          min={0.05}
-          max={0.95}
+          min={0}
+          max={1}
           step={0.05}
-          onChange={onChangeAmountCallback}
+          onChange={onChangeNormalGainCallback}
         />
         <Spacer space={8} />
         <ValueController
-          label="High Treble Gain"
-          id="distortion-high-treble-gain"
-          defaultValue={1}
+          label="Lead Gain"
+          id="distortion-lead-gain"
+          defaultValue={0.5}
           min={0}
           max={1}
           step={0.05}
@@ -182,13 +152,33 @@ export const DistortionFieldset: React.FC<Props> = (props: Props) => {
         />
         <Spacer space={8} />
         <ValueController
-          label="Normal Gain"
-          id="distortion-normal-gain"
-          defaultValue={1}
-          min={0}
-          max={1}
-          step={0.05}
-          onChange={onChangeNormalGainCallback}
+          label="Bass"
+          id="distortion-bass"
+          defaultValue={0}
+          min={-18}
+          max={18}
+          step={1}
+          onChange={onChangeBassCallback}
+        />
+        <Spacer space={8} />
+        <ValueController
+          label="Middle"
+          id="distortion-middle"
+          defaultValue={0}
+          min={-18}
+          max={18}
+          step={1}
+          onChange={onChangeMiddleCallback}
+        />
+        <Spacer space={8} />
+        <ValueController
+          label="Treble"
+          id="distortion-treble"
+          defaultValue={0}
+          min={-18}
+          max={18}
+          step={1}
+          onChange={onChangeTrebleCallback}
         />
         <Spacer space={8} />
         <ValueController
