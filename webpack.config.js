@@ -1,5 +1,6 @@
 const webpack              = require('webpack');
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin   = require('css-minimizer-webpack-plugin');
 const TerserPlugin         = require('terser-webpack-plugin');
 
 const terserPlugin = new TerserPlugin({
@@ -71,7 +72,8 @@ module.exports = [{
   optimization: {
     minimize: process.env.NODE_ENV === 'production',
     minimizer: [
-      terserPlugin
+      terserPlugin,
+      new CssMinimizerPlugin()
     ],
     splitChunks: {
       chunks: 'all',
