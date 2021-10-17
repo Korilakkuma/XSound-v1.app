@@ -1,11 +1,14 @@
 .Analyser {
   padding: 0 48px;
   background-color: rgba(255, 255, 255, 0.05);
+}
 
-  /* for Slide Panel */
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height ease 0.6s;
+.Analyser[aria-hidden="true"] {
+  display: none;
+}
+
+.Analyser[aria-hidden="false"] {
+  display: block;
 }
 
 .Analyser__canvas {
@@ -94,7 +97,6 @@
 
 .Analyser.-active {
   padding: 24px 48px;
-  max-height: 100vh;
 }
 
 .Analyser__canvas,
