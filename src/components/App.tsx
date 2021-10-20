@@ -849,8 +849,8 @@ export const App: React.FC<Props> = () => {
     X('stream').setup(constraints);
 
     sources.forEach((source: XSoundSource) => {
-      X(source).module('distortion').param('high', 0.5);
-      X(source).module('distortion').param('normal', 0.5);
+      X(source).module('distortion').param('gain', 0.5);
+      X(source).module('distortion').param('lead', 0.5);
       X(source).module('chorus').param('tone', 4000);
       X(source).module('flanger').param('tone', 4000);
       X(source).module('delay').param('tone', 4000);
@@ -858,8 +858,8 @@ export const App: React.FC<Props> = () => {
       X(source).module('filter').param('frequency', 8000);
     });
 
-    window.C('oscillator').module('distortion').param('high', 0.5);
-    window.C('oscillator').module('distortion').param('normal',  0.5);
+    window.C('oscillator').module('distortion').param('gain', 0.5);
+    window.C('oscillator').module('distortion').param('lead',  0.5);
     window.C('oscillator').module('chorus').param('tone', 4000);
     window.C('oscillator').module('flanger').param('tone', 4000);
     window.C('oscillator').module('delay').param('tone', 4000);

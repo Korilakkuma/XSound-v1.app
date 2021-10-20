@@ -39,24 +39,24 @@ export const DistortionFieldset: React.FC<Props> = (props: Props) => {
     window.C('oscillator').module('distortion').param('curve', curve);
   }, [props.sources]);
 
-  const onChangeHighTrebleGainCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const high = event.currentTarget.valueAsNumber;
+  const onChangeGainCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const gain = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
-      X(source).module('distortion').param('high', high);
+      X(source).module('distortion').param('gain', gain);
     });
 
-    window.C('oscillator').module('distortion').param('high', high);
+    window.C('oscillator').module('distortion').param('gain', gain);
   }, [props.sources]);
 
-  const onChangeNormalGainCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const normal = event.currentTarget.valueAsNumber;
+  const onChangeLeadGainCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const lead = event.currentTarget.valueAsNumber;
 
     props.sources.forEach((source: XSoundSource) => {
-      X(source).module('distortion').param('normal', normal);
+      X(source).module('distortion').param('lead', lead);
     });
 
-    window.C('oscillator').module('distortion').param('normal', normal);
+    window.C('oscillator').module('distortion').param('lead', lead);
   }, [props.sources]);
 
   const onChangeBassCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -138,7 +138,7 @@ export const DistortionFieldset: React.FC<Props> = (props: Props) => {
           min={0}
           max={1}
           step={0.05}
-          onChange={onChangeNormalGainCallback}
+          onChange={onChangeGainCallback}
         />
         <Spacer space={8} />
         <ValueController
@@ -148,7 +148,7 @@ export const DistortionFieldset: React.FC<Props> = (props: Props) => {
           min={0}
           max={1}
           step={0.05}
-          onChange={onChangeHighTrebleGainCallback}
+          onChange={onChangeLeadGainCallback}
         />
         <Spacer space={8} />
         <ValueController
