@@ -15,6 +15,7 @@ export interface Props {
 
 export const AudioFieldset: React.FC<Props> = (props: Props) => {
   const [loaded, setLoaded] = useState<boolean>(false);
+  const [isDesktop, setIsDesktop] = useState<boolean>(false);
   const [filename, setFilename] = useState<string>('');
   const [paused, setPaused] = useState<boolean>(true);
   const [currentTime, setCurrentTime] = useState<number>(0);
@@ -29,12 +30,6 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
   const [isShowModalForDecodingError, setIsShowModalForDecodingError] = useState<boolean>(false);
   const [isShowModalForProgress, setIsShowModalForProgress] = useState<boolean>(false);
   const [isShowModalForDecoding, setIsShowModalForDecoding] = useState<boolean>(false);
-
-  const isDesktop = useMemo(() => {
-    const mediaQueryList = window.matchMedia('(min-width: 1024px)');
-
-    return mediaQueryList.matches;
-  }, []);
 
   const decodeCallback = useCallback(() => {
     setShowProgress(true);
@@ -204,6 +199,10 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
       ended : endedCallback,
       error : errorCallback
     });
+
+    const mediaQueryList = window.matchMedia('(min-width: 1024px)');
+
+    setIsDesktop(mediaQueryList.matches);
 
     setLoaded(true);
   }, [
