@@ -88,7 +88,7 @@ export const Header: React.FC<Props> = (props: Props) => {
             <span className="Header__moveRight">The sound that can be created corresponds to 88 keyboards of Piano, and you can play the 2 sounds at the same time.</span>
             <span className="Header__moveLeft">Moreover, you can make effects to sound. Other, you can watch sound waves on time and frequency domain.</span>
           </div>
-          <nav className="Header__startButton"><button type="button" className="" onClick={onClickCallback}>Start Application</button></nav>
+          <nav className="Header__startButton"><button type="button" onClick={onClickCallback}>Start Application</button></nav>
         </div>
       </div>
       {progress ? <ProgressBar id="progress-bar-load-assets" label={`Now Loading ... (${rate} %)`} rate={rate} /> : null}
