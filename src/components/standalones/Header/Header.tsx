@@ -37,23 +37,31 @@ export const Header: React.FC<Props> = (props: Props) => {
     };
 
     if (!progress && !animationEnd) {
-      const elements = Array.from(root.querySelectorAll(FOCUSABLE_ELEMENTS))
-        .filter((node: Element) => (headerRef.current !== null) && !headerRef.current.contains(node) && !hiddenElement(node) && node.getAttribute('tabindex') !== '-1');
-
-      elements.forEach((element: Element) => element.setAttribute('tabindex', '-1'));
-    } else if (animationEnd) {
-      const elements = Array.from(root.querySelectorAll(FOCUSABLE_ELEMENTS))
-        .filter((node: Element) => (headerRef.current !== null) && !headerRef.current.contains(node) && !hiddenElement(node) && node.getAttribute('tabindex') === '-1');
-
-      elements.forEach((element: Element) => {
-        if (element.getAttribute('role') === 'switch') {
-          element.setAttribute('tabindex', '0');
-        } else if ((element.getAttribute('type') === 'checkbox') || (element.getAttribute('type') === 'file')) {
+      Array.from(root.querySelectorAll(FOCUSABLE_ELEMENTS))
+        .filter((node: Element) => {
+          return (headerRef.current !== null) && !headerRef.current.contains(node) &&
+            !hiddenElement(node) &&
+            (node.getAttribute('tabindex') !== '-1');
+        })
+        .forEach((element: Element) => {
           element.setAttribute('tabindex', '-1');
-        } else {
-          element.removeAttribute('tabindex');
-        }
-      });
+        });
+    } else if (animationEnd) {
+      Array.from(root.querySelectorAll(FOCUSABLE_ELEMENTS))
+        .filter((node: Element) => {
+          return (headerRef.current !== null) && !headerRef.current.contains(node) &&
+            !hiddenElement(node) &&
+            (node.getAttribute('tabindex') === '-1');
+        })
+        .forEach((element: Element) => {
+          if (element.getAttribute('role') === 'switch') {
+            element.setAttribute('tabindex', '0');
+          } else if ((element.getAttribute('type') === 'checkbox') || (element.getAttribute('type') === 'file')) {
+            element.setAttribute('tabindex', '-1');
+          } else {
+            element.removeAttribute('tabindex');
+          }
+        });
     }
   }, [progress, animationEnd]);
 
