@@ -55,23 +55,28 @@ const ModalBody: React.FC<Props> = (props: Props) => {
     };
 
     if (isShow) {
-      const elements = Array.from(root.querySelectorAll(FOCUSABLE_ELEMENTS))
-        .filter((node: Element) => !hiddenElement(node) && node.getAttribute('tabindex') !== '-1');
-
-      elements.forEach((element: Element) => element.setAttribute('tabindex', '-1'));
-    } else {
-      const elements = Array.from(root.querySelectorAll(FOCUSABLE_ELEMENTS))
-        .filter((node: Element) => !hiddenElement(node) && node.getAttribute('tabindex') === '-1');
-
-      elements.forEach((element: Element) => {
-        if (element.getAttribute('role') === 'switch') {
-          element.setAttribute('tabindex', '0');
-        } else if ((element.getAttribute('type') === 'checkbox') || (element.getAttribute('type') === 'file')) {
+      Array
+        .from(root.querySelectorAll(FOCUSABLE_ELEMENTS))
+        .filter((node: Element) => {
+          return !hiddenElement(node) && (node.getAttribute('tabindex') !== '-1');
+        })
+        .forEach((element: Element) => {
           element.setAttribute('tabindex', '-1');
-        } else {
-          element.removeAttribute('tabindex');
-        }
-      });
+        });
+    } else {
+      Array.from(root.querySelectorAll(FOCUSABLE_ELEMENTS))
+        .filter((node: Element) => {
+          return !hiddenElement(node) && node.getAttribute('tabindex') === '-1';
+        })
+        .forEach((element: Element) => {
+          if (element.getAttribute('role') === 'switch') {
+            element.setAttribute('tabindex', '0');
+          } else if ((element.getAttribute('type') === 'checkbox') || (element.getAttribute('type') === 'file')) {
+            element.setAttribute('tabindex', '-1');
+          } else {
+            element.removeAttribute('tabindex');
+          }
+        });
     }
   }, [isShow]);
 
