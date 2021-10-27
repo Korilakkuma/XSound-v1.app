@@ -17,7 +17,7 @@
   border-left: none;
   border-right: none;
   border-radius: 4px;
-  width: 97%;
+  width: calc(100% - 4px);
   height: 8px;
   background-color: var(--white);
   background-image: linear-gradient(to bottom, var(--gray-light), var(--black));
@@ -72,9 +72,9 @@
 
 .Slider__value {
   position: absolute;
-  top: 11.5px;
+  top: 11px;
   left: 4px;
-  z-index: 2;
+  z-index: 0;
   max-width: calc(100% - 28px);
   width: 0;
   height: 4px;
