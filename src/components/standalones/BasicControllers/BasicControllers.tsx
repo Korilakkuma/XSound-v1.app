@@ -204,6 +204,10 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
 
   const onChangeSoundSourceCallback = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
     props.sources.forEach((source: XSoundSource) => {
+      if (source === 'noise') {
+        return;
+      }
+
       X(source).module('analyser').stop('time').domain('time').clear();
       X(source).module('analyser').stop('fft').domain('fft').clear();
     });
