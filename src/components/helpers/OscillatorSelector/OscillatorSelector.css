@@ -20,7 +20,7 @@
   background-size: 238px 120px;
 
   /* CSS Sprite */
-  background-image: url(/assets/images/radio-wave-type.png);
+  background-image: url("/assets/images/radio-wave-type.png");
   background-repeat: no-repeat;
 }
 

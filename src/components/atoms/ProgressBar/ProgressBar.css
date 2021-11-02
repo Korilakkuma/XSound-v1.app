@@ -45,7 +45,7 @@
 
 .ProgressBar__label {
   margin-bottom: 12px;
-  font-family: "Alike", serif;
+  font-family: Alike, serif;
   font-size: var(--base-font-size);
   color: var(--assort-color);
   text-align: center;

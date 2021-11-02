@@ -23,7 +23,7 @@
   background-size: 58px 68px;
 
   /* CSS Sprite */
-  background-image: url(/assets/images/flip-switch.png);
+  background-image: url("/assets/images/flip-switch.png");
   background-position: left top;
   background-repeat: no-repeat;
 }

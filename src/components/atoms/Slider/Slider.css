@@ -39,7 +39,7 @@
   background-color: var(--transparent);
 
   /* CSS Sprite */
-  background-image: url(/assets/images/slider-handles.png);
+  background-image: url("/assets/images/slider-handles.png");
   background-size: 23px 46px;
   background-repeat: no-repeat;
   background-position: 0 -23px;
@@ -54,7 +54,7 @@
   background-color: var(--transparent);
 
   /* CSS Sprite */
-  background-image: url(/assets/images/slider-handles.png);
+  background-image: url("/assets/images/slider-handles.png");
   background-size: 23px 46px;
   background-repeat: no-repeat;
   background-position: 0 -23px;
@@ -83,6 +83,7 @@
   border-radius: 0 3px 3px 0;
 }
 
+/* stylelint-disable-next-line function-url-quotes */
 @-moz-document url-prefix() {
   .Slider__value {
     top: 10.5px;

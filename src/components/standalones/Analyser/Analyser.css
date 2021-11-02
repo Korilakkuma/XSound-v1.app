@@ -60,7 +60,7 @@
   background-size: 50px 44px;
 
   /* CSS Sprite */
-  background-image: url(/assets/images/flip-switch-channel.png);
+  background-image: url("/assets/images/flip-switch-channel.png");
   background-repeat: no-repeat;
 }
 

@@ -11,7 +11,7 @@
   display: block;
   margin: 0 auto 8px;
   width: var(--fieldset-width);
-  font-family: "Neuton", serif;
+  font-family: Neuton, serif;
   font-size: 22px;
   font-weight: lighter;
   color: var(--assort-color);
@@ -39,7 +39,7 @@
   background-size: 238px 120px;
 
   /* CSS Sprite */
-  background-image: url(/assets/images/buttons-record.png);
+  background-image: url("/assets/images/buttons-record.png");
   background-repeat: no-repeat;
   background-position: 0 bottom;
 }
@@ -61,7 +61,7 @@
   background-size: 238px 120px;
 
   /* CSS Sprite */
-  background-image: url(/assets/images/buttons-record.png);
+  background-image: url("/assets/images/buttons-record.png");
   background-repeat: no-repeat;
   background-position: -63px bottom;
 }
@@ -84,7 +84,7 @@
   background-size: 238px 120px;
 
   /* CSS Sprite */
-  background-image: url(/assets/images/buttons-record.png);
+  background-image: url("/assets/images/buttons-record.png");
   background-repeat: no-repeat;
   background-position: -119px bottom;
   text-indent: 100%;
@@ -112,7 +112,7 @@
   background-size: 238px 120px;
 
   /* CSS Sprite */
-  background-image: url(/assets/images/buttons-record.png);
+  background-image: url("/assets/images/buttons-record.png");
   background-repeat: no-repeat;
   background-position: -175px bottom;
 }

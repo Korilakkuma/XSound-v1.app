@@ -1,3 +1,12 @@
 {
-  "extends": "stylelint-config-standard"
+  "extends": "stylelint-config-standard",
+  "rules": {
+    "alpha-value-notation": null,
+    "color-function-notation": "legacy",
+    "declaration-empty-line-before": null,
+    "property-no-vendor-prefix": null,
+    "selector-class-pattern": null,
+    "selector-no-vendor-prefix": null,
+    "value-no-vendor-prefix": null
+  }
 }

@@ -34,7 +34,7 @@ noscript {
   -webkit-align-items: center;
   align-items: center;
   height: 100vh;
-  font-family: "Alike", serif;
+  font-family: Alike, serif;
   font-size: var(--base-font-size);
   color: var(--assort-color);
 }

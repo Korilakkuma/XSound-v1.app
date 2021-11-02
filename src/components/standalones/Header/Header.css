@@ -172,9 +172,9 @@
 }
 
 .Header__intro {
-  margin: 12px auto 24px auto;
+  margin: 12px auto 24px;
   width: 950px;
-  font-family: "Alike", serif;
+  font-family: Alike, serif;
   font-size: 18px;
   color: var(--assort-color);
   text-align: left !important;
@@ -239,7 +239,7 @@
   background-size: 136px 150px;
 
   /* CSS Sprite */
-  background-image: url(/assets/images/button-start-application.png);
+  background-image: url("/assets/images/button-start-application.png");
   background-position: left top;
   background-repeat: no-repeat;
 }
