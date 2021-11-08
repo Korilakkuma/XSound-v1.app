@@ -12,6 +12,7 @@ export interface Props {
 
 export const DistortionFieldset: React.FC<Props> = (props: Props) => {
   const [distortion, setDistortion] = useState<boolean>(false);
+  const [cabinet, setCabinet] = useState<boolean>(false);
 
   const onChangeStateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const state = event.currentTarget.checked;
@@ -97,6 +98,18 @@ export const DistortionFieldset: React.FC<Props> = (props: Props) => {
     });
 
     window.C('oscillator').module('distortion').param('frequency', frequency);
+  }, [props.sources]);
+
+  const onChangeCabinetCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const cabinet = event.currentTarget.checked;
+
+    props.sources.forEach((source: XSoundSource) => {
+      X(source).module('distortion').param('cabinet', cabinet);
+    });
+
+    window.C('oscillator').module('distortion').param('cabinet', cabinet);
+
+    setCabinet(cabinet);
   }, [props.sources]);
 
   return (
@@ -186,11 +199,17 @@ export const DistortionFieldset: React.FC<Props> = (props: Props) => {
           id="distortion-middle-frequency"
           defaultValue={500}
           min={20}
-          max={22050}
+          max={8000}
           step={1}
           onChange={onChangeMiddleFrequencyCallback}
         />
         <Spacer space={8} />
+        <Switch
+          id="distortion-cabinet"
+          label="cabinet"
+          checked={cabinet}
+          onChange={onChangeCabinetCallback}
+        />
       </fieldset>
     </div>
   );
