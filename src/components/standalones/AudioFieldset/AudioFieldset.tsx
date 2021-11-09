@@ -248,6 +248,7 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
             onClick={onClickCallback}
           />
         </div>
+        <Spacer space={20} />
         <ValueController
           label={`${currentTimeText} / ${durationText}`}
           id="audio-fieldset-current-time"

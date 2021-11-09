@@ -181,7 +181,7 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
             onClick={onClickClearButtonCallback}
           />
         </div>
-        <Spacer space={16} />
+        <Spacer space={24} />
         <Select
           id="select-track"
           label="Select Track"
@@ -190,7 +190,7 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
           disabled={running}
           onChange={onChangeTrackCallback}
         />
-        <Spacer space={16} />
+        <Spacer space={24} />
         <ValueController
           label="Left Channel"
           id="recorder-fieldset-left-channel-gain"
