@@ -118,6 +118,8 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
 
   const onChangeCurrentTimeCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     X('audio').param('currentTime', event.currentTarget.valueAsNumber);
+
+    setCurrentTime(X('audio').param('currentTIme'));
   }, []);
 
   const onChangePitchCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
