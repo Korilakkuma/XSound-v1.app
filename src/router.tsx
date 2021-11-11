@@ -1,15 +1,15 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { App } from './components/App';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Props {
 }
 
-export const Routes: React.FC<Props> = () => (
-  <Switch>
+export const Router: React.FC<Props> = () => {
+  return (
     <Route exact path="/">
       <App />
     </Route>
-  </Switch>
-);
+  );
+};
