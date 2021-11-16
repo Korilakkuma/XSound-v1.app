@@ -87,7 +87,7 @@ const ModalBody: React.FC<Props> = (props: Props) => {
       aria-modal={isShow}
       aria-labelledby={labelId}
       aria-describedby={describeId}
-      className={`Modal${isShow ? ' -show' : ''}`}
+      className={`Modal${isShow ? ' -show' : ' -hidden'}`}
     >
       {hasOverlay ? <Overlay className="Modal__overlay" onClose={onClose} /> : null}
       <div className="Modal__inner">
