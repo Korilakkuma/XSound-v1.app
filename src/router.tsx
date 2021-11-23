@@ -8,7 +8,7 @@ interface Props {
 
 export const Router: React.FC<Props> = () => {
   return (
-    <Route exact path="/">
+    <Route path="/">
       <App />
     </Route>
   );
