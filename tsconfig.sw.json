@@ -19,9 +19,5 @@
   },
   "include": [
     "src/service-worker.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "assets/**/*"
   ]
 }
