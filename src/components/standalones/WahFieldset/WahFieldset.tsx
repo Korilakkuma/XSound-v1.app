@@ -1,68 +1,87 @@
 import React, { useState, useCallback } from 'react';
-import { XSoundSource } from '../../../types';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
 import { ValueController } from '../../helpers/ValueController';
 import { X } from 'xsound';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Props {
-  sources: XSoundSource[];
 }
 
-export const WahFieldset: React.FC<Props> = (props: Props) => {
+export const WahFieldset: React.FC<Props> = () => {
   const [wah, setWah] = useState<boolean>(false);
 
   const onChangeStateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const state = event.currentTarget.checked;
+    const checked = event.currentTarget.checked;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('wah').state(state);
-    });
+    if (checked) {
+      X('mixer').module('wah').activate();
+      X('oneshot').module('wah').activate();
+      X('audio').module('wah').activate();
+      X('stream').module('wah').activate();
+      X('noise').module('wah').activate();
+      X('oscillator').module('wah').activate();
+      window.C('oscillator').module('wah').activate();
+    } else {
+      X('mixer').module('wah').deactivate();
+      X('oneshot').module('wah').deactivate();
+      X('audio').module('wah').deactivate();
+      X('stream').module('wah').deactivate();
+      X('noise').module('wah').deactivate();
+      X('oscillator').module('wah').deactivate();
+      window.C('oscillator').module('wah').deactivate();
+    }
 
-    window.C('oscillator').module('wah').state(state);
-
-    setWah(state);
-  }, [props.sources]);
+    setWah(checked);
+  }, []);
 
   const onChangeCutoffCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const cutoff = event.currentTarget.valueAsNumber;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('wah').param('cutoff', cutoff);
-    });
-
-    window.C('oscillator').module('wah').param('cutoff', cutoff);
-  }, [props.sources]);
+    X('mixer').module('wah').param({ cutoff });
+    X('oneshot').module('wah').param({ cutoff });
+    X('audio').module('wah').param({ cutoff });
+    X('stream').module('wah').param({ cutoff });
+    X('noise').module('wah').param({ cutoff });
+    X('oscillator').module('wah').param({ cutoff });
+    window.C('oscillator').module('wah').param({ cutoff });
+  }, []);
 
   const onChangeDepthCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const depth = event.currentTarget.valueAsNumber;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('wah').param('depth', depth);
-    });
-
-    window.C('oscillator').module('wah').param('depth', depth);
-  }, [props.sources]);
+    X('mixer').module('wah').param({ depth });
+    X('oneshot').module('wah').param({ depth });
+    X('audio').module('wah').param({ depth });
+    X('stream').module('wah').param({ depth });
+    X('noise').module('wah').param({ depth });
+    X('oscillator').module('wah').param({ depth });
+    window.C('oscillator').module('wah').param({ depth });
+  }, []);
 
   const onChangeRateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const rate = event.currentTarget.valueAsNumber;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('wah').param('rate', rate);
-    });
-
-    window.C('oscillator').module('wah').param('rate', rate);
-  }, [props.sources]);
+    X('mixer').module('wah').param({ rate });
+    X('oneshot').module('wah').param({ rate });
+    X('audio').module('wah').param({ rate });
+    X('stream').module('wah').param({ rate });
+    X('noise').module('wah').param({ rate });
+    X('oscillator').module('wah').param({ rate });
+    window.C('oscillator').module('wah').param({ rate });
+  }, []);
 
   const onChangeResonanceCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const resonance = event.currentTarget.valueAsNumber;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('wah').param('resonance', resonance);
-    });
-
-    window.C('oscillator').module('wah').param('resonance', resonance);
-  }, [props.sources]);
+    X('mixer').module('wah').param({ resonance });
+    X('oneshot').module('wah').param({ resonance });
+    X('audio').module('wah').param({ resonance });
+    X('stream').module('wah').param({ resonance });
+    X('noise').module('wah').param({ resonance });
+    X('oscillator').module('wah').param({ resonance });
+    window.C('oscillator').module('wah').param({ resonance });
+  }, []);
 
   return (
     <div className="WahFieldset">

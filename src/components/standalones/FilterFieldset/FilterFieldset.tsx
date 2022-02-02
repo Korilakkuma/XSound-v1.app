@@ -1,109 +1,149 @@
 import React, { useState, useCallback } from 'react';
-import { XSoundSource } from '../../../types';
 import { Spacer } from '../../atoms/Spacer';
 import { Select } from '../../atoms/Select';
 import { Switch } from '../../atoms/Switch';
 import { ValueController } from '../../helpers/ValueController';
 import { X } from 'xsound';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Props {
-  sources: XSoundSource[];
 }
 
-export const FilterFieldset: React.FC<Props> = (props: Props) => {
+export const FilterFieldset: React.FC<Props> = () => {
   const [filter, setFilter] = useState<boolean>(false);
 
   const onChangeStateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const state = event.currentTarget.checked;
+    const checked = event.currentTarget.checked;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('filter').state(state);
-    });
+    if (checked) {
+      X('mixer').module('filter').activate();
+      X('oneshot').module('filter').activate();
+      X('audio').module('filter').activate();
+      X('stream').module('filter').activate();
+      X('noise').module('filter').activate();
+      X('oscillator').module('filter').activate();
+      window.C('oscillator').module('filter').activate();
+    } else {
+      X('mixer').module('filter').deactivate();
+      X('oneshot').module('filter').deactivate();
+      X('audio').module('filter').deactivate();
+      X('stream').module('filter').deactivate();
+      X('noise').module('filter').deactivate();
+      X('oscillator').module('filter').deactivate();
+      window.C('oscillator').module('filter').deactivate();
+    }
 
-    window.C('oscillator').module('filter').state(state);
-
-    setFilter(state);
-  }, [props.sources]);
+    setFilter(checked);
+  }, []);
 
   const onChangeTypeCallback = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
     const type = event.currentTarget.value;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('filter').param('type', type);
-    });
-
-    window.C('oscillator').module('filter').param('type', type);
-  }, [props.sources]);
+    switch (type) {
+      case 'lowpass'  :
+      case 'highpass' :
+      case 'bandpass' :
+      case 'lowshelf' :
+      case 'highshelf':
+      case 'peaking'  :
+      case 'notch'    :
+      case 'allpass'  :
+        X('mixer').module('filter').param({ type });
+        X('oneshot').module('filter').param({ type });
+        X('audio').module('filter').param({ type });
+        X('stream').module('filter').param({ type });
+        X('noise').module('filter').param({ type });
+        X('oscillator').module('filter').param({ type });
+        window.C('oscillator').module('filter').param({ type });
+        break;
+      default:
+        break;
+    }
+  }, []);
 
   const onChangeFrequencyCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const frequency = event.currentTarget.valueAsNumber;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('filter').param('frequency', frequency);
-    });
-
-    window.C('oscillator').module('filter').param('frequency', frequency);
-  }, [props.sources]);
+    X('mixer').module('filter').param({ frequency });
+    X('oneshot').module('filter').param({ frequency });
+    X('audio').module('filter').param({ frequency });
+    X('stream').module('filter').param({ frequency });
+    X('noise').module('filter').param({ frequency });
+    X('oscillator').module('filter').param({ frequency });
+    window.C('oscillator').module('filter').param({ frequency });
+  }, []);
 
   const onChangeQualityCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const quality = event.currentTarget.valueAsNumber;
+    const Q = event.currentTarget.valueAsNumber;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('filter').param('Q', quality);
-    });
-
-    window.C('oscillator').module('filter').param('Q', quality);
-  }, [props.sources]);
+    X('mixer').module('filter').param({ Q });
+    X('oneshot').module('filter').param({ Q });
+    X('audio').module('filter').param({ Q });
+    X('stream').module('filter').param({ Q });
+    X('noise').module('filter').param({ Q });
+    X('oscillator').module('filter').param({ Q });
+    window.C('oscillator').module('filter').param({ Q });
+  }, []);
 
   const onChangeGainCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const gain = event.currentTarget.valueAsNumber;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('filter').param('gain', gain);
-    });
-
-    window.C('oscillator').module('filter').param('gain', gain);
-  }, [props.sources]);
+    X('mixer').module('filter').param({ gain });
+    X('oneshot').module('filter').param({ gain });
+    X('audio').module('filter').param({ gain });
+    X('stream').module('filter').param({ gain });
+    X('noise').module('filter').param({ gain });
+    X('oscillator').module('filter').param({ gain });
+    window.C('oscillator').module('filter').param({ gain });
+  }, []);
 
   const onChangeAttackCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const attack = event.currentTarget.valueAsNumber;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('filter').param('attack', attack);
-    });
-
-    window.C('oscillator').module('filter').param('attack', attack);
-  }, [props.sources]);
+    X('mixer').module('filter').param({ attack });
+    X('oneshot').module('filter').param({ attack });
+    X('audio').module('filter').param({ attack });
+    X('stream').module('filter').param({ attack });
+    X('noise').module('filter').param({ attack });
+    X('oscillator').module('filter').param({ attack });
+    window.C('oscillator').module('filter').param({ attack });
+  }, []);
 
   const onChangeDecayCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const decay = event.currentTarget.valueAsNumber;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('filter').param('decay', decay);
-    });
-
-    window.C('oscillator').module('filter').param('decay', decay);
-  }, [props.sources]);
+    X('mixer').module('filter').param({ decay });
+    X('oneshot').module('filter').param({ decay });
+    X('audio').module('filter').param({ decay });
+    X('stream').module('filter').param({ decay });
+    X('noise').module('filter').param({ decay });
+    X('oscillator').module('filter').param({ decay });
+    window.C('oscillator').module('filter').param({ decay });
+  }, []);
 
   const onChangeSustainCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const sustain = event.currentTarget.valueAsNumber;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('filter').param('sustain', sustain);
-    });
-
-    window.C('oscillator').module('filter').param('sustain', sustain);
-  }, [props.sources]);
+    X('mixer').module('filter').param({ sustain });
+    X('oneshot').module('filter').param({ sustain });
+    X('audio').module('filter').param({ sustain });
+    X('stream').module('filter').param({ sustain });
+    X('noise').module('filter').param({ sustain });
+    X('oscillator').module('filter').param({ sustain });
+    window.C('oscillator').module('filter').param({ sustain });
+  }, []);
 
   const onChangeReleaseCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const release = event.currentTarget.valueAsNumber;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('filter').param('release', release);
-    });
-
-    window.C('oscillator').module('filter').param('release', release);
-  }, [props.sources]);
+    X('mixer').module('filter').param({ release });
+    X('oneshot').module('filter').param({ release });
+    X('audio').module('filter').param({ release });
+    X('stream').module('filter').param({ release });
+    X('noise').module('filter').param({ release });
+    X('oscillator').module('filter').param({ release });
+    window.C('oscillator').module('filter').param({ release });
+  }, []);
 
   return (
     <div className="FilterFieldset">

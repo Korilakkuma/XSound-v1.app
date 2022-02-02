@@ -5,7 +5,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import { Props, ReverbFieldset } from './ReverbFieldset';
 import '../../../main.css';
 
-import { XSoundSource, RIRInfo } from '../../../types';
+import { RIRInfo } from '../../../types';
 import { X } from 'xsound';
 
 export default {
@@ -24,9 +24,7 @@ const Template: Story<Props> = () => {
   const [loaded, setLoaded] = useState<boolean>(false);
   const [paused, setPaused] = useState<boolean>(true);
 
-  const sources = useMemo(() => ['audio'] as XSoundSource[], []);
-
-  const reverbs: AudioBuffer[] = useMemo(() => [], []);
+  const rirs: AudioBuffer[] = useMemo(() => [], []);
 
   useEffect(() => {
     if (loaded) {
@@ -34,31 +32,36 @@ const Template: Story<Props> = () => {
     }
 
     X('audio').setup({
-      ready: () => {
+      decodeCallback: () => {
         setLoaded(true);
       }
     });
 
     rirInfos.forEach((rirInfo: RIRInfo) => {
-      X.ajax(rirInfo.url, 'arraybuffer', 60000, (event: ProgressEvent, arrayBuffer: ArrayBuffer) => {
-        X.decode(X.get(), arrayBuffer, (audioBuffer: AudioBuffer) => {
-          reverbs.push(audioBuffer);
+      X.ajax({
+        url            : rirInfo.url,
+        type           : 'arraybuffer',
+        timeout        : 60000,
+        successCallback: (event: ProgressEvent, arraybuffer: ArrayBuffer) => {
+          X.decode(X.get(), arraybuffer, (audiobuffer: AudioBuffer) => {
+            rirs.push(audiobuffer);
 
-          if (reverbs.length === rirInfos.length) {
-            X('audio').module('reverb').preset(reverbs);
-          }
-        });
+            if (rirs.length === rirInfos.length) {
+              X('audio').module('reverb').preset({ rirs });
+            }
+          });
+        }
       });
     });
 
     X.ajax({
-      url    : 'https://weblike-curtaincall.ssl-lolipop.jp/assets/wav/forever-love-piano-instruments.wav',
-      timeout: 60000,
-      success: (event: Event, arrayBuffer: ArrayBuffer) => {
-        X('audio').ready(arrayBuffer);
+      url            : 'https://weblike-curtaincall.ssl-lolipop.jp/assets/wav/forever-love-piano-instruments.wav',
+      timeout        : 60000,
+      successCallback: (event: ProgressEvent, arraybuffer: ArrayBuffer) => {
+        X('audio').ready(arraybuffer);
       }
     });
-  }, [loaded, reverbs]);
+  }, [loaded, rirs]);
 
   return (
     <React.Fragment>
@@ -66,14 +69,19 @@ const Template: Story<Props> = () => {
         type="button"
         disabled={!loaded}
         onClick={() => {
-          X('audio').toggle(X('audio').param('currentTime'));
+          if (X('audio').paused()) {
+            X('audio').start(X('audio').param('currentTime'));
+          } else {
+            X('audio').stop();
+          }
+
           setPaused(!paused);
         }}
         style={{ backgroundColor: '#fff' }}
       >
         {loaded ? (paused ? 'Start' : 'Stop') : 'Loading audio ...'}
       </button>
-      <ReverbFieldset sources={sources} rirInfos={rirInfos} />
+      <ReverbFieldset rirInfos={rirInfos} />
     </React.Fragment>
   );
 };

@@ -1,89 +1,123 @@
 import React, { useState, useCallback } from 'react';
-import { XSoundSource } from '../../../types';
 import { Spacer } from '../../atoms/Spacer';
 import { Select } from '../../atoms/Select';
 import { Switch } from '../../atoms/Switch';
 import { ValueController } from '../../helpers/ValueController';
 import { X } from 'xsound';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Props {
-  sources: XSoundSource[];
 }
 
-export const PhaserFieldset: React.FC<Props> = (props: Props) => {
+export const PhaserFieldset: React.FC<Props> = () => {
   const [phaser, setPhaser] = useState<boolean>(false);
 
   const onChangeStateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const state = event.currentTarget.checked;
+    const checked = event.currentTarget.checked;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('phaser').state(state);
-    });
+    if (checked) {
+      X('mixer').module('phaser').activate();
+      X('oneshot').module('phaser').activate();
+      X('audio').module('phaser').activate();
+      X('stream').module('phaser').activate();
+      X('noise').module('phaser').activate();
+      X('oscillator').module('phaser').activate();
+      window.C('oscillator').module('phaser').activate();
+    } else {
+      X('mixer').module('phaser').deactivate();
+      X('oneshot').module('phaser').deactivate();
+      X('audio').module('phaser').deactivate();
+      X('stream').module('phaser').deactivate();
+      X('noise').module('phaser').deactivate();
+      X('oscillator').module('phaser').deactivate();
+      window.C('oscillator').module('phaser').deactivate();
+    }
 
-    window.C('oscillator').module('phaser').state(state);
-
-    setPhaser(state);
-  }, [props.sources]);
+    setPhaser(checked);
+  }, []);
 
   const onChangeStageCallback = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
     const stage = parseInt(event.currentTarget.value, 10);
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('phaser').param('stage', stage);
-    });
+    switch (stage) {
+      case  2:
+      case  4:
+      case  8:
+      case 12:
+      case 24:
+        X('mixer').module('phaser').param({ stage });
+        X('oneshot').module('phaser').param({ stage });
+        X('audio').module('phaser').param({ stage });
+        X('stream').module('phaser').param({ stage });
+        X('noise').module('phaser').param({ stage });
+        X('oscillator').module('phaser').param({ stage });
+        window.C('oscillator').module('phaser').param({ stage });
 
-    window.C('oscillator').module('phaser').param('stage', stage);
-  }, [props.sources]);
+        break;
+      default:
+        break;
+    }
+  }, []);
 
   const onChangeFrequencyCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const frequency = event.currentTarget.valueAsNumber;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('phaser').param('frequency', frequency);
-    });
-
-    window.C('oscillator').module('phaser').param('frequency', frequency);
-  }, [props.sources]);
+    X('mixer').module('phaser').param({ frequency });
+    X('oneshot').module('phaser').param({ frequency });
+    X('audio').module('phaser').param({ frequency });
+    X('stream').module('phaser').param({ frequency });
+    X('noise').module('phaser').param({ frequency });
+    X('oscillator').module('phaser').param({ frequency });
+    window.C('oscillator').module('phaser').param({ frequency });
+  }, []);
 
   const onChangeDepthCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const depth = event.currentTarget.valueAsNumber;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('phaser').param('depth', depth);
-    });
-
-    window.C('oscillator').module('phaser').param('depth', depth);
-  }, [props.sources]);
+    X('mixer').module('phaser').param({ depth });
+    X('oneshot').module('phaser').param({ depth });
+    X('audio').module('phaser').param({ depth });
+    X('stream').module('phaser').param({ depth });
+    X('noise').module('phaser').param({ depth });
+    X('oscillator').module('phaser').param({ depth });
+    window.C('oscillator').module('phaser').param({ depth });
+  }, []);
 
   const onChangeRateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const rate = event.currentTarget.valueAsNumber;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('phaser').param('rate', rate);
-    });
-
-    window.C('oscillator').module('phaser').param('rate', rate);
-  }, [props.sources]);
+    X('mixer').module('phaser').param({ rate });
+    X('oneshot').module('phaser').param({ rate });
+    X('audio').module('phaser').param({ rate });
+    X('stream').module('phaser').param({ rate });
+    X('noise').module('phaser').param({ rate });
+    X('oscillator').module('phaser').param({ rate });
+    window.C('oscillator').module('phaser').param({ rate });
+  }, []);
 
   const onChangeMixCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const mix = event.currentTarget.valueAsNumber;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('phaser').param('mix', mix);
-    });
-
-    window.C('oscillator').module('phaser').param('mix', mix);
-  }, [props.sources]);
+    X('mixer').module('phaser').param({ mix });
+    X('oneshot').module('phaser').param({ mix });
+    X('audio').module('phaser').param({ mix });
+    X('stream').module('phaser').param({ mix });
+    X('noise').module('phaser').param({ mix });
+    X('oscillator').module('phaser').param({ mix });
+    window.C('oscillator').module('phaser').param({ mix });
+  }, []);
 
   const onChangeFeedbackCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const feedback = event.currentTarget.valueAsNumber;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('phaser').param('feedback', feedback);
-    });
-
-    window.C('oscillator').module('phaser').param('feedback', feedback);
-  }, [props.sources]);
+    X('mixer').module('phaser').param({ feedback });
+    X('oneshot').module('phaser').param({ feedback });
+    X('audio').module('phaser').param({ feedback });
+    X('stream').module('phaser').param({ feedback });
+    X('noise').module('phaser').param({ feedback });
+    X('oscillator').module('phaser').param({ feedback });
+    window.C('oscillator').module('phaser').param({ feedback });
+  }, []);
 
   return (
     <div className="PhaserFieldset">

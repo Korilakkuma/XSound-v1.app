@@ -1,19 +1,18 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useSelector } from 'react-redux';
-import { IState, XSoundSource, ConvertedTime } from '../../../types';
+import { IState } from '../../../types';
 import { formatAudioTime } from '../../../utils';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
 import { ValueController } from '../../helpers/ValueController';
-import { X } from 'xsound';
+import { X, AnalyserParams, TimeOverviewParams, TimeParams, FFTParams, DragMode, DragCallbackFunction } from 'xsound';
 
 export interface Props {
   loadedApp: boolean;
-  sources: XSoundSource[];
 }
 
 export const Analyser: React.FC<Props> = (props: Props) => {
-  const { loadedApp, sources } = props;
+  const { loadedApp } = props;
 
   const canvasForTimeOverviewLeftRef  = useRef<HTMLCanvasElement>(null);
   const canvasForTimeOverviewRightRef = useRef<HTMLCanvasElement>(null);
@@ -36,16 +35,16 @@ export const Analyser: React.FC<Props> = (props: Props) => {
     const checked = event.currentTarget.checked;
 
     if (checked) {
-      X('audio').module('analyser').domain('timeoverview', 0).param('mode', 'sprite');
-      X('audio').module('analyser').domain('timeoverview', 1).param('mode', 'sprite');
-      X('audio').param('loop', true);
+      X('audio').module('analyser').domain('timeoverview', 0).param({ mode: 'sprite' });
+      X('audio').module('analyser').domain('timeoverview', 1).param({ mode: 'sprite' });
+      X('audio').param({ loop: true });
     } else {
       const currentTime = X('audio').param('currentTime');
       const duration    = X('audio').param('duration');
 
-      X('audio').module('analyser').domain('timeoverview', 0).param('mode', 'update');
-      X('audio').module('analyser').domain('timeoverview', 1).param('mode', 'update');
-      X('audio').param('loop', false);
+      X('audio').module('analyser').domain('timeoverview', 0).param({ mode: 'update' });
+      X('audio').module('analyser').domain('timeoverview', 1).param({ mode: 'update' });
+      X('audio').param({ loop: false });
       X('audio').stop().start(currentTime, duration);
     }
 
@@ -55,17 +54,31 @@ export const Analyser: React.FC<Props> = (props: Props) => {
   const onChangeIntervalCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.currentTarget.valueAsNumber;
 
-    sources.forEach((source: XSoundSource) => {
-      X(source).module('analyser').domain('time').param('interval', ((value > 0) ? value : 'auto'));
-      X(source).module('analyser').domain('fft').param('interval', ((value > 0) ? value : 'auto'));
-    });
-  }, [sources]);
+    X('mixer').module('analyser').domain('time').param({ interval: (value > 0) ? value : -1 });
+    X('mixer').module('analyser').domain('fft').param({ interval: (value > 0) ? value : -1 });
+    X('oneshot').module('analyser').domain('time').param({ interval: (value > 0) ? value : -1 });
+    X('oneshot').module('analyser').domain('fft').param({ interval: (value > 0) ? value : -1 });
+    X('audio').module('analyser').domain('time').param({ interval: (value > 0) ? value : -1 });
+    X('audio').module('analyser').domain('fft').param({ interval: (value > 0) ? value : -1 });
+    X('stream').module('analyser').domain('time').param({ interval: (value > 0) ? value : -1 });
+    X('stream').module('analyser').domain('fft').param({ interval: (value > 0) ? value : -1 });
+    X('noise').module('analyser').domain('time').param({ interval: (value > 0) ? value : -1 });
+    X('noise').module('analyser').domain('fft').param({ interval: (value > 0) ? value : -1 });
+    X('oscillator').module('analyser').domain('time').param({ interval: (value > 0) ? value : -1 });
+    window.C('oscillator').module('analyser').domain('fft').param({ interval: (value > 0) ? value : -1 });
+  }, []);
 
   const onChangeSmoothingCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    sources.forEach((source: XSoundSource) => {
-      X(source).module('analyser').param('smoothingTimeConstant', event.currentTarget.valueAsNumber);
-    });
-  }, [sources]);
+    const value = event.currentTarget.valueAsNumber;
+
+    X('mixer').module('analyser').param({ smoothingTimeConstant: value });
+    X('oneshot').module('analyser').param({ smoothingTimeConstant: value });
+    X('audio').module('analyser').param({ smoothingTimeConstant: value });
+    X('stream').module('analyser').param({ smoothingTimeConstant: value });
+    X('noise').module('analyser').param({ smoothingTimeConstant: value });
+    X('oscillator').module('analyser').param({ smoothingTimeConstant: value });
+    window.C('oscillator').module('analyser').param({ smoothingTimeConstant: value });
+  }, []);
 
   useEffect(() => {
     if (!loadedApp) {
@@ -80,98 +93,120 @@ export const Analyser: React.FC<Props> = (props: Props) => {
     }
 
     if (loaded) {
-      sources.forEach((source: XSoundSource) => {
-        X(source).module('analyser').domain('time').state(active);
-        X(source).module('analyser').domain('fft').state(active);
-      });
+      X('mixer').module('analyser').domain('time').activate();
+      X('mixer').module('analyser').domain('fft').activate();
+      X('oneshot').module('analyser').domain('time').activate();
+      X('oneshot').module('analyser').domain('fft').activate();
+      X('audio').module('analyser').domain('time').activate();
+      X('audio').module('analyser').domain('fft').activate();
+      X('stream').module('analyser').domain('time').activate();
+      X('stream').module('analyser').domain('fft').activate();
+      X('noise').module('analyser').domain('time').activate();
+      X('noise').module('analyser').domain('fft').activate();
+      X('oscillator').module('analyser').domain('time').activate();
+      window.C('oscillator').module('analyser').domain('fft').activate();
 
       return;
     }
 
-    sources.forEach((source: XSoundSource) => {
-      X(source)
-        .module('analyser')
-        .param({
-          fftSize              : 2048,
-          minDecibels          : -100,
-          maxDecibels          : -30,
-          smoothingTimeConstant: 0.8
-        });
-
-      X(source)
-        .module('analyser')
-        .domain('time')
-        .setup(canvasForTimeDomainRef.current)
-        .param({
-          interval: 0,
-          shape   : 'line',
-          wave    : 'rgba(0, 0, 255, 1.0)',
-          grid    : 'rgba(255, 255, 255, 0.2)',
-          font    : {
-            family: 'Arial',
-            size  : '12px',
-            style : 'normal',
-            weight: 'normal'
-          },
-          width   : 2,
-          right   : 15,
-          type    : 'uint'
-        });
-
-      X(source)
-        .module('analyser')
-        .domain('fft')
-        .setup(canvasForFrequencyDomainRef.current)
-        .param({
-          interval: 0,
-          shape   : 'rect',
-          wave    : 'gradient',
-          grid    : 'rgba(255, 255, 255, 0.2)',
-          grad    : [
-            { offset: 0, color: 'rgba(0, 128, 255, 1.0)' },
-            { offset: 1, color: 'rgba(0,   0, 255, 1.0)' }
-          ],
-          font    : {
-            family: 'Arial',
-            size  : '12px',
-            style : 'normal',
-            weight: 'normal'
-          },
-          width   : 1,
-          right   : 15,
-          type    : 'uint',
-          size    : 256
-        });
-    });
-
-    const params = {
-      shape: 'rect',
-      wave : 'gradient',
-      grad : [
-        { offset: 0, color: 'rgba(0, 128, 255, 1.0)' },
-        { offset: 1, color: 'rgba(0,   0, 255, 1.0)' }
-      ],
-      grid : 'rgba(255, 255, 255, 0.2)',
-      currentTime: 'rgba(255, 255, 255, 0.1)',
-      font : {
-        family: 'Arial',
-        size  : '12px',
-        style : 'normal',
-        weight: 'normal'
-      },
-      width: 0.5,
-      right: 15
+    const analyserParams: AnalyserParams = {
+      fftSize              : 2048,
+      minDecibels          : -100,
+      maxDecibels          : -30,
+      smoothingTimeConstant: 0.8
     };
 
-    const dragCallback = (event: Event, startTime: number, endTime: number, mode: 'update' | 'sprite', direction: boolean) => {
+    const timeParams: TimeParams = {
+      interval: -1,
+      type    : 'uint',
+      styles  : {
+        shape    : 'line',
+        grid     : 'rgba(255, 255, 255, 0.2)',
+        font     : {
+          family: 'Arial',
+          size  : '12px',
+          style : 'normal',
+          weight: 'normal'
+        },
+        width : 1.5,
+        right : 15
+      }
+    };
+
+    const fftParams: FFTParams = {
+      interval: -1,
+      type    : 'uint',
+      styles  : {
+        shape    : 'rect',
+        grid     : 'rgba(255, 255, 255, 0.2)',
+        gradients: [
+          { offset: 0, color: 'rgba(0, 128, 255, 1.0)' },
+          { offset: 1, color: 'rgba(0,   0, 255, 1.0)' }
+        ],
+        font     : {
+          family: 'Arial',
+          size  : '12px',
+          style : 'normal',
+          weight: 'normal'
+        },
+        width : 1,
+        right : 15
+      }
+    };
+
+    const timeoverviewStyle: TimeOverviewParams = {
+      currentTime: {
+        color: 'rgba(255, 255, 255, 0.1)'
+      },
+      styles     : {
+        shape      : 'rect',
+        grid       : 'rgba(255, 255, 255, 0.2)',
+        gradients  : [
+          { offset: 0, color: 'rgba(0, 128, 255, 1.0)' },
+          { offset: 1, color: 'rgba(0,   0, 255, 1.0)' }
+        ],
+        font       : {
+          family: 'Arial',
+          size  : '12px',
+          style : 'normal',
+          weight: 'normal'
+        },
+        width    : 0.5,
+        right    : 15
+      }
+    };
+
+    X('mixer').module('analyser').param(analyserParams);
+    X('oneshot').module('analyser').param(analyserParams);
+    X('audio').module('analyser').param(analyserParams);
+    X('stream').module('analyser').param(analyserParams);
+    X('noise').module('analyser').param(analyserParams);
+
+    X('mixer').module('analyser').domain('time').setup(canvasForTimeDomainRef.current).param(timeParams);
+    X('oneshot').module('analyser').domain('time').setup(canvasForTimeDomainRef.current).param(timeParams);
+    X('audio').module('analyser').domain('time').setup(canvasForTimeDomainRef.current).param(timeParams);
+    X('stream').module('analyser').domain('time').setup(canvasForTimeDomainRef.current).param(timeParams);
+    X('noise').module('analyser').domain('time').setup(canvasForTimeDomainRef.current).param(timeParams);
+    X('oscillator').module('analyser').domain('time').setup(canvasForTimeDomainRef.current).param(timeParams);
+    window.C('oscillator').module('analyser').domain('time').setup(canvasForTimeDomainRef.current).param(timeParams);
+
+    X('mixer').module('analyser').domain('fft').setup(canvasForFrequencyDomainRef.current).param(fftParams);
+    X('oneshot').module('analyser').domain('fft').setup(canvasForFrequencyDomainRef.current).param(fftParams);
+    X('audio').module('analyser').domain('fft').setup(canvasForFrequencyDomainRef.current).param(fftParams);
+    X('stream').module('analyser').domain('fft').setup(canvasForFrequencyDomainRef.current).param(fftParams);
+    X('noise').module('analyser').domain('fft').setup(canvasForFrequencyDomainRef.current).param(fftParams);
+    X('oscillator').module('analyser').domain('fft').setup(canvasForFrequencyDomainRef.current).param(fftParams);
+    window.C('oscillator').module('analyser').domain('fft').setup(canvasForFrequencyDomainRef.current).param(fftParams);
+
+    const dragCallback: DragCallbackFunction = (event: MouseEvent | TouchEvent, startTime: number, endTime: number, mode: DragMode, direction: boolean) => {
       if ((event.type === 'mousedown') || (event.type === 'touchstart')) {
         setShowDragTime(true);
         return;
       }
 
       if ((event.type === 'mousemove') || (event.type === 'touchmove')) {
-        const convertedStartTime: ConvertedTime = X.convertTime(startTime);
-        const convertedEndTime: ConvertedTime   = X.convertTime(endTime);
+        const convertedStartTime = X.convertTime(startTime);
+        const convertedEndTime = X.convertTime(endTime);
 
         setDragTime(`${formatAudioTime(convertedStartTime)} - ${formatAudioTime(convertedEndTime)}`);
         return;
@@ -185,7 +220,7 @@ export const Analyser: React.FC<Props> = (props: Props) => {
             if ((time >= 0) && (time <= X('audio').param('duration'))) {
               X('audio').module('analyser').domain('timeoverview', 0).update(time);
               X('audio').module('analyser').domain('timeoverview', 1).update(time);
-              X('audio').param('currentTime', time);
+              X('audio').param({ currentTime: time });
             }
 
             break;
@@ -205,20 +240,20 @@ export const Analyser: React.FC<Props> = (props: Props) => {
       .module('analyser')
       .domain('timeoverview', 0)
       .setup(canvasForTimeOverviewLeftRef.current)
-      .state(true)
-      .param(params)
-      .drag(dragCallback);
+      .param(timeoverviewStyle)
+      .drag(dragCallback)
+      .activate();
 
     X('audio')
       .module('analyser')
       .domain('timeoverview', 1)
       .setup(canvasForTimeOverviewRightRef.current)
-      .state(true)
-      .param(params)
-      .drag(dragCallback);
+      .param(timeoverviewStyle)
+      .drag(dragCallback)
+      .activate();
 
     setLoaded(true);
-  }, [loadedApp, loaded, active, sources]);
+  }, [loadedApp, loaded, active]);
 
   return (
     <div id="analyser-fieldset" aria-hidden={!active} className={`Analyser${active ? ' -active' : ''}`}>

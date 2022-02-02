@@ -1,78 +1,99 @@
 import React, { useState, useCallback } from 'react';
-import { XSoundSource } from '../../../types';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
 import { ValueController } from '../../helpers/ValueController';
 import { X } from 'xsound';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Props {
-  sources: XSoundSource[];
 }
 
-export const ChorusFieldset: React.FC<Props> = (props: Props) => {
+export const ChorusFieldset: React.FC<Props> = () => {
   const [chorus, setChorus] = useState<boolean>(false);
 
   const onChangeStateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const state = event.currentTarget.checked;
+    const checked = event.currentTarget.checked;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('chorus').state(state);
-    });
+    if (checked) {
+      X('mixer').module('chorus').activate();
+      X('oneshot').module('chorus').activate();
+      X('audio').module('chorus').activate();
+      X('stream').module('chorus').activate();
+      X('noise').module('chorus').activate();
+      X('oscillator').module('chorus').activate();
+      window.C('oscillator').module('chorus').activate();
+    } else {
+      X('mixer').module('chorus').deactivate();
+      X('oneshot').module('chorus').deactivate();
+      X('audio').module('chorus').deactivate();
+      X('stream').module('chorus').deactivate();
+      X('noise').module('chorus').deactivate();
+      X('oscillator').module('chorus').deactivate();
+      window.C('oscillator').module('chorus').deactivate();
+    }
 
-    window.C('oscillator').module('chorus').state(state);
-
-    setChorus(state);
-  }, [props.sources]);
+    setChorus(checked);
+  }, []);
 
   const onChangeTimeCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const time = event.currentTarget.valueAsNumber / 1000;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('chorus').param('time', time);
-    });
-
-    window.C('oscillator').module('chorus').param('time', time);
-  }, [props.sources]);
+    X('mixer').module('chorus').param({ time });
+    X('oneshot').module('chorus').param({ time });
+    X('audio').module('chorus').param({ time });
+    X('stream').module('chorus').param({ time });
+    X('noise').module('chorus').param({ time });
+    X('oscillator').module('chorus').param({ time });
+    window.C('oscillator').module('chorus').param({ time });
+  }, []);
 
   const onChangeDepthCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const depth = event.currentTarget.valueAsNumber;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('chorus').param('depth', depth);
-    });
-
-    window.C('oscillator').module('chorus').param('depth', depth);
-  }, [props.sources]);
+    X('mixer').module('chorus').param({ depth });
+    X('oneshot').module('chorus').param({ depth });
+    X('audio').module('chorus').param({ depth });
+    X('stream').module('chorus').param({ depth });
+    X('noise').module('chorus').param({ depth });
+    X('oscillator').module('chorus').param({ depth });
+    window.C('oscillator').module('chorus').param({ depth });
+  }, []);
 
   const onChangeRateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const rate = event.currentTarget.valueAsNumber;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('chorus').param('rate', rate);
-    });
-
-    window.C('oscillator').module('chorus').param('rate', rate);
-  }, [props.sources]);
+    X('mixer').module('chorus').param({ rate });
+    X('oneshot').module('chorus').param({ rate });
+    X('audio').module('chorus').param({ rate });
+    X('stream').module('chorus').param({ rate });
+    X('noise').module('chorus').param({ rate });
+    X('oscillator').module('chorus').param({ rate });
+    window.C('oscillator').module('chorus').param({ rate });
+  }, []);
 
   const onChangeMixCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const mix = event.currentTarget.valueAsNumber;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('chorus').param('mix', mix);
-    });
-
-    window.C('oscillator').module('chorus').param('mix', mix);
-  }, [props.sources]);
+    X('mixer').module('chorus').param({ mix });
+    X('oneshot').module('chorus').param({ mix });
+    X('audio').module('chorus').param({ mix });
+    X('stream').module('chorus').param({ mix });
+    X('noise').module('chorus').param({ mix });
+    X('oscillator').module('chorus').param({ mix });
+    window.C('oscillator').module('chorus').param({ mix });
+  }, []);
 
   const onChangeToneCallabck = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const tone = event.currentTarget.valueAsNumber;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('chorus').param('tone', tone);
-    });
-
-    window.C('oscillator').module('chorus').param('tone', tone);
-  }, [props.sources]);
+    X('mixer').module('chorus').param({ tone });
+    X('oneshot').module('chorus').param({ tone });
+    X('audio').module('chorus').param({ tone });
+    X('stream').module('chorus').param({ tone });
+    X('noise').module('chorus').param({ tone });
+    X('oscillator').module('chorus').param({ tone });
+    window.C('oscillator').module('chorus').param({ tone });
+  }, []);
 
   return (
     <div className="ChorusFieldset">

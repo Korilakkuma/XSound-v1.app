@@ -18,7 +18,7 @@ const Template: Story<Props> = () => {
       return;
     }
 
-    X('audio').module('pitchshifter').state(true);
+    X('audio').module('pitchshifter').activate();
   });
 
   return <AudioFieldset loadedApp />;

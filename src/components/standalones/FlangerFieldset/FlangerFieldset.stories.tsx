@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 // also exported from '@storybook/react' if you can deal with breaking changes in 6.1
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import { Props, FlangerFieldset } from './FlangerFieldset';
 import '../../../main.css';
 
-import { XSoundSource } from '../../../types';
 import { X } from 'xsound';
 
 export default {
@@ -17,24 +16,22 @@ const Template: Story<Props> = () => {
   const [loaded, setLoaded] = useState<boolean>(false);
   const [paused, setPaused] = useState<boolean>(true);
 
-  const sources = useMemo(() => ['audio'] as XSoundSource[], []);
-
   useEffect(() => {
     if (loaded) {
       return;
     }
 
     X('audio').setup({
-      ready: () => {
+      decodeCallback: () => {
         setLoaded(true);
       }
     });
 
     X.ajax({
-      url    : 'https://weblike-curtaincall.ssl-lolipop.jp/assets/wav/forever-love-piano-instruments.wav',
-      timeout: 60000,
-      success: (event: Event, arrayBuffer: ArrayBuffer) => {
-        X('audio').ready(arrayBuffer);
+      url            : 'https://weblike-curtaincall.ssl-lolipop.jp/assets/wav/forever-love-piano-instruments.wav',
+      timeout        : 60000,
+      successCallback: (event: ProgressEvent, arraybuffer: ArrayBuffer) => {
+        X('audio').ready(arraybuffer);
       }
     });
   }, [loaded]);
@@ -45,14 +42,19 @@ const Template: Story<Props> = () => {
         type="button"
         disabled={!loaded}
         onClick={() => {
-          X('audio').toggle(X('audio').param('currentTime'));
+          if (X('audio').paused()) {
+            X('audio').start(X('audio').param('currentTime'));
+          } else {
+            X('audio').stop();
+          }
+
           setPaused(!paused);
         }}
         style={{ backgroundColor: '#fff' }}
       >
         {loaded ? (paused ? 'Start' : 'Stop') : 'Loading audio ...'}
       </button>
-      <FlangerFieldset sources={sources} />
+      <FlangerFieldset />
     </React.Fragment>
   );
 };

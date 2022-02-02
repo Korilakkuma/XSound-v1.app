@@ -1,116 +1,149 @@
 import React, { useState, useCallback } from 'react';
-import { XSoundSource } from '../../../types';
 import { Spacer } from '../../atoms/Spacer';
 import { Select } from '../../atoms/Select';
 import { Switch } from '../../atoms/Switch';
 import { ValueController } from '../../helpers/ValueController';
 import { X } from 'xsound';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Props {
-  sources: XSoundSource[];
 }
 
-export const DistortionFieldset: React.FC<Props> = (props: Props) => {
+export const DistortionFieldset: React.FC<Props> = () => {
   const [distortion, setDistortion] = useState<boolean>(false);
   const [cabinet, setCabinet] = useState<boolean>(false);
 
   const onChangeStateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const state = event.currentTarget.checked;
+    const checked = event.currentTarget.checked;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('distortion').state(state);
-      X(source).module('distortion').param('pre', state);
-      X(source).module('distortion').param('post', state);
-    });
+    if (checked) {
+      X('mixer').module('distortion').activate();
+      X('oneshot').module('distortion').activate();
+      X('audio').module('distortion').activate();
+      X('stream').module('distortion').activate();
+      X('noise').module('distortion').activate();
+      X('oscillator').module('distortion').activate();
+      window.C('oscillator').module('distortion').activate();
+    } else {
+      X('mixer').module('distortion').deactivate();
+      X('oneshot').module('distortion').deactivate();
+      X('audio').module('distortion').deactivate();
+      X('stream').module('distortion').deactivate();
+      X('noise').module('distortion').deactivate();
+      X('oscillator').module('distortion').deactivate();
+      window.C('oscillator').module('distortion').deactivate();
+    }
 
-    window.C('oscillator').module('distortion').state(state);
-    window.C('oscillator').module('distortion').param('pre', state);
-    window.C('oscillator').module('distortion').param('post', state);
-
-    setDistortion(state);
-  }, [props.sources]);
+    setDistortion(checked);
+  }, []);
 
   const onChangeCurveCallback = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
     const curve = event.currentTarget.value;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('distortion').param('curve', curve);
-    });
-
-    window.C('oscillator').module('distortion').param('curve', curve);
-  }, [props.sources]);
+    switch (curve) {
+      case 'clean'     :
+      case 'crunch'    :
+      case 'overdrive' :
+      case 'distortion':
+      case 'fuzz'      :
+        X('mixer').module('distortion').param({ curve });
+        X('oneshot').module('distortion').param({ curve });
+        X('audio').module('distortion').param({ curve });
+        X('stream').module('distortion').param({ curve });
+        X('noise').module('distortion').param({ curve });
+        X('oscillator').module('distortion').param({ curve });
+        window.C('oscillator').module('distortion').param({ curve });
+        break;
+      default:
+        break;
+    }
+  }, []);
 
   const onChangeGainCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const gain = event.currentTarget.valueAsNumber;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('distortion').param('gain', gain);
-    });
-
-    window.C('oscillator').module('distortion').param('gain', gain);
-  }, [props.sources]);
+    X('mixer').module('distortion').param({ pre: { gain } });
+    X('oneshot').module('distortion').param({ pre: { gain } });
+    X('audio').module('distortion').param({ pre: { gain } });
+    X('stream').module('distortion').param({ pre: { gain } });
+    X('noise').module('distortion').param({ pre: { gain } });
+    X('oscillator').module('distortion').param({ pre: { gain } });
+    window.C('oscillator').module('distortion').param({ pre: { gain } });
+  }, []);
 
   const onChangeLeadGainCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const lead = event.currentTarget.valueAsNumber;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('distortion').param('lead', lead);
-    });
-
-    window.C('oscillator').module('distortion').param('lead', lead);
-  }, [props.sources]);
+    X('mixer').module('distortion').param({ pre: { lead } });
+    X('oneshot').module('distortion').param({ pre: { lead } });
+    X('audio').module('distortion').param({ pre: { lead } });
+    X('stream').module('distortion').param({ pre: { lead } });
+    X('noise').module('distortion').param({ pre: { lead } });
+    X('oscillator').module('distortion').param({ pre: { lead } });
+    window.C('oscillator').module('distortion').param({ pre: { lead } });
+  }, []);
 
   const onChangeBassCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const bass = event.currentTarget.valueAsNumber;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('distortion').param('bass', bass);
-    });
-
-    window.C('oscillator').module('distortion').param('bass', bass);
-  }, [props.sources]);
+    X('mixer').module('distortion').param({ post: { bass } });
+    X('oneshot').module('distortion').param({ post: { bass } });
+    X('audio').module('distortion').param({ post: { bass } });
+    X('stream').module('distortion').param({ post: { bass } });
+    X('noise').module('distortion').param({ post: { bass } });
+    X('oscillator').module('distortion').param({ post: { bass } });
+    window.C('oscillator').module('distortion').param({ post: { bass } });
+  }, []);
 
   const onChangeMiddleCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const middle = event.currentTarget.valueAsNumber;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('distortion').param('middle', middle);
-    });
-
-    window.C('oscillator').module('distortion').param('middle', middle);
-  }, [props.sources]);
+    X('mixer').module('distortion').param({ post: { middle } });
+    X('oneshot').module('distortion').param({ post: { middle } });
+    X('audio').module('distortion').param({ post: { middle } });
+    X('stream').module('distortion').param({ post: { middle } });
+    X('noise').module('distortion').param({ post: { middle } });
+    X('oscillator').module('distortion').param({ post: { middle } });
+    window.C('oscillator').module('distortion').param({ post: { middle } });
+  }, []);
 
   const onChangeTrebleCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const treble = event.currentTarget.valueAsNumber;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('distortion').param('treble', treble);
-    });
-
-    window.C('oscillator').module('distortion').param('treble', treble);
-  }, [props.sources]);
+    X('mixer').module('distortion').param({ post: { treble } });
+    X('oneshot').module('distortion').param({ post: { treble } });
+    X('audio').module('distortion').param({ post: { treble } });
+    X('stream').module('distortion').param({ post: { treble } });
+    X('noise').module('distortion').param({ post: { treble } });
+    X('oscillator').module('distortion').param({ post: { treble } });
+    window.C('oscillator').module('distortion').param({ post: { treble } });
+  }, []);
 
   const onChangeMiddleFrequencyCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const frequency = event.currentTarget.valueAsNumber;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('distortion').param('frequency', frequency);
-    });
-
-    window.C('oscillator').module('distortion').param('frequency', frequency);
-  }, [props.sources]);
+    X('mixer').module('distortion').param({ post: { frequency } });
+    X('oneshot').module('distortion').param({ post: { frequency } });
+    X('audio').module('distortion').param({ post: { frequency } });
+    X('stream').module('distortion').param({ post: { frequency } });
+    X('noise').module('distortion').param({ post: { frequency } });
+    X('oscillator').module('distortion').param({ post: { frequency } });
+    window.C('oscillator').module('distortion').param({ post: { frequency } });
+  }, []);
 
   const onChangeCabinetCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const cabinet = event.currentTarget.checked;
+    const state = event.currentTarget.checked;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('distortion').param('cabinet', cabinet);
-    });
+    X('mixer').module('distortion').param({ cabinet: { state } });
+    X('oneshot').module('distortion').param({ post: { state } });
+    X('audio').module('distortion').param({ post: { state } });
+    X('stream').module('distortion').param({ post: { state } });
+    X('noise').module('distortion').param({ post: { state } });
+    X('oscillator').module('distortion').param({ post: { state } });
+    window.C('oscillator').module('distortion').param({ post: { state } });
 
-    window.C('oscillator').module('distortion').param('cabinet', cabinet);
-
-    setCabinet(cabinet);
-  }, [props.sources]);
+    setCabinet(state);
+  }, []);
 
   return (
     <div className="DistortionFieldset">

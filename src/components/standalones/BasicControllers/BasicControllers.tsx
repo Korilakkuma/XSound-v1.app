@@ -1,13 +1,6 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
-import {
-  SoundSource,
-  XSoundSource,
-  MIDIAccess,
-  MIDIInput,
-  MIDIOutput,
-  MIDIMessageEvent
-} from '../../../types';
+import { SoundSource } from '../../../types';
 import {
   changeCurrentSoundSource,
   changeAnalyserState,
@@ -19,10 +12,9 @@ import { Select } from '../../atoms/Select';
 import { Modal } from '../../atoms/Modal';
 import { ValueController } from '../../helpers/ValueController';
 import { NUMBER_OF_ONESHOTS } from '../../../config';
-import { X } from 'xsound';
+import { X, MIDIAccess, MIDIInput, MIDIOutput, MIDIMessageEvent } from 'xsound';
 
 export interface Props {
-  sources: XSoundSource[];
   currentSoundSource: SoundSource;
 }
 
@@ -88,16 +80,15 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
       X('noise').start();
 
       X('noise').module('recorder').start();
-      X('noise').module('session').start();
     } else if (midiSource === 'oscillator') {
       for (let i = 0, len = X('oscillator').length(); i < len; i++) {
         if (i !== 0) {
-          X('oscillator').get(i).state(true);
-          window.C('oscillator').get(i).state(true);
+          X('oscillator').get(i).activate();
+          window.C('oscillator').get(i).activate();
         }
 
-        X('oscillator').get(i).param('volume', volume);
-        window.C('oscillator').get(i).param('volume', volume);
+        X('oscillator').get(i).param({ volume });
+        window.C('oscillator').get(i).param({ volume });
       }
 
       X('oscillator').ready(0, 0).start(X.toFrequencies(indexes));
@@ -106,12 +97,10 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
       X('mixer').mix([X('oscillator'), window.C('oscillator')]);
 
       X('mixer').module('recorder').start();
-      X('mixer').module('session').start();
     } else {
       X('oneshot').reset(targetIndex, 'volume', volume).ready(0, 0).start(targetIndex + offset);
 
       X('oneshot').module('recorder').start();
-      X('oneshot').module('session').start();
     }
 
     dispatch(activateMIDIKeyboards(indexes));
@@ -138,15 +127,14 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
       X('noise').start();
 
       X('noise').module('recorder').start();
-      X('noise').module('session').start();
     } else if (midiSource === 'oscillator') {
       X('oscillator').stop();
       window.C('oscillator').stop();
 
       for (let i = 0, len = X('oscillator').length(); i < len; i++) {
         if (i !== 0) {
-          X('oscillator').get(i).state(false);
-          window.C('oscillator').get(i).state(false);
+          X('oscillator').get(i).deactivate();
+          window.C('oscillator').get(i).deactivate();
         }
       }
     } else {
@@ -178,39 +166,38 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
   }, [noteOn, noteOff]);
 
   const onChangeMasterVolumeCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    props.sources.forEach((source: XSoundSource) => {
-      const mastervolume = event.currentTarget.valueAsNumber;
+    const mastervolume = event.currentTarget.valueAsNumber;
 
-      if (X(source) !== null) {
-        X(source).param('mastervolume', mastervolume);
-      }
-
-      if (window.C(source) !== null) {
-        window.C(source).param('mastervolume', mastervolume);
-      }
-    });
-  }, [props.sources]);
+    X('oneshot').param({ mastervolume });
+    X('audio').param({ mastervolume });
+    X('stream').param({ mastervolume });
+    X('noise').param({ mastervolume });
+    X('oscillator').param({ mastervolume });
+    window.C('oscillator').param({ mastervolume });
+  }, []);
 
   const onChangeGlideCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const time = event.currentTarget.valueAsNumber;
 
-    X('oscillator').module('glide').param('time', time);
-    window.C('oscillator').module('glide').param('time', time);
+    X('oscillator').module('glide').param({ time });
+    window.C('oscillator').module('glide').param({ time });
   }, []);
 
   const onChangeTransposeCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    X('oneshot').param('transpose', ((event.currentTarget.valueAsNumber + 12) / 12));
+    X('oneshot').param({ transpose: ((event.currentTarget.valueAsNumber + 12) / 12) });
   }, []);
 
   const onChangeSoundSourceCallback = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
-    props.sources.forEach((source: XSoundSource) => {
-      if (source === 'noise') {
-        return;
-      }
-
-      X(source).module('analyser').stop('time').domain('time').clear();
-      X(source).module('analyser').stop('fft').domain('fft').clear();
-    });
+    X('mixer').module('analyser').stop('time').domain('time').clear();
+    X('mixer').module('analyser').stop('fft').domain('fft').clear();
+    X('oneshot').module('analyser').stop('time').domain('time').clear();
+    X('oneshot').module('analyser').stop('fft').domain('fft').clear();
+    X('audio').module('analyser').stop('time').domain('time').clear();
+    X('audio').module('analyser').stop('fft').domain('fft').clear();
+    X('stream').module('analyser').stop('time').domain('time').clear();
+    X('stream').module('analyser').stop('fft').domain('fft').clear();
+    X('noise').module('analyser').stop('time').domain('time').clear();
+    X('noise').module('analyser').stop('fft').domain('fft').clear();
 
     // HACK
     const source = event.currentTarget.value as SoundSource;
@@ -224,7 +211,6 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
         X('stream').ready()
           .then(() => {
             X('stream').start();
-            X('stream').module('session').start();
           })
           .catch((error: Error) => {
             // eslint-disable-next-line no-console
@@ -234,11 +220,17 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
         break;
       case 'midi':
         try {
-          X('midi').setup(true, (midiAccess: MIDIAccess, inputs: MIDIInput[], outputs: MIDIOutput[]) => {
-            successCallback(midiAccess, inputs, outputs);
-          }, () => {
-            setErrorMessage('Cannot use Web MIDI API.');
-            setIsShowModalForMIDIError(true);
+          X('midi').setup({
+            options        : {
+              sysex: true
+            },
+            successCallback: (midiAccess: MIDIAccess, inputs: MIDIInput[], outputs: MIDIOutput[]) => {
+              successCallback(midiAccess, inputs, outputs);
+            },
+            errorCallback  : () => {
+              setErrorMessage('Cannot use Web MIDI API.');
+              setIsShowModalForMIDIError(true);
+            }
           });
         } catch (error) {
           if (error instanceof Error) {
@@ -252,7 +244,7 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
       default:
         break;
     }
-  }, [props.sources, dispatch, successCallback]);
+  }, [dispatch, successCallback]);
 
   const onChangeAnalyserStateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(changeAnalyserState(event.currentTarget.checked));

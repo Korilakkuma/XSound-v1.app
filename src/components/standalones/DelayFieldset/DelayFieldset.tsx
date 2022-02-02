@@ -1,78 +1,99 @@
 import React, { useState, useCallback } from 'react';
-import { XSoundSource } from '../../../types';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
 import { ValueController } from '../../helpers/ValueController';
 import { X } from 'xsound';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Props {
-  sources: XSoundSource[];
 }
 
-export const DelayFieldset: React.FC<Props> = (props: Props) => {
+export const DelayFieldset: React.FC<Props> = () => {
   const [delay, setDelay] = useState<boolean>(false);
 
   const onChangeStateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const state = event.currentTarget.checked;
+    const checked = event.currentTarget.checked;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('delay').state(state);
-    });
+    if (checked) {
+      X('mixer').module('delay').activate();
+      X('oneshot').module('delay').activate();
+      X('audio').module('delay').activate();
+      X('stream').module('delay').activate();
+      X('noise').module('delay').activate();
+      X('oscillator').module('delay').activate();
+      window.C('oscillator').module('delay').activate();
+    } else {
+      X('mixer').module('delay').deactivate();
+      X('oneshot').module('delay').deactivate();
+      X('audio').module('delay').deactivate();
+      X('stream').module('delay').deactivate();
+      X('noise').module('delay').deactivate();
+      X('oscillator').module('delay').deactivate();
+      window.C('oscillator').module('delay').deactivate();
+    }
 
-    window.C('oscillator').module('delay').state(state);
-
-    setDelay(state);
-  }, [props.sources]);
+    setDelay(checked);
+  }, []);
 
   const onChangeTimeCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const time = event.currentTarget.valueAsNumber / 1000;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('delay').param('time', time);
-    });
-
-    window.C('oscillator').module('delay').param('time', time);
-  }, [props.sources]);
+    X('mixer').module('delay').param({ time });
+    X('oneshot').module('delay').param({ time });
+    X('audio').module('delay').param({ time });
+    X('stream').module('delay').param({ time });
+    X('noise').module('delay').param({ time });
+    X('oscillator').module('delay').param({ time });
+    window.C('oscillator').module('delay').param({ time });
+  }, []);
 
   const onChangeDryCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const dry = event.currentTarget.valueAsNumber;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('delay').param('dry', dry);
-    });
-
-    window.C('oscillator').module('delay').param('dry', dry);
-  }, [props.sources]);
+    X('mixer').module('delay').param({ dry });
+    X('oneshot').module('delay').param({ dry });
+    X('audio').module('delay').param({ dry });
+    X('stream').module('delay').param({ dry });
+    X('noise').module('delay').param({ dry });
+    X('oscillator').module('delay').param({ dry });
+    window.C('oscillator').module('delay').param({ dry });
+  }, []);
 
   const onChangeWetCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const wet = event.currentTarget.valueAsNumber;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('delay').param('wet', wet);
-    });
-
-    window.C('oscillator').module('delay').param('wet', wet);
-  }, [props.sources]);
+    X('mixer').module('delay').param({ wet });
+    X('oneshot').module('delay').param({ wet });
+    X('audio').module('delay').param({ wet });
+    X('stream').module('delay').param({ wet });
+    X('noise').module('delay').param({ wet });
+    X('oscillator').module('delay').param({ wet });
+    window.C('oscillator').module('delay').param({ wet });
+  }, []);
 
   const onChangeToneCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const tone = event.currentTarget.valueAsNumber;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('delay').param('tone', tone);
-    });
-
-    window.C('oscillator').module('delay').param('tone', tone);
-  }, [props.sources]);
+    X('mixer').module('delay').param({ tone });
+    X('oneshot').module('delay').param({ tone });
+    X('audio').module('delay').param({ tone });
+    X('stream').module('delay').param({ tone });
+    X('noise').module('delay').param({ tone });
+    X('oscillator').module('delay').param({ tone });
+    window.C('oscillator').module('delay').param({ tone });
+  }, []);
 
   const onChangeFeedbackCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const feedback = event.currentTarget.valueAsNumber;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('delay').param('feedback', feedback);
-    });
-
-    window.C('oscillator').module('delay').param('feedback', feedback);
-  }, [props.sources]);
+    X('mixer').module('delay').param({ feedback });
+    X('oneshot').module('delay').param({ feedback });
+    X('audio').module('delay').param({ feedback });
+    X('stream').module('delay').param({ feedback });
+    X('noise').module('delay').param({ feedback });
+    X('oscillator').module('delay').param({ feedback });
+    window.C('oscillator').module('delay').param({ feedback });
+  }, []);
 
   return (
     <div className="DelayFieldset">

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { IState, SoundSource, MMLErrors, MMLInfo, Sequence } from '../../../types';
+import { IState, SoundSource, MMLInfo } from '../../../types';
 import {
   downMelodyKeyboards,
   downBassKeyboards,
@@ -15,7 +15,7 @@ import { ProgressBar } from '../../atoms/ProgressBar';
 import { Modal } from '../../atoms/Modal';
 import { SelectableModal } from '../../helpers/SelectableModal';
 import { NUMBER_OF_PIANO_KEYBOARDS } from '../../../config';
-import { X } from 'xsound';
+import { X, Sequence, MMLSyntaxError, FileEvent, FileReaderErrorText } from 'xsound';
 
 export interface Props {
   loadedApp: boolean;
@@ -63,99 +63,40 @@ export const MML: React.FC<Props> = (props: Props) => {
 
     switch (currentSoundSource) {
       case 'oscillator':
-        X('mml').ready(X('oscillator'), melody);
-        window.C('mml').ready(window.C('oscillator'), bass);
+        X('mml').ready({ source: X('oscillator'), mmls: [melody] });
+        window.C('mml').ready({ source: window.C('oscillator'), mmls: [bass] });
         break;
       case 'piano':
-        X('mml').ready(X('oneshot'), melody, 0);
-        window.C('mml').ready(X('oneshot'), bass, 0);
+        X('mml').ready({ source: X('oneshot'), mmls: [melody], offset: 0 });
+        window.C('mml').ready({ source: X('oneshot'), mmls: [bass], offset: 0 });
         break;
       case 'guitar':
-        X('mml').ready(X('oneshot'), melody, NUMBER_OF_PIANO_KEYBOARDS);
-        window.C('mml').ready(X('oneshot'), bass, NUMBER_OF_PIANO_KEYBOARDS);
+        X('mml').ready({ source: X('oneshot'), mmls: [melody], offset: NUMBER_OF_PIANO_KEYBOARDS });
+        window.C('mml').ready({ source: X('oneshot'), mmls: [bass], offset: NUMBER_OF_PIANO_KEYBOARDS });
         break;
       case 'electric-guitar':
-        X('mml').ready(X('oneshot'), melody, NUMBER_OF_PIANO_KEYBOARDS + NUMBER_OF_PIANO_KEYBOARDS);
-        window.C('mml').ready(X('oneshot'), bass, NUMBER_OF_PIANO_KEYBOARDS + NUMBER_OF_PIANO_KEYBOARDS);
+        X('mml').ready({ source: X('oneshot'), mmls: [melody], offset: (2 * NUMBER_OF_PIANO_KEYBOARDS) });
+        window.C('mml').ready({ source: X('oneshot'), mmls: [bass], offset: (2 * NUMBER_OF_PIANO_KEYBOARDS) });
         break;
       case 'whitenoise'   :
       case 'pinknoise'    :
       case 'browniannoise':
-        X('mml').ready(X('noise'), melody);
-        window.C('mml').ready(window.C('noise'), bass);
+        X('mml').ready({ source: X('noise'), mmls: [melody] });
+        window.C('mml').ready({ source: X('noise'), mmls: [bass] });
         break;
       default:
         break;
     }
   }, [currentSoundSource]);
 
-  const readFileCallback = useCallback((event: React.ChangeEvent<HTMLInputElement> | React.DragEvent<HTMLDivElement>) => {
-    const options = {
-      event   : event.nativeEvent,
-      type    : 'JSON',
-      success : (event: Event, text: string) => {
-        (event.currentTarget as HTMLInputElement).value = '';
-
-        try {
-          const mmls = JSON.parse(text);
-
-          if (melody || bass) {
-            savedMMLs[0] = mmls.melody;
-            savedMMLs[1] = mmls.bass;
-
-            setIsShowModalConfirmation(true);
-          } else {
-            readyMMLCallback(mmls.melody, mmls.bass);
-
-            setMelody(mmls.melody);
-            setBass(mmls.bass);
-          }
-
-          setShowProgress(false);
-          setIsShowModalForProgress(false);
-        } catch (error) {
-          if (error instanceof Error) {
-            // eslint-disable-next-line no-console
-            console.error(error);
-          }
-        }
-      },
-      error   : (error: Error) => {
-        setShowProgress(false);
-        setErrorMessage(error.message);
-        setIsShowModalForFileUploadError(true);
-      },
-      progress: (event: Event) => {
-        const { lengthComputable, loaded, total } = event as ProgressEvent;
-
-        setShowProgress(lengthComputable);
-        setLoadedByte(loaded);
-        setRate(lengthComputable && (total > 0) ? Math.floor((loaded / total) * 100) : 0);
-        setIsShowModalForProgress(true);
-      }
-    };
-
-    try {
-      const file = X.file(options);
-
-      setFilename(file.name);
-    } catch (error) {
-      if (error instanceof Error) {
-        setErrorMessage(error.message);
-      }
-
-      setIsShowModalForFileUploadError(true);
-    }
-  }, [melody, bass, readyMMLCallback]);
-
   const startMelodyCallback = useCallback((sequence: Sequence) => {
     dispatch(downMelodyKeyboards(sequence.indexes));
-    setMelody(X('mml').get(0, true));
+    setMelody(X('mml').getMML(0) ?? '');
   }, [dispatch]);
 
   const startBassCallback = useCallback((sequence: Sequence) => {
     dispatch(downBassKeyboards(sequence.indexes));
-    setBass(window.C('mml').get(0, true));
+    setBass(window.C('mml').getMML(0) ?? '');
   }, [dispatch]);
 
   const stopMelodyCallback = useCallback((sequence: Sequence) => {
@@ -169,16 +110,16 @@ export const MML: React.FC<Props> = (props: Props) => {
   const endedCallback = useCallback(() => {
     for (let i = 0, len = X('oscillator').length(); i < len; i++) {
       if (i !== 0) {
-        X('oscillator').get(i).state(false);
-        window.C('oscillator').get(i).state(false);
+        X('oscillator').get(i).deactivate();
+        window.C('oscillator').get(i).deactivate();
       }
     }
 
     dispatch(downMelodyKeyboards([]));
     dispatch(downBassKeyboards([]));
 
-    const currentMelody = X('mml').get(0, true).replace(CLEAR_HIGHLIGHT_REGEXP, '$1');
-    const currentBass   = window.C('mml').get(0, true).replace(CLEAR_HIGHLIGHT_REGEXP, '$1');
+    const currentMelody = X('mml').getMML(0)?.replace(CLEAR_HIGHLIGHT_REGEXP, '$1') ?? '';
+    const currentBass   = window.C('mml').getMML(0)?.replace(CLEAR_HIGHLIGHT_REGEXP, '$1') ?? '';
 
     readyMMLCallback(currentMelody, currentBass);
 
@@ -187,14 +128,14 @@ export const MML: React.FC<Props> = (props: Props) => {
     setPaused(true);
   }, [dispatch, readyMMLCallback]);
 
-  const errorCallbackForMelody = useCallback((error: MMLErrors) => {
-    switch (error) {
-      case 'tempo' :
-      case 'octave':
-      case 'note'  :
-      case 'rest'  :
-      case 'tie'   :
-        setErrorMessageForMMLMelody(`${error} is invalid`);
+  const errorCallbackForMelody = useCallback((error: MMLSyntaxError) => {
+    switch (error.token) {
+      case 'TEMPO' :
+      case 'OCTAVE':
+      case 'NOTE'  :
+      case 'REST'  :
+      case 'TIE'   :
+        setErrorMessageForMMLMelody(`${error.token.toLowerCase()} is invalid`);
         break;
       default:
         setErrorMessageForMMLMelody('MML is invalid');
@@ -202,14 +143,14 @@ export const MML: React.FC<Props> = (props: Props) => {
     }
   }, []);
 
-  const errorCallbackForBass = useCallback((error: MMLErrors) => {
-    switch (error) {
-      case 'tempo' :
-      case 'octave':
-      case 'note'  :
-      case 'rest'  :
-      case 'tie'   :
-        setErrorMessageForMMLBass(`${error} is invalid`);
+  const errorCallbackForBass = useCallback((error: MMLSyntaxError) => {
+    switch (error.token) {
+      case 'TEMPO' :
+      case 'OCTAVE':
+      case 'NOTE'  :
+      case 'REST'  :
+      case 'TIE'   :
+        setErrorMessageForMMLBass(`${error.token.toLowerCase()} is invalid`);
         break;
       default:
         setErrorMessageForMMLBass('MML is invalid');
@@ -252,8 +193,8 @@ export const MML: React.FC<Props> = (props: Props) => {
       // Start MML
       if (currentSoundSource === 'oscillator') {
         for (let i = 0, len = X('oscillator').length(); i < len; i++) {
-          X('oscillator').get(i).state(true);
-          window.C('oscillator').get(i).state(true);
+          X('oscillator').get(i).activate();
+          window.C('oscillator').get(i).activate();
         }
 
         X('mml').start(0, true);
@@ -275,8 +216,8 @@ export const MML: React.FC<Props> = (props: Props) => {
       window.C('mml').stop();
 
       for (let i = 0, len = X('oscillator').length(); i < len; i++) {
-        X('oscillator').get(i).state(false);
-        window.C('oscillator').get(i).state(false);
+        X('oscillator').get(i).deactivate();
+        window.C('oscillator').get(i).deactivate();
       }
     }
 
@@ -328,8 +269,58 @@ export const MML: React.FC<Props> = (props: Props) => {
   }, []);
 
   const onChangeFileCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    readFileCallback(event);
-  }, [readFileCallback]);
+    const file = X.file({
+      event           : event.nativeEvent as FileEvent,  // HACK:
+      type            : 'json',
+      successCallback : (_: Event, text: string) => {
+        event.currentTarget.value = '';
+
+        try {
+          const mmls = JSON.parse(text);
+
+          if (melody || bass) {
+            savedMMLs[0] = mmls.melody;
+            savedMMLs[1] = mmls.bass;
+
+            setIsShowModalConfirmation(true);
+          } else {
+            readyMMLCallback(mmls.melody, mmls.bass);
+
+            setMelody(mmls.melody);
+            setBass(mmls.bass);
+          }
+
+          setShowProgress(false);
+          setIsShowModalForProgress(false);
+        } catch (error) {
+          if (error instanceof Error) {
+            // eslint-disable-next-line no-console
+            console.error(error);
+          }
+        }
+      },
+      errorCallback   : (event: Event, textStatus: FileReaderErrorText) => {
+        setShowProgress(false);
+        setErrorMessage(textStatus);
+        setIsShowModalForFileUploadError(true);
+      },
+      progressCallback: (event: ProgressEvent) => {
+        const { lengthComputable, loaded, total } = event;
+
+        setShowProgress(lengthComputable);
+        setLoadedByte(loaded);
+        setRate(lengthComputable && (total > 0) ? Math.floor((loaded / total) * 100) : 0);
+        setIsShowModalForProgress(true);
+      }
+    });
+
+    if (file instanceof Error) {
+      setErrorMessage(file.message);
+      setIsShowModalForFileUploadError(true);
+    } else if (typeof file !== 'string') {
+      setFilename(file.name);
+    }
+  }, [melody, bass, readyMMLCallback]);
 
   const onDragEnterCallback = useCallback((event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
@@ -348,11 +339,59 @@ export const MML: React.FC<Props> = (props: Props) => {
   const onDropCallback = useCallback((event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
 
-    readFileCallback(event);
+    const file = X.drop({
+      event           : event.nativeEvent,
+      type            : 'json',
+      successCallback : (_: Event, text: string) => {
+        try {
+          const mmls = JSON.parse(text);
+
+          if (melody || bass) {
+            savedMMLs[0] = mmls.melody;
+            savedMMLs[1] = mmls.bass;
+
+            setIsShowModalConfirmation(true);
+          } else {
+            readyMMLCallback(mmls.melody, mmls.bass);
+
+            setMelody(mmls.melody);
+            setBass(mmls.bass);
+          }
+
+          setShowProgress(false);
+          setIsShowModalForProgress(false);
+        } catch (error) {
+          if (error instanceof Error) {
+            // eslint-disable-next-line no-console
+            console.error(error);
+          }
+        }
+      },
+      errorCallback   : (event: Event, textStatus: FileReaderErrorText) => {
+        setShowProgress(false);
+        setErrorMessage(textStatus);
+        setIsShowModalForFileUploadError(true);
+      },
+      progressCallback: (event: ProgressEvent) => {
+        const { lengthComputable, loaded, total } = event;
+
+        setShowProgress(lengthComputable);
+        setLoadedByte(loaded);
+        setRate(lengthComputable && (total > 0) ? Math.floor((loaded / total) * 100) : 0);
+        setIsShowModalForProgress(true);
+      }
+    });
+
+    if (file instanceof Error) {
+      setErrorMessage(file.message);
+      setIsShowModalForFileUploadError(true);
+    } else if (typeof file !== 'string') {
+      setFilename(file.name);
+    }
 
     setDrag(false);
     setDrop(true);
-  }, [readFileCallback]);
+  }, [melody, bass, readyMMLCallback]);
 
   const onCloseModalCallback = useCallback(() => {
     setIsShowModalForFileUploadError(false);
@@ -385,17 +424,17 @@ export const MML: React.FC<Props> = (props: Props) => {
     let unmounted = false;
 
     X('mml').setup({
-      start: startMelodyCallback,
-      stop : stopMelodyCallback,
-      ended: endedCallback,
-      error: errorCallbackForMelody
+      startCallback: startMelodyCallback,
+      stopCallback : stopMelodyCallback,
+      endedCallback: endedCallback,
+      errorCallback: errorCallbackForMelody
     });
 
     window.C('mml').setup({
-      start: startBassCallback,
-      stop : stopBassCallback,
-      ended: endedCallback,
-      error: errorCallbackForBass
+      startCallback: startBassCallback,
+      stopCallback : stopBassCallback,
+      endedCallback: endedCallback,
+      errorCallback: errorCallbackForBass
     });
 
     Promise
