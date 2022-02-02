@@ -40,8 +40,8 @@ const Template: Story<Props> = () => {
     window.C('oscillator').setup([true, true, true, true]);
 
     for (let i = 0, len = X('oscillator').length(); i < len; i++) {
-      X('oscillator', i).param('type', 'sawtooth');
-      window.C('oscillator', i).param('type', 'sawtooth');
+      X('oscillator').get(i).param({ type: 'sawtooth' });
+      window.C('oscillator').get(i).param({ type: 'sawtooth' });
     }
 
     setLoaded(true);

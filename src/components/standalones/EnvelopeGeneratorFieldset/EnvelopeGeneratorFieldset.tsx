@@ -11,37 +11,37 @@ export const EnvelopeGeneratorFieldset: React.FC<Props> = () => {
   const onChangeAttackCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const attack = event.currentTarget.valueAsNumber;
 
-    X('oscillator').module('envelopegenerator').param('attack', attack);
-    window.C('oscillator').module('envelopegenerator').param('attack', attack);
-    X('oneshot').module('envelopegenerator').param('attack', attack);
-    X('noise').module('envelopegenerator').param('attack', attack);
+    X('oscillator').module('envelopegenerator').param({ attack });
+    window.C('oscillator').module('envelopegenerator').param({ attack });
+    X('oneshot').module('envelopegenerator').param({ attack });
+    X('noise').module('envelopegenerator').param({ attack });
   }, []);
 
   const onChangeDecayCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const decay = event.currentTarget.valueAsNumber;
 
-    X('oscillator').module('envelopegenerator').param('decay', decay);
-    window.C('oscillator').module('envelopegenerator').param('decay', decay);
-    X('oneshot').module('envelopegenerator').param('decay', decay);
-    X('noise').module('envelopegenerator').param('decay', decay);
+    X('oscillator').module('envelopegenerator').param({ decay });
+    window.C('oscillator').module('envelopegenerator').param({ decay });
+    X('oneshot').module('envelopegenerator').param({ decay });
+    X('noise').module('envelopegenerator').param({ decay });
   }, []);
 
   const onChangeSustainCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const sustain = event.currentTarget.valueAsNumber;
 
-    X('oscillator').module('envelopegenerator').param('sustain', sustain);
-    window.C('oscillator').module('envelopegenerator').param('sustain', sustain);
-    X('oneshot').module('envelopegenerator').param('sustain', sustain);
-    X('noise').module('envelopegenerator').param('sustain', sustain);
+    X('oscillator').module('envelopegenerator').param({ sustain });
+    window.C('oscillator').module('envelopegenerator').param({ sustain });
+    X('oneshot').module('envelopegenerator').param({ sustain });
+    X('noise').module('envelopegenerator').param({ sustain });
   }, []);
 
   const onChangeReleaseCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const release = event.currentTarget.valueAsNumber;
 
-    X('oscillator').module('envelopegenerator').param('release', release);
-    window.C('oscillator').module('envelopegenerator').param('release', release);
-    X('oneshot').module('envelopegenerator').param('release', release);
-    X('noise').module('envelopegenerator').param('release', release);
+    X('oscillator').module('envelopegenerator').param({ release });
+    window.C('oscillator').module('envelopegenerator').param({ release });
+    X('oneshot').module('envelopegenerator').param({ release });
+    X('noise').module('envelopegenerator').param({ release });
   }, []);
 
   return (

@@ -1,68 +1,87 @@
 import React, { useState, useCallback } from 'react';
-import { XSoundSource } from '../../../types';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
 import { ValueController } from '../../helpers/ValueController';
 import { X } from 'xsound';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Props {
-  sources: XSoundSource[];
 }
 
-export const EqualizerFieldset: React.FC<Props> = (props: Props) => {
+export const EqualizerFieldset: React.FC<Props> = () => {
   const [equalizer, setEqualizer] = useState<boolean>(false);
 
   const onChangeStateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const state = event.currentTarget.checked;
+    const checked = event.currentTarget.checked;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('equalizer').state(state);
-    });
+    if (checked) {
+      X('mixer').module('equalizer').activate();
+      X('oneshot').module('equalizer').activate();
+      X('audio').module('equalizer').activate();
+      X('stream').module('equalizer').activate();
+      X('noise').module('equalizer').activate();
+      X('oscillator').module('equalizer').activate();
+      window.C('oscillator').module('equalizer').activate();
+    } else {
+      X('mixer').module('equalizer').deactivate();
+      X('oneshot').module('equalizer').deactivate();
+      X('audio').module('equalizer').deactivate();
+      X('stream').module('equalizer').deactivate();
+      X('noise').module('equalizer').deactivate();
+      X('oscillator').module('equalizer').deactivate();
+      window.C('oscillator').module('equalizer').deactivate();
+    }
 
-    window.C('oscillator').module('equalizer').state(state);
-
-    setEqualizer(state);
-  }, [props.sources]);
+    setEqualizer(checked);
+  }, []);
 
   const onChangeBassCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const bass = event.currentTarget.valueAsNumber;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('equalizer').param('bass', bass);
-    });
-
-    window.C('oscillator').module('equalizer').param('bass', bass);
-  }, [props.sources]);
+    X('mixer').module('equalizer').param({ bass });
+    X('oneshot').module('equalizer').param({ bass });
+    X('audio').module('equalizer').param({ bass });
+    X('stream').module('equalizer').param({ bass });
+    X('noise').module('equalizer').param({ bass });
+    X('oscillator').module('equalizer').param({ bass });
+    window.C('oscillator').module('equalizer').param({ bass });
+  }, []);
 
   const onChangeMiddleCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const middle = event.currentTarget.valueAsNumber;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('equalizer').param('middle', middle);
-    });
-
-    window.C('oscillator').module('equalizer').param('middle', middle);
-  }, [props.sources]);
+    X('mixer').module('equalizer').param({ middle });
+    X('oneshot').module('equalizer').param({ middle });
+    X('audio').module('equalizer').param({ middle });
+    X('stream').module('equalizer').param({ middle });
+    X('noise').module('equalizer').param({ middle });
+    X('oscillator').module('equalizer').param({ middle });
+    window.C('oscillator').module('equalizer').param({ middle });
+  }, []);
 
   const onChangeTrebleCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const treble = event.currentTarget.valueAsNumber;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('equalizer').param('treble', treble);
-    });
-
-    window.C('oscillator').module('equalizer').param('treble', treble);
-  }, [props.sources]);
+    X('mixer').module('equalizer').param({ treble });
+    X('oneshot').module('equalizer').param({ treble });
+    X('audio').module('equalizer').param({ treble });
+    X('stream').module('equalizer').param({ treble });
+    X('noise').module('equalizer').param({ treble });
+    X('oscillator').module('equalizer').param({ treble });
+    window.C('oscillator').module('equalizer').param({ treble });
+  }, []);
 
   const onChangePresenceCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const presence = event.currentTarget.valueAsNumber;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('equalizer').param('presence', presence);
-    });
-
-    window.C('oscillator').module('equalizer').param('presence', presence);
-  }, [props.sources]);
+    X('mixer').module('equalizer').param({ presence });
+    X('oneshot').module('equalizer').param({ presence });
+    X('audio').module('equalizer').param({ presence });
+    X('stream').module('equalizer').param({ presence });
+    X('noise').module('equalizer').param({ presence });
+    X('oscillator').module('equalizer').param({ presence });
+    window.C('oscillator').module('equalizer').param({ presence });
+  }, []);
 
   return (
     <div className="EqualizerFieldset">

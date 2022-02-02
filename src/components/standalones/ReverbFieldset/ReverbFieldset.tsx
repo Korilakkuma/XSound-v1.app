@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { XSoundSource, RIRInfo } from '../../../types';
+import { RIRInfo } from '../../../types';
 import { Spacer } from '../../atoms/Spacer';
 import { GroupSelect } from '../../atoms/GroupSelect';
 import { Switch } from '../../atoms/Switch';
@@ -7,12 +7,11 @@ import { ValueController } from '../../helpers/ValueController';
 import { X } from 'xsound';
 
 export interface Props {
-  sources: XSoundSource[];
   rirInfos: RIRInfo[];
 }
 
 export const ReverbFieldset: React.FC<Props> = (props: Props) => {
-  const { sources, rirInfos } = props;
+  const { rirInfos } = props;
 
   const [reverb, setReverb] = useState<boolean>(false);
 
@@ -41,56 +40,76 @@ export const ReverbFieldset: React.FC<Props> = (props: Props) => {
   });
 
   const onChangeStateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const state = event.currentTarget.checked;
+    const checked = event.currentTarget.checked;
 
-    sources.forEach((source: XSoundSource) => {
-      X(source).module('reverb').state(state);
-    });
+    if (checked) {
+      X('mixer').module('reverb').activate();
+      X('oneshot').module('reverb').activate();
+      X('audio').module('reverb').activate();
+      X('stream').module('reverb').activate();
+      X('noise').module('reverb').activate();
+      X('oscillator').module('reverb').activate();
+      window.C('oscillator').module('reverb').activate();
+    } else {
+      X('mixer').module('reverb').deactivate();
+      X('oneshot').module('reverb').deactivate();
+      X('audio').module('reverb').deactivate();
+      X('stream').module('reverb').deactivate();
+      X('noise').module('reverb').deactivate();
+      X('oscillator').module('reverb').deactivate();
+      window.C('oscillator').module('reverb').deactivate();
+    }
 
-    window.C('oscillator').module('reverb').state(state);
-
-    setReverb(state);
-  }, [sources]);
+    setReverb(checked);
+  }, []);
 
   const onChangeTypeCallback = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
-    const type = parseInt(event.currentTarget.value, 10);
+    const buffer = parseInt(event.currentTarget.value, 10);
 
-    sources.forEach((source: XSoundSource) => {
-      X(source).module('reverb').param('type', type);
-    });
-
-    window.C('oscillator').module('reverb').param('type', type);
-  }, [sources]);
+    X('mixer').module('reverb').param({ buffer });
+    X('oneshot').module('reverb').param({ buffer });
+    X('audio').module('reverb').param({ buffer });
+    X('stream').module('reverb').param({ buffer });
+    X('noise').module('reverb').param({ buffer });
+    X('oscillator').module('reverb').param({ buffer });
+    window.C('oscillator').module('reverb').param({ buffer });
+  }, []);
 
   const onChangeDryCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const dry = event.currentTarget.valueAsNumber;
 
-    sources.forEach((source: XSoundSource) => {
-      X(source).module('reverb').param('dry', dry);
-    });
-
-    window.C('oscillator').module('reverb').param('dry', dry);
-  }, [sources]);
+    X('mixer').module('reverb').param({ dry });
+    X('oneshot').module('reverb').param({ dry });
+    X('audio').module('reverb').param({ dry });
+    X('stream').module('reverb').param({ dry });
+    X('noise').module('reverb').param({ dry });
+    X('oscillator').module('reverb').param({ dry });
+    window.C('oscillator').module('reverb').param({ dry });
+  }, []);
 
   const onChangeWetCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const wet = event.currentTarget.valueAsNumber;
 
-    sources.forEach((source: XSoundSource) => {
-      X(source).module('reverb').param('wet', wet);
-    });
-
-    window.C('oscillator').module('reverb').param('wet', wet);
-  }, [sources]);
+    X('mixer').module('reverb').param({ wet });
+    X('oneshot').module('reverb').param({ wet });
+    X('audio').module('reverb').param({ wet });
+    X('stream').module('reverb').param({ wet });
+    X('noise').module('reverb').param({ wet });
+    X('oscillator').module('reverb').param({ wet });
+    window.C('oscillator').module('reverb').param({ wet });
+  }, []);
 
   const onChangeToneCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const tone = event.currentTarget.valueAsNumber;
 
-    sources.forEach((source: XSoundSource) => {
-      X(source).module('reverb').param('tone', tone);
-    });
-
-    window.C('oscillator').module('reverb').param('tone', tone);
-  }, [sources]);
+    X('mixer').module('reverb').param({ tone });
+    X('oneshot').module('reverb').param({ tone });
+    X('audio').module('reverb').param({ tone });
+    X('stream').module('reverb').param({ tone });
+    X('noise').module('reverb').param({ tone });
+    X('oscillator').module('reverb').param({ tone });
+    window.C('oscillator').module('reverb').param({ tone });
+  }, []);
 
   return (
     <div className="ReverbFieldset">

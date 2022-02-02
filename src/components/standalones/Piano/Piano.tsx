@@ -45,55 +45,55 @@ export const Piano: React.FC<Props> = (props: Props) => {
 
     switch (props.currentSoundSource) {
       case 'oscillator':
-        X('oscillator').ready(0, 0).start(X.toFrequencies(index));
-        window.C('oscillator').ready(0, 0).start(X.toFrequencies(index));
+        X('oscillator').ready(0, 0).start(X.toFrequencies([index]));
+        window.C('oscillator').ready(0, 0).start(X.toFrequencies([index]));
 
         X('mixer').mix([X('oscillator'), window.C('oscillator')]);
 
         X('mixer').module('recorder').start();
-        X('mixer').module('session').start();
+        // X('mixer').module('session').start();
 
         break;
       case 'piano':
         X('oneshot').ready(0, 0).start(index);
 
         X('oneshot').module('recorder').start();
-        X('oneshot').module('session').start();
+        // X('oneshot').module('session').start();
 
         break;
       case 'guitar':
         X('oneshot').ready(0, 0).start(index + NUMBER_OF_PIANO_KEYBOARDS);
 
         X('oneshot').module('recorder').start();
-        X('oneshot').module('session').start();
+        // X('oneshot').module('session').start();
 
         break;
       case 'electric-guitar':
         X('oneshot').ready(0, 0).start(index + NUMBER_OF_PIANO_KEYBOARDS + NUMBER_OF_PIANO_KEYBOARDS);
 
         X('oneshot').module('recorder').start();
-        X('oneshot').module('session').start();
+        // X('oneshot').module('session').start();
 
         break;
       case 'whitenoise':
-        X('noise').param('type', 'whitenoise').start();
+        X('noise').param({ type: 'whitenoise' }).start();
 
         X('noise').module('recorder').start();
-        X('noise').module('session').start();
+        // X('noise').module('session').start();
 
         break;
       case 'pinknoise':
-        X('noise').param('type', 'pinknoise').start();
+        X('noise').param({ type: 'pinknoise' }).start();
 
         X('noise').module('recorder').start();
-        X('noise').module('session').start();
+        // X('noise').module('session').start();
 
         break;
       case 'browniannoise':
-        X('noise').param('type', 'browniannoise').start();
+        X('noise').param({ type: 'browniannoise' }).start();
 
         X('noise').module('recorder').start();
-        X('noise').module('session').start();
+        // X('noise').module('session').start();
 
         break;
       default:

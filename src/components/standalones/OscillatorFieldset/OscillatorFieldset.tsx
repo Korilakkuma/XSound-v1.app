@@ -1,5 +1,4 @@
 import React, { useState, useCallback } from 'react';
-import { OscillatorType } from '../../../types';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
 import { OscillatorSelector } from '../../helpers/OscillatorSelector';
@@ -19,15 +18,25 @@ export const OscillatorFieldset: React.FC<Props> = (props: Props) => {
   const [type, setType] = useState<OscillatorType>('sawtooth');
 
   const onChangeStateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const state = event.currentTarget.checked;
+    const checked = event.currentTarget.checked;
 
     for (let i = 0, len = X('oscillator').length(); i < len; i++) {
       if (oscillatorNumber === 0) {
-        X('oscillator').get(i).state(state);
-        setOscillator(state);
+        if (checked) {
+          X('oscillator').get(i).activate();
+        } else {
+          X('oscillator').get(i).deactivate();
+        }
+
+        setOscillator(checked);
       } else {
-        window.C('oscillator').get(i).state(state);
-        setOscillator(state);
+        if (checked) {
+          window.C('oscillator').get(i).activate();
+        } else {
+          window.C('oscillator').get(i).deactivate();
+        }
+
+        setOscillator(checked);
       }
     }
   }, [oscillatorNumber]);
@@ -49,12 +58,22 @@ export const OscillatorFieldset: React.FC<Props> = (props: Props) => {
   const onChangeRadioCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const type = event.currentTarget.value;
 
-    for (let i = 0, len = X('oscillator').length(); i < len; i++) {
-      if (oscillatorNumber === 0) {
-        X('oscillator').get(i).param('type', type);
-      } else {
-        window.C('oscillator').get(i).param('type', type);
-      }
+    switch (type) {
+      case 'sine'    :
+      case 'square'  :
+      case 'sawtooth':
+      case 'triangle':
+        for (let i = 0, len = X('oscillator').length(); i < len; i++) {
+          if (oscillatorNumber === 0) {
+            X('oscillator').get(i).param({ type });
+          } else {
+            window.C('oscillator').get(i).param({ type });
+          }
+        }
+
+        break;
+      default:
+        break;
     }
   }, [oscillatorNumber]);
 
@@ -63,9 +82,9 @@ export const OscillatorFieldset: React.FC<Props> = (props: Props) => {
 
     for (let i = 0, len = X('oscillator').length(); i < len; i++) {
       if (oscillatorNumber === 0) {
-        X('oscillator').get(i).param('volume', volume);
+        X('oscillator').get(i).param({ volume });
       } else {
-        window.C('oscillator').get(i).param('volume', volume);
+        window.C('oscillator').get(i).param({ volume });
       }
     }
   }, [oscillatorNumber]);
@@ -75,9 +94,9 @@ export const OscillatorFieldset: React.FC<Props> = (props: Props) => {
 
     for (let i = 0, len = X('oscillator').length(); i < len; i++) {
       if (oscillatorNumber === 0) {
-        X('oscillator').get(i).param('octave', octave);
+        X('oscillator').get(i).param({ octave });
       } else {
-        window.C('oscillator').get(i).param('octave', octave);
+        window.C('oscillator').get(i).param({ octave });
       }
     }
   }, [oscillatorNumber]);
@@ -87,9 +106,9 @@ export const OscillatorFieldset: React.FC<Props> = (props: Props) => {
 
     for (let i = 0, len = X('oscillator').length(); i < len; i++) {
       if (oscillatorNumber === 0) {
-        X('oscillator').get(i).param('fine', fine);
+        X('oscillator').get(i).param({ fine });
       } else {
-        window.C('oscillator').get(i).param('fine', fine);
+        window.C('oscillator').get(i).param({ fine });
       }
     }
   }, [oscillatorNumber]);

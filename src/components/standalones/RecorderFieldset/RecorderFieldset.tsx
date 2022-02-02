@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { XSoundSource } from '../../../types';
 import { createFilename } from '../../../utils';
 import { Spacer } from '../../atoms/Spacer';
 import { Select } from '../../atoms/Select';
@@ -9,7 +8,6 @@ import { X } from 'xsound';
 
 export interface Props {
   loadedApp: boolean;
-  sources: XSoundSource[];
 }
 
 const CHANNEL = 2;   // Stereo
@@ -17,7 +15,7 @@ const BIT     = 16;  // 16 bit
 const TYPE    = 'objectURL';
 
 export const RecorderFieldset: React.FC<Props> = (props: Props) => {
-  const { loadedApp, sources } = props;
+  const { loadedApp } = props;
 
   const [activeTrack, setActiveTrack] = useState<number>(-1);
   const [objectURL, setObjectURL] = useState<string>('');
@@ -25,42 +23,57 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
   const [creating, setCreating] = useState<boolean>(false);
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
 
-  const hasRecordedData = sources.some((source: XSoundSource) => X(source).module('recorder').has());
+  // Don't memo
+  const hasRecordedData = X('mixer').module('recorder').has(-1, -1) ||
+    X('oneshot').module('recorder').has(-1, -1) ||
+    X('audio').module('recorder').has(-1, -1) ||
+    X('stream').module('recorder').has(-1, -1) ||
+    X('noise').module('recorder').has(-1, -1);
 
   const onClickRecordButtonCallback = useCallback(() => {
-    sources.forEach((source: XSoundSource) => {
-      if (source !== 'oscillator') {
-        if (X(source).module('recorder').get() !== -1) {
-          X(source).module('recorder').stop();
+    if (
+      (X('mixer').module('recorder').get() !== -1) ||
+      (X('oneshot').module('recorder').get() !== -1) ||
+      (X('audio').module('recorder').get() !== -1) ||
+      (X('noise').module('recorder').get() !== -1)
+    ) {
+      X('mixer').module('recorder').stop();
+      X('oneshot').module('recorder').stop();
+      X('audio').module('recorder').stop();
+      X('noise').module('recorder').stop();
 
-          setRunning(false);
-        } else {
-          X(source).module('recorder').ready(activeTrack);
+      setRunning(false);
+    } else {
+      X('mixer').module('recorder').ready(activeTrack);
+      X('oneshot').module('recorder').ready(activeTrack);
+      X('audio').module('recorder').ready(activeTrack);
+      X('noise').module('recorder').ready(activeTrack);
 
-          if (source === 'stream') {
-            X(source).start();
-            X(source).module('recorder').start();
-          }
+      setRunning(true);
+    }
 
-          setRunning(true);
-        }
-      }
-    });
-  }, [sources, activeTrack]);
+    if (X('stream').module('recorder').get() !== -1) {
+      X('stream').module('recorder').stop();
+
+      setRunning(false);
+    } else {
+      X('stream').module('recorder').ready(activeTrack);
+      X('stream').start();
+      X('stream').module('recorder').start();
+
+      setRunning(true);
+    }
+  }, [activeTrack]);
 
   const onClickCreateButtonCallback = useCallback(() => {
     setRunning(false);
 
-    for (const source of sources) {
-      if (source === 'oscillator') {
-        continue;
-      }
-
+    if (X('mixer').module('recorder').has(-1, -1)) {
       setCreating(true);
 
-      const url = X(source).module('recorder').create(-1, CHANNEL, BIT, TYPE);
+      const url = X('mixer').module('recorder').create(-1, CHANNEL, BIT, TYPE);
 
-      if (url) {
+      if (typeof url === 'string') {
         const audio = new Audio(url);
 
         audio.controls = false;
@@ -71,10 +84,90 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
 
         return;
       }
+
+      setCreating(false);
     }
 
-    setCreating(false);
-  }, [sources]);
+    if (X('oneshot').module('recorder').has(-1, -1)) {
+      setCreating(true);
+
+      const url = X('oneshot').module('recorder').create(-1, CHANNEL, BIT, TYPE);
+
+      if (typeof url === 'string') {
+        const audio = new Audio(url);
+
+        audio.controls = false;
+        audio.play();
+
+        setObjectURL(url);
+        setCreating(false);
+
+        return;
+      }
+
+      setCreating(false);
+    }
+
+    if (X('audio').module('recorder').has(-1, -1)) {
+      setCreating(true);
+
+      const url = X('audio').module('recorder').create(-1, CHANNEL, BIT, TYPE);
+
+      if (typeof url === 'string') {
+        const audio = new Audio(url);
+
+        audio.controls = false;
+        audio.play();
+
+        setObjectURL(url);
+        setCreating(false);
+
+        return;
+      }
+
+      setCreating(false);
+    }
+
+    if (X('stream').module('recorder').has(-1, -1)) {
+      setCreating(true);
+
+      const url = X('stream').module('recorder').create(-1, CHANNEL, BIT, TYPE);
+
+      if (typeof url === 'string') {
+        const audio = new Audio(url);
+
+        audio.controls = false;
+        audio.play();
+
+        setObjectURL(url);
+        setCreating(false);
+
+        return;
+      }
+
+      setCreating(false);
+    }
+
+    if (X('noise').module('recorder').has(-1, -1)) {
+      setCreating(true);
+
+      const url = X('noise').module('recorder').create(-1, CHANNEL, BIT, TYPE);
+
+      if (typeof url === 'string') {
+        const audio = new Audio(url);
+
+        audio.controls = false;
+        audio.play();
+
+        setObjectURL(url);
+        setCreating(false);
+
+        return;
+      }
+
+      setCreating(false);
+    }
+  }, []);
 
   const onClickDownloadButtonCallback = useCallback((event: React.MouseEvent<HTMLAnchorElement>) => {
     if (!objectURL || running) {
@@ -93,14 +186,14 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
   }, [running]);
 
   const onClickClearTrackCallback = useCallback(() => {
-    sources.forEach((source: XSoundSource) => {
-      if (source !== 'oscillator') {
-        X(source).module('recorder').clear(activeTrack);
-      }
-    });
+    X('mixer').module('recorder').clear(activeTrack);
+    X('oneshot').module('recorder').clear(activeTrack);
+    X('audio').module('recorder').clear(activeTrack);
+    X('stream').module('recorder').clear(activeTrack);
+    X('noise').module('recorder').clear(activeTrack);
 
     setIsShowModal(false);
-  }, [sources, activeTrack]);
+  }, [activeTrack]);
 
   const onClickCancelClearTrackCallback = useCallback(() => {
     setIsShowModal(false);
@@ -121,20 +214,20 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
   }, [running]);
 
   const onChangeLeftChannelGainCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    sources.forEach((source: XSoundSource) => {
-      if (source !== 'oscillator') {
-        X(source).module('recorder').param('left', event.currentTarget.valueAsNumber);
-      }
-    });
-  }, [sources]);
+    X('mixer').module('recorder').param({ '0': event.currentTarget.valueAsNumber });
+    X('oneshot').module('recorder').param({ '0': event.currentTarget.valueAsNumber });
+    X('audio').module('recorder').param({ '0': event.currentTarget.valueAsNumber });
+    X('stream').module('recorder').param({ '0': event.currentTarget.valueAsNumber });
+    X('noise').module('recorder').param({ '0': event.currentTarget.valueAsNumber });
+  }, []);
 
   const onChangeRightChannelGainCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    sources.forEach((source: XSoundSource) => {
-      if (source !== 'oscillator') {
-        X(source).module('recorder').param('right', event.currentTarget.valueAsNumber);
-      }
-    });
-  }, [sources]);
+    X('mixer').module('recorder').param({ '1': event.currentTarget.valueAsNumber });
+    X('oneshot').module('recorder').param({ '1': event.currentTarget.valueAsNumber });
+    X('audio').module('recorder').param({ '1': event.currentTarget.valueAsNumber });
+    X('stream').module('recorder').param({ '1': event.currentTarget.valueAsNumber });
+    X('noise').module('recorder').param({ '1': event.currentTarget.valueAsNumber });
+  }, []);
 
   useEffect(() => {
     if (!loadedApp || (activeTrack > -1)) {
@@ -142,7 +235,7 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
     }
 
     setActiveTrack(0);
-  }, [loadedApp, sources, activeTrack]);
+  }, [loadedApp, activeTrack]);
 
   return (
     <div className="RecorderFieldset">

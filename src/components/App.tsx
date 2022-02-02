@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { IState, XSoundSource, OneshotSettings, RIRInfo } from '../types';
+import { IState, RIRInfo } from '../types';
 import { Modal } from './atoms/Modal';
 import { Flexbox } from './atoms/Flexbox';
 import { VerticalBox } from './atoms/VerticalBox';
@@ -28,7 +28,7 @@ import { DelayFieldset } from './standalones/DelayFieldset';
 import { ReverbFieldset } from './standalones/ReverbFieldset';
 import { Footer } from './standalones/Footer';
 import { BASE_URL, NUMBER_OF_ONESHOTS, NUMBER_OF_CHANNELS, NUMBER_OF_TRACKS, AJAX_TIMEOUT } from '../config';
-import { X } from 'xsound';
+import { X, OneshotSetting, OneshotSettings } from 'xsound';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Props {
@@ -43,8 +43,6 @@ export const App: React.FC<Props> = () => {
   const [isShowModalForDecoding, setIsShowModalForDecoding] = useState<boolean>(false);
 
   const currentSoundSource = useSelector((state: IState) => state.currentSoundSource);
-
-  const sources: XSoundSource[] = useMemo(() => ['mixer', 'oscillator', 'oneshot', 'audio', 'stream', 'noise'], []);
 
   const oneshots = useMemo(() => [
     `${BASE_URL}/one-shots/piano-2/C.mp3`,
@@ -703,50 +701,50 @@ export const App: React.FC<Props> = () => {
   }, []);
 
   const createOneshotSettingsCallback = useCallback(() => {
-    const settings: OneshotSettings[] = [];
+    const settings: OneshotSettings = [];
 
     for (let i = 0; i < NUMBER_OF_ONESHOTS; i++) {
-      const setting: OneshotSettings = {
-        buffer: 0,
-        rate  : 1,
-        loop  : false,
-        start : 0,
-        end   : 0,
-        volume: 1
+      const setting: OneshotSetting = {
+        bufferIndex : 0,
+        playbackRate: 1,
+        loop        : false,
+        loopStart   : 0,
+        loopEnd     : 0,
+        volume      : 1
       };
 
-      setting.buffer = getBufferIndexCallback(i);
-      setting.rate   = calculatePianoRateCallback(i);
+      setting.bufferIndex  = getBufferIndexCallback(i);
+      setting.playbackRate = calculatePianoRateCallback(i);
 
       settings[i] = setting;
     }
 
-    for (let i = NUMBER_OF_ONESHOTS; i < (NUMBER_OF_ONESHOTS + NUMBER_OF_ONESHOTS); i++) {
-      const setting: OneshotSettings = {
-        buffer: 7,
-        rate  : 1,
-        loop  : false,
-        start : 0,
-        end   : 0,
-        volume: 1
+    for (let i = NUMBER_OF_ONESHOTS; i < (2 * NUMBER_OF_ONESHOTS); i++) {
+      const setting: OneshotSetting = {
+        bufferIndex : 7,
+        playbackRate: 1,
+        loop        : false,
+        loopStart   : 0,
+        loopEnd     : 0,
+        volume      : 1
       };
 
-      setting.rate = calculateGuitarRateCallback(i);
+      setting.playbackRate = calculateGuitarRateCallback(i);
 
       settings[i] = setting;
     }
 
-    for (let i = (NUMBER_OF_ONESHOTS + NUMBER_OF_ONESHOTS); i < (NUMBER_OF_ONESHOTS + NUMBER_OF_ONESHOTS + NUMBER_OF_ONESHOTS); i++) {
-      const setting: OneshotSettings = {
-        buffer: 8,
-        rate  : 1,
-        loop  : false,
-        start : 0,
-        end   : 0,
-        volume: 1
+    for (let i = (2 * NUMBER_OF_ONESHOTS); i < (3 * NUMBER_OF_ONESHOTS); i++) {
+      const setting: OneshotSetting = {
+        bufferIndex : 8,
+        playbackRate: 1,
+        loop        : false,
+        loopStart   : 0,
+        loopEnd     : 0,
+        volume      : 1
       };
 
-      setting.rate = calculateElectricGuitarRateCallback(i);
+      setting.playbackRate = calculateElectricGuitarRateCallback(i);
 
       settings[i] = setting;
     }
@@ -760,39 +758,47 @@ export const App: React.FC<Props> = () => {
       return;
     }
 
-    const reverbs: AudioBuffer[] = [];
+    const rirs: AudioBuffer[] = [];
 
     rirInfos.forEach((rirInfo: RIRInfo) => {
-      X.ajax(rirInfo.url, 'arraybuffer', AJAX_TIMEOUT, (event: ProgressEvent, arrayBuffer: ArrayBuffer) => {
-        X.decode(X.get(), arrayBuffer, (audioBuffer: AudioBuffer) => {
-          reverbs.push(audioBuffer);
+      X.ajax({
+        url            : rirInfo.url,
+        type           : 'arraybuffer',
+        timeout        : AJAX_TIMEOUT,
+        successCallback: (event: ProgressEvent, arrayBuffer: ArrayBuffer) => {
+          X.decode(X.get(), arrayBuffer, (audioBuffer: AudioBuffer) => {
+            rirs.push(audioBuffer);
 
-          const rate = Math.floor((reverbs.length / rirInfos.length) * 100);
+            const rate = Math.floor((rirs.length / rirInfos.length) * 100);
 
-          if (reverbs.length === rirInfos.length) {
-            sources.forEach((source: XSoundSource) => {
-              X(source).module('reverb').preset(reverbs);
-            });
+            if (rirs.length === rirInfos.length) {
+              X('mixer').module('reverb').preset({ rirs });
+              X('oneshot').module('reverb').preset({ rirs });
+              X('audio').module('reverb').preset({ rirs });
+              X('stream').module('reverb').preset({ rirs });
+              X('noise').module('reverb').preset({ rirs });
+              X('oscillator').module('reverb').preset({ rirs });
+              window.C('oscillator').module('reverb').preset({ rirs });
 
-            window.C('oscillator').module('reverb').preset(reverbs);
+              setProgress(false);
+              setRate(100);
 
-            setProgress(false);
-            setRate(100);
+              return;
+            }
 
-            return;
-          }
-
-          setRate(rate);
-        }, () => {
-          setErrorMessage('Decode error.');
+            setRate(rate);
+          }, () => {
+            setErrorMessage('Decode error.');
+            setIsShowModalForAjax(true);
+          });
+        },
+        errorCallback  : () => {
+          setErrorMessage('The loading of RIRs failed.');
           setIsShowModalForAjax(true);
-        });
-      }, () => {
-        setErrorMessage('The loading of RIRs failed.');
-        setIsShowModalForAjax(true);
+        }
       });
     });
-  }, [sources, rirInfos]);
+  }, [rirInfos]);
 
   const onCloseModalForAjaxCallback = useCallback(() => {
     setErrorMessage('');
@@ -825,19 +831,19 @@ export const App: React.FC<Props> = () => {
 
     // Resize buffer of ScriptProcessorNode
     X('mixer').resize(1024);
-    X('oscillator').resize(1024);
-    window.C('oscillator').resize(1024);
     X('oneshot').resize(1024);
     X('audio').resize(8192);
     X('stream').resize(512);
+    X('oscillator').resize(1024);
+    window.C('oscillator').resize(1024);
 
     X('oscillator').setup([true, true, true, true]);
     window.C('oscillator').setup([false, false, false, false]);
 
-    X('audio').module('wah').param('auto', true);
-    X('audio').module('pitchshifter').state(true);
+    X('audio').module('wah').param({ auto: true });
+    X('audio').module('pitchshifter').activate();
 
-    X('stream').module('pitchshifter').state(true);
+    X('stream').module('pitchshifter').activate();
 
     const constraints: MediaStreamConstraints = {
       audio: {
@@ -848,36 +854,69 @@ export const App: React.FC<Props> = () => {
 
     X('stream').setup(constraints);
 
-    sources.forEach((source: XSoundSource) => {
-      X(source).module('distortion').param('gain', 0.5);
-      X(source).module('distortion').param('lead', 0.5);
-      X(source).module('chorus').param('tone', 4000);
-      X(source).module('flanger').param('tone', 4000);
-      X(source).module('delay').param('tone', 4000);
-      X(source).module('reverb').param('tone', 4000);
-      X(source).module('filter').param('frequency', 8000);
-    });
+    X('mixer').module('distortion').param({ pre: { state: true, gain: 0.5, lead: 0.5 }, post: { state: true } });
+    X('mixer').module('chorus').param({ tone: 4000 });
+    X('mixer').module('flanger').param({ tone: 4000 });
+    X('mixer').module('delay').param({ tone: 4000 });
+    X('mixer').module('reverb').param({ tone: 4000 });
+    X('mixer').module('filter').param({ frequency: 8000 });
 
-    window.C('oscillator').module('distortion').param('gain', 0.5);
-    window.C('oscillator').module('distortion').param('lead',  0.5);
-    window.C('oscillator').module('chorus').param('tone', 4000);
-    window.C('oscillator').module('flanger').param('tone', 4000);
-    window.C('oscillator').module('delay').param('tone', 4000);
-    window.C('oscillator').module('reverb').param('tone', 4000);
-    window.C('oscillator').module('filter').param('frequency', 8000);
+    X('oneshot').module('distortion').param({ pre: { state: true, gain: 0.5, lead: 0.5 }, post: { state: true } });
+    X('oneshot').module('chorus').param({ tone: 4000 });
+    X('oneshot').module('flanger').param({ tone: 4000 });
+    X('oneshot').module('delay').param({ tone: 4000 });
+    X('oneshot').module('reverb').param({ tone: 4000 });
+    X('oneshot').module('filter').param({ frequency: 8000 });
+
+    X('audio').module('distortion').param({ pre: { state: true, gain: 0.5, lead: 0.5 }, post: { state: true } });
+    X('audio').module('chorus').param({ tone: 4000 });
+    X('audio').module('flanger').param({ tone: 4000 });
+    X('audio').module('delay').param({ tone: 4000 });
+    X('audio').module('reverb').param({ tone: 4000 });
+    X('audio').module('filter').param({ frequency: 8000 });
+
+    X('stream').module('distortion').param({ pre: { state: true, gain: 0.5, lead: 0.5 }, post: { state: true } });
+    X('stream').module('chorus').param({ tone: 4000 });
+    X('stream').module('flanger').param({ tone: 4000 });
+    X('stream').module('delay').param({ tone: 4000 });
+    X('stream').module('reverb').param({ tone: 4000 });
+    X('stream').module('filter').param({ frequency: 8000 });
+
+    X('noise').module('distortion').param({ pre: { state: true, gain: 0.5, lead: 0.5 }, post: { state: true } });
+    X('noise').module('chorus').param({ tone: 4000 });
+    X('noise').module('flanger').param({ tone: 4000 });
+    X('noise').module('delay').param({ tone: 4000 });
+    X('noise').module('reverb').param({ tone: 4000 });
+    X('noise').module('filter').param({ frequency: 8000 });
+
+    X('oscillator').module('distortion').param({ pre: { state: true, gain: 0.5, lead: 0.5 }, post: { state: true } });
+    X('oscillator').module('chorus').param({ tone: 4000 });
+    X('oscillator').module('flanger').param({ tone: 4000 });
+    X('oscillator').module('delay').param({ tone: 4000 });
+    X('oscillator').module('reverb').param({ tone: 4000 });
+    X('oscillator').module('filter').param({ frequency: 8000 });
+
+    window.C('oscillator').module('distortion').param({ pre: { state: true, gain: 0.5, lead: 0.5 }, post: { state: true } });
+    window.C('oscillator').module('chorus').param({ tone: 4000 });
+    window.C('oscillator').module('flanger').param({ tone: 4000 });
+    window.C('oscillator').module('delay').param({ tone: 4000 });
+    window.C('oscillator').module('reverb').param({ tone: 4000 });
+    window.C('oscillator').module('filter').param({ frequency: 8000 });
 
     for (let i = 0, len = X('oscillator').length(); i < len; i++) {
-      X('oscillator', i).param('type', 'sawtooth');
-      window.C('oscillator', i).param('type', 'sawtooth');
+      X('oscillator').get(i).param({ type: 'sawtooth' });
+      window.C('oscillator').get(i).param({ type: 'sawtooth' });
     }
+
+    X('stream').clearAudioDevices();
 
     // Load one-shot audio files
     try {
       X('oneshot').setup({
-        resources: oneshots,
-        settings : createOneshotSettingsCallback(),
-        timeout  : AJAX_TIMEOUT,
-        success  : () => {
+        resources      : oneshots,
+        settings       : createOneshotSettingsCallback(),
+        timeout        : AJAX_TIMEOUT,
+        successCallback: () => {
           if (unmounted) {
             return;
           }
@@ -889,7 +928,7 @@ export const App: React.FC<Props> = () => {
             loadRIRsCallback(unmounted);
           }
         },
-        error    : () => {
+        errorCallback  : () => {
           if (unmounted) {
             return;
           }
@@ -906,18 +945,18 @@ export const App: React.FC<Props> = () => {
       setIsShowModalForAjax(true);
     }
 
-    sources.forEach((source: XSoundSource) => {
-      if (source !== 'oscillator') {
-        X(source).module('recorder').setup(NUMBER_OF_CHANNELS, NUMBER_OF_TRACKS);
-      }
-    });
+    X('mixer').module('recorder').setup(NUMBER_OF_CHANNELS, NUMBER_OF_TRACKS);
+    X('oneshot').module('recorder').setup(NUMBER_OF_CHANNELS, NUMBER_OF_TRACKS);
+    X('audio').module('recorder').setup(NUMBER_OF_CHANNELS, NUMBER_OF_TRACKS);
+    X('stream').module('recorder').setup(NUMBER_OF_CHANNELS, NUMBER_OF_TRACKS);
+    X('noise').module('recorder').setup(NUMBER_OF_CHANNELS, NUMBER_OF_TRACKS);
 
     setLoadedApp(true);
 
     return () => {
       unmounted = true;
     };
-  }, [sources, oneshots, rirInfos.length, createOneshotSettingsCallback, loadRIRsCallback]);
+  }, [oneshots, rirInfos.length, createOneshotSettingsCallback, loadRIRsCallback]);
 
   return (
     <React.Fragment>
@@ -927,38 +966,38 @@ export const App: React.FC<Props> = () => {
           <OscillatorFieldset oscillatorNumber={0} label="Oscillator - 1" radioName="oscillator-type-0" />
           <OscillatorFieldset oscillatorNumber={1} label="Oscillator - 2" radioName="oscillator-type-1" />
           <EnvelopeGeneratorFieldset />
-          <RecorderFieldset loadedApp={loadedApp} sources={sources} />
+          <RecorderFieldset loadedApp={loadedApp} />
           <AudioFieldset loadedApp={loadedApp} />
         </Flexbox>
-        <Analyser loadedApp={loadedApp} sources={sources} />
+        <Analyser loadedApp={loadedApp} />
         <MML loadedApp={loadedApp} currentSoundSource={currentSoundSource} />
-        <BasicControllers sources={sources} currentSoundSource={currentSoundSource} />
+        <BasicControllers currentSoundSource={currentSoundSource} />
         <Piano currentSoundSource={currentSoundSource} />
         <Flexbox>
           <VerticalBox>
-            <CompressorFieldset sources={sources} />
-            <DistortionFieldset sources={sources} />
+            <CompressorFieldset />
+            <DistortionFieldset />
           </VerticalBox>
           <VerticalBox>
-            <WahFieldset sources={sources} />
-            <EqualizerFieldset sources={sources} />
+            <WahFieldset />
+            <EqualizerFieldset />
           </VerticalBox>
           <VerticalBox>
-            <FilterFieldset sources={sources} />
-            <AutopanFieldset sources={sources} />
+            <FilterFieldset />
+            <AutopanFieldset />
           </VerticalBox>
           <VerticalBox>
-            <TremoloFieldset sources={sources} />
-            <RingModulatorFieldset sources={sources} />
-            <PhaserFieldset sources={sources} />
+            <TremoloFieldset />
+            <RingModulatorFieldset />
+            <PhaserFieldset />
           </VerticalBox>
           <VerticalBox>
-            <ChorusFieldset sources={sources} />
-            <FlangerFieldset sources={sources} />
+            <ChorusFieldset />
+            <FlangerFieldset />
           </VerticalBox>
           <VerticalBox>
-            <DelayFieldset sources={sources} />
-            <ReverbFieldset sources={sources} rirInfos={rirInfos} />
+            <DelayFieldset />
+            <ReverbFieldset rirInfos={rirInfos} />
           </VerticalBox>
         </Flexbox>
       </main>

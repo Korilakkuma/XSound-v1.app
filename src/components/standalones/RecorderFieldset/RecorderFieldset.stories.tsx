@@ -5,7 +5,6 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import { Props, RecorderFieldset } from './RecorderFieldset';
 import '../../../main.css';
 
-import { XSoundSource } from '../../../types';
 import { X } from 'xsound';
 
 export default {
@@ -21,11 +20,11 @@ const Template: Story<Props> = () => {
       return;
     }
 
-    const constraints = { audio : true, video : false };
+    const constraints: MediaStreamConstraints = { audio : true, video : false };
 
     try {
-      X('stream').setup(constraints).ready();
-      X('stream').param('output', false);
+      X('stream').setup(constraints);
+      X('stream').param({ output: false });
       X('stream').ready()
         .then(() => {
           X('stream').start();
@@ -39,7 +38,7 @@ const Template: Story<Props> = () => {
     setLoaded(true);
   }, [loaded]);
 
-  return <RecorderFieldset loadedApp sources={['stream'] as XSoundSource[]} />;
+  return <RecorderFieldset loadedApp />;
 };
 
 export const Primary = Template.bind({});

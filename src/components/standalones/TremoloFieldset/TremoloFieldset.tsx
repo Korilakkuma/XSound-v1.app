@@ -1,48 +1,63 @@
 import React, { useState, useCallback } from 'react';
-import { XSoundSource } from '../../../types';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
 import { ValueController } from '../../helpers/ValueController';
 import { X } from 'xsound';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface Props {
-  sources: XSoundSource[];
 }
 
-export const TremoloFieldset: React.FC<Props> = (props: Props) => {
+export const TremoloFieldset: React.FC<Props> = () => {
   const [tremolo, setTremolo] = useState<boolean>(false);
 
   const onChangeStateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const state = event.currentTarget.checked;
+    const checked = event.currentTarget.checked;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('tremolo').state(state);
-    });
+    if (checked) {
+      X('mixer').module('tremolo').activate();
+      X('oneshot').module('tremolo').activate();
+      X('audio').module('tremolo').activate();
+      X('stream').module('tremolo').activate();
+      X('noise').module('tremolo').activate();
+      X('oscillator').module('tremolo').activate();
+      window.C('oscillator').module('tremolo').activate();
+    } else {
+      X('mixer').module('tremolo').deactivate();
+      X('oneshot').module('tremolo').deactivate();
+      X('audio').module('tremolo').deactivate();
+      X('stream').module('tremolo').deactivate();
+      X('noise').module('tremolo').deactivate();
+      X('oscillator').module('tremolo').deactivate();
+      window.C('oscillator').module('tremolo').deactivate();
+    }
 
-    window.C('oscillator').module('tremolo').state(state);
-
-    setTremolo(state);
-  }, [props.sources]);
+    setTremolo(checked);
+  }, []);
 
   const onChangeDepthCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const depth = event.currentTarget.valueAsNumber;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('tremolo').param('depth', depth);
-    });
-
-    window.C('oscillator').module('tremolo').param('depth', depth);
-  }, [props.sources]);
+    X('mixer').module('tremolo').param({ depth });
+    X('oneshot').module('tremolo').param({ depth });
+    X('audio').module('tremolo').param({ depth });
+    X('stream').module('tremolo').param({ depth });
+    X('noise').module('tremolo').param({ depth });
+    X('oscillator').module('tremolo').param({ depth });
+    window.C('oscillator').module('tremolo').param({ depth });
+  }, []);
 
   const onChangeRateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const rate = event.currentTarget.valueAsNumber;
 
-    props.sources.forEach((source: XSoundSource) => {
-      X(source).module('tremolo').param('rate', rate);
-    });
-
-    window.C('oscillator').module('tremolo').param('rate', rate);
-  }, [props.sources]);
+    X('mixer').module('tremolo').param({ rate });
+    X('oneshot').module('tremolo').param({ rate });
+    X('audio').module('tremolo').param({ rate });
+    X('stream').module('tremolo').param({ rate });
+    X('noise').module('tremolo').param({ rate });
+    X('oscillator').module('tremolo').param({ rate });
+    window.C('oscillator').module('tremolo').param({ rate });
+  }, []);
 
   return (
     <div className="TremoloFieldset">

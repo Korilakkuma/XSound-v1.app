@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { ConvertedTime } from '../../../types';
 import { formatAudioTime } from '../../../utils';
 import { Spacer } from '../../atoms/Spacer';
 import { FileUploader } from '../../atoms/FileUploader';
@@ -7,7 +6,7 @@ import { Button } from '../../atoms/Button';
 import { ProgressBar } from '../../atoms/ProgressBar';
 import { Modal } from '../../atoms/Modal';
 import { ValueController } from '../../helpers/ValueController';
-import { X } from 'xsound';
+import { X, FileEvent, FileReaderErrorText } from 'xsound';
 
 export interface Props {
   loadedApp: boolean;
@@ -31,7 +30,7 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
   const [isShowModalForProgress, setIsShowModalForProgress] = useState<boolean>(false);
   const [isShowModalForDecoding, setIsShowModalForDecoding] = useState<boolean>(false);
 
-  const decodeCallback = useCallback(() => {
+  const startDecodeCallback = useCallback(() => {
     setShowProgress(true);
     setLoadedByte(0);
     setRate(0);
@@ -39,45 +38,39 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
     setIsShowModalForDecoding(true);
   }, []);
 
-  const readFileCallback = useCallback((event: React.ChangeEvent<HTMLInputElement> | React.DragEvent<HTMLDivElement>) => {
-    const options = {
-      event   : event.nativeEvent,
-      type    : 'ArrayBuffer',
-      success : (event: Event, arrayBuffer: ArrayBuffer) => {
-        X('audio').ready(arrayBuffer);
+  const onChangeFileCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = X.file({
+      event           : event.nativeEvent as FileEvent,  // HACK:
+      type            : 'arraybuffer',
+      successCallback : (event: FileEvent, arraybuffer: ArrayBuffer | string | null) => {
+        if (arraybuffer instanceof ArrayBuffer) {
+          startDecodeCallback();
+          X('audio').ready(arraybuffer);
+        }
 
-        (event.currentTarget as HTMLInputElement).value = '';
+        event.target.value = '';
       },
-      error   : (error: Error) => {
-        setErrorMessage(error.message);
+      errorCallback   : (event: FileEvent, textStatus: FileReaderErrorText) => {
+        setErrorMessage(textStatus);
         setIsShowModalForFileUploadError(true);
       },
-      progress: (event: Event) => {
-        const { lengthComputable, loaded, total } = event as ProgressEvent;
+      progressCallback: (event: ProgressEvent) => {
+        const { lengthComputable, loaded, total } = event;
 
         setShowProgress(lengthComputable);
         setLoadedByte(loaded);
         setRate(lengthComputable && (total > 0) ? Math.floor((loaded / total) * 100) : 0);
         setIsShowModalForProgress(true);
       }
-    };
+    });
 
-    try {
-      const file = X.file(options);
-
-      setFilename(file.name);
-    } catch (error) {
-      if (error instanceof Error) {
-        setErrorMessage(error.message);
-      }
-
+    if (file instanceof Error) {
+      setErrorMessage(file.message);
       setIsShowModalForFileUploadError(true);
+    } else if (typeof file !== 'string') {
+      setFilename(file.name);
     }
-  }, []);
-
-  const onChangeFileCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    readFileCallback(event);
-  }, [readFileCallback]);
+  }, [startDecodeCallback]);
 
   const onDragEnterCallback = useCallback((event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
@@ -96,19 +89,50 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
   const onDropCallback = useCallback((event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
 
-    readFileCallback(event);
+    const file = X.drop({
+      event           : event.nativeEvent,
+      type            : 'arraybuffer',
+      successCallback : (event: FileEvent, arraybuffer: ArrayBuffer | string | null) => {
+        if (arraybuffer instanceof ArrayBuffer) {
+          startDecodeCallback();
+          X('audio').ready(arraybuffer);
+        }
+
+        event.target.value = '';
+      },
+      errorCallback   : (event: FileEvent, textStatus: FileReaderErrorText) => {
+        setErrorMessage(textStatus);
+        setIsShowModalForFileUploadError(true);
+      },
+      progressCallback: (event: ProgressEvent) => {
+        const { lengthComputable, loaded, total } = event;
+
+        setShowProgress(lengthComputable);
+        setLoadedByte(loaded);
+        setRate(lengthComputable && (total > 0) ? Math.floor((loaded / total) * 100) : 0);
+        setIsShowModalForProgress(true);
+      }
+    });
+
+    if (file instanceof Error) {
+      setErrorMessage(file.message);
+      setIsShowModalForFileUploadError(true);
+    } else if (typeof file !== 'string') {
+      setFilename(file.name);
+    }
 
     setDrag(false);
     setDrop(true);
-  }, [readFileCallback]);
+  }, [startDecodeCallback]);
 
   const onClickCallback = useCallback(() => {
-    if (!X('audio').isBuffer()) {
+    if (!X('audio').has()) {
       return;
     }
 
-    if (X('audio').isPaused()) {
+    if (X('audio').paused()) {
       X('audio').start(X('audio').param('currentTime'));
+      X('audio').module('recorder').start();
       setPaused(false);
     } else {
       X('audio').stop();
@@ -117,22 +141,22 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
   }, []);
 
   const onChangeCurrentTimeCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    X('audio').param('currentTime', event.currentTarget.valueAsNumber);
+    X('audio').param({ currentTime: event.currentTarget.valueAsNumber });
 
-    setCurrentTime(X('audio').param('currentTIme'));
+    setCurrentTime(X('audio').param('currentTime'));
   }, []);
 
   const onChangePitchCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    X('audio').module('pitchshifter').param('pitch', event.currentTarget.valueAsNumber);
-    X('stream').module('pitchshifter').param('pitch', event.currentTarget.valueAsNumber);
+    X('audio').module('pitchshifter').param({ pitch: event.currentTarget.valueAsNumber });
+    X('stream').module('pitchshifter').param({ pitch: event.currentTarget.valueAsNumber });
   }, []);
 
   const onChangePlaybackRate = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    X('audio').param('playbackRate', event.currentTarget.valueAsNumber);
+    X('audio').param({ playbackRate: event.currentTarget.valueAsNumber });
   }, []);
 
   const onChangeDepthCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    X('audio').module('vocalcanceler').param('depth', event.currentTarget.valueAsNumber);
+    X('audio').module('vocalcanceler').param({ depth: event.currentTarget.valueAsNumber });
   }, []);
 
   const onCloseModalCallback = useCallback(() => {
@@ -140,18 +164,9 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
     setIsShowModalForDecodingError(false);
   }, []);
 
-  const readyCallback = useCallback((buffer: AudioBuffer) => {
+  const decodeCallback = useCallback((buffer: AudioBuffer) => {
     setDuration(buffer.duration);
     setIsShowModalForDecoding(false);
-  }, []);
-
-  const startCallback = useCallback(() => {
-    X('audio').module('recorder').start();
-    // X('audio').module('session').start();
-  }, []);
-
-  const stopCallback = useCallback(() => {
-    // TODO: do something ...
   }, []);
 
   const updateCallback = useCallback((source: AudioBufferSourceNode, currentTime: number) => {
@@ -181,8 +196,8 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
     setIsShowModalForDecodingError(true);
   }, []);
 
-  const convertedCurrenTime = useMemo(() => X.convertTime(currentTime) as ConvertedTime, [currentTime]);
-  const convertedDuration   = useMemo(() => X.convertTime(duration) as ConvertedTime, [duration]);
+  const convertedCurrenTime = useMemo(() => X.convertTime(currentTime), [currentTime]);
+  const convertedDuration   = useMemo(() => X.convertTime(duration), [duration]);
 
   const currentTimeText = useMemo(() => `${formatAudioTime(convertedCurrenTime)}`, [convertedCurrenTime]);
   const durationText    = useMemo(() => `${formatAudioTime(convertedDuration)}`, [convertedDuration]);
@@ -193,13 +208,10 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
     }
 
     X('audio').setup({
-      decode: decodeCallback,
-      ready : readyCallback,
-      start : startCallback,
-      stop  : stopCallback,
-      update: updateCallback,
-      ended : endedCallback,
-      error : errorCallback
+      decodeCallback,
+      updateCallback,
+      endedCallback,
+      errorCallback
     });
 
     const mediaQueryList = window.matchMedia('(min-width: 1024px)');
@@ -211,9 +223,6 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
     props.loadedApp,
     loaded,
     decodeCallback,
-    readyCallback,
-    startCallback,
-    stopCallback,
     updateCallback,
     endedCallback,
     errorCallback

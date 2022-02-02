@@ -8,8 +8,8 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import { Props, BasicControllers } from './BasicControllers';
 import '../../../main.css';
 
-import { SoundSource, XSoundSource, OneshotSettings } from '../../../types';
-import { X } from 'xsound';
+import { SoundSource } from '../../../types';
+import { X, OneshotSetting, OneshotSettings } from 'xsound';
 
 export default {
   title    : 'standalones/BasicControllers',
@@ -30,6 +30,8 @@ const Template: Story<Props> = () => {
   const [loaded, setLoaded] = useState<boolean>(false);
   const [isOscillatorStop, setIsOscillatorStop] = useState<boolean>(true);
   const [isOneshotStop, setIsOneshotStop] = useState<boolean>(true);
+
+  const currentSoundSource: SoundSource = 'oscillator';
 
   const getBufferIndexCallback = useCallback((pianoIndex: number) => {
     switch (Math.floor((pianoIndex + 9) % 12)) {
@@ -91,20 +93,20 @@ const Template: Story<Props> = () => {
   }, []);
 
   const createOneshotSettingsCallback = useCallback(() => {
-    const settings: OneshotSettings[] = [];
+    const settings: OneshotSettings = [];
 
     for (let i = 0; i < 88; i++) {
-      const setting: OneshotSettings = {
-        buffer: 0,
-        rate  : 1,
-        loop  : false,
-        start : 0,
-        end   : 0,
-        volume: 1
+      const setting: OneshotSetting = {
+        bufferIndex : 0,
+        playbackRate: 1,
+        loop        : false,
+        loopStart   : 0,
+        loopEnd     : 0,
+        volume      : 1
       };
 
-      setting.buffer = getBufferIndexCallback(i);
-      setting.rate   = calculatePianoRateCallback(i);
+      setting.bufferIndex  = getBufferIndexCallback(i);
+      setting.playbackRate = calculatePianoRateCallback(i);
 
       settings[i] = setting;
     }
@@ -149,19 +151,19 @@ const Template: Story<Props> = () => {
     window.C('oscillator').setup([true, true, true, true]);
 
     for (let i = 0, len = X('oscillator').length(); i < len; i++) {
-      X('oscillator', i).param('type', 'sawtooth');
-      window.C('oscillator', i).param('type', 'sawtooth');
+      X('oscillator').get(i).param({ type: 'sawtooth' });
+      window.C('oscillator').get(i).param({ type: 'sawtooth' });
     }
 
     try {
       X('oneshot').setup({
-        resources: oneshots,
-        settings : createOneshotSettingsCallback(),
-        timeout  : 60000,
-        success  : () => {
+        resources      : oneshots,
+        settings       : createOneshotSettingsCallback(),
+        timeout        : 60000,
+        successCallback: () => {
           setLoaded(true);
         },
-        error : () => {
+        errorCallback  : () => {
           alert('The loading of audio files failed.');
         }
       });
@@ -193,7 +195,7 @@ const Template: Story<Props> = () => {
       >
         {isOneshotStop ? 'Start' : 'Stop'}
       </button>
-      <BasicControllers sources={['oscillator', 'oneshot'] as XSoundSource[]} currentSoundSource={'oscillator' as SoundSource} />
+      <BasicControllers currentSoundSource={currentSoundSource} />
     </Provider>
   );
 };

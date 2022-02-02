@@ -16,6 +16,8 @@ export default {
 const Template: Story<Props> = () => {
   const [loaded, setLoaded] = useState<boolean>(false);
 
+  const currentSoundSource: SoundSource = 'oscillator';
+
   useEffect(() => {
     if (loaded) {
       return;
@@ -27,14 +29,14 @@ const Template: Story<Props> = () => {
     window.C('oscillator').setup([false, false, false, false]);
 
     for (let i = 0, len = X('oscillator').length(); i < len; i++) {
-      X('oscillator', i).param('type', 'sawtooth');
-      window.C('oscillator', i).param('type', 'sawtooth');
+      X('oscillator').get(i).param({ type: 'sawtooth' });
+      window.C('oscillator').get(i).param({ type: 'sawtooth' });
     }
 
     setLoaded(true);
   }, [loaded]);
 
-  return <Piano currentSoundSource={'oscillator' as SoundSource} />;
+  return <Piano currentSoundSource={currentSoundSource} />;
 };
 
 export const Primary = Template.bind({});
