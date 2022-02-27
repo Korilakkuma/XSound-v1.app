@@ -89,6 +89,7 @@
     "@types/whatwg-fetch": "0.0.33",
     "@typescript-eslint/eslint-plugin": "^5.13.0",
     "@typescript-eslint/parser": "^5.13.0",
+    "chromatic": "^6.5.1",
     "cross-env": "^7.0.3",
     "css-loader": "^6.6.0",
     "css-minimizer-webpack-plugin": "^3.4.1",
