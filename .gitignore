@@ -1,8 +1,9 @@
 .DS_Store
 CNAME
-node_modules
+build-storybook.log
 npm-debug.log
-coverage/
+coverage
+node_modules
 app.js*
 app.css*
 vendor.js*
