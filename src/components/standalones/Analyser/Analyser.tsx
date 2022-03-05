@@ -104,6 +104,8 @@ export const Analyser: React.FC<Props> = (props: Props) => {
       X('noise').module('analyser').domain('time').activate();
       X('noise').module('analyser').domain('fft').activate();
       X('oscillator').module('analyser').domain('time').activate();
+      X('oscillator').module('analyser').domain('fft').activate();
+      window.C('oscillator').module('analyser').domain('time').activate();
       window.C('oscillator').module('analyser').domain('fft').activate();
 
       return;
