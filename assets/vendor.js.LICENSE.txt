@@ -7,7 +7,7 @@ object-assign
 /*! For license information please see xsound.js.LICENSE.txt */
 
 /**
- * React Router v6.2.1
+ * React Router v6.2.2
  *
  * Copyright (c) Remix Software Inc.
  *
