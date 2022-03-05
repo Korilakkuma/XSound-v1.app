@@ -1,21 +1,7 @@
 {
+  "extends": "./tsconfig.json",
   "compilerOptions": {
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "lib": [
-      "es2015",
-      "webworker"
-    ],
-    "module": "commonjs",
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": false,
-    "outDir": "./",
-    "skipLibCheck": true,
-    "sourceMap": true,
-    "strict": true,
-    "target": "es5"
+    "outDir": "./"
   },
   "include": [
     "src/service-worker.ts"
