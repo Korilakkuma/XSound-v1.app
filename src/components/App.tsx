@@ -951,6 +951,8 @@ export const App: React.FC<Props> = () => {
     X('stream').module('recorder').setup(NUMBER_OF_CHANNELS, NUMBER_OF_TRACKS);
     X('noise').module('recorder').setup(NUMBER_OF_CHANNELS, NUMBER_OF_TRACKS);
 
+    X('mixer').mix([X('oscillator'), window.C('oscillator')]);
+
     setLoadedApp(true);
 
     return () => {
