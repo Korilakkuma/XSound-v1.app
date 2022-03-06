@@ -272,7 +272,7 @@ export const MML: React.FC<Props> = (props: Props) => {
     const file = X.file({
       event           : event.nativeEvent as FileEvent,  // HACK:
       type            : 'json',
-      successCallback : (_: Event, text: string) => {
+      successCallback : (_: FileEvent, text: string) => {
         event.currentTarget.value = '';
 
         try {
@@ -299,7 +299,7 @@ export const MML: React.FC<Props> = (props: Props) => {
           }
         }
       },
-      errorCallback   : (event: Event, textStatus: FileReaderErrorText) => {
+      errorCallback   : (event: FileEvent, textStatus: FileReaderErrorText) => {
         setShowProgress(false);
         setErrorMessage(textStatus);
         setIsShowModalForFileUploadError(true);
@@ -342,7 +342,7 @@ export const MML: React.FC<Props> = (props: Props) => {
     const file = X.drop({
       event           : event.nativeEvent,
       type            : 'json',
-      successCallback : (_: Event, text: string) => {
+      successCallback : (_: DragEvent, text: string) => {
         try {
           const mmls = JSON.parse(text);
 
@@ -367,7 +367,7 @@ export const MML: React.FC<Props> = (props: Props) => {
           }
         }
       },
-      errorCallback   : (event: Event, textStatus: FileReaderErrorText) => {
+      errorCallback   : (event: DragEvent, textStatus: FileReaderErrorText) => {
         setShowProgress(false);
         setErrorMessage(textStatus);
         setIsShowModalForFileUploadError(true);
