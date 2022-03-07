@@ -31,7 +31,7 @@
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
       "eslint --fix",
-      "tsc --noEmit --skipLibCheck --esModuleInterop --jsx react"
+      "tsc --esModuleInterop --noEmit --skipLibCheck --jsx react"
     ],
     "src/**/*.css": [
       "stylelint --fix"
