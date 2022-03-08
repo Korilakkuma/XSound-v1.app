@@ -168,6 +168,7 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
   const onChangeMasterVolumeCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const mastervolume = event.currentTarget.valueAsNumber;
 
+    X('mixer').param({ mastervolume });
     X('oneshot').param({ mastervolume });
     X('audio').param({ mastervolume });
     X('stream').param({ mastervolume });
