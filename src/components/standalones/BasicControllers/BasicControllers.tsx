@@ -94,8 +94,6 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
       X('oscillator').ready(0, 0).start(X.toFrequencies(indexes));
       window.C('oscillator').ready(0, 0).start(X.toFrequencies(indexes));
 
-      X('mixer').mix([X('oscillator'), window.C('oscillator')]);
-
       X('mixer').module('recorder').start();
     } else {
       X('oneshot').reset(targetIndex, 'volume', volume).ready(0, 0).start(targetIndex + offset);

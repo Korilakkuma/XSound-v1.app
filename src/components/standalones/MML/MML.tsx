@@ -216,7 +216,10 @@ export const MML: React.FC<Props> = (props: Props) => {
       window.C('mml').stop();
 
       for (let i = 0, len = X('oscillator').length(); i < len; i++) {
-        X('oscillator').get(i).deactivate();
+        if (i !== 0) {
+          X('oscillator').get(i).deactivate();
+        }
+
         window.C('oscillator').get(i).deactivate();
       }
     }
