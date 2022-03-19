@@ -21,16 +21,12 @@ export const FilterFieldset: React.FC<Props> = () => {
       X('audio').module('filter').activate();
       X('stream').module('filter').activate();
       X('noise').module('filter').activate();
-      X('oscillator').module('filter').activate();
-      window.C('oscillator').module('filter').activate();
     } else {
       X('mixer').module('filter').deactivate();
       X('oneshot').module('filter').deactivate();
       X('audio').module('filter').deactivate();
       X('stream').module('filter').deactivate();
       X('noise').module('filter').deactivate();
-      X('oscillator').module('filter').deactivate();
-      window.C('oscillator').module('filter').deactivate();
     }
 
     setFilter(checked);
@@ -53,8 +49,6 @@ export const FilterFieldset: React.FC<Props> = () => {
         X('audio').module('filter').param({ type });
         X('stream').module('filter').param({ type });
         X('noise').module('filter').param({ type });
-        X('oscillator').module('filter').param({ type });
-        window.C('oscillator').module('filter').param({ type });
         break;
       default:
         break;
@@ -69,8 +63,6 @@ export const FilterFieldset: React.FC<Props> = () => {
     X('audio').module('filter').param({ frequency });
     X('stream').module('filter').param({ frequency });
     X('noise').module('filter').param({ frequency });
-    X('oscillator').module('filter').param({ frequency });
-    window.C('oscillator').module('filter').param({ frequency });
   }, []);
 
   const onChangeQualityCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -81,8 +73,6 @@ export const FilterFieldset: React.FC<Props> = () => {
     X('audio').module('filter').param({ Q });
     X('stream').module('filter').param({ Q });
     X('noise').module('filter').param({ Q });
-    X('oscillator').module('filter').param({ Q });
-    window.C('oscillator').module('filter').param({ Q });
   }, []);
 
   const onChangeGainCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -93,8 +83,6 @@ export const FilterFieldset: React.FC<Props> = () => {
     X('audio').module('filter').param({ gain });
     X('stream').module('filter').param({ gain });
     X('noise').module('filter').param({ gain });
-    X('oscillator').module('filter').param({ gain });
-    window.C('oscillator').module('filter').param({ gain });
   }, []);
 
   const onChangeAttackCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -105,8 +93,6 @@ export const FilterFieldset: React.FC<Props> = () => {
     X('audio').module('filter').param({ attack });
     X('stream').module('filter').param({ attack });
     X('noise').module('filter').param({ attack });
-    X('oscillator').module('filter').param({ attack });
-    window.C('oscillator').module('filter').param({ attack });
   }, []);
 
   const onChangeDecayCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -117,8 +103,6 @@ export const FilterFieldset: React.FC<Props> = () => {
     X('audio').module('filter').param({ decay });
     X('stream').module('filter').param({ decay });
     X('noise').module('filter').param({ decay });
-    X('oscillator').module('filter').param({ decay });
-    window.C('oscillator').module('filter').param({ decay });
   }, []);
 
   const onChangeSustainCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -129,8 +113,6 @@ export const FilterFieldset: React.FC<Props> = () => {
     X('audio').module('filter').param({ sustain });
     X('stream').module('filter').param({ sustain });
     X('noise').module('filter').param({ sustain });
-    X('oscillator').module('filter').param({ sustain });
-    window.C('oscillator').module('filter').param({ sustain });
   }, []);
 
   const onChangeReleaseCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -141,8 +123,6 @@ export const FilterFieldset: React.FC<Props> = () => {
     X('audio').module('filter').param({ release });
     X('stream').module('filter').param({ release });
     X('noise').module('filter').param({ release });
-    X('oscillator').module('filter').param({ release });
-    window.C('oscillator').module('filter').param({ release });
   }, []);
 
   return (

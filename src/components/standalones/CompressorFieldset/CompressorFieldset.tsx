@@ -20,16 +20,12 @@ export const CompressorFieldset: React.FC<Props> = () => {
       X('audio').module('compressor').activate();
       X('stream').module('compressor').activate();
       X('noise').module('compressor').activate();
-      X('oscillator').module('compressor').activate();
-      window.C('oscillator').module('compressor').activate();
     } else {
       X('mixer').module('compressor').deactivate();
       X('oneshot').module('compressor').deactivate();
       X('audio').module('compressor').deactivate();
       X('stream').module('compressor').deactivate();
       X('noise').module('compressor').deactivate();
-      X('oscillator').module('compressor').deactivate();
-      window.C('oscillator').module('compressor').deactivate();
     }
 
     setCompressor(checked);
@@ -43,8 +39,6 @@ export const CompressorFieldset: React.FC<Props> = () => {
     X('audio').module('compressor').param({ threshold });
     X('stream').module('compressor').param({ threshold });
     X('noise').module('compressor').param({ threshold });
-    X('oscillator').module('compressor').param({ threshold });
-    window.C('oscillator').module('compressor').param({ threshold });
   }, []);
 
   const onChangeKneeCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,8 +49,6 @@ export const CompressorFieldset: React.FC<Props> = () => {
     X('audio').module('compressor').param({ knee });
     X('stream').module('compressor').param({ knee });
     X('noise').module('compressor').param({ knee });
-    X('oscillator').module('compressor').param({ knee });
-    window.C('oscillator').module('compressor').param({ knee });
   }, []);
 
   const onChangeRatioCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,8 +59,6 @@ export const CompressorFieldset: React.FC<Props> = () => {
     X('audio').module('compressor').param({ ratio });
     X('stream').module('compressor').param({ ratio });
     X('noise').module('compressor').param({ ratio });
-    X('oscillator').module('compressor').param({ ratio });
-    window.C('oscillator').module('compressor').param({ ratio });
   }, []);
 
   const onChangeAttackCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,8 +69,6 @@ export const CompressorFieldset: React.FC<Props> = () => {
     X('audio').module('compressor').param({ attack });
     X('stream').module('compressor').param({ attack });
     X('noise').module('compressor').param({ attack });
-    X('oscillator').module('compressor').param({ attack });
-    window.C('oscillator').module('compressor').param({ attack });
   }, []);
 
   const onChangeReleaseCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -91,8 +79,6 @@ export const CompressorFieldset: React.FC<Props> = () => {
     X('audio').module('compressor').param({ release });
     X('stream').module('compressor').param({ release });
     X('noise').module('compressor').param({ release });
-    X('oscillator').module('compressor').param({ release });
-    window.C('oscillator').module('compressor').param({ release });
   }, []);
 
   return (

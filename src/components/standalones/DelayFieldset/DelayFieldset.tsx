@@ -20,16 +20,12 @@ export const DelayFieldset: React.FC<Props> = () => {
       X('audio').module('delay').activate();
       X('stream').module('delay').activate();
       X('noise').module('delay').activate();
-      X('oscillator').module('delay').activate();
-      window.C('oscillator').module('delay').activate();
     } else {
       X('mixer').module('delay').deactivate();
       X('oneshot').module('delay').deactivate();
       X('audio').module('delay').deactivate();
       X('stream').module('delay').deactivate();
       X('noise').module('delay').deactivate();
-      X('oscillator').module('delay').deactivate();
-      window.C('oscillator').module('delay').deactivate();
     }
 
     setDelay(checked);
@@ -43,8 +39,6 @@ export const DelayFieldset: React.FC<Props> = () => {
     X('audio').module('delay').param({ time });
     X('stream').module('delay').param({ time });
     X('noise').module('delay').param({ time });
-    X('oscillator').module('delay').param({ time });
-    window.C('oscillator').module('delay').param({ time });
   }, []);
 
   const onChangeDryCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,8 +49,6 @@ export const DelayFieldset: React.FC<Props> = () => {
     X('audio').module('delay').param({ dry });
     X('stream').module('delay').param({ dry });
     X('noise').module('delay').param({ dry });
-    X('oscillator').module('delay').param({ dry });
-    window.C('oscillator').module('delay').param({ dry });
   }, []);
 
   const onChangeWetCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,8 +59,6 @@ export const DelayFieldset: React.FC<Props> = () => {
     X('audio').module('delay').param({ wet });
     X('stream').module('delay').param({ wet });
     X('noise').module('delay').param({ wet });
-    X('oscillator').module('delay').param({ wet });
-    window.C('oscillator').module('delay').param({ wet });
   }, []);
 
   const onChangeToneCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,8 +69,6 @@ export const DelayFieldset: React.FC<Props> = () => {
     X('audio').module('delay').param({ tone });
     X('stream').module('delay').param({ tone });
     X('noise').module('delay').param({ tone });
-    X('oscillator').module('delay').param({ tone });
-    window.C('oscillator').module('delay').param({ tone });
   }, []);
 
   const onChangeFeedbackCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -91,8 +79,6 @@ export const DelayFieldset: React.FC<Props> = () => {
     X('audio').module('delay').param({ feedback });
     X('stream').module('delay').param({ feedback });
     X('noise').module('delay').param({ feedback });
-    X('oscillator').module('delay').param({ feedback });
-    window.C('oscillator').module('delay').param({ feedback });
   }, []);
 
   return (

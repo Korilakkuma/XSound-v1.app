@@ -837,8 +837,10 @@ export const App: React.FC<Props> = () => {
     X('oscillator').resize(1024);
     window.C('oscillator').resize(1024);
 
-    X('oscillator').setup([true, true, true, true]);
+    X('oscillator').setup([true, false, false, false]);
     window.C('oscillator').setup([false, false, false, false]);
+
+    X('mixer').start([X('oscillator'), window.C('oscillator')]);
 
     X('audio').module('wah').param({ auto: true });
     X('audio').module('pitchshifter').activate();
@@ -950,8 +952,6 @@ export const App: React.FC<Props> = () => {
     X('audio').module('recorder').setup(NUMBER_OF_CHANNELS, NUMBER_OF_TRACKS);
     X('stream').module('recorder').setup(NUMBER_OF_CHANNELS, NUMBER_OF_TRACKS);
     X('noise').module('recorder').setup(NUMBER_OF_CHANNELS, NUMBER_OF_TRACKS);
-
-    X('mixer').mix([X('oscillator'), window.C('oscillator')]);
 
     setLoadedApp(true);
 

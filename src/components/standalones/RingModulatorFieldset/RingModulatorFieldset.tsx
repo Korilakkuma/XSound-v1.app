@@ -20,16 +20,12 @@ export const RingModulatorFieldset: React.FC<Props> = () => {
       X('audio').module('ringmodulator').activate();
       X('stream').module('ringmodulator').activate();
       X('noise').module('ringmodulator').activate();
-      X('oscillator').module('ringmodulator').activate();
-      window.C('oscillator').module('ringmodulator').activate();
     } else {
       X('mixer').module('ringmodulator').deactivate();
       X('oneshot').module('ringmodulator').deactivate();
       X('audio').module('ringmodulator').deactivate();
       X('stream').module('ringmodulator').deactivate();
       X('noise').module('ringmodulator').deactivate();
-      X('oscillator').module('ringmodulator').deactivate();
-      window.C('oscillator').module('ringmodulator').deactivate();
     }
 
     setRingmodulator(checked);
@@ -43,8 +39,6 @@ export const RingModulatorFieldset: React.FC<Props> = () => {
     X('audio').module('ringmodulator').param({ depth });
     X('stream').module('ringmodulator').param({ depth });
     X('noise').module('ringmodulator').param({ depth });
-    X('oscillator').module('ringmodulator').param({ depth });
-    window.C('oscillator').module('ringmodulator').param({ depth });
   }, []);
 
   const onChangeRateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,8 +49,6 @@ export const RingModulatorFieldset: React.FC<Props> = () => {
     X('audio').module('ringmodulator').param({ rate });
     X('stream').module('ringmodulator').param({ rate });
     X('noise').module('ringmodulator').param({ rate });
-    X('oscillator').module('ringmodulator').param({ rate });
-    window.C('oscillator').module('ringmodulator').param({ rate });
   }, []);
 
   return (

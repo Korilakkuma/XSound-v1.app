@@ -20,16 +20,12 @@ export const FlangerFieldset: React.FC<Props> = () => {
       X('audio').module('flanger').activate();
       X('stream').module('flanger').activate();
       X('noise').module('flanger').activate();
-      X('oscillator').module('flanger').activate();
-      window.C('oscillator').module('flanger').activate();
     } else {
       X('mixer').module('flanger').deactivate();
       X('oneshot').module('flanger').deactivate();
       X('audio').module('flanger').deactivate();
       X('stream').module('flanger').deactivate();
       X('noise').module('flanger').deactivate();
-      X('oscillator').module('flanger').deactivate();
-      window.C('oscillator').module('flanger').deactivate();
     }
 
     setFlanger(checked);
@@ -43,8 +39,6 @@ export const FlangerFieldset: React.FC<Props> = () => {
     X('audio').module('flanger').param({ time });
     X('stream').module('flanger').param({ time });
     X('noise').module('flanger').param({ time });
-    X('oscillator').module('flanger').param({ time });
-    window.C('oscillator').module('flanger').param({ time });
   }, []);
 
   const onChangeDepthCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,8 +49,6 @@ export const FlangerFieldset: React.FC<Props> = () => {
     X('audio').module('flanger').param({ depth });
     X('stream').module('flanger').param({ depth });
     X('noise').module('flanger').param({ depth });
-    X('oscillator').module('flanger').param({ depth });
-    window.C('oscillator').module('flanger').param({ depth });
   }, []);
 
   const onChangeRateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,8 +59,6 @@ export const FlangerFieldset: React.FC<Props> = () => {
     X('audio').module('flanger').param({ rate });
     X('stream').module('flanger').param({ rate });
     X('noise').module('flanger').param({ rate });
-    X('oscillator').module('flanger').param({ rate });
-    window.C('oscillator').module('flanger').param({ rate });
   }, []);
 
   const onChangeMixCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,8 +69,6 @@ export const FlangerFieldset: React.FC<Props> = () => {
     X('audio').module('flanger').param({ mix });
     X('stream').module('flanger').param({ mix });
     X('noise').module('flanger').param({ mix });
-    X('oscillator').module('flanger').param({ mix });
-    window.C('oscillator').module('flanger').param({ mix });
   }, []);
 
   const onChangeToneCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -91,8 +79,6 @@ export const FlangerFieldset: React.FC<Props> = () => {
     X('audio').module('flanger').param({ tone });
     X('stream').module('flanger').param({ tone });
     X('noise').module('flanger').param({ tone });
-    X('oscillator').module('flanger').param({ tone });
-    window.C('oscillator').module('flanger').param({ tone });
   }, []);
 
   const onChangeFeedbackCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -103,8 +89,6 @@ export const FlangerFieldset: React.FC<Props> = () => {
     X('audio').module('flanger').param({ feedback });
     X('stream').module('flanger').param({ feedback });
     X('noise').module('flanger').param({ feedback });
-    X('oscillator').module('flanger').param({ feedback });
-    window.C('oscillator').module('flanger').param({ feedback });
   }, []);
 
   return (

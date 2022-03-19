@@ -22,16 +22,12 @@ export const DistortionFieldset: React.FC<Props> = () => {
       X('audio').module('distortion').activate();
       X('stream').module('distortion').activate();
       X('noise').module('distortion').activate();
-      X('oscillator').module('distortion').activate();
-      window.C('oscillator').module('distortion').activate();
     } else {
       X('mixer').module('distortion').deactivate();
       X('oneshot').module('distortion').deactivate();
       X('audio').module('distortion').deactivate();
       X('stream').module('distortion').deactivate();
       X('noise').module('distortion').deactivate();
-      X('oscillator').module('distortion').deactivate();
-      window.C('oscillator').module('distortion').deactivate();
     }
 
     setDistortion(checked);
@@ -51,8 +47,6 @@ export const DistortionFieldset: React.FC<Props> = () => {
         X('audio').module('distortion').param({ curve });
         X('stream').module('distortion').param({ curve });
         X('noise').module('distortion').param({ curve });
-        X('oscillator').module('distortion').param({ curve });
-        window.C('oscillator').module('distortion').param({ curve });
         break;
       default:
         break;
@@ -67,8 +61,6 @@ export const DistortionFieldset: React.FC<Props> = () => {
     X('audio').module('distortion').param({ pre: { gain } });
     X('stream').module('distortion').param({ pre: { gain } });
     X('noise').module('distortion').param({ pre: { gain } });
-    X('oscillator').module('distortion').param({ pre: { gain } });
-    window.C('oscillator').module('distortion').param({ pre: { gain } });
   }, []);
 
   const onChangeLeadGainCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,8 +71,6 @@ export const DistortionFieldset: React.FC<Props> = () => {
     X('audio').module('distortion').param({ pre: { lead } });
     X('stream').module('distortion').param({ pre: { lead } });
     X('noise').module('distortion').param({ pre: { lead } });
-    X('oscillator').module('distortion').param({ pre: { lead } });
-    window.C('oscillator').module('distortion').param({ pre: { lead } });
   }, []);
 
   const onChangeBassCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -91,8 +81,6 @@ export const DistortionFieldset: React.FC<Props> = () => {
     X('audio').module('distortion').param({ post: { bass } });
     X('stream').module('distortion').param({ post: { bass } });
     X('noise').module('distortion').param({ post: { bass } });
-    X('oscillator').module('distortion').param({ post: { bass } });
-    window.C('oscillator').module('distortion').param({ post: { bass } });
   }, []);
 
   const onChangeMiddleCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -103,8 +91,6 @@ export const DistortionFieldset: React.FC<Props> = () => {
     X('audio').module('distortion').param({ post: { middle } });
     X('stream').module('distortion').param({ post: { middle } });
     X('noise').module('distortion').param({ post: { middle } });
-    X('oscillator').module('distortion').param({ post: { middle } });
-    window.C('oscillator').module('distortion').param({ post: { middle } });
   }, []);
 
   const onChangeTrebleCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -115,8 +101,6 @@ export const DistortionFieldset: React.FC<Props> = () => {
     X('audio').module('distortion').param({ post: { treble } });
     X('stream').module('distortion').param({ post: { treble } });
     X('noise').module('distortion').param({ post: { treble } });
-    X('oscillator').module('distortion').param({ post: { treble } });
-    window.C('oscillator').module('distortion').param({ post: { treble } });
   }, []);
 
   const onChangeMiddleFrequencyCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -127,8 +111,6 @@ export const DistortionFieldset: React.FC<Props> = () => {
     X('audio').module('distortion').param({ post: { frequency } });
     X('stream').module('distortion').param({ post: { frequency } });
     X('noise').module('distortion').param({ post: { frequency } });
-    X('oscillator').module('distortion').param({ post: { frequency } });
-    window.C('oscillator').module('distortion').param({ post: { frequency } });
   }, []);
 
   const onChangeCabinetCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -139,8 +121,6 @@ export const DistortionFieldset: React.FC<Props> = () => {
     X('audio').module('distortion').param({ post: { state } });
     X('stream').module('distortion').param({ post: { state } });
     X('noise').module('distortion').param({ post: { state } });
-    X('oscillator').module('distortion').param({ post: { state } });
-    window.C('oscillator').module('distortion').param({ post: { state } });
 
     setCabinet(state);
   }, []);

@@ -20,16 +20,12 @@ export const EqualizerFieldset: React.FC<Props> = () => {
       X('audio').module('equalizer').activate();
       X('stream').module('equalizer').activate();
       X('noise').module('equalizer').activate();
-      X('oscillator').module('equalizer').activate();
-      window.C('oscillator').module('equalizer').activate();
     } else {
       X('mixer').module('equalizer').deactivate();
       X('oneshot').module('equalizer').deactivate();
       X('audio').module('equalizer').deactivate();
       X('stream').module('equalizer').deactivate();
       X('noise').module('equalizer').deactivate();
-      X('oscillator').module('equalizer').deactivate();
-      window.C('oscillator').module('equalizer').deactivate();
     }
 
     setEqualizer(checked);
@@ -43,8 +39,6 @@ export const EqualizerFieldset: React.FC<Props> = () => {
     X('audio').module('equalizer').param({ bass });
     X('stream').module('equalizer').param({ bass });
     X('noise').module('equalizer').param({ bass });
-    X('oscillator').module('equalizer').param({ bass });
-    window.C('oscillator').module('equalizer').param({ bass });
   }, []);
 
   const onChangeMiddleCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,8 +49,6 @@ export const EqualizerFieldset: React.FC<Props> = () => {
     X('audio').module('equalizer').param({ middle });
     X('stream').module('equalizer').param({ middle });
     X('noise').module('equalizer').param({ middle });
-    X('oscillator').module('equalizer').param({ middle });
-    window.C('oscillator').module('equalizer').param({ middle });
   }, []);
 
   const onChangeTrebleCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,8 +59,6 @@ export const EqualizerFieldset: React.FC<Props> = () => {
     X('audio').module('equalizer').param({ treble });
     X('stream').module('equalizer').param({ treble });
     X('noise').module('equalizer').param({ treble });
-    X('oscillator').module('equalizer').param({ treble });
-    window.C('oscillator').module('equalizer').param({ treble });
   }, []);
 
   const onChangePresenceCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,8 +69,6 @@ export const EqualizerFieldset: React.FC<Props> = () => {
     X('audio').module('equalizer').param({ presence });
     X('stream').module('equalizer').param({ presence });
     X('noise').module('equalizer').param({ presence });
-    X('oscillator').module('equalizer').param({ presence });
-    window.C('oscillator').module('equalizer').param({ presence });
   }, []);
 
   return (

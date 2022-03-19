@@ -20,16 +20,12 @@ export const TremoloFieldset: React.FC<Props> = () => {
       X('audio').module('tremolo').activate();
       X('stream').module('tremolo').activate();
       X('noise').module('tremolo').activate();
-      X('oscillator').module('tremolo').activate();
-      window.C('oscillator').module('tremolo').activate();
     } else {
       X('mixer').module('tremolo').deactivate();
       X('oneshot').module('tremolo').deactivate();
       X('audio').module('tremolo').deactivate();
       X('stream').module('tremolo').deactivate();
       X('noise').module('tremolo').deactivate();
-      X('oscillator').module('tremolo').deactivate();
-      window.C('oscillator').module('tremolo').deactivate();
     }
 
     setTremolo(checked);
@@ -43,8 +39,6 @@ export const TremoloFieldset: React.FC<Props> = () => {
     X('audio').module('tremolo').param({ depth });
     X('stream').module('tremolo').param({ depth });
     X('noise').module('tremolo').param({ depth });
-    X('oscillator').module('tremolo').param({ depth });
-    window.C('oscillator').module('tremolo').param({ depth });
   }, []);
 
   const onChangeRateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,8 +49,6 @@ export const TremoloFieldset: React.FC<Props> = () => {
     X('audio').module('tremolo').param({ rate });
     X('stream').module('tremolo').param({ rate });
     X('noise').module('tremolo').param({ rate });
-    X('oscillator').module('tremolo').param({ rate });
-    window.C('oscillator').module('tremolo').param({ rate });
   }, []);
 
   return (

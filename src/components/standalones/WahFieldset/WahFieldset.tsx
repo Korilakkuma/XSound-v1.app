@@ -20,16 +20,12 @@ export const WahFieldset: React.FC<Props> = () => {
       X('audio').module('wah').activate();
       X('stream').module('wah').activate();
       X('noise').module('wah').activate();
-      X('oscillator').module('wah').activate();
-      window.C('oscillator').module('wah').activate();
     } else {
       X('mixer').module('wah').deactivate();
       X('oneshot').module('wah').deactivate();
       X('audio').module('wah').deactivate();
       X('stream').module('wah').deactivate();
       X('noise').module('wah').deactivate();
-      X('oscillator').module('wah').deactivate();
-      window.C('oscillator').module('wah').deactivate();
     }
 
     setWah(checked);
@@ -43,8 +39,6 @@ export const WahFieldset: React.FC<Props> = () => {
     X('audio').module('wah').param({ cutoff });
     X('stream').module('wah').param({ cutoff });
     X('noise').module('wah').param({ cutoff });
-    X('oscillator').module('wah').param({ cutoff });
-    window.C('oscillator').module('wah').param({ cutoff });
   }, []);
 
   const onChangeDepthCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,8 +49,6 @@ export const WahFieldset: React.FC<Props> = () => {
     X('audio').module('wah').param({ depth });
     X('stream').module('wah').param({ depth });
     X('noise').module('wah').param({ depth });
-    X('oscillator').module('wah').param({ depth });
-    window.C('oscillator').module('wah').param({ depth });
   }, []);
 
   const onChangeRateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,8 +59,6 @@ export const WahFieldset: React.FC<Props> = () => {
     X('audio').module('wah').param({ rate });
     X('stream').module('wah').param({ rate });
     X('noise').module('wah').param({ rate });
-    X('oscillator').module('wah').param({ rate });
-    window.C('oscillator').module('wah').param({ rate });
   }, []);
 
   const onChangeResonanceCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,8 +69,6 @@ export const WahFieldset: React.FC<Props> = () => {
     X('audio').module('wah').param({ resonance });
     X('stream').module('wah').param({ resonance });
     X('noise').module('wah').param({ resonance });
-    X('oscillator').module('wah').param({ resonance });
-    window.C('oscillator').module('wah').param({ resonance });
   }, []);
 
   return (

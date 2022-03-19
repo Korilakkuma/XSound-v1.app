@@ -20,16 +20,12 @@ export const AutopanFieldset: React.FC<Props> = () => {
       X('audio').module('autopanner').activate();
       X('stream').module('autopanner').activate();
       X('noise').module('autopanner').activate();
-      X('oscillator').module('autopanner').activate();
-      window.C('oscillator').module('autopanner').activate();
     } else {
       X('mixer').module('autopanner').deactivate();
       X('oneshot').module('autopanner').deactivate();
       X('audio').module('autopanner').deactivate();
       X('stream').module('autopanner').deactivate();
       X('noise').module('autopanner').deactivate();
-      X('oscillator').module('autopanner').deactivate();
-      window.C('oscillator').module('autopanner').deactivate();
     }
 
     setAutopan(checked);
@@ -43,8 +39,6 @@ export const AutopanFieldset: React.FC<Props> = () => {
     X('audio').module('autopanner').param({ depth });
     X('stream').module('autopanner').param({ depth });
     X('noise').module('autopanner').param({ depth });
-    X('oscillator').module('autopanner').param({ depth });
-    window.C('oscillator').module('autopanner').param({ depth });
   }, []);
 
   const onChangeRateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,8 +49,6 @@ export const AutopanFieldset: React.FC<Props> = () => {
     X('audio').module('autopanner').param({ rate });
     X('stream').module('autopanner').param({ rate });
     X('noise').module('autopanner').param({ rate });
-    X('oscillator').module('autopanner').param({ rate });
-    window.C('oscillator').module('autopanner').param({ rate });
   }, []);
 
   return (

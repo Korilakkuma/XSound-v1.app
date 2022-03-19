@@ -20,16 +20,12 @@ export const ChorusFieldset: React.FC<Props> = () => {
       X('audio').module('chorus').activate();
       X('stream').module('chorus').activate();
       X('noise').module('chorus').activate();
-      X('oscillator').module('chorus').activate();
-      window.C('oscillator').module('chorus').activate();
     } else {
       X('mixer').module('chorus').deactivate();
       X('oneshot').module('chorus').deactivate();
       X('audio').module('chorus').deactivate();
       X('stream').module('chorus').deactivate();
       X('noise').module('chorus').deactivate();
-      X('oscillator').module('chorus').deactivate();
-      window.C('oscillator').module('chorus').deactivate();
     }
 
     setChorus(checked);
@@ -43,8 +39,6 @@ export const ChorusFieldset: React.FC<Props> = () => {
     X('audio').module('chorus').param({ time });
     X('stream').module('chorus').param({ time });
     X('noise').module('chorus').param({ time });
-    X('oscillator').module('chorus').param({ time });
-    window.C('oscillator').module('chorus').param({ time });
   }, []);
 
   const onChangeDepthCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,8 +49,6 @@ export const ChorusFieldset: React.FC<Props> = () => {
     X('audio').module('chorus').param({ depth });
     X('stream').module('chorus').param({ depth });
     X('noise').module('chorus').param({ depth });
-    X('oscillator').module('chorus').param({ depth });
-    window.C('oscillator').module('chorus').param({ depth });
   }, []);
 
   const onChangeRateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,8 +59,6 @@ export const ChorusFieldset: React.FC<Props> = () => {
     X('audio').module('chorus').param({ rate });
     X('stream').module('chorus').param({ rate });
     X('noise').module('chorus').param({ rate });
-    X('oscillator').module('chorus').param({ rate });
-    window.C('oscillator').module('chorus').param({ rate });
   }, []);
 
   const onChangeMixCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,8 +69,6 @@ export const ChorusFieldset: React.FC<Props> = () => {
     X('audio').module('chorus').param({ mix });
     X('stream').module('chorus').param({ mix });
     X('noise').module('chorus').param({ mix });
-    X('oscillator').module('chorus').param({ mix });
-    window.C('oscillator').module('chorus').param({ mix });
   }, []);
 
   const onChangeToneCallabck = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -91,8 +79,6 @@ export const ChorusFieldset: React.FC<Props> = () => {
     X('audio').module('chorus').param({ tone });
     X('stream').module('chorus').param({ tone });
     X('noise').module('chorus').param({ tone });
-    X('oscillator').module('chorus').param({ tone });
-    window.C('oscillator').module('chorus').param({ tone });
   }, []);
 
   return (

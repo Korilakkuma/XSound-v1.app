@@ -94,8 +94,6 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
       X('oscillator').ready(0, 0).start(X.toFrequencies(indexes));
       window.C('oscillator').ready(0, 0).start(X.toFrequencies(indexes));
 
-      X('mixer').mix([X('oscillator'), window.C('oscillator')]);
-
       X('mixer').module('recorder').start();
     } else {
       X('oneshot').reset(targetIndex, 'volume', volume).ready(0, 0).start(targetIndex + offset);
@@ -173,8 +171,6 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
     X('audio').param({ mastervolume });
     X('stream').param({ mastervolume });
     X('noise').param({ mastervolume });
-    X('oscillator').param({ mastervolume });
-    window.C('oscillator').param({ mastervolume });
   }, []);
 
   const onChangeGlideCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -201,8 +197,6 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
     X('noise').module('analyser').stop('fft').domain('fft').clear();
     X('oscillator').module('analyser').stop('time').domain('time').clear();
     X('oscillator').module('analyser').stop('fft').domain('fft').clear();
-    window.C('oscillator').module('analyser').stop('time').domain('time').clear();
-    window.C('oscillator').module('analyser').stop('fft').domain('fft').clear();
 
     // HACK
     const source = event.currentTarget.value as SoundSource;

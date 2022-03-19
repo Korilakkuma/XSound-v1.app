@@ -64,8 +64,6 @@ export const Analyser: React.FC<Props> = (props: Props) => {
     X('stream').module('analyser').domain('fft').param({ interval: (value > 0) ? value : -1 });
     X('noise').module('analyser').domain('time').param({ interval: (value > 0) ? value : -1 });
     X('noise').module('analyser').domain('fft').param({ interval: (value > 0) ? value : -1 });
-    X('oscillator').module('analyser').domain('time').param({ interval: (value > 0) ? value : -1 });
-    window.C('oscillator').module('analyser').domain('fft').param({ interval: (value > 0) ? value : -1 });
   }, []);
 
   const onChangeSmoothingCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -76,8 +74,6 @@ export const Analyser: React.FC<Props> = (props: Props) => {
     X('audio').module('analyser').param({ smoothingTimeConstant });
     X('stream').module('analyser').param({ smoothingTimeConstant });
     X('noise').module('analyser').param({ smoothingTimeConstant });
-    X('oscillator').module('analyser').param({ smoothingTimeConstant });
-    window.C('oscillator').module('analyser').param({ smoothingTimeConstant });
   }, []);
 
   useEffect(() => {
@@ -103,10 +99,6 @@ export const Analyser: React.FC<Props> = (props: Props) => {
       X('stream').module('analyser').domain('fft').activate();
       X('noise').module('analyser').domain('time').activate();
       X('noise').module('analyser').domain('fft').activate();
-      X('oscillator').module('analyser').domain('time').activate();
-      X('oscillator').module('analyser').domain('fft').activate();
-      window.C('oscillator').module('analyser').domain('time').activate();
-      window.C('oscillator').module('analyser').domain('fft').activate();
 
       return;
     }
@@ -183,24 +175,18 @@ export const Analyser: React.FC<Props> = (props: Props) => {
     X('audio').module('analyser').param(analyserParams);
     X('stream').module('analyser').param(analyserParams);
     X('noise').module('analyser').param(analyserParams);
-    X('oscillator').module('analyser').param(analyserParams);
-    window.C('oscillator').module('analyser').param(analyserParams);
 
     X('mixer').module('analyser').domain('time').setup(canvasForTimeDomainRef.current).param(timeParams);
     X('oneshot').module('analyser').domain('time').setup(canvasForTimeDomainRef.current).param(timeParams);
     X('audio').module('analyser').domain('time').setup(canvasForTimeDomainRef.current).param(timeParams);
     X('stream').module('analyser').domain('time').setup(canvasForTimeDomainRef.current).param(timeParams);
     X('noise').module('analyser').domain('time').setup(canvasForTimeDomainRef.current).param(timeParams);
-    X('oscillator').module('analyser').domain('time').setup(canvasForTimeDomainRef.current).param(timeParams);
-    window.C('oscillator').module('analyser').domain('time').setup(canvasForTimeDomainRef.current).param(timeParams);
 
     X('mixer').module('analyser').domain('fft').setup(canvasForFrequencyDomainRef.current).param(fftParams);
     X('oneshot').module('analyser').domain('fft').setup(canvasForFrequencyDomainRef.current).param(fftParams);
     X('audio').module('analyser').domain('fft').setup(canvasForFrequencyDomainRef.current).param(fftParams);
     X('stream').module('analyser').domain('fft').setup(canvasForFrequencyDomainRef.current).param(fftParams);
     X('noise').module('analyser').domain('fft').setup(canvasForFrequencyDomainRef.current).param(fftParams);
-    X('oscillator').module('analyser').domain('fft').setup(canvasForFrequencyDomainRef.current).param(fftParams);
-    window.C('oscillator').module('analyser').domain('fft').setup(canvasForFrequencyDomainRef.current).param(fftParams);
 
     const dragCallback: DragCallbackFunction = (event: MouseEvent | TouchEvent, startTime: number, endTime: number, mode: DragMode, direction: boolean) => {
       if ((event.type === 'mousedown') || (event.type === 'touchstart')) {

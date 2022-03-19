@@ -21,16 +21,12 @@ export const PhaserFieldset: React.FC<Props> = () => {
       X('audio').module('phaser').activate();
       X('stream').module('phaser').activate();
       X('noise').module('phaser').activate();
-      X('oscillator').module('phaser').activate();
-      window.C('oscillator').module('phaser').activate();
     } else {
       X('mixer').module('phaser').deactivate();
       X('oneshot').module('phaser').deactivate();
       X('audio').module('phaser').deactivate();
       X('stream').module('phaser').deactivate();
       X('noise').module('phaser').deactivate();
-      X('oscillator').module('phaser').deactivate();
-      window.C('oscillator').module('phaser').deactivate();
     }
 
     setPhaser(checked);
@@ -50,8 +46,6 @@ export const PhaserFieldset: React.FC<Props> = () => {
         X('audio').module('phaser').param({ stage });
         X('stream').module('phaser').param({ stage });
         X('noise').module('phaser').param({ stage });
-        X('oscillator').module('phaser').param({ stage });
-        window.C('oscillator').module('phaser').param({ stage });
 
         break;
       default:
@@ -67,8 +61,6 @@ export const PhaserFieldset: React.FC<Props> = () => {
     X('audio').module('phaser').param({ frequency });
     X('stream').module('phaser').param({ frequency });
     X('noise').module('phaser').param({ frequency });
-    X('oscillator').module('phaser').param({ frequency });
-    window.C('oscillator').module('phaser').param({ frequency });
   }, []);
 
   const onChangeDepthCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,8 +71,6 @@ export const PhaserFieldset: React.FC<Props> = () => {
     X('audio').module('phaser').param({ depth });
     X('stream').module('phaser').param({ depth });
     X('noise').module('phaser').param({ depth });
-    X('oscillator').module('phaser').param({ depth });
-    window.C('oscillator').module('phaser').param({ depth });
   }, []);
 
   const onChangeRateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -91,8 +81,6 @@ export const PhaserFieldset: React.FC<Props> = () => {
     X('audio').module('phaser').param({ rate });
     X('stream').module('phaser').param({ rate });
     X('noise').module('phaser').param({ rate });
-    X('oscillator').module('phaser').param({ rate });
-    window.C('oscillator').module('phaser').param({ rate });
   }, []);
 
   const onChangeMixCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -103,8 +91,6 @@ export const PhaserFieldset: React.FC<Props> = () => {
     X('audio').module('phaser').param({ mix });
     X('stream').module('phaser').param({ mix });
     X('noise').module('phaser').param({ mix });
-    X('oscillator').module('phaser').param({ mix });
-    window.C('oscillator').module('phaser').param({ mix });
   }, []);
 
   const onChangeFeedbackCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -115,8 +101,6 @@ export const PhaserFieldset: React.FC<Props> = () => {
     X('audio').module('phaser').param({ feedback });
     X('stream').module('phaser').param({ feedback });
     X('noise').module('phaser').param({ feedback });
-    X('oscillator').module('phaser').param({ feedback });
-    window.C('oscillator').module('phaser').param({ feedback });
   }, []);
 
   return (

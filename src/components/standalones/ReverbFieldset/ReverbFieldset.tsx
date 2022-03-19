@@ -48,16 +48,12 @@ export const ReverbFieldset: React.FC<Props> = (props: Props) => {
       X('audio').module('reverb').activate();
       X('stream').module('reverb').activate();
       X('noise').module('reverb').activate();
-      X('oscillator').module('reverb').activate();
-      window.C('oscillator').module('reverb').activate();
     } else {
       X('mixer').module('reverb').deactivate();
       X('oneshot').module('reverb').deactivate();
       X('audio').module('reverb').deactivate();
       X('stream').module('reverb').deactivate();
       X('noise').module('reverb').deactivate();
-      X('oscillator').module('reverb').deactivate();
-      window.C('oscillator').module('reverb').deactivate();
     }
 
     setReverb(checked);
@@ -71,8 +67,6 @@ export const ReverbFieldset: React.FC<Props> = (props: Props) => {
     X('audio').module('reverb').param({ buffer });
     X('stream').module('reverb').param({ buffer });
     X('noise').module('reverb').param({ buffer });
-    X('oscillator').module('reverb').param({ buffer });
-    window.C('oscillator').module('reverb').param({ buffer });
   }, []);
 
   const onChangeDryCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,8 +77,6 @@ export const ReverbFieldset: React.FC<Props> = (props: Props) => {
     X('audio').module('reverb').param({ dry });
     X('stream').module('reverb').param({ dry });
     X('noise').module('reverb').param({ dry });
-    X('oscillator').module('reverb').param({ dry });
-    window.C('oscillator').module('reverb').param({ dry });
   }, []);
 
   const onChangeWetCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -95,8 +87,6 @@ export const ReverbFieldset: React.FC<Props> = (props: Props) => {
     X('audio').module('reverb').param({ wet });
     X('stream').module('reverb').param({ wet });
     X('noise').module('reverb').param({ wet });
-    X('oscillator').module('reverb').param({ wet });
-    window.C('oscillator').module('reverb').param({ wet });
   }, []);
 
   const onChangeToneCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -107,8 +97,6 @@ export const ReverbFieldset: React.FC<Props> = (props: Props) => {
     X('audio').module('reverb').param({ tone });
     X('stream').module('reverb').param({ tone });
     X('noise').module('reverb').param({ tone });
-    X('oscillator').module('reverb').param({ tone });
-    window.C('oscillator').module('reverb').param({ tone });
   }, []);
 
   return (
