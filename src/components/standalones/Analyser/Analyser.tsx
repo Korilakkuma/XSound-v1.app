@@ -69,15 +69,15 @@ export const Analyser: React.FC<Props> = (props: Props) => {
   }, []);
 
   const onChangeSmoothingCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.currentTarget.valueAsNumber;
+    const smoothingTimeConstant = event.currentTarget.valueAsNumber;
 
-    X('mixer').module('analyser').param({ smoothingTimeConstant: value });
-    X('oneshot').module('analyser').param({ smoothingTimeConstant: value });
-    X('audio').module('analyser').param({ smoothingTimeConstant: value });
-    X('stream').module('analyser').param({ smoothingTimeConstant: value });
-    X('noise').module('analyser').param({ smoothingTimeConstant: value });
-    X('oscillator').module('analyser').param({ smoothingTimeConstant: value });
-    window.C('oscillator').module('analyser').param({ smoothingTimeConstant: value });
+    X('mixer').module('analyser').param({ smoothingTimeConstant });
+    X('oneshot').module('analyser').param({ smoothingTimeConstant });
+    X('audio').module('analyser').param({ smoothingTimeConstant });
+    X('stream').module('analyser').param({ smoothingTimeConstant });
+    X('noise').module('analyser').param({ smoothingTimeConstant });
+    X('oscillator').module('analyser').param({ smoothingTimeConstant });
+    window.C('oscillator').module('analyser').param({ smoothingTimeConstant });
   }, []);
 
   useEffect(() => {
