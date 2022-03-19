@@ -183,6 +183,8 @@ export const Analyser: React.FC<Props> = (props: Props) => {
     X('audio').module('analyser').param(analyserParams);
     X('stream').module('analyser').param(analyserParams);
     X('noise').module('analyser').param(analyserParams);
+    X('oscillator').module('analyser').param(analyserParams);
+    window.C('oscillator').module('analyser').param(analyserParams);
 
     X('mixer').module('analyser').domain('time').setup(canvasForTimeDomainRef.current).param(timeParams);
     X('oneshot').module('analyser').domain('time').setup(canvasForTimeDomainRef.current).param(timeParams);
