@@ -96,7 +96,7 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
 
       X('mixer').module('recorder').start();
     } else {
-      X('oneshot').reset(targetIndex, 'volume', volume).ready(0, 0).start(targetIndex + offset);
+      X('oneshot').reset(targetIndex, 'volume', volume).ready(0, 0).start(indexes.map((index: number) => index + offset));
 
       X('oneshot').module('recorder').start();
     }
@@ -136,7 +136,7 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
         }
       }
     } else {
-      X('oneshot').stop(targetIndex + offset).reset(targetIndex, 'volume', 1);
+      X('oneshot').stop(indexes.map((index: number) => index + offset)).reset(targetIndex, 'volume', 1);
     }
 
     dispatch(activateMIDIKeyboards(indexes));
