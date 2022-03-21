@@ -126,15 +126,9 @@ const Template: Story<Props> = () => {
 
   const onClickOneshotCallback = useCallback(() => {
     if (isOneshotStop) {
-      X('oneshot').start(40);
-      X('oneshot').start(44);
-      X('oneshot').start(47);
-      X('oneshot').start(50);
+      X('oneshot').start([40, 44, 47, 50]);
     } else {
-      X('oneshot').stop(40);
-      X('oneshot').stop(44);
-      X('oneshot').stop(47);
-      X('oneshot').stop(50);
+      X('oneshot').stop([40, 44, 47, 50]);
     }
 
     setIsOneshotStop(!isOneshotStop);

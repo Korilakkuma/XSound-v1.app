@@ -53,21 +53,21 @@ export const Piano: React.FC<Props> = (props: Props) => {
 
         break;
       case 'piano':
-        X('oneshot').ready(0, 0).start(index);
+        X('oneshot').ready(0, 0).start([index]);
 
         X('oneshot').module('recorder').start();
         // X('oneshot').module('session').start();
 
         break;
       case 'guitar':
-        X('oneshot').ready(0, 0).start(index + NUMBER_OF_PIANO_KEYBOARDS);
+        X('oneshot').ready(0, 0).start([index + NUMBER_OF_PIANO_KEYBOARDS]);
 
         X('oneshot').module('recorder').start();
         // X('oneshot').module('session').start();
 
         break;
       case 'electric-guitar':
-        X('oneshot').ready(0, 0).start(index + NUMBER_OF_PIANO_KEYBOARDS + NUMBER_OF_PIANO_KEYBOARDS);
+        X('oneshot').ready(0, 0).start([index + NUMBER_OF_PIANO_KEYBOARDS + NUMBER_OF_PIANO_KEYBOARDS]);
 
         X('oneshot').module('recorder').start();
         // X('oneshot').module('session').start();
@@ -138,13 +138,13 @@ export const Piano: React.FC<Props> = (props: Props) => {
 
         break;
       case 'piano':
-        X('oneshot').stop(index);
+        X('oneshot').stop([index]);
         break;
       case 'guitar':
-        X('oneshot').stop(index + NUMBER_OF_PIANO_KEYBOARDS);
+        X('oneshot').stop([index + NUMBER_OF_PIANO_KEYBOARDS]);
         break;
       case 'electric-guitar':
-        X('oneshot').stop(index + NUMBER_OF_PIANO_KEYBOARDS + NUMBER_OF_PIANO_KEYBOARDS);
+        X('oneshot').stop([index + NUMBER_OF_PIANO_KEYBOARDS + NUMBER_OF_PIANO_KEYBOARDS]);
         break;
       default:
         X('noise').stop();
