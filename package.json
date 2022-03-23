@@ -20,7 +20,7 @@
     "test": "jest",
     "test:coverage": "jest --coverage",
     "test:verbose": "jest --verbose",
-    "storybook": "start-storybook -s . -p 6006",
+    "storybook": "start-storybook",
     "build-storybook": "build-storybook"
   },
   "husky": {
@@ -77,6 +77,8 @@
     "@storybook/addon-essentials": "^6.4.19",
     "@storybook/addon-links": "^6.4.19",
     "@storybook/addon-postcss": "^2.0.0",
+    "@storybook/builder-webpack5": "^6.4.19",
+    "@storybook/manager-webpack5": "^6.4.19",
     "@storybook/react": "^6.4.19",
     "@testing-library/react": "^12.1.4",
     "@types/history": "^4.7.11",
