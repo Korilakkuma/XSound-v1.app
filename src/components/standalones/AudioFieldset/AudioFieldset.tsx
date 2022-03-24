@@ -59,7 +59,7 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
 
         setShowProgress(lengthComputable);
         setLoadedByte(loaded);
-        setRate(lengthComputable && (total > 0) ? Math.floor((loaded / total) * 100) : 0);
+        setRate(lengthComputable && (total > 0) ? Math.trunc((loaded / total) * 100) : 0);
         setIsShowModalForProgress(true);
       }
     });
@@ -109,7 +109,7 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
 
         setShowProgress(lengthComputable);
         setLoadedByte(loaded);
-        setRate(lengthComputable && (total > 0) ? Math.floor((loaded / total) * 100) : 0);
+        setRate(lengthComputable && (total > 0) ? Math.trunc((loaded / total) * 100) : 0);
         setIsShowModalForProgress(true);
       }
     });
@@ -174,7 +174,7 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
       return;
     }
 
-    const index = Math.floor(currentTime * source.buffer.sampleRate);
+    const index = Math.trunc(currentTime * source.buffer.sampleRate);
 
     if ((index % (source.buffer.sampleRate / 100)) !== 0) {
       return;
@@ -261,7 +261,7 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
         <ValueController
           label={`${currentTimeText} / ${durationText}`}
           id="audio-fieldset-current-time"
-          defaultValue={Math.floor(currentTime)}
+          defaultValue={Math.trunc(currentTime)}
           min={0}
           max={duration > 0 ? duration : 0}
           step={1}

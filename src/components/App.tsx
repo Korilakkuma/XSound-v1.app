@@ -120,7 +120,7 @@ export const App: React.FC<Props> = () => {
   ], []);
 
   const getBufferIndexCallback = useCallback((pianoIndex: number) => {
-    switch (Math.floor((pianoIndex + 9) % 12)) {
+    switch (Math.trunc((pianoIndex + 9) % 12)) {
       case  0 :
       case  1 :
         return 0;
@@ -769,7 +769,7 @@ export const App: React.FC<Props> = () => {
           X.decode(X.get(), arrayBuffer, (audioBuffer: AudioBuffer) => {
             rirs.push(audioBuffer);
 
-            const rate = Math.floor((rirs.length / rirInfos.length) * 100);
+            const rate = Math.trunc((rirs.length / rirInfos.length) * 100);
 
             if (rirs.length === rirInfos.length) {
               X('mixer').module('reverb').preset({ rirs });

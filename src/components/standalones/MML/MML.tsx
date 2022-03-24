@@ -312,7 +312,7 @@ export const MML: React.FC<Props> = (props: Props) => {
 
         setShowProgress(lengthComputable);
         setLoadedByte(loaded);
-        setRate(lengthComputable && (total > 0) ? Math.floor((loaded / total) * 100) : 0);
+        setRate(lengthComputable && (total > 0) ? Math.trunc((loaded / total) * 100) : 0);
         setIsShowModalForProgress(true);
       }
     });
@@ -380,7 +380,7 @@ export const MML: React.FC<Props> = (props: Props) => {
 
         setShowProgress(lengthComputable);
         setLoadedByte(loaded);
-        setRate(lengthComputable && (total > 0) ? Math.floor((loaded / total) * 100) : 0);
+        setRate(lengthComputable && (total > 0) ? Math.trunc((loaded / total) * 100) : 0);
         setIsShowModalForProgress(true);
       }
     });

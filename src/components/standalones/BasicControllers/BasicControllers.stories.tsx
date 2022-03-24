@@ -34,7 +34,7 @@ const Template: Story<Props> = () => {
   const currentSoundSource: SoundSource = 'oscillator';
 
   const getBufferIndexCallback = useCallback((pianoIndex: number) => {
-    switch (Math.floor((pianoIndex + 9) % 12)) {
+    switch (Math.trunc((pianoIndex + 9) % 12)) {
       case  0 :
       case  1 :
         return 0;
