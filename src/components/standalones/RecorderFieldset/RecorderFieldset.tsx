@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { createFilename } from '../../../utils';
 import { Spacer } from '../../atoms/Spacer';
 import { Select } from '../../atoms/Select';
-import { ValueController } from '../../helpers/ValueController';
+import { ParameterController } from '../../helpers/ParameterController';
 import { SelectableModal } from '../../helpers/SelectableModal';
 import { X } from 'xsound';
 
@@ -284,7 +284,7 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
           onChange={onChangeTrackCallback}
         />
         <Spacer space={24} />
-        <ValueController
+        <ParameterController
           label="Left Channel"
           id="recorder-fieldset-left-channel-gain"
           defaultValue={1}
@@ -294,7 +294,7 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
           onChange={onChangeLeftChannelGainCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Right Channel"
           id="recorder-fieldset-right-channel-gain"
           defaultValue={1}

@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
-import { ValueController } from '../../helpers/ValueController';
+import { ParameterController } from '../../helpers/ParameterController';
 import { X } from 'xsound';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -62,7 +62,7 @@ export const TremoloFieldset: React.FC<Props> = () => {
             onChange={onChangeStateCallback}
           />
         </legend>
-        <ValueController
+        <ParameterController
           label="Depth"
           id="tremolo-depth"
           defaultValue={0}
@@ -72,7 +72,7 @@ export const TremoloFieldset: React.FC<Props> = () => {
           onChange={onChangeDepthCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Rate"
           id="tremolo-rate"
           defaultValue={0}

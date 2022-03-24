@@ -2,21 +2,21 @@ import React from 'react';
 // also exported from '@storybook/react' if you can deal with breaking changes in 6.1
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import { Props, ValueController } from './ValueController';
+import { Props, ParameterController } from './ParameterController';
 import '../../../main.css';
 
 export default {
-  title    : 'helpers/ValueController',
-  component: ValueController
+  title    : 'helpers/ParameterController',
+  component: ParameterController
 } as Meta;
 
-const Template: Story<Props> = (args: Props) => <ValueController {...args} />;
+const Template: Story<Props> = (args: Props) => <ParameterController {...args} />;
 
 export const Primary = Template.bind({});
 
 Primary.args = {
-  label       : 'Value Controller default',
-  id          : 'value-controller-default',
+  label       : 'Parameter Controller default',
+  id          : 'parameter-controller-default',
   min         : -100,
   max         : 100,
   step        : 1,
@@ -30,8 +30,8 @@ Primary.args = {
 export const Secondary = Template.bind({});
 
 Secondary.args = {
-  label       : 'Value Controller with `width`',
-  id          : 'value-controller-with-width',
+  label       : 'Parameter Controller with `width`',
+  id          : 'parameter-controller-with-width',
   min         : -100,
   max         : 100,
   step        : 1,

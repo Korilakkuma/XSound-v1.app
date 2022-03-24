@@ -10,7 +10,7 @@ import {
 import { Switch } from '../../atoms/Switch';
 import { Select } from '../../atoms/Select';
 import { Modal } from '../../atoms/Modal';
-import { ValueController } from '../../helpers/ValueController';
+import { ParameterController } from '../../helpers/ParameterController';
 import { NUMBER_OF_ONESHOTS } from '../../../config';
 import { X, MIDIAccess, MIDIInput, MIDIOutput, MIDIMessageEvent } from 'xsound';
 
@@ -262,7 +262,7 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
 
   return (
     <div className="BasicControllers">
-      <ValueController
+      <ParameterController
         label="Master Volume"
         id="master-volume"
         defaultValue={1}
@@ -272,7 +272,7 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
         width="20%"
         onChange={onChangeMasterVolumeCallback}
       />
-      <ValueController
+      <ParameterController
         label="Glide"
         id="glide"
         defaultValue={0}
@@ -282,7 +282,7 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
         width="20%"
         onChange={onChangeGlideCallback}
       />
-      <ValueController
+      <ParameterController
         label="Transpose"
         id="transpose"
         defaultValue={0}

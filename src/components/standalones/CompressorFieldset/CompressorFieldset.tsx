@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
-import { ValueController } from '../../helpers/ValueController';
+import { ParameterController } from '../../helpers/ParameterController';
 import { X } from 'xsound';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -92,7 +92,7 @@ export const CompressorFieldset: React.FC<Props> = () => {
             onChange={onChangeStateCallback}
           />
         </legend>
-        <ValueController
+        <ParameterController
           label="Threshold"
           id="compressor-threshold"
           defaultValue={-24}
@@ -102,7 +102,7 @@ export const CompressorFieldset: React.FC<Props> = () => {
           onChange={onChangeThresholdCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Knee"
           id="compressor-knee"
           defaultValue={30}
@@ -112,7 +112,7 @@ export const CompressorFieldset: React.FC<Props> = () => {
           onChange={onChangeKneeCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Ratio"
           id="compressor-ratio"
           defaultValue={12}
@@ -122,7 +122,7 @@ export const CompressorFieldset: React.FC<Props> = () => {
           onChange={onChangeRatioCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Attack"
           id="compressor-attack"
           defaultValue={0.003}
@@ -132,7 +132,7 @@ export const CompressorFieldset: React.FC<Props> = () => {
           onChange={onChangeAttackCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Release"
           id="compressor-release"
           defaultValue={0.25}

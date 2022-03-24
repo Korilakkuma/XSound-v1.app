@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { Spacer } from '../../atoms/Spacer';
 import { Select } from '../../atoms/Select';
 import { Switch } from '../../atoms/Switch';
-import { ValueController } from '../../helpers/ValueController';
+import { ParameterController } from '../../helpers/ParameterController';
 import { X } from 'xsound';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -163,7 +163,7 @@ export const FilterFieldset: React.FC<Props> = () => {
           onChange={onChangeTypeCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Frequency"
           id="filter-frequency"
           defaultValue={8000}
@@ -173,7 +173,7 @@ export const FilterFieldset: React.FC<Props> = () => {
           onChange={onChangeFrequencyCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Quality"
           id="filter-quality"
           defaultValue={1}
@@ -183,7 +183,7 @@ export const FilterFieldset: React.FC<Props> = () => {
           onChange={onChangeQualityCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Gain"
           id="filter-gain"
           defaultValue={0}
@@ -193,7 +193,7 @@ export const FilterFieldset: React.FC<Props> = () => {
           onChange={onChangeGainCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Attack"
           id="filter-attack"
           defaultValue={0.01}
@@ -203,7 +203,7 @@ export const FilterFieldset: React.FC<Props> = () => {
           onChange={onChangeAttackCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Decay"
           id="filter-decay"
           defaultValue={0.3}
@@ -213,7 +213,7 @@ export const FilterFieldset: React.FC<Props> = () => {
           onChange={onChangeDecayCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Sustain"
           id="filter-sustain"
           defaultValue={0.5}
@@ -223,7 +223,7 @@ export const FilterFieldset: React.FC<Props> = () => {
           onChange={onChangeSustainCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Release"
           id="filter-release"
           defaultValue={1}

@@ -1,8 +1,8 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import { ValueController } from './ValueController';
+import { ParameterController } from './ParameterController';
 
-describe('helpers/ValueController', () => {
+describe('helpers/ParameterController', () => {
   test('change', () => {
     const mockOnChange = jest.fn();
 
@@ -16,7 +16,7 @@ describe('helpers/ValueController', () => {
       onChange    : mockOnChange
     };
 
-    render(<ValueController {...props} />);
+    render(<ParameterController {...props} />);
 
     const spinner = screen.getByRole('spinbutton');
     const slider  = screen.getByRole('slider');
@@ -38,8 +38,8 @@ describe('helpers/ValueController', () => {
       onChange    : () => {}
     };
 
-    render(<ValueController {...props} />);
-    render(<ValueController {...props} defaultValue={1} />);
+    render(<ParameterController {...props} />);
+    render(<ParameterController {...props} defaultValue={1} />);
 
     const spinner = screen.getAllByRole('spinbutton')[1];
     const slider  = screen.getAllByRole('slider')[1];

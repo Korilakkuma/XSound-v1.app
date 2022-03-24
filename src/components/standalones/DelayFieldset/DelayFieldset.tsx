@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
-import { ValueController } from '../../helpers/ValueController';
+import { ParameterController } from '../../helpers/ParameterController';
 import { X } from 'xsound';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -92,7 +92,7 @@ export const DelayFieldset: React.FC<Props> = () => {
             onChange={onChangeStateCallback}
           />
         </legend>
-        <ValueController
+        <ParameterController
           label="Time"
           id="delay-time"
           defaultValue={0}
@@ -102,7 +102,7 @@ export const DelayFieldset: React.FC<Props> = () => {
           onChange={onChangeTimeCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Dry"
           id="delay-dry"
           defaultValue={1}
@@ -112,7 +112,7 @@ export const DelayFieldset: React.FC<Props> = () => {
           onChange={onChangeDryCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Wet"
           id="delay-wet"
           defaultValue={0}
@@ -122,7 +122,7 @@ export const DelayFieldset: React.FC<Props> = () => {
           onChange={onChangeWetCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Tone"
           id="delay-tone"
           defaultValue={4000}
@@ -132,7 +132,7 @@ export const DelayFieldset: React.FC<Props> = () => {
           onChange={onChangeToneCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Feedback"
           id="delay-feedback"
           defaultValue={0}

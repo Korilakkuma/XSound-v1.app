@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { Spacer } from '../../atoms/Spacer';
 import { Select } from '../../atoms/Select';
 import { Switch } from '../../atoms/Switch';
-import { ValueController } from '../../helpers/ValueController';
+import { ParameterController } from '../../helpers/ParameterController';
 import { X } from 'xsound';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -157,7 +157,7 @@ export const DistortionFieldset: React.FC<Props> = () => {
           onChange={onChangeCurveCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Gain"
           id="distortion-gain"
           defaultValue={0.5}
@@ -167,7 +167,7 @@ export const DistortionFieldset: React.FC<Props> = () => {
           onChange={onChangeGainCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Lead Gain"
           id="distortion-lead-gain"
           defaultValue={0.5}
@@ -177,7 +177,7 @@ export const DistortionFieldset: React.FC<Props> = () => {
           onChange={onChangeLeadGainCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Bass"
           id="distortion-bass"
           defaultValue={0}
@@ -187,7 +187,7 @@ export const DistortionFieldset: React.FC<Props> = () => {
           onChange={onChangeBassCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Middle"
           id="distortion-middle"
           defaultValue={0}
@@ -197,7 +197,7 @@ export const DistortionFieldset: React.FC<Props> = () => {
           onChange={onChangeMiddleCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Treble"
           id="distortion-treble"
           defaultValue={0}
@@ -207,7 +207,7 @@ export const DistortionFieldset: React.FC<Props> = () => {
           onChange={onChangeTrebleCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Middle Frequency"
           id="distortion-middle-frequency"
           defaultValue={500}

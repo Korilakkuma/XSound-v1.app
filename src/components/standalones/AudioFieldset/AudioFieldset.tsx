@@ -5,7 +5,7 @@ import { FileUploader } from '../../atoms/FileUploader';
 import { Button } from '../../atoms/Button';
 import { ProgressBar } from '../../atoms/ProgressBar';
 import { Modal } from '../../atoms/Modal';
-import { ValueController } from '../../helpers/ValueController';
+import { ParameterController } from '../../helpers/ParameterController';
 import { X, FileEvent, FileReaderErrorText } from 'xsound';
 
 export interface Props {
@@ -258,7 +258,7 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
           />
         </div>
         <Spacer space={20} />
-        <ValueController
+        <ParameterController
           label={`${currentTimeText} / ${durationText}`}
           id="audio-fieldset-current-time"
           defaultValue={Math.trunc(currentTime)}
@@ -270,7 +270,7 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
         <Spacer space={8} />
         {isDesktop
           ? (
-            <ValueController
+            <ParameterController
               label="Pitch Shifter"
               id="audio-fieldset-pitch"
               defaultValue={1}
@@ -281,7 +281,7 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
             />
           )
           : (
-            <ValueController
+            <ParameterController
               label="Playback Rate"
               id="audio-fieldset-playback-rate"
               defaultValue={1}
@@ -292,7 +292,7 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
             />
           )}
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Vocal Canceler"
           id="audio-fieldset-vocal-canceler"
           defaultValue={0}

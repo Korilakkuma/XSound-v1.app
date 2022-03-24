@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { Spacer } from '../../atoms/Spacer';
 import { Select } from '../../atoms/Select';
 import { Switch } from '../../atoms/Switch';
-import { ValueController } from '../../helpers/ValueController';
+import { ParameterController } from '../../helpers/ParameterController';
 import { X } from 'xsound';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -138,7 +138,7 @@ export const PhaserFieldset: React.FC<Props> = () => {
           defaultValue="12"
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Frequency"
           id="phaser-frequency"
           defaultValue={350}
@@ -148,7 +148,7 @@ export const PhaserFieldset: React.FC<Props> = () => {
           onChange={onChangeFrequencyCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Depth"
           id="phaser-depth"
           defaultValue={0}
@@ -158,7 +158,7 @@ export const PhaserFieldset: React.FC<Props> = () => {
           onChange={onChangeDepthCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Rate"
           id="phaser-rate"
           defaultValue={0}
@@ -168,7 +168,7 @@ export const PhaserFieldset: React.FC<Props> = () => {
           onChange={onChangeRateCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Mix"
           id="phaser-mix"
           defaultValue={0}
@@ -178,7 +178,7 @@ export const PhaserFieldset: React.FC<Props> = () => {
           onChange={onChangeMixCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Feedback"
           id="phaser-feedback"
           defaultValue={0}

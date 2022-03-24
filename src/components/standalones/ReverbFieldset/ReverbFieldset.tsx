@@ -3,7 +3,7 @@ import { RIRInfo } from '../../../types';
 import { Spacer } from '../../atoms/Spacer';
 import { GroupSelect } from '../../atoms/GroupSelect';
 import { Switch } from '../../atoms/Switch';
-import { ValueController } from '../../helpers/ValueController';
+import { ParameterController } from '../../helpers/ParameterController';
 import { X } from 'xsound';
 
 export interface Props {
@@ -119,7 +119,7 @@ export const ReverbFieldset: React.FC<Props> = (props: Props) => {
           onChange={onChangeTypeCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Dry"
           id="reverb-dry"
           defaultValue={1}
@@ -129,7 +129,7 @@ export const ReverbFieldset: React.FC<Props> = (props: Props) => {
           onChange={onChangeDryCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Wet"
           id="reverb-wet"
           defaultValue={0}
@@ -139,7 +139,7 @@ export const ReverbFieldset: React.FC<Props> = (props: Props) => {
           onChange={onChangeWetCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Tone"
           id="reverb-tone"
           defaultValue={4000}

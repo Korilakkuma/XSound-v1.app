@@ -14,7 +14,7 @@ export interface Props {
   onChange(event: React.SyntheticEvent): void;
 }
 
-export const ValueController: React.FC<Props> = (props: Props) => {
+export const ParameterController: React.FC<Props> = (props: Props) => {
   const {
     label,
     id,
@@ -41,7 +41,7 @@ export const ValueController: React.FC<Props> = (props: Props) => {
   }, [id, defaultValue]);
 
   return (
-    <dl className="ValueController" style={width ? { width } : { width: 'auto' }}>
+    <dl className="ParameterController" style={width ? { width } : { width: 'auto' }}>
       <dt>
         <label htmlFor={id}>{label}</label>
         <Spinner

@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { Spacer } from '../../atoms/Spacer';
-import { ValueController } from '../../helpers/ValueController';
+import { ParameterController } from '../../helpers/ParameterController';
 import { X } from 'xsound';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -48,7 +48,7 @@ export const EnvelopeGeneratorFieldset: React.FC<Props> = () => {
     <div className="EnvelopeGeneratorFieldset">
       <fieldset>
         <legend>Envelope Generator</legend>
-        <ValueController
+        <ParameterController
           label="Attack"
           id="envelope-generator-attack"
           defaultValue={0.01}
@@ -58,7 +58,7 @@ export const EnvelopeGeneratorFieldset: React.FC<Props> = () => {
           onChange={onChangeAttackCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Decay"
           id="envelope-generator-decay"
           defaultValue={0.3}
@@ -68,7 +68,7 @@ export const EnvelopeGeneratorFieldset: React.FC<Props> = () => {
           onChange={onChangeDecayCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Sustain"
           id="envelope-generator-sustain"
           defaultValue={0.5}
@@ -78,7 +78,7 @@ export const EnvelopeGeneratorFieldset: React.FC<Props> = () => {
           onChange={onChangeSustainCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Release"
           id="envelope-generator-release"
           defaultValue={1}

@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
-import { ValueController } from '../../helpers/ValueController';
+import { ParameterController } from '../../helpers/ParameterController';
 import { X } from 'xsound';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -82,7 +82,7 @@ export const EqualizerFieldset: React.FC<Props> = () => {
             onChange={onChangeStateCallback}
           />
         </legend>
-        <ValueController
+        <ParameterController
           label="Bass"
           id="equalizer-bass"
           defaultValue={0}
@@ -92,7 +92,7 @@ export const EqualizerFieldset: React.FC<Props> = () => {
           onChange={onChangeBassCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Middle"
           id="equalizer-middle"
           defaultValue={0}
@@ -102,7 +102,7 @@ export const EqualizerFieldset: React.FC<Props> = () => {
           onChange={onChangeMiddleCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Treble"
           id="equalizer-treble"
           defaultValue={0}
@@ -112,7 +112,7 @@ export const EqualizerFieldset: React.FC<Props> = () => {
           onChange={onChangeTrebleCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Presence"
           id="equalizer-presence"
           defaultValue={0}

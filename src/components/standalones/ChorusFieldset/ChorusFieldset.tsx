@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
-import { ValueController } from '../../helpers/ValueController';
+import { ParameterController } from '../../helpers/ParameterController';
 import { X } from 'xsound';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -92,7 +92,7 @@ export const ChorusFieldset: React.FC<Props> = () => {
             onChange={onChangeStateCallback}
           />
         </legend>
-        <ValueController
+        <ParameterController
           label="Time"
           id="chorus-time"
           defaultValue={0}
@@ -102,7 +102,7 @@ export const ChorusFieldset: React.FC<Props> = () => {
           onChange={onChangeTimeCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Depth"
           id="chorus-depth"
           defaultValue={0}
@@ -112,7 +112,7 @@ export const ChorusFieldset: React.FC<Props> = () => {
           onChange={onChangeDepthCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Rate"
           id="chorus-rate"
           defaultValue={0}
@@ -122,7 +122,7 @@ export const ChorusFieldset: React.FC<Props> = () => {
           onChange={onChangeRateCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Mix"
           id="chorus-mix"
           defaultValue={0}
@@ -132,7 +132,7 @@ export const ChorusFieldset: React.FC<Props> = () => {
           onChange={onChangeMixCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Tone"
           id="chorus-tone"
           defaultValue={4000}

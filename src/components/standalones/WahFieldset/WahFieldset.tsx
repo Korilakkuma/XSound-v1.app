@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
-import { ValueController } from '../../helpers/ValueController';
+import { ParameterController } from '../../helpers/ParameterController';
 import { X } from 'xsound';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
@@ -82,7 +82,7 @@ export const WahFieldset: React.FC<Props> = () => {
             onChange={onChangeStateCallback}
           />
         </legend>
-        <ValueController
+        <ParameterController
           label="Cutoff"
           id="wah-cutoff"
           defaultValue={350}
@@ -92,7 +92,7 @@ export const WahFieldset: React.FC<Props> = () => {
           onChange={onChangeCutoffCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Depth"
           id="wah-depth"
           defaultValue={0}
@@ -102,7 +102,7 @@ export const WahFieldset: React.FC<Props> = () => {
           onChange={onChangeDepthCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Rate"
           id="wah-rate"
           defaultValue={0}
@@ -112,7 +112,7 @@ export const WahFieldset: React.FC<Props> = () => {
           onChange={onChangeRateCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Resonance"
           id="wah-resonance"
           defaultValue={1}

@@ -1,8 +1,8 @@
-.ValueController {
+.ParameterController {
   width: 100%;
 }
 
-.ValueController > dt {
+.ParameterController > dt {
   display: -webkit-flex;
   display: flex;
   -webkit-flex-direction: row;
@@ -12,7 +12,7 @@
   padding: 0 4px;
 }
 
-.ValueController > dt > label {
+.ParameterController > dt > label {
   -webkit-flex-grow: 6;
   flex-grow: 6;
   font-size: 12px;
@@ -20,6 +20,6 @@
   text-transform: uppercase;
 }
 
-.ValueController > dd {
+.ParameterController > dd {
   margin-top: 4px;
 }

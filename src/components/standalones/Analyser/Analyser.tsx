@@ -4,7 +4,7 @@ import { IState } from '../../../types';
 import { formatAudioTime } from '../../../utils';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
-import { ValueController } from '../../helpers/ValueController';
+import { ParameterController } from '../../helpers/ParameterController';
 import { X, AnalyserParams, TimeOverviewParams, TimeParams, FFTParams, DragMode, DragCallbackFunction } from 'xsound';
 
 export interface Props {
@@ -283,7 +283,7 @@ export const Analyser: React.FC<Props> = (props: Props) => {
           onChange={onChangeModeCallback}
         />
         <Spacer direction="right" space={12} />
-        <ValueController
+        <ParameterController
           label="Interval"
           id="analyser-interval"
           defaultValue={0}
@@ -295,7 +295,7 @@ export const Analyser: React.FC<Props> = (props: Props) => {
           onChange={onChangeIntervalCallback}
         />
         <Spacer direction="right" space={12} />
-        <ValueController
+        <ParameterController
           label="Smoothing"
           id="analyser-smoothing"
           defaultValue={0.8}

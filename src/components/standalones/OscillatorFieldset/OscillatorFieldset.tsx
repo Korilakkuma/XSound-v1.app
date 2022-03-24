@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
 import { OscillatorSelector } from '../../helpers/OscillatorSelector';
-import { ValueController } from '../../helpers/ValueController';
+import { ParameterController } from '../../helpers/ParameterController';
 import { X } from 'xsound';
 
 export interface Props {
@@ -132,7 +132,7 @@ export const OscillatorFieldset: React.FC<Props> = (props: Props) => {
           onChangeRadio={onChangeRadioCallback}
         />
         <Spacer space={16} />
-        <ValueController
+        <ParameterController
           label="Volume"
           id={`oscillator-fieldset-volume-${oscillatorNumber}`}
           defaultValue={1}
@@ -142,7 +142,7 @@ export const OscillatorFieldset: React.FC<Props> = (props: Props) => {
           onChange={onChangeVolumeCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Octave"
           id={`oscillator-fieldset-octave-${oscillatorNumber}`}
           defaultValue={0}
@@ -152,7 +152,7 @@ export const OscillatorFieldset: React.FC<Props> = (props: Props) => {
           onChange={onChangeOctaveCallback}
         />
         <Spacer space={8} />
-        <ValueController
+        <ParameterController
           label="Fine"
           id={`oscillator-fieldset-fine-${oscillatorNumber}`}
           defaultValue={0}
