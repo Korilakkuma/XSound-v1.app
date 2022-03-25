@@ -67,16 +67,13 @@ export const MML: React.FC<Props> = (props: Props) => {
         window.C('mml').ready({ source: window.C('oscillator'), mmls: [bass] });
         break;
       case 'piano':
-        X('mml').ready({ source: X('oneshot'), mmls: [melody], offset: 0 });
-        window.C('mml').ready({ source: X('oneshot'), mmls: [bass], offset: 0 });
+        X('mml').ready({ source: X('oneshot'), mmls: [melody, bass], offset: 0 });
         break;
       case 'guitar':
-        X('mml').ready({ source: X('oneshot'), mmls: [melody], offset: NUMBER_OF_PIANO_KEYBOARDS });
-        window.C('mml').ready({ source: X('oneshot'), mmls: [bass], offset: NUMBER_OF_PIANO_KEYBOARDS });
+        X('mml').ready({ source: X('oneshot'), mmls: [melody, bass], offset: NUMBER_OF_PIANO_KEYBOARDS });
         break;
       case 'electric-guitar':
-        X('mml').ready({ source: X('oneshot'), mmls: [melody], offset: (2 * NUMBER_OF_PIANO_KEYBOARDS) });
-        window.C('mml').ready({ source: X('oneshot'), mmls: [bass], offset: (2 * NUMBER_OF_PIANO_KEYBOARDS) });
+        X('mml').ready({ source: X('oneshot'), mmls: [melody, bass], offset: (2 * NUMBER_OF_PIANO_KEYBOARDS) });
         break;
       case 'whitenoise'   :
       case 'pinknoise'    :
@@ -96,8 +93,13 @@ export const MML: React.FC<Props> = (props: Props) => {
 
   const startBassCallback = useCallback((sequence: Sequence) => {
     dispatch(downBassKeyboards(sequence.indexes));
-    setBass(window.C('mml').getMML(0) ?? '');
-  }, [dispatch]);
+
+    if ((currentSoundSource === 'oscillator') || currentSoundSource.endsWith('noise')) {
+      setBass(window.C('mml').getMML(0) ?? '');
+    } else {
+      setBass(X('mml').getMML(1) ?? '');
+    }
+  }, [currentSoundSource, dispatch]);
 
   const stopMelodyCallback = useCallback((sequence: Sequence) => {
     dispatch(upMelodyKeyboards(sequence.indexes));
@@ -119,14 +121,14 @@ export const MML: React.FC<Props> = (props: Props) => {
     dispatch(downBassKeyboards([]));
 
     const currentMelody = X('mml').getMML(0)?.replace(CLEAR_HIGHLIGHT_REGEXP, '$1') ?? '';
-    const currentBass   = window.C('mml').getMML(0)?.replace(CLEAR_HIGHLIGHT_REGEXP, '$1') ?? '';
+    const currentBass   = (currentSoundSource === 'oscillator' || currentSoundSource.endsWith('noise')) ? window.C('mml').getMML(0)?.replace(CLEAR_HIGHLIGHT_REGEXP, '$1') ?? '' : X('mml').getMML(1)?.replace(CLEAR_HIGHLIGHT_REGEXP, '$1') ?? '';
 
     readyMMLCallback(currentMelody, currentBass);
 
     setMelody(currentMelody);
     setBass(currentBass);
     setPaused(true);
-  }, [dispatch, readyMMLCallback]);
+  }, [currentSoundSource, dispatch, readyMMLCallback]);
 
   const errorCallbackForMelody = useCallback((error: MMLSyntaxError) => {
     switch (error.token) {
@@ -201,9 +203,14 @@ export const MML: React.FC<Props> = (props: Props) => {
         window.C('mml').start(0, true);
 
         X('mixer').module('recorder').start();
-      } else {
+      } else if (currentSoundSource.endsWith('noise')) {
         X('mml').start(0, true);
         window.C('mml').start(0, true);
+
+        X('mixer').module('recorder').start();
+      } else {
+        X('mml').start(0, true);
+        X('mml').start(1, true);
 
         X('oneshot').module('recorder').start();
       }
