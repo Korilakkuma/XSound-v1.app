@@ -48,6 +48,8 @@ export const Piano: React.FC<Props> = (props: Props) => {
         X('oscillator').ready(0, 0).start(X.toFrequencies([index]));
         window.C('oscillator').ready(0, 0).start(X.toFrequencies([index]));
 
+        X('mixer').start([X('oscillator'), window.C('oscillator')], [1, 1]);
+
         X('mixer').module('recorder').start();
         // X('mixer').module('session').start();
 

@@ -202,6 +202,8 @@ export const MML: React.FC<Props> = (props: Props) => {
         X('mml').start(0, true);
         window.C('mml').start(0, true);
 
+        X('mixer').start([X('oscillator'), window.C('oscillator')], [1, 1]);
+
         X('mixer').module('recorder').start();
       } else if (currentSoundSource.endsWith('noise')) {
         X('mml').start(0, true);

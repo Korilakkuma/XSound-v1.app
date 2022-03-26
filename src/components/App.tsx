@@ -840,8 +840,6 @@ export const App: React.FC<Props> = () => {
     X('oscillator').setup([true, false, false, false]);
     window.C('oscillator').setup([false, false, false, false]);
 
-    X('mixer').start([X('oscillator'), window.C('oscillator')]);
-
     X('audio').module('wah').param({ auto: true });
     X('audio').module('pitchshifter').activate();
 
