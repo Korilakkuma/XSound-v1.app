@@ -181,7 +181,7 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
   }, []);
 
   const onChangeTransposeCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    X('oneshot').param({ transpose: ((event.currentTarget.valueAsNumber + 12) / 12) });
+    X('oneshot').param({ transpose: event.currentTarget.valueAsNumber });
   }, []);
 
   const onChangeSoundSourceCallback = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
