@@ -89,17 +89,18 @@ export const MML: React.FC<Props> = (props: Props) => {
   const startMelodyCallback = useCallback((sequence: Sequence) => {
     dispatch(downMelodyKeyboards(sequence.indexes));
     setMelody(X('mml').getMML(0) ?? '');
+
+    const bass = X('mml').getMML(1);
+
+    if (bass) {
+      setBass(bass);
+    }
   }, [dispatch]);
 
   const startBassCallback = useCallback((sequence: Sequence) => {
     dispatch(downBassKeyboards(sequence.indexes));
-
-    if ((currentSoundSource === 'oscillator') || currentSoundSource.endsWith('noise')) {
-      setBass(window.C('mml').getMML(0) ?? '');
-    } else {
-      setBass(X('mml').getMML(1) ?? '');
-    }
-  }, [currentSoundSource, dispatch]);
+    setBass(window.C('mml').getMML(0) ?? '');
+  }, [dispatch]);
 
   const stopMelodyCallback = useCallback((sequence: Sequence) => {
     dispatch(upMelodyKeyboards(sequence.indexes));
