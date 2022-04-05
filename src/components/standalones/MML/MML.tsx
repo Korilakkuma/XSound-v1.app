@@ -122,14 +122,14 @@ export const MML: React.FC<Props> = (props: Props) => {
     dispatch(downBassKeyboards([]));
 
     const currentMelody = X('mml').getMML(0)?.replace(CLEAR_HIGHLIGHT_REGEXP, '$1') ?? '';
-    const currentBass   = (currentSoundSource === 'oscillator' || currentSoundSource.endsWith('noise')) ? window.C('mml').getMML(0)?.replace(CLEAR_HIGHLIGHT_REGEXP, '$1') ?? '' : X('mml').getMML(1)?.replace(CLEAR_HIGHLIGHT_REGEXP, '$1') ?? '';
+    const currentBass   = X('mml').getMML(1) ? X('mml').getMML(1)?.replace(CLEAR_HIGHLIGHT_REGEXP, '$1') ?? '' : window.C('mml').getMML(0)?.replace(CLEAR_HIGHLIGHT_REGEXP, '$1') ?? '';
 
     readyMMLCallback(currentMelody, currentBass);
 
     setMelody(currentMelody);
     setBass(currentBass);
     setPaused(true);
-  }, [currentSoundSource, dispatch, readyMMLCallback]);
+  }, [dispatch, readyMMLCallback]);
 
   const errorCallbackForMelody = useCallback((error: MMLSyntaxError) => {
     switch (error.token) {
