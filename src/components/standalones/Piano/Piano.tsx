@@ -45,8 +45,8 @@ export const Piano: React.FC<Props> = (props: Props) => {
 
     switch (props.currentSoundSource) {
       case 'oscillator':
-        X('oscillator').ready(0, 0).start(X.toFrequencies([index]));
-        window.C('oscillator').ready(0, 0).start(X.toFrequencies([index]));
+        X('oscillator').ready(0, 0).start(X.toFrequencies([index, -1, -1, -1]));
+        window.C('oscillator').ready(0, 0).start(X.toFrequencies([index, -1, -1, -1]));
 
         X('mixer').start([X('oscillator'), window.C('oscillator')], [1, 1]);
 
@@ -135,8 +135,6 @@ export const Piano: React.FC<Props> = (props: Props) => {
       case 'oscillator':
         X('oscillator').stop();
         window.C('oscillator').stop();
-
-        // X('mixer').stop();
 
         break;
       case 'piano':
