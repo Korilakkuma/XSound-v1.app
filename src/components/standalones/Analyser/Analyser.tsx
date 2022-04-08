@@ -129,22 +129,19 @@ export const Analyser: React.FC<Props> = (props: Props) => {
 
     const fftParams: FFTParams = {
       interval: -1,
-      type    : 'uint',
+      type    : 'float',
       styles  : {
-        shape    : 'rect',
-        grid     : 'rgba(255, 255, 255, 0.2)',
-        gradients: [
-          { offset: 0, color: 'rgba(0, 128, 255, 1.0)' },
-          { offset: 1, color: 'rgba(0,   0, 255, 1.0)' }
-        ],
-        font     : {
+        shape : 'line',
+        grid  : 'rgba(255, 255, 255, 0.2)',
+        font  : {
           family: 'Arial',
           size  : '12px',
           style : 'normal',
           weight: 'normal'
         },
         width : 1,
-        right : 15
+        right : 15,
+        left  : 60
       }
     };
 
