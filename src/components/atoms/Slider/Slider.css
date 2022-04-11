@@ -39,7 +39,7 @@
   background-color: var(--transparent);
 
   /* CSS Sprite */
-  background-image: url("/assets/images/slider-handles.png");
+  background-image: url("https://raw.githubusercontent.com/Korilakkuma/XSound.app/master/assets/images/slider-handles.png");  /* HACK */
   background-size: 23px 46px;
   background-repeat: no-repeat;
   background-position: 0 -23px;
@@ -54,7 +54,7 @@
   background-color: var(--transparent);
 
   /* CSS Sprite */
-  background-image: url("/assets/images/slider-handles.png");
+  background-image: url("https://raw.githubusercontent.com/Korilakkuma/XSound.app/master/assets/images/slider-handles.png");  /* HACK */
   background-size: 23px 46px;
   background-repeat: no-repeat;
   background-position: 0 -23px;
