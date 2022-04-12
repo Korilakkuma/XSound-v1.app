@@ -105,8 +105,8 @@ export const Analyser: React.FC<Props> = (props: Props) => {
 
     const analyserParams: AnalyserParams = {
       fftSize              : 2048,
-      minDecibels          : -100,
-      maxDecibels          : -30,
+      minDecibels          : -60,
+      maxDecibels          : 0,
       smoothingTimeConstant: 0.8
     };
 
@@ -141,7 +141,7 @@ export const Analyser: React.FC<Props> = (props: Props) => {
         },
         width : 1,
         right : 15,
-        left  : 60
+        left  : 40
       }
     };
 
