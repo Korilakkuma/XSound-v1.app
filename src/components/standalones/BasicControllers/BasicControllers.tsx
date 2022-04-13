@@ -193,13 +193,16 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
     X('audio').module('analyser').stop('fft').domain('fft').clear();
     X('stream').module('analyser').stop('time').domain('time').clear();
     X('stream').module('analyser').stop('fft').domain('fft').clear();
-    X('noise').module('analyser').stop('time').domain('time').clear();
-    X('noise').module('analyser').stop('fft').domain('fft').clear();
     X('oscillator').module('analyser').stop('time').domain('time').clear();
     X('oscillator').module('analyser').stop('fft').domain('fft').clear();
 
     // HACK
     const source = event.currentTarget.value as SoundSource;
+
+    if (!source.endsWith('noise')) {
+      X('noise').module('analyser').stop('time').domain('time').clear();
+      X('noise').module('analyser').stop('fft').domain('fft').clear();
+    }
 
     dispatch(changeCurrentSoundSource(source));
 
