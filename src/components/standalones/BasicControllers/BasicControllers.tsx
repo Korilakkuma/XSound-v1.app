@@ -94,6 +94,8 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
       X('oscillator').ready(0, 0).start(X.toFrequencies(indexes));
       window.C('oscillator').ready(0, 0).start(X.toFrequencies(indexes));
 
+      X('mixer').start([X('oscillator'), window.C('oscillator')], [volume, volume]);
+
       X('mixer').module('recorder').start();
     } else {
       X('oneshot').reset(targetIndex, 'volume', volume).ready(0, 0).start(indexes.map((index: number) => index + offset));
@@ -122,7 +124,7 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
     }
 
     if (midiSource === 'noise') {
-      X('noise').start();
+      X('noise').stop();
 
       X('noise').module('recorder').start();
     } else if (midiSource === 'oscillator') {
@@ -193,8 +195,6 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
     X('audio').module('analyser').stop('fft').domain('fft').clear();
     X('stream').module('analyser').stop('time').domain('time').clear();
     X('stream').module('analyser').stop('fft').domain('fft').clear();
-    X('oscillator').module('analyser').stop('time').domain('time').clear();
-    X('oscillator').module('analyser').stop('fft').domain('fft').clear();
 
     // HACK
     const source = event.currentTarget.value as SoundSource;
