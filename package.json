@@ -20,7 +20,7 @@
     "test": "jest",
     "test:coverage": "jest --coverage",
     "test:verbose": "jest --verbose",
-    "storybook": "start-storybook",
+    "storybook": "start-storybook --port 6006",
     "build-storybook": "build-storybook"
   },
   "husky": {
