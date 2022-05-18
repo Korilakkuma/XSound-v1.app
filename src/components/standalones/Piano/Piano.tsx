@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { IState, SoundSource } from '../../../types';
 import { NUMBER_OF_PIANO_KEYBOARDS } from '../../../config';
@@ -160,6 +160,22 @@ export const Piano: React.FC<Props> = (props: Props) => {
     }
   }, [props.currentSoundSource, downKeyboards]);
 
+  const stopSoundOnOutsideOfKeyboardCallback = useCallback(() => {
+    switch (props.currentSoundSource) {
+      case 'oscillator':
+        X('oscillator').stop();
+        window.C('oscillator').stop();
+
+        break;
+      default:
+        X('noise').stop();
+        break;
+    }
+
+    setDownKeyboards([...downKeyboards.map(() => false)]);
+    setIsDown(false);
+  }, [props.currentSoundSource, downKeyboards]);
+
   const indexMap: { [pitch: string]: number } = useMemo(() => ({
     'A-4' :  0,
     'A-4h':  1,
@@ -273,6 +289,16 @@ export const Piano: React.FC<Props> = (props: Props) => {
     'C2h',  'D2h',  'skip11', 'F2h',  'G2h',  'A2h',  'skip12',
     'C3h',  'D3h',  'skip13', 'F3h',  'G3h',  'A3h'
   ], []);
+
+  useEffect(() => {
+    window.addEventListener('mouseup',  stopSoundOnOutsideOfKeyboardCallback, false);
+    window.addEventListener('touchend', stopSoundOnOutsideOfKeyboardCallback, false);
+
+    return () => {
+      window.removeEventListener('mouseup',  stopSoundOnOutsideOfKeyboardCallback, false);
+      window.removeEventListener('touchend', stopSoundOnOutsideOfKeyboardCallback, false);
+    };
+  }, [stopSoundOnOutsideOfKeyboardCallback]);
 
   return (
     <div className="Piano">
