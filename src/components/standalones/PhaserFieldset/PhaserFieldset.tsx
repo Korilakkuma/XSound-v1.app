@@ -33,7 +33,7 @@ export const PhaserFieldset: React.FC<Props> = () => {
   }, []);
 
   const onChangeStageCallback = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
-    const stage = parseInt(event.currentTarget.value, 10);
+    const stage = Number(event.currentTarget.value);
 
     switch (stage) {
       case  2:

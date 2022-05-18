@@ -37,7 +37,7 @@ export const Piano: React.FC<Props> = (props: Props) => {
       return;
     }
 
-    const index = parseInt(dataIndex, 10);
+    const index = Number(dataIndex);
 
     if (((event.type === 'mouseover') || (event.type === 'touchmove')) && !isDown) {
       return;
@@ -129,7 +129,7 @@ export const Piano: React.FC<Props> = (props: Props) => {
       return;
     }
 
-    const index = parseInt(dataIndex, 10);
+    const index = Number(dataIndex);
 
     switch (props.currentSoundSource) {
       case 'oscillator':

@@ -60,7 +60,7 @@ export const ReverbFieldset: React.FC<Props> = (props: Props) => {
   }, []);
 
   const onChangeTypeCallback = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
-    const buffer = parseInt(event.currentTarget.value, 10);
+    const buffer = Number(event.currentTarget.value);
 
     X('mixer').module('reverb').param({ buffer });
     X('oneshot').module('reverb').param({ buffer });

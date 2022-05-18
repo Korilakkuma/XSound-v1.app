@@ -205,7 +205,7 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
       return;
     }
 
-    const nextActiveTrack = parseInt(event.currentTarget.value, 10);
+    const nextActiveTrack = Number(event.currentTarget.value);
 
     X('stream').stop();
     X('stream').module('recorder').stop();
