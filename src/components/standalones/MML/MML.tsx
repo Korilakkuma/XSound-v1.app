@@ -110,7 +110,7 @@ export const MML: React.FC<Props> = (props: Props) => {
     dispatch(upBassKeyboards(sequence.indexes));
   }, [dispatch]);
 
-  const endedCallback = useCallback(() => {
+  const endedAllPartsCallback = useCallback(() => {
     for (let i = 0, len = X('oscillator').length(); i < len; i++) {
       if (i !== 0) {
         X('oscillator').get(i).deactivate();
@@ -439,14 +439,14 @@ export const MML: React.FC<Props> = (props: Props) => {
     X('mml').setup({
       startCallback: startMelodyCallback,
       stopCallback : stopMelodyCallback,
-      endedCallback: endedCallback,
+      endedCallback: endedAllPartsCallback,
       errorCallback: errorCallbackForMelody
     });
 
     window.C('mml').setup({
       startCallback: startBassCallback,
       stopCallback : stopBassCallback,
-      endedCallback: endedCallback,
+      endedCallback: endedAllPartsCallback,
       errorCallback: errorCallbackForBass
     });
 
@@ -526,7 +526,7 @@ export const MML: React.FC<Props> = (props: Props) => {
     startBassCallback,
     stopMelodyCallback,
     stopBassCallback,
-    endedCallback,
+    endedAllPartsCallback,
     errorCallbackForMelody,
     errorCallbackForBass
   ]);
