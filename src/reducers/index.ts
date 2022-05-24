@@ -1,6 +1,5 @@
 import { Reducer, combineReducers } from 'redux';
-import { connectRouter } from 'connected-react-router';
-import { History } from 'history';
+import { routerReducer } from 'react-router-redux';
 import { ActionTypes } from '../actions/ActionTypes';
 import {
   CurrentSoundSourceAction,
@@ -82,7 +81,7 @@ export function activeMIDIKeyboardIndexes(state: number[] = [], action: MIDIActi
   }
 }
 
-export const rootReducer = (history: History): Reducer => combineReducers({
+export const rootReducer = (): Reducer => combineReducers({
   currentSoundSource,
   analyserState,
   mmlState,
@@ -91,5 +90,5 @@ export const rootReducer = (history: History): Reducer => combineReducers({
   upMelodyKeyboardIndexes,
   upBassKeyboardIndexes,
   activeMIDIKeyboardIndexes,
-  router: connectRouter(history)
+  router: routerReducer
 });
