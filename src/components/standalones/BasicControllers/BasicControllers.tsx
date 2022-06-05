@@ -12,7 +12,7 @@ import { Select } from '../../atoms/Select';
 import { Modal } from '../../atoms/Modal';
 import { ParameterController } from '../../helpers/ParameterController';
 import { NUMBER_OF_ONESHOTS } from '../../../config';
-import { X, MIDIAccess, MIDIInput, MIDIOutput, MIDIMessageEvent } from 'xsound';
+import { X } from 'xsound';
 
 export interface Props {
   currentSoundSource: SoundSource;
@@ -145,7 +145,8 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
   }, [dispatch, midiSource, indexes, offset]);
 
   const successCallback = useCallback((midiAccess: MIDIAccess, inputs: MIDIInput[], outputs: MIDIOutput[]) => {
-    if (inputs.length > 0) {
+    if (inputs[0]) {
+      // @ts-ignore
       inputs[0].onmidimessage = (event: MIDIMessageEvent) => {
         switch (event.data[0] & 0xf0) {
           case 0x90:
