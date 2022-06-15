@@ -8,10 +8,10 @@
   "main": "./assets/app.js",
   "scripts": {
     "clean": "rimraf register.js sw.js ./assets/app.* ./assets/vendor.*",
-    "lint:js": "eslint 'src/**/*.{ts,tsx}'",
+    "lint:js": "eslint 'src/**/*.{ts,tsx}' 'mock/**/*.ts'",
     "lint:css": "stylelint 'src/**/*.css'",
     "lint": "run-p lint:js lint:css",
-    "fix:js": "eslint --fix 'src/**/*.{ts,tsx}'",
+    "fix:js": "eslint --fix 'src/**/*.{ts,tsx}' 'mock/**/*.ts'",
     "fix:css": "stylelint --fix 'src/**/*.css'",
     "fix": "run-p fix:js fix:css",
     "type": "tsc --noEmit",
