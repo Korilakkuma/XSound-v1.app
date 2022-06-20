@@ -20,6 +20,7 @@
     "test": "jest",
     "test:coverage": "jest --coverage",
     "test:verbose": "jest --verbose",
+    "test:detect": "jest --detectOpenHandles",
     "storybook": "start-storybook --port 6006",
     "build-storybook": "build-storybook"
   },
