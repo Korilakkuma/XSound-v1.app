@@ -77,8 +77,8 @@ export const RingModulatorFieldset: React.FC<Props> = () => {
           id="ringmodulator-rate"
           defaultValue={0}
           min={0}
-          max={1500}
-          step={1}
+          max={4000}
+          step={100}
           onChange={onChangeRateCallback}
         />
         <Spacer space={8} />
