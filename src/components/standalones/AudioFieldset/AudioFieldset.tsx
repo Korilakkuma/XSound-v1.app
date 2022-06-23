@@ -79,11 +79,11 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
 
   const onDragOverCallback = useCallback((event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
-    setDrag(false);
   }, []);
 
   const onDragLeaveCallback = useCallback((event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
+    setDrag(false);
   }, []);
 
   const onDropCallback = useCallback((event: React.DragEvent<HTMLDivElement>) => {
