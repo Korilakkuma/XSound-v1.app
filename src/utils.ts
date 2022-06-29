@@ -1,6 +1,6 @@
-import { X } from 'xsound';
+import { ConvertedTime } from 'xsound';
 
-export function formatAudioTime(convertedTime: ReturnType<typeof X.convertTime>): string {
+export function formatAudioTime(convertedTime: ConvertedTime): string {
   const { minutes, seconds } = convertedTime;
 
   return `${('0' + minutes).slice(-2)} : ${('0' + seconds).slice(-2)}`;
