@@ -274,7 +274,7 @@ export const MML: React.FC<Props> = (props: Props) => {
       bass       : currentBass
     });
 
-    setDataURL(X.toTextFile(json));
+    setDataURL(X.toTextFile(json, true));
   }, [melody, bass]);
 
   const onChangeHightlightCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -285,40 +285,30 @@ export const MML: React.FC<Props> = (props: Props) => {
     const file = X.file({
       event           : event.nativeEvent as FileEvent,  // HACK:
       type            : 'json',
-      successCallback : (_: FileEvent, text: string) => {
-        event.currentTarget.value = '';
+      successCallback : (_: ProgressEvent, mmls: ReturnType<typeof JSON.parse>) => {
+        event.target.value = '';
+        if (melody || bass) {
+          savedMMLs[0] = mmls.melody;
+          savedMMLs[1] = mmls.bass;
 
-        try {
-          const mmls = JSON.parse(text);
+          setIsShowModalConfirmation(true);
+        } else {
+          readyMMLCallback(mmls.melody, mmls.bass);
 
-          if (melody || bass) {
-            savedMMLs[0] = mmls.melody;
-            savedMMLs[1] = mmls.bass;
-
-            setIsShowModalConfirmation(true);
-          } else {
-            readyMMLCallback(mmls.melody, mmls.bass);
-
-            setMelody(mmls.melody);
-            setBass(mmls.bass);
-          }
-
-          setShowProgress(false);
-          setIsShowModalForProgress(false);
-        } catch (error) {
-          if (error instanceof Error) {
-            // eslint-disable-next-line no-console
-            console.error(error);
-          }
+          setMelody(mmls.melody);
+          setBass(mmls.bass);
         }
+
+        setShowProgress(false);
+        setIsShowModalForProgress(false);
       },
-      errorCallback   : (event: FileEvent, textStatus: FileReaderErrorText) => {
+      errorCallback   : (_: ProgressEvent, textStatus: FileReaderErrorText) => {
         setShowProgress(false);
         setErrorMessage(textStatus);
         setIsShowModalForFileUploadError(true);
       },
-      progressCallback: (event: ProgressEvent) => {
-        const { lengthComputable, loaded, total } = event;
+      progressCallback: (e: ProgressEvent) => {
+        const { lengthComputable, loaded, total } = e;
 
         setShowProgress(lengthComputable);
         setLoadedByte(loaded);
@@ -327,8 +317,8 @@ export const MML: React.FC<Props> = (props: Props) => {
       }
     });
 
-    if (file instanceof Error) {
-      setErrorMessage(file.message);
+    if (file === null) {
+      setErrorMessage('Please upload file');
       setIsShowModalForFileUploadError(true);
     } else if (typeof file !== 'string') {
       setFilename(file.name);
@@ -355,38 +345,29 @@ export const MML: React.FC<Props> = (props: Props) => {
     const file = X.drop({
       event           : event.nativeEvent,
       type            : 'json',
-      successCallback : (_: DragEvent, text: string) => {
-        try {
-          const mmls = JSON.parse(text);
+      successCallback : (_: ProgressEvent, mmls: ReturnType<typeof JSON.parse>) => {
+        if (melody || bass) {
+          savedMMLs[0] = mmls.melody;
+          savedMMLs[1] = mmls.bass;
 
-          if (melody || bass) {
-            savedMMLs[0] = mmls.melody;
-            savedMMLs[1] = mmls.bass;
+          setIsShowModalConfirmation(true);
+        } else {
+          readyMMLCallback(mmls.melody, mmls.bass);
 
-            setIsShowModalConfirmation(true);
-          } else {
-            readyMMLCallback(mmls.melody, mmls.bass);
-
-            setMelody(mmls.melody);
-            setBass(mmls.bass);
-          }
-
-          setShowProgress(false);
-          setIsShowModalForProgress(false);
-        } catch (error) {
-          if (error instanceof Error) {
-            // eslint-disable-next-line no-console
-            console.error(error);
-          }
+          setMelody(mmls.melody);
+          setBass(mmls.bass);
         }
+
+        setShowProgress(false);
+        setIsShowModalForProgress(false);
       },
-      errorCallback   : (event: DragEvent, textStatus: FileReaderErrorText) => {
+      errorCallback   : (_: ProgressEvent, textStatus: FileReaderErrorText) => {
         setShowProgress(false);
         setErrorMessage(textStatus);
         setIsShowModalForFileUploadError(true);
       },
-      progressCallback: (event: ProgressEvent) => {
-        const { lengthComputable, loaded, total } = event;
+      progressCallback: (e: ProgressEvent) => {
+        const { lengthComputable, loaded, total } = e;
 
         setShowProgress(lengthComputable);
         setLoadedByte(loaded);
@@ -395,8 +376,8 @@ export const MML: React.FC<Props> = (props: Props) => {
       }
     });
 
-    if (file instanceof Error) {
-      setErrorMessage(file.message);
+    if (file === null) {
+      setErrorMessage('Please drop file');
       setIsShowModalForFileUploadError(true);
     } else if (typeof file !== 'string') {
       setFilename(file.name);

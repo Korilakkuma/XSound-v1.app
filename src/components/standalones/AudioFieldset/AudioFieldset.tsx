@@ -42,20 +42,18 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
     const file = X.file({
       event           : event.nativeEvent as FileEvent,  // HACK:
       type            : 'arraybuffer',
-      successCallback : (event: FileEvent, arraybuffer: ArrayBuffer | string | null) => {
-        if (arraybuffer instanceof ArrayBuffer) {
-          startDecodeCallback();
-          X('audio').ready(arraybuffer);
-        }
-
+      successCallback : (_: ProgressEvent, arraybuffer: ArrayBuffer) => {
         event.target.value = '';
+
+        startDecodeCallback();
+        X('audio').ready(arraybuffer);
       },
-      errorCallback   : (event: FileEvent, textStatus: FileReaderErrorText) => {
+      errorCallback   : (_: ProgressEvent, textStatus: FileReaderErrorText) => {
         setErrorMessage(textStatus);
         setIsShowModalForFileUploadError(true);
       },
-      progressCallback: (event: ProgressEvent) => {
-        const { lengthComputable, loaded, total } = event;
+      progressCallback: (e: ProgressEvent) => {
+        const { lengthComputable, loaded, total } = e;
 
         setShowProgress(lengthComputable);
         setLoadedByte(loaded);
@@ -64,8 +62,8 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
       }
     });
 
-    if (file instanceof Error) {
-      setErrorMessage(file.message);
+    if (file === null) {
+      setErrorMessage('Please upload file');
       setIsShowModalForFileUploadError(true);
     } else if (typeof file !== 'string') {
       setFilename(file.name);
@@ -87,25 +85,19 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
   }, []);
 
   const onDropCallback = useCallback((event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-
     const file = X.drop({
       event           : event.nativeEvent,
       type            : 'arraybuffer',
-      successCallback : (event: FileEvent, arraybuffer: ArrayBuffer | string | null) => {
-        if (arraybuffer instanceof ArrayBuffer) {
-          startDecodeCallback();
-          X('audio').ready(arraybuffer);
-        }
-
-        event.target.value = '';
+      successCallback : (_: ProgressEvent, arraybuffer: ArrayBuffer) => {
+        startDecodeCallback();
+        X('audio').ready(arraybuffer);
       },
-      errorCallback   : (event: FileEvent, textStatus: FileReaderErrorText) => {
+      errorCallback   : (_: ProgressEvent, textStatus: FileReaderErrorText) => {
         setErrorMessage(textStatus);
         setIsShowModalForFileUploadError(true);
       },
-      progressCallback: (event: ProgressEvent) => {
-        const { lengthComputable, loaded, total } = event;
+      progressCallback: (e: ProgressEvent) => {
+        const { lengthComputable, loaded, total } = e;
 
         setShowProgress(lengthComputable);
         setLoadedByte(loaded);
@@ -114,8 +106,8 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
       }
     });
 
-    if (file instanceof Error) {
-      setErrorMessage(file.message);
+    if (file === null) {
+      setErrorMessage('Please drop file');
       setIsShowModalForFileUploadError(true);
     } else if (typeof file !== 'string') {
       setFilename(file.name);
