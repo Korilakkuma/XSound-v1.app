@@ -71,7 +71,7 @@
     "react-router-dom": "^6.3.0",
     "react-router-redux": "^4.0.8",
     "redux": "^4.2.0",
-    "xsound": "^3.0.0"
+    "xsound": "^3.0.1"
   },
   "devDependencies": {
     "@linaria/babel-preset": "^3.0.0-beta.15",
