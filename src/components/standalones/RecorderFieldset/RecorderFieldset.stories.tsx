@@ -1,44 +1,46 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState, useEffect } from 'react';
-// also exported from '@storybook/react' if you can deal with breaking changes in 6.1
-import { Story, Meta } from '@storybook/react/types-6-0';
-
-import { Props, RecorderFieldset } from './RecorderFieldset';
+import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import { RecorderFieldset } from './RecorderFieldset';
 import '../../../main.css';
 
 import { X } from 'xsound';
 
 export default {
-  title    : 'standalones/RecorderFieldset',
   component: RecorderFieldset
-} as Meta;
+} as ComponentMeta<typeof RecorderFieldset>;
 
-const Template: Story<Props> = () => {
-  const [loaded, setLoaded] = useState<boolean>(false);
+const Template: ComponentStoryObj<typeof RecorderFieldset> = {
+  render: () => {
+    const [loaded, setLoaded] = useState<boolean>(false);
 
-  useEffect(() => {
-    if (loaded) {
-      return;
-    }
-
-    const constraints: MediaStreamConstraints = { audio : true, video : false };
-
-    try {
-      X('stream').setup(constraints);
-      X('stream').param({ output: false });
-      X('stream').ready()
-        .then(() => {
-          X('stream').start();
-        });
-    } catch (error) {
-      if (error instanceof Error) {
-        window.alert(error.message);
+    useEffect(() => {
+      if (loaded) {
+        return;
       }
-    }
 
-    setLoaded(true);
-  }, [loaded]);
+      const constraints: MediaStreamConstraints = { audio : true, video : false };
 
-  return <RecorderFieldset loadedApp />;
+      try {
+        X('stream').setup(constraints);
+        X('stream').param({ output: false });
+        X('stream').ready()
+          .then(() => {
+            X('stream').start();
+          });
+      } catch (error) {
+        if (error instanceof Error) {
+          window.alert(error.message);
+        }
+      }
+
+      setLoaded(true);
+    }, [loaded]);
+
+    return <RecorderFieldset loadedApp />;
+  }
 };
 
-export const Primary = Template.bind({});
+export const Primary = {
+  ...Template
+};

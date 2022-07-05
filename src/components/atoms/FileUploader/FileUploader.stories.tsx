@@ -1,77 +1,79 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState, useCallback } from 'react';
-// also exported from '@storybook/react' if you can deal with breaking changes in 6.1
-import { Story, Meta } from '@storybook/react/types-6-0';
-
-import { Props, FileUploader } from './FileUploader';
+import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import { FileUploader } from './FileUploader';
 import '../../../main.css';
 
 export default {
-  title    : 'atoms/FileUploader',
   component: FileUploader
-} as Meta;
+} as ComponentMeta<typeof FileUploader>;
 
-const Template: Story<Props> = (args: Props) => {
-  const [drag, setDrag] = useState<boolean>(false);
-  const [drop, setDrop] = useState<boolean>(false);
+const Template: ComponentStoryObj<typeof FileUploader> = {
+  render: (args) => {
+    const [drag, setDrag] = useState<boolean>(false);
+    const [drop, setDrop] = useState<boolean>(false);
 
-  const onDragEnter = useCallback((event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
+    const onDragEnter = useCallback((event: React.DragEvent<HTMLDivElement>) => {
+      event.preventDefault();
 
-    document.body.style.backgroundColor = '#333';
+      document.body.style.backgroundColor = '#333';
 
-    setDrag(true);
-  }, []);
+      setDrag(true);
+    }, []);
 
-  const onDragOver = useCallback((event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
+    const onDragOver = useCallback((event: React.DragEvent<HTMLDivElement>) => {
+      event.preventDefault();
 
-    document.body.style.backgroundColor = '#999';
-  }, []);
+      document.body.style.backgroundColor = '#999';
+    }, []);
 
-  const onDragLeave = useCallback((event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
+    const onDragLeave = useCallback((event: React.DragEvent<HTMLDivElement>) => {
+      event.preventDefault();
 
-    document.body.style.backgroundColor = '#000';
+      document.body.style.backgroundColor = '#000';
 
-    setDrag(false);
-  }, []);
+      setDrag(false);
+    }, []);
 
-  const onDrop = useCallback((event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
+    const onDrop = useCallback((event: React.DragEvent<HTMLDivElement>) => {
+      event.preventDefault();
 
-    alert(event.type);
+      alert(event.type);
 
-    setDrag(false);
-    setDrop(true);
-  }, []);
+      setDrag(false);
+      setDrop(true);
+    }, []);
 
-  const props = { ...args, drag, drop, onDragEnter, onDragOver, onDragLeave, onDrop };
+    const props = { ...args, drag, drop, onDragEnter, onDragOver, onDragLeave, onDrop };
 
-  return <FileUploader {...props} />;
-};
-
-export const Primary = Template.bind({});
-
-Primary.args = {
-  id         : 'uploader-1',
-  accept     : 'audio/*',
-  disabled    : false,
-  placeholder: 'MP3, Ogg, WAV ... etc',
-  filename   : '',
-  onChange   : (event: React.ChangeEvent<HTMLInputElement>) => {
-    alert(event.type);
+    return <FileUploader {...props} />;
   }
 };
 
-export const Secondary = Template.bind({});
+export const Primary = {
+  ...Template,
+  args: {
+    id         : 'uploader-1',
+    accept     : 'audio/*',
+    disabled   : false,
+    placeholder: 'MP3, Ogg, WAV ... etc',
+    filename   : '',
+    onChange   : (event: React.ChangeEvent<HTMLInputElement>) => {
+      alert(event.type);
+    }
+  }
+};
 
-Secondary.args = {
-  id         : 'uploader-2',
-  accept     : 'audio/*',
-  disabled   : false,
-  placeholder: 'MP3, Ogg, WAV ... etc',
-  filename   : 'Default filename',
-  onChange   : (event: React.ChangeEvent<HTMLInputElement>) => {
-    alert(event.type);
+export const Secondary = {
+  ...Template,
+  args: {
+    id         : 'uploader-2',
+    accept     : 'audio/*',
+    disabled   : false,
+    placeholder: 'MP3, Ogg, WAV ... etc',
+    filename   : 'Default filename',
+    onChange   : (event: React.ChangeEvent<HTMLInputElement>) => {
+      alert(event.type);
+    }
   }
 };

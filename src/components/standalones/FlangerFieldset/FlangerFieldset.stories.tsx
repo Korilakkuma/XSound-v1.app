@@ -1,62 +1,64 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState, useEffect } from 'react';
-// also exported from '@storybook/react' if you can deal with breaking changes in 6.1
-import { Story, Meta } from '@storybook/react/types-6-0';
-
-import { Props, FlangerFieldset } from './FlangerFieldset';
+import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import { FlangerFieldset } from './FlangerFieldset';
 import '../../../main.css';
 
 import { X } from 'xsound';
 
 export default {
-  title    : 'standalones/FlangerFieldset',
   component: FlangerFieldset
-} as Meta;
+} as ComponentMeta<typeof FlangerFieldset>;
 
-const Template: Story<Props> = () => {
-  const [loaded, setLoaded] = useState<boolean>(false);
-  const [paused, setPaused] = useState<boolean>(true);
+const Template: ComponentStoryObj<typeof FlangerFieldset> = {
+  render: () => {
+    const [loaded, setLoaded] = useState<boolean>(false);
+    const [paused, setPaused] = useState<boolean>(true);
 
-  useEffect(() => {
-    if (loaded) {
-      return;
-    }
-
-    X('audio').setup({
-      decodeCallback: () => {
-        setLoaded(true);
+    useEffect(() => {
+      if (loaded) {
+        return;
       }
-    });
 
-    X.ajax({
-      url            : 'https://weblike-curtaincall.ssl-lolipop.jp/assets/wav/forever-love-piano-instruments.wav',
-      timeout        : 60000,
-      successCallback: (event: ProgressEvent, arraybuffer: ArrayBuffer) => {
-        X('audio').ready(arraybuffer);
-      }
-    });
-  }, [loaded]);
+      X('audio').setup({
+        decodeCallback: () => {
+          setLoaded(true);
+        }
+      });
 
-  return (
-    <React.Fragment>
-      <button
-        type="button"
-        disabled={!loaded}
-        onClick={() => {
-          if (X('audio').paused()) {
-            X('audio').start(X('audio').param('currentTime'));
-          } else {
-            X('audio').stop();
-          }
+      X.ajax({
+        url            : 'https://weblike-curtaincall.ssl-lolipop.jp/assets/wav/forever-love-piano-instruments.wav',
+        timeout        : 60000,
+        successCallback: (event: ProgressEvent, arraybuffer: ArrayBuffer) => {
+          X('audio').ready(arraybuffer);
+        }
+      });
+    }, [loaded]);
 
-          setPaused(!paused);
-        }}
-        style={{ backgroundColor: '#fff' }}
-      >
-        {loaded ? (paused ? 'Start' : 'Stop') : 'Loading audio ...'}
-      </button>
-      <FlangerFieldset />
-    </React.Fragment>
-  );
+    return (
+      <React.Fragment>
+        <button
+          type="button"
+          disabled={!loaded}
+          onClick={() => {
+            if (X('audio').paused()) {
+              X('audio').start(X('audio').param('currentTime'));
+            } else {
+              X('audio').stop();
+            }
+
+            setPaused(!paused);
+          }}
+          style={{ backgroundColor: '#fff' }}
+        >
+          {loaded ? (paused ? 'Start' : 'Stop') : 'Loading audio ...'}
+        </button>
+        <FlangerFieldset />
+      </React.Fragment>
+    );
+  }
 };
 
-export const Primary = Template.bind({});
+export const Primary = {
+  ...Template
+};

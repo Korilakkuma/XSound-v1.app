@@ -1,17 +1,15 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState, useEffect, useMemo } from 'react';
-// also exported from '@storybook/react' if you can deal with breaking changes in 6.1
-import { Story, Meta } from '@storybook/react/types-6-0';
-
-import { Props, ReverbFieldset } from './ReverbFieldset';
+import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import { ReverbFieldset } from './ReverbFieldset';
 import '../../../main.css';
 
 import { RIRInfo } from '../../../types';
 import { X } from 'xsound';
 
 export default {
-  title    : 'standalones/ReverbFieldset',
   component: ReverbFieldset
-} as Meta;
+} as ComponentMeta<typeof ReverbFieldset>;
 
 const rirInfos: RIRInfo[] = [
   { url: '/assets/impulse-responses/s1_r1_c.mp3', value: 1, label: '1 - 1', group: 'Sideways pointed cardioid measurements in the audience area' },
@@ -20,70 +18,74 @@ const rirInfos: RIRInfo[] = [
   { url: '/assets/impulse-responses/s1_r2_o.mp3', value: 4, label: '1 - 2', group: 'Omnidirectional measurements in the audience area' }
 ];
 
-const Template: Story<Props> = () => {
-  const [loaded, setLoaded] = useState<boolean>(false);
-  const [paused, setPaused] = useState<boolean>(true);
+const Template: ComponentStoryObj<typeof ReverbFieldset> = {
+  render: () => {
+    const [loaded, setLoaded] = useState<boolean>(false);
+    const [paused, setPaused] = useState<boolean>(true);
 
-  const rirs: AudioBuffer[] = useMemo(() => [], []);
+    const rirs: AudioBuffer[] = useMemo(() => [], []);
 
-  useEffect(() => {
-    if (loaded) {
-      return;
-    }
-
-    X('audio').setup({
-      decodeCallback: () => {
-        setLoaded(true);
+    useEffect(() => {
+      if (loaded) {
+        return;
       }
-    });
 
-    rirInfos.forEach((rirInfo: RIRInfo) => {
-      X.ajax({
-        url            : rirInfo.url,
-        type           : 'arraybuffer',
-        timeout        : 60000,
-        successCallback: (event: ProgressEvent, arraybuffer: ArrayBuffer) => {
-          X.decode(X.get(), arraybuffer, (audiobuffer: AudioBuffer) => {
-            rirs.push(audiobuffer);
-
-            if (rirs.length === rirInfos.length) {
-              X('audio').module('reverb').preset({ rirs });
-            }
-          });
+      X('audio').setup({
+        decodeCallback: () => {
+          setLoaded(true);
         }
       });
-    });
 
-    X.ajax({
-      url            : 'https://weblike-curtaincall.ssl-lolipop.jp/assets/wav/forever-love-piano-instruments.wav',
-      timeout        : 60000,
-      successCallback: (event: ProgressEvent, arraybuffer: ArrayBuffer) => {
-        X('audio').ready(arraybuffer);
-      }
-    });
-  }, [loaded, rirs]);
+      rirInfos.forEach((rirInfo: RIRInfo) => {
+        X.ajax({
+          url            : rirInfo.url,
+          type           : 'arraybuffer',
+          timeout        : 60000,
+          successCallback: (event: ProgressEvent, arraybuffer: ArrayBuffer) => {
+            X.decode(X.get(), arraybuffer, (audiobuffer: AudioBuffer) => {
+              rirs.push(audiobuffer);
 
-  return (
-    <React.Fragment>
-      <button
-        type="button"
-        disabled={!loaded}
-        onClick={() => {
-          if (X('audio').paused()) {
-            X('audio').start(X('audio').param('currentTime'));
-          } else {
-            X('audio').stop();
+              if (rirs.length === rirInfos.length) {
+                X('audio').module('reverb').preset({ rirs });
+              }
+            });
           }
+        });
+      });
 
-          setPaused(!paused);
-        }}
-        style={{ backgroundColor: '#fff' }}
-      >
-        {loaded ? (paused ? 'Start' : 'Stop') : 'Loading audio ...'}
-      </button>
-      <ReverbFieldset rirInfos={rirInfos} />
-    </React.Fragment>
-  );
+      X.ajax({
+        url            : 'https://weblike-curtaincall.ssl-lolipop.jp/assets/wav/forever-love-piano-instruments.wav',
+        timeout        : 60000,
+        successCallback: (event: ProgressEvent, arraybuffer: ArrayBuffer) => {
+          X('audio').ready(arraybuffer);
+        }
+      });
+    }, [loaded, rirs]);
+
+    return (
+      <React.Fragment>
+        <button
+          type="button"
+          disabled={!loaded}
+          onClick={() => {
+            if (X('audio').paused()) {
+              X('audio').start(X('audio').param('currentTime'));
+            } else {
+              X('audio').stop();
+            }
+
+            setPaused(!paused);
+          }}
+          style={{ backgroundColor: '#fff' }}
+        >
+          {loaded ? (paused ? 'Start' : 'Stop') : 'Loading audio ...'}
+        </button>
+        <ReverbFieldset rirInfos={rirInfos} />
+      </React.Fragment>
+    );
+  }
 };
 
-export const Primary = Template.bind({});
+export const Primary = {
+  ...Template
+};

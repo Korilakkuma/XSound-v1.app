@@ -1,41 +1,43 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react';
-// also exported from '@storybook/react' if you can deal with breaking changes in 6.1
-import { Story, Meta } from '@storybook/react/types-6-0';
-
-import { Props, Button } from './Button';
+import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import { Button } from './Button';
 import '../../../main.css';
 
 export default {
-  title    : 'atoms/Button',
   component: Button
-} as Meta;
+} as ComponentMeta<typeof Button>;
 
-const Template: Story<Props> = (args: Props) => <Button {...args} />;
+const Template: ComponentStoryObj<typeof Button> = {
+  render: (args) => <Button {...args} />
+};
 
-export const Primary = Template.bind({});
-
-Primary.args = {
-  active : false,
-  label  : 'Start',
-  width  : 70,
-  height : 33,
-  image  : 'https://xsound.app/assets/images/button-audio.png',
-  size   : '70px 99px',
-  onClick: (event: React.MouseEvent<HTMLButtonElement>) => {
-    alert(`${event.type} start`);
+export const Primary = {
+  ...Template,
+  args: {
+    active : false,
+    label  : 'Start',
+    width  : 70,
+    height : 33,
+    image  : 'https://xsound.app/assets/images/button-audio.png',
+    size   : '70px 99px',
+    onClick: (event: React.MouseEvent<HTMLButtonElement>) => {
+      alert(`${event.type} start`);
+    }
   }
 };
 
-export const Secondary = Template.bind({});
-
-Secondary.args = {
-  active : true,
-  label  : 'Stop',
-  width  : 70,
-  height : 33,
-  image  : 'https://xsound.app/assets/images/button-audio.png',
-  size   : '70px 99px',
-  onClick: (event: React.MouseEvent<HTMLButtonElement>) => {
-    alert(`${event.type} stop`);
+export const Secondary = {
+  ...Template,
+  args: {
+    active : true,
+    label  : 'Stop',
+    width  : 70,
+    height : 33,
+    image  : 'https://xsound.app/assets/images/button-audio.png',
+    size   : '70px 99px',
+    onClick: (event: React.MouseEvent<HTMLButtonElement>) => {
+      alert(`${event.type} stop`);
+    }
   }
 };

@@ -1,61 +1,64 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState, useCallback } from 'react';
-// also exported from '@storybook/react' if you can deal with breaking changes in 6.1
-import { Story, Meta } from '@storybook/react/types-6-0';
-
-import { Props, Modal } from './Modal';
+import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import { Modal } from './Modal';
 import '../../../main.css';
 
 export default {
-  title    : 'atoms/Modal',
   component: Modal
-} as Meta;
+} as ComponentMeta<typeof Modal>;
 
-const Template: Story<Props> = (args: Props) => {
-  const [isShow, setIsShow] = useState<boolean>(false);
+const Template: ComponentStoryObj<typeof Modal> = {
+  render: (args) => {
+    const [isShow, setIsShow] = useState<boolean>(false);
 
-  const onClick = useCallback(() => {
-    setIsShow(true);
-  }, []);
+    const onClick = useCallback(() => {
+      setIsShow(true);
+    }, []);
 
-  const onClose = useCallback(() => {
-    setIsShow(false);
-  }, []);
+    const onClose = useCallback(() => {
+      setIsShow(false);
+    }, []);
 
-  const props = { ...args, isShow, onClose };
+    const props = { ...args, isShow, onClose };
 
-  return (
-    <React.Fragment>
-      <button type="button" onClick={onClick} style={{ backgroundColor: '#fff' }}>Open</button>
-      <Modal {...props}>
-        <div>contents</div>
-      </Modal>
-    </React.Fragment>
-  );
+    return (
+      <React.Fragment>
+        <button type="button" onClick={onClick} style={{ backgroundColor: '#fff' }}>Open</button>
+        <Modal {...props}>
+          <div>contents</div>
+        </Modal>
+      </React.Fragment>
+    );
+  }
 };
 
-export const Primary = Template.bind({});
-
-Primary.args = {
-  id        : 'modal-without-overlay',
-  hasOverlay: false,
-  title     : 'without overlay',
-  asAlert   : false
+export const Primary = {
+  ...Template,
+  args: {
+    id        : 'modal-without-overlay',
+    hasOverlay: false,
+    title     : 'without overlay',
+    asAlert   : false
+  }
 };
 
-export const Secondary = Template.bind({});
-
-Secondary.args = {
-  id        : 'modal-with-overlay',
-  hasOverlay: true,
-  title     : 'with overlay',
-  asAlert   : false
+export const Secondary = {
+  ...Template,
+  args: {
+    id        : 'modal-with-overlay',
+    hasOverlay: true,
+    title     : 'with overlay',
+    asAlert   : false
+  }
 };
 
-export const Tertiary = Template.bind({});
-
-Tertiary.args = {
-  id        : 'modal-alert',
-  hasOverlay: false,
-  title     : 'Alert',
-  asAlert   : true
+export const Tertiary = {
+  ...Template,
+  args: {
+    id        : 'modal-alert',
+    hasOverlay: false,
+    title     : 'Alert',
+    asAlert   : true
+  }
 };
