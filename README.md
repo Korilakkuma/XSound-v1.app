@@ -50,7 +50,7 @@ $ npm test
 $ npm run storybook
 ```
 
-[Storybook is published](https://622058bf96d935003a988d91-mwkdbwqdqo.chromatic.com)
+[Storybook is published](https://62204686ebafd3003a50f356-musqnffdvl.chromatic.com/)
 
 ## Technologies
 
