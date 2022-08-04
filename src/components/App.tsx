@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { IState, RIRInfo } from '../types';
+import { IState, RIRDescriptor } from '../types';
 import { Modal } from './atoms/Modal';
 import { Flexbox } from './atoms/Flexbox';
 import { VerticalBox } from './atoms/VerticalBox';
@@ -57,7 +57,7 @@ export const App: React.FC<Props> = () => {
   ], []);
 
   // for Revreb
-  const rirInfos: RIRInfo[] = useMemo(() => [
+  const rirDescriptors: RIRDescriptor[] = useMemo(() => [
     { url: `${BASE_URL}/impulse-responses/s1_r1_c.mp3`, value:  1, label: '1 - 1', group: 'Sideways pointed cardioid measurements in the audience area' },
     { url: `${BASE_URL}/impulse-responses/s1_r2_c.mp3`, value:  2, label: '1 - 2', group: 'Sideways pointed cardioid measurements in the audience area' },
     { url: `${BASE_URL}/impulse-responses/s1_r3_c.mp3`, value:  3, label: '1 - 3', group: 'Sideways pointed cardioid measurements in the audience area' },
@@ -760,18 +760,18 @@ export const App: React.FC<Props> = () => {
 
     const rirs: AudioBuffer[] = [];
 
-    rirInfos.forEach((rirInfo: RIRInfo) => {
+    rirDescriptors.forEach((rirDescriptor: RIRDescriptor) => {
       X.ajax({
-        url            : rirInfo.url,
+        url            : rirDescriptor.url,
         type           : 'arraybuffer',
         timeout        : AJAX_TIMEOUT,
         successCallback: (event: ProgressEvent, arrayBuffer: ArrayBuffer) => {
           X.decode(X.get(), arrayBuffer, (audioBuffer: AudioBuffer) => {
             rirs.push(audioBuffer);
 
-            const rate = Math.trunc((rirs.length / rirInfos.length) * 100);
+            const rate = Math.trunc((rirs.length / rirDescriptors.length) * 100);
 
-            if (rirs.length === rirInfos.length) {
+            if (rirs.length === rirDescriptors.length) {
               X('mixer').module('reverb').preset({ rirs });
               X('oneshot').module('reverb').preset({ rirs });
               X('audio').module('reverb').preset({ rirs });
@@ -798,7 +798,7 @@ export const App: React.FC<Props> = () => {
         }
       });
     });
-  }, [rirInfos]);
+  }, [rirDescriptors]);
 
   const onCloseModalForAjaxCallback = useCallback(() => {
     setErrorMessage('');
@@ -922,7 +922,7 @@ export const App: React.FC<Props> = () => {
           }
 
           // Next, Load RIRs
-          if (rirInfos.length === 0) {
+          if (rirDescriptors.length === 0) {
             setProgress(false);
           } else {
             loadRIRsCallback(unmounted);
@@ -956,7 +956,7 @@ export const App: React.FC<Props> = () => {
     return () => {
       unmounted = true;
     };
-  }, [oneshots, rirInfos.length, createOneshotSettingsCallback, loadRIRsCallback]);
+  }, [oneshots, rirDescriptors.length, createOneshotSettingsCallback, loadRIRsCallback]);
 
   return (
     <React.Fragment>
@@ -997,7 +997,7 @@ export const App: React.FC<Props> = () => {
           </VerticalBox>
           <VerticalBox>
             <DelayFieldset />
-            <ReverbFieldset rirInfos={rirInfos} />
+            <ReverbFieldset rirDescriptors={rirDescriptors} />
           </VerticalBox>
         </Flexbox>
       </main>

@@ -21,14 +21,14 @@ export type SoundSource = 'oscillator'
                         | 'stream'
                         | 'midi';
 
-export interface RIRInfo {
+export interface RIRDescriptor {
   url: string;
   value: number;
   label: string;
   group: string;
 }
 
-export interface MMLInfo {
+export interface MMLDescriptor {
   title: string;
   artist: string;
   description: string;

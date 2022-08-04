@@ -4,14 +4,14 @@ import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
 import { ReverbFieldset } from './ReverbFieldset';
 import '../../../main.css';
 
-import { RIRInfo } from '../../../types';
+import { RIRDescriptor } from '../../../types';
 import { X } from 'xsound';
 
 export default {
   component: ReverbFieldset
 } as ComponentMeta<typeof ReverbFieldset>;
 
-const rirInfos: RIRInfo[] = [
+const rirDescriptors: RIRDescriptor[] = [
   { url: '/assets/impulse-responses/s1_r1_c.mp3', value: 1, label: '1 - 1', group: 'Sideways pointed cardioid measurements in the audience area' },
   { url: '/assets/impulse-responses/s1_r2_c.mp3', value: 2, label: '1 - 2', group: 'Sideways pointed cardioid measurements in the audience area' },
   { url: '/assets/impulse-responses/s1_r1_o.mp3', value: 3, label: '1 - 1', group: 'Omnidirectional measurements in the audience area' },
@@ -36,16 +36,16 @@ const Template: ComponentStoryObj<typeof ReverbFieldset> = {
         }
       });
 
-      rirInfos.forEach((rirInfo: RIRInfo) => {
+      rirDescriptors.forEach((rirDescriptor: RIRDescriptor) => {
         X.ajax({
-          url            : rirInfo.url,
+          url            : rirDescriptor.url,
           type           : 'arraybuffer',
           timeout        : 60000,
           successCallback: (event: ProgressEvent, arraybuffer: ArrayBuffer) => {
             X.decode(X.get(), arraybuffer, (audiobuffer: AudioBuffer) => {
               rirs.push(audiobuffer);
 
-              if (rirs.length === rirInfos.length) {
+              if (rirs.length === rirDescriptors.length) {
                 X('audio').module('reverb').preset({ rirs });
               }
             });
@@ -80,7 +80,7 @@ const Template: ComponentStoryObj<typeof ReverbFieldset> = {
         >
           {loaded ? (paused ? 'Start' : 'Stop') : 'Loading audio ...'}
         </button>
-        <ReverbFieldset rirInfos={rirInfos} />
+        <ReverbFieldset rirDescriptors={rirDescriptors} />
       </React.Fragment>
     );
   }

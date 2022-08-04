@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { IState, SoundSource, MMLInfo } from '../../../types';
+import { IState, SoundSource, MMLDescriptor } from '../../../types';
 import {
   downMelodyKeyboards,
   downBassKeyboards,
@@ -444,14 +444,14 @@ export const MML: React.FC<Props> = (props: Props) => {
 
         return responses.map((response: Response) => response.json());
       })
-      .then((promises: Promise<MMLInfo>[]) => {
+      .then((promises: Promise<MMLDescriptor>[]) => {
         if (unmounted) {
           return;
         }
 
-        promises.forEach((promise: Promise<MMLInfo>) => {
+        promises.forEach((promise: Promise<MMLDescriptor>) => {
           promise
-            .then((json: MMLInfo) => {
+            .then((json: MMLDescriptor) => {
               const { title, artist, melody, bass } = json;
 
               let index = 0;

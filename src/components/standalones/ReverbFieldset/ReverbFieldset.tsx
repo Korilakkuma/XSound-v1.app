@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { RIRInfo } from '../../../types';
+import { RIRDescriptor } from '../../../types';
 import { Spacer } from '../../atoms/Spacer';
 import { GroupSelect } from '../../atoms/GroupSelect';
 import { Switch } from '../../atoms/Switch';
@@ -7,11 +7,11 @@ import { ParameterController } from '../../helpers/ParameterController';
 import { X } from 'xsound';
 
 export interface Props {
-  rirInfos: RIRInfo[];
+  rirDescriptors: RIRDescriptor[];
 }
 
 export const ReverbFieldset: React.FC<Props> = (props: Props) => {
-  const { rirInfos } = props;
+  const { rirDescriptors } = props;
 
   const [reverb, setReverb] = useState<boolean>(false);
 
@@ -19,8 +19,8 @@ export const ReverbFieldset: React.FC<Props> = (props: Props) => {
   const values: { [group: string]: string[] } = {};
   const texts: { [group: string]: string[] } = {};
 
-  rirInfos.forEach((rirInfo: RIRInfo) => {
-    const { value, label, group } = rirInfo;
+  rirDescriptors.forEach((rirDescriptor: RIRDescriptor) => {
+    const { value, label, group } = rirDescriptor;
 
     if (!groups.includes(group)) {
       groups.push(group);
