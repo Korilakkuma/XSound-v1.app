@@ -435,7 +435,8 @@ export const MML: React.FC<Props> = (props: Props) => {
       .all([
         fetch('/assets/mmls/endless-rain.json'),
         fetch('/assets/mmls/forever-love.json'),
-        fetch('/assets/mmls/tears.json')
+        fetch('/assets/mmls/tears.json'),
+        fetch('/assets/mmls/seifuku-no-mannequin.json')
       ])
       .then((responses: Response[]) => {
         if (unmounted) {
@@ -466,6 +467,9 @@ export const MML: React.FC<Props> = (props: Props) => {
                 case 'Tears':
                   index = 3;
                   break;
+                case '制服のマネキン':
+                  index = 4;
+                  break;
                 default:
                   break;
               }
@@ -473,7 +477,7 @@ export const MML: React.FC<Props> = (props: Props) => {
               values[index] = JSON.stringify({ melody, bass });
               texts[index]  = `${title} | ${artist}`;
 
-              if ((values.length === 4) && (texts.length === 4)) {
+              if ((values.length === 5) && (texts.length === 5)) {
                 setValues(values);
                 setTexts(texts);
               }
