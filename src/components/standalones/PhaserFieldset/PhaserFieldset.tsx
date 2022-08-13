@@ -93,16 +93,6 @@ export const PhaserFieldset: React.FC<Props> = () => {
     X('noise').module('phaser').param({ mix });
   }, []);
 
-  const onChangeFeedbackCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const feedback = event.currentTarget.valueAsNumber;
-
-    X('mixer').module('phaser').param({ feedback });
-    X('oneshot').module('phaser').param({ feedback });
-    X('audio').module('phaser').param({ feedback });
-    X('stream').module('phaser').param({ feedback });
-    X('noise').module('phaser').param({ feedback });
-  }, []);
-
   return (
     <div className="PhaserFieldset">
       <fieldset>
@@ -176,16 +166,6 @@ export const PhaserFieldset: React.FC<Props> = () => {
           max={1}
           step={0.05}
           onChange={onChangeMixCallback}
-        />
-        <Spacer space={8} />
-        <ParameterController
-          label="Feedback"
-          id="phaser-feedback"
-          defaultValue={0}
-          min={0}
-          max={0.95}
-          step={0.05}
-          onChange={onChangeFeedbackCallback}
         />
         <Spacer space={8} />
       </fieldset>
