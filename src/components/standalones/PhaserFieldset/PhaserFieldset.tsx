@@ -83,6 +83,16 @@ export const PhaserFieldset: React.FC<Props> = () => {
     X('noise').module('phaser').param({ rate });
   }, []);
 
+  const onChangeResonanceCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    const resonance = event.currentTarget.valueAsNumber;
+
+    X('mixer').module('phaser').param({ resonance });
+    X('oneshot').module('phaser').param({ resonance });
+    X('audio').module('phaser').param({ resonance });
+    X('stream').module('phaser').param({ resonance });
+    X('noise').module('phaser').param({ resonance });
+  }, []);
+
   const onChangeMixCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const mix = event.currentTarget.valueAsNumber;
 
@@ -156,6 +166,16 @@ export const PhaserFieldset: React.FC<Props> = () => {
           max={5}
           step={0.05}
           onChange={onChangeRateCallback}
+        />
+        <Spacer space={8} />
+        <ParameterController
+          label="Resonance"
+          id="phaser-resonance"
+          defaultValue={1}
+          min={1}
+          max={20}
+          step={1}
+          onChange={onChangeResonanceCallback}
         />
         <Spacer space={8} />
         <ParameterController
