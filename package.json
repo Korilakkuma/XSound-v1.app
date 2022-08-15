@@ -74,10 +74,6 @@
     "xsound": "^3.0.4"
   },
   "devDependencies": {
-    "@linaria/babel-preset": "^3.0.0-beta.15",
-    "@linaria/core": "^3.0.0-beta.15",
-    "@linaria/react": "^3.0.0-beta.15",
-    "@linaria/shaker": "^3.0.0-beta.15",
     "@storybook/addon-actions": "^6.5.9",
     "@storybook/addon-essentials": "^6.5.9",
     "@storybook/addon-links": "^6.5.9",
