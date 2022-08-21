@@ -61,28 +61,35 @@ export const MML: React.FC<Props> = (props: Props) => {
     const melody = currentMelody.replace(CLEAR_HIGHLIGHT_REGEXP, '$1');
     const bass   = currentBass.replace(CLEAR_HIGHLIGHT_REGEXP, '$1');
 
-    switch (currentSoundSource) {
-      case 'oscillator':
-        X('mml').ready({ source: X('oscillator'), mmls: [melody] });
-        window.C('mml').ready({ source: window.C('oscillator'), mmls: [bass] });
-        break;
-      case 'piano':
-        X('mml').ready({ source: X('oneshot'), mmls: [melody, bass], offset: 0 });
-        break;
-      case 'guitar':
-        X('mml').ready({ source: X('oneshot'), mmls: [melody, bass], offset: NUMBER_OF_PIANO_KEYBOARDS });
-        break;
-      case 'electric-guitar':
-        X('mml').ready({ source: X('oneshot'), mmls: [melody, bass], offset: (2 * NUMBER_OF_PIANO_KEYBOARDS) });
-        break;
-      case 'whitenoise'   :
-      case 'pinknoise'    :
-      case 'browniannoise':
-        X('mml').ready({ source: X('noise'), mmls: [melody] });
-        window.C('mml').ready({ source: X('noise'), mmls: [bass] });
-        break;
-      default:
-        break;
+    try {
+      switch (currentSoundSource) {
+        case 'oscillator':
+          X('mml').ready({ source: X('oscillator'), mmls: [melody] });
+          window.C('mml').ready({ source: window.C('oscillator'), mmls: [bass] });
+          break;
+        case 'piano':
+          X('mml').ready({ source: X('oneshot'), mmls: [melody, bass], offset: 0 });
+          break;
+        case 'guitar':
+          X('mml').ready({ source: X('oneshot'), mmls: [melody, bass], offset: NUMBER_OF_PIANO_KEYBOARDS });
+          break;
+        case 'electric-guitar':
+          X('mml').ready({ source: X('oneshot'), mmls: [melody, bass], offset: (2 * NUMBER_OF_PIANO_KEYBOARDS) });
+          break;
+        case 'whitenoise'   :
+        case 'pinknoise'    :
+        case 'browniannoise':
+          X('mml').ready({ source: X('noise'), mmls: [melody] });
+          window.C('mml').ready({ source: X('noise'), mmls: [bass] });
+          break;
+        default:
+          break;
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        setErrorMessageForMMLMelody(error.message);
+        setErrorMessageForMMLBass(error.message);
+      }
     }
   }, [currentSoundSource]);
 
