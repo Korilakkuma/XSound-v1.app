@@ -61,35 +61,28 @@ export const MML: React.FC<Props> = (props: Props) => {
     const melody = currentMelody.replace(CLEAR_HIGHLIGHT_REGEXP, '$1');
     const bass   = currentBass.replace(CLEAR_HIGHLIGHT_REGEXP, '$1');
 
-    try {
-      switch (currentSoundSource) {
-        case 'oscillator':
-          X('mml').ready({ source: X('oscillator'), mmls: [melody] });
-          window.C('mml').ready({ source: window.C('oscillator'), mmls: [bass] });
-          break;
-        case 'piano':
-          X('mml').ready({ source: X('oneshot'), mmls: [melody, bass], offset: 0 });
-          break;
-        case 'guitar':
-          X('mml').ready({ source: X('oneshot'), mmls: [melody, bass], offset: NUMBER_OF_PIANO_KEYBOARDS });
-          break;
-        case 'electric-guitar':
-          X('mml').ready({ source: X('oneshot'), mmls: [melody, bass], offset: (2 * NUMBER_OF_PIANO_KEYBOARDS) });
-          break;
-        case 'whitenoise'   :
-        case 'pinknoise'    :
-        case 'browniannoise':
-          X('mml').ready({ source: X('noise'), mmls: [melody] });
-          window.C('mml').ready({ source: X('noise'), mmls: [bass] });
-          break;
-        default:
-          break;
-      }
-    } catch (error) {
-      if (error instanceof Error) {
-        setErrorMessageForMMLMelody(error.message);
-        setErrorMessageForMMLBass(error.message);
-      }
+    switch (currentSoundSource) {
+      case 'oscillator':
+        X('mml').ready({ source: X('oscillator'), mmls: [melody] });
+        window.C('mml').ready({ source: window.C('oscillator'), mmls: [bass] });
+        break;
+      case 'piano':
+        X('mml').ready({ source: X('oneshot'), mmls: [melody, bass], offset: 0 });
+        break;
+      case 'guitar':
+        X('mml').ready({ source: X('oneshot'), mmls: [melody, bass], offset: NUMBER_OF_PIANO_KEYBOARDS });
+        break;
+      case 'electric-guitar':
+        X('mml').ready({ source: X('oneshot'), mmls: [melody, bass], offset: (2 * NUMBER_OF_PIANO_KEYBOARDS) });
+        break;
+      case 'whitenoise'   :
+      case 'pinknoise'    :
+      case 'browniannoise':
+        X('mml').ready({ source: X('noise'), mmls: [melody] });
+        window.C('mml').ready({ source: X('noise'), mmls: [bass] });
+        break;
+      default:
+        break;
     }
   }, [currentSoundSource]);
 
@@ -139,13 +132,15 @@ export const MML: React.FC<Props> = (props: Props) => {
   }, [dispatch, readyMMLCallback]);
 
   const errorCallbackForMelody = useCallback((error: MMLSyntaxError) => {
-    switch (error.token) {
+    const token = error.token;
+
+    switch (token.type) {
       case 'TEMPO' :
       case 'OCTAVE':
       case 'NOTE'  :
       case 'REST'  :
       case 'TIE'   :
-        setErrorMessageForMMLMelody(`${error.token.toLowerCase()} is invalid`);
+        setErrorMessageForMMLMelody(`${token.token.toUpperCase()} is invalid`);
         break;
       default:
         setErrorMessageForMMLMelody('MML is invalid');
@@ -154,13 +149,15 @@ export const MML: React.FC<Props> = (props: Props) => {
   }, []);
 
   const errorCallbackForBass = useCallback((error: MMLSyntaxError) => {
-    switch (error.token) {
+    const token = error.token;
+
+    switch (token.type) {
       case 'TEMPO' :
       case 'OCTAVE':
       case 'NOTE'  :
       case 'REST'  :
       case 'TIE'   :
-        setErrorMessageForMMLBass(`${error.token.toLowerCase()} is invalid`);
+        setErrorMessageForMMLBass(`${token.token.toUpperCase()} is invalid`);
         break;
       default:
         setErrorMessageForMMLBass('MML is invalid');
