@@ -524,7 +524,7 @@ export const MML: React.FC<Props> = (props: Props) => {
     <div id="mml-fieldset" aria-hidden={!active} className={`MML${active ? ' -active' : ''}`}>
       <div className="MML__editor">
         <dl>
-          <dt>Melody{errorMessageForMMLMelody ? <span className="MML__error">{errorMessageForMMLMelody}</span> : null}</dt>
+          <dt>Melody{errorMessageForMMLMelody ? <span className="MML__error" role="alert">{errorMessageForMMLMelody}</span> : null}</dt>
           <dd
             contentEditable={active && paused}
             dangerouslySetInnerHTML={{ __html: melody }}
@@ -534,7 +534,7 @@ export const MML: React.FC<Props> = (props: Props) => {
           />
         </dl>
         <dl>
-          <dt>Bass{errorMessageForMMLBass ? <span className="MML__error">{errorMessageForMMLBass}</span> : null}</dt>
+          <dt>Bass{errorMessageForMMLBass ? <span className="MML__error" role="alert">{errorMessageForMMLBass}</span> : null}</dt>
           <dd
             contentEditable={active && paused}
             dangerouslySetInnerHTML={{ __html: bass }}
