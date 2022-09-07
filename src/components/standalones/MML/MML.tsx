@@ -419,8 +419,6 @@ export const MML: React.FC<Props> = (props: Props) => {
       return;
     }
 
-    let unmounted = false;
-
     X('mml').setup({
       startCallback: startMelodyCallback,
       stopCallback : stopMelodyCallback,
@@ -443,17 +441,9 @@ export const MML: React.FC<Props> = (props: Props) => {
         fetch('/assets/mmls/seifuku-no-mannequin.json')
       ])
       .then((responses: Response[]) => {
-        if (unmounted) {
-          return Promise.reject();
-        }
-
         return responses.map((response: Response) => response.json());
       })
       .then((promises: Promise<MMLDescriptor>[]) => {
-        if (unmounted) {
-          return;
-        }
-
         promises.forEach((promise: Promise<MMLDescriptor>) => {
           promise
             .then((json: MMLDescriptor) => {
@@ -499,10 +489,6 @@ export const MML: React.FC<Props> = (props: Props) => {
       .finally(() => {
         setLoaded(true);
       });
-
-    return () => {
-      unmounted = true;
-    };
   }, [
     loadedApp,
     loaded,

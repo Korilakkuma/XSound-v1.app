@@ -753,11 +753,7 @@ export const App: React.FC<Props> = () => {
   }, [getBufferIndexCallback, calculatePianoRateCallback, calculateGuitarRateCallback, calculateElectricGuitarRateCallback]);
 
   // Load impulse responses
-  const loadRIRsCallback = useCallback((unmounted: boolean) => {
-    if (unmounted) {
-      return;
-    }
-
+  const loadRIRsCallback = useCallback(() => {
     const rirs: AudioBuffer[] = [];
 
     rirDescriptors.forEach((rirDescriptor: RIRDescriptor) => {
@@ -812,8 +808,6 @@ export const App: React.FC<Props> = () => {
 
   // Initialization for using XSound
   useEffect(() => {
-    let unmounted = false;
-
     // Clone X object as global object
     window.C = X.clone();  // for MML of OscillatorModule
 
@@ -917,22 +911,14 @@ export const App: React.FC<Props> = () => {
         settings       : createOneshotSettingsCallback(),
         timeout        : AJAX_TIMEOUT,
         successCallback: () => {
-          if (unmounted) {
-            return;
-          }
-
           // Next, Load RIRs
           if (rirDescriptors.length === 0) {
             setProgress(false);
           } else {
-            loadRIRsCallback(unmounted);
+            loadRIRsCallback();
           }
         },
         errorCallback  : () => {
-          if (unmounted) {
-            return;
-          }
-
           setErrorMessage('The loading of audio files failed.');
           setIsShowModalForAjax(true);
         }
@@ -952,10 +938,6 @@ export const App: React.FC<Props> = () => {
     X('noise').module('recorder').setup(NUMBER_OF_CHANNELS, NUMBER_OF_TRACKS);
 
     setLoadedApp(true);
-
-    return () => {
-      unmounted = true;
-    };
   }, [oneshots, rirDescriptors.length, createOneshotSettingsCallback, loadRIRsCallback]);
 
   return (
