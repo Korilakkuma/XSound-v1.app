@@ -15,7 +15,7 @@ import { ProgressBar } from '../../atoms/ProgressBar';
 import { Modal } from '../../atoms/Modal';
 import { SelectableModal } from '../../helpers/SelectableModal';
 import { NUMBER_OF_PIANO_KEYBOARDS } from '../../../config';
-import { X, Sequence, MMLSyntaxError, FileEvent, FileReaderErrorText } from 'xsound';
+import { X, Sequence, MMLSyntaxError, FileEvent, FileReaderErrorText, drop, file, toTextFile } from 'xsound';
 
 export interface Props {
   loadedApp: boolean;
@@ -39,8 +39,8 @@ export const MML: React.FC<Props> = (props: Props) => {
   const [bassIndex, setBassIndex] = useState<number>(0);
   const [dataURL, setDataURL] = useState<string>('');
   const [filename, setFilename] = useState<string>('');
-  const [drag, setDrag] = useState<boolean>(false);
-  const [drop, setDrop] = useState<boolean>(false);
+  const [dragging, setDragging] = useState<boolean>(false);
+  const [dropped, setDropped] = useState<boolean>(false);
   const [showProgress, setShowProgress] = useState<boolean>(false);
   const [loadedByte, setLoadedByte] = useState<number>(0);
   const [rate, setRate] = useState<number>(0);
@@ -278,7 +278,7 @@ export const MML: React.FC<Props> = (props: Props) => {
       bass       : currentBass
     });
 
-    setDataURL(X.toTextFile(json, true));
+    setDataURL(toTextFile(json, true));
   }, [melody, bass]);
 
   const onChangeHightlightCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -286,7 +286,7 @@ export const MML: React.FC<Props> = (props: Props) => {
   }, []);
 
   const onChangeFileCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = X.file({
+    const uploadedFile = file({
       event           : event.nativeEvent as FileEvent,  // HACK:
       type            : 'json',
       successCallback : (_: ProgressEvent, mmls: ReturnType<typeof JSON.parse>) => {
@@ -321,17 +321,17 @@ export const MML: React.FC<Props> = (props: Props) => {
       }
     });
 
-    if (file === null) {
+    if (uploadedFile === null) {
       setErrorMessage('Please upload file');
       setIsShowModalForFileUploadError(true);
-    } else if (typeof file !== 'string') {
+    } else if (typeof uploadedFile !== 'string') {
       setFilename(file.name);
     }
   }, [melody, bass, readyMMLCallback]);
 
   const onDragEnterCallback = useCallback((event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
-    setDrag(true);
+    setDragging(true);
   }, []);
 
   const onDragOverCallback = useCallback((event: React.DragEvent<HTMLDivElement>) => {
@@ -340,13 +340,11 @@ export const MML: React.FC<Props> = (props: Props) => {
 
   const onDragLeaveCallback = useCallback((event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
-    setDrag(false);
+    setDragging(false);
   }, []);
 
   const onDropCallback = useCallback((event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-
-    const file = X.drop({
+    const uploadedFile = drop({
       event           : event.nativeEvent,
       type            : 'json',
       successCallback : (_: ProgressEvent, mmls: ReturnType<typeof JSON.parse>) => {
@@ -380,15 +378,15 @@ export const MML: React.FC<Props> = (props: Props) => {
       }
     });
 
-    if (file === null) {
+    if (uploadedFile === null) {
       setErrorMessage('Please drop file');
       setIsShowModalForFileUploadError(true);
     } else if (typeof file !== 'string') {
       setFilename(file.name);
     }
 
-    setDrag(false);
-    setDrop(true);
+    setDragging(false);
+    setDropped(true);
   }, [melody, bass, readyMMLCallback]);
 
   const onCloseModalCallback = useCallback(() => {
@@ -569,8 +567,8 @@ export const MML: React.FC<Props> = (props: Props) => {
           disabled={!paused}
           placeholder="MML JSON file"
           filename={filename}
-          drag={drag}
-          drop={drop}
+          drag={dragging}
+          drop={dropped}
           tabIndex={active ? 0 : -1}
           onChange={onChangeFileCallback}
           onDragEnter={onDragEnterCallback}

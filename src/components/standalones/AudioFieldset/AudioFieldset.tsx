@@ -6,7 +6,7 @@ import { Button } from '../../atoms/Button';
 import { ProgressBar } from '../../atoms/ProgressBar';
 import { Modal } from '../../atoms/Modal';
 import { ParameterController } from '../../helpers/ParameterController';
-import { X, FileEvent, FileReaderErrorText } from 'xsound';
+import { X, convertTime, drop, file, FileEvent, FileReaderErrorText } from 'xsound';
 
 export interface Props {
   loadedApp: boolean;
@@ -19,8 +19,8 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
   const [paused, setPaused] = useState<boolean>(true);
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [duration, setDuration] = useState<number>(0);
-  const [drag, setDrag] = useState<boolean>(false);
-  const [drop, setDrop] = useState<boolean>(false);
+  const [dragging, setDragging] = useState<boolean>(false);
+  const [dropped, setDropped] = useState<boolean>(false);
   const [showProgress, setShowProgress] = useState<boolean>(false);
   const [loadedByte, setLoadedByte] = useState<number>(0);
   const [rate, setRate] = useState<number>(0);
@@ -39,7 +39,7 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
   }, []);
 
   const onChangeFileCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = X.file({
+    const uploadedFile = file({
       event           : event.nativeEvent as FileEvent,  // HACK:
       type            : 'arraybuffer',
       successCallback : (_: ProgressEvent, arraybuffer: ArrayBuffer) => {
@@ -62,17 +62,17 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
       }
     });
 
-    if (file === null) {
+    if (uploadedFile === null) {
       setErrorMessage('Please upload file');
       setIsShowModalForFileUploadError(true);
-    } else if (typeof file !== 'string') {
-      setFilename(file.name);
+    } else if (typeof uploadedFile !== 'string') {
+      setFilename(uploadedFile.name);
     }
   }, [startDecodeCallback]);
 
   const onDragEnterCallback = useCallback((event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
-    setDrag(true);
+    setDragging(true);
   }, []);
 
   const onDragOverCallback = useCallback((event: React.DragEvent<HTMLDivElement>) => {
@@ -81,11 +81,11 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
 
   const onDragLeaveCallback = useCallback((event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
-    setDrag(false);
+    setDragging(false);
   }, []);
 
   const onDropCallback = useCallback((event: React.DragEvent<HTMLDivElement>) => {
-    const file = X.drop({
+    const uploadedFile = drop({
       event           : event.nativeEvent,
       type            : 'arraybuffer',
       successCallback : (_: ProgressEvent, arraybuffer: ArrayBuffer) => {
@@ -106,15 +106,15 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
       }
     });
 
-    if (file === null) {
+    if (uploadedFile === null) {
       setErrorMessage('Please drop file');
       setIsShowModalForFileUploadError(true);
-    } else if (typeof file !== 'string') {
-      setFilename(file.name);
+    } else if (typeof uploadedFile !== 'string') {
+      setFilename(uploadedFile.name);
     }
 
-    setDrag(false);
-    setDrop(true);
+    setDragging(false);
+    setDropped(true);
   }, [startDecodeCallback]);
 
   const onClickCallback = useCallback(() => {
@@ -188,8 +188,8 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
     setIsShowModalForDecodingError(true);
   }, []);
 
-  const convertedCurrenTime = useMemo(() => X.convertTime(currentTime), [currentTime]);
-  const convertedDuration   = useMemo(() => X.convertTime(duration), [duration]);
+  const convertedCurrenTime = useMemo(() => convertTime(currentTime), [currentTime]);
+  const convertedDuration   = useMemo(() => convertTime(duration), [duration]);
 
   const currentTimeText = useMemo(() => `${formatAudioTime(convertedCurrenTime)}`, [convertedCurrenTime]);
   const durationText    = useMemo(() => `${formatAudioTime(convertedDuration)}`, [convertedDuration]);
@@ -231,8 +231,8 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
             disabled={false}
             placeholder="Audio File (wav, ogg, mp3 ... etc)"
             filename={filename}
-            drag={drag}
-            drop={drop}
+            drag={dragging}
+            drop={dropped}
             onChange={onChangeFileCallback}
             onDragEnter={onDragEnterCallback}
             onDragOver={onDragOverCallback}

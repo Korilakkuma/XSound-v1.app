@@ -6,7 +6,7 @@ import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
 import { Piano } from './Piano';
 import '../../../main.css';
 
-import { X, OneshotSetting, OneshotSettings } from 'xsound';
+import { X, OneshotSetting, OneshotSettings, clone } from 'xsound';
 
 export default {
   component: Piano
@@ -112,7 +112,7 @@ const Template: ComponentStoryObj<typeof Piano> = {
         return;
       }
 
-      window.C = X.clone();
+      window.C = clone();
 
       X('oscillator').setup([true, true, true, true]);
       window.C('oscillator').setup([true, true, true, true]);

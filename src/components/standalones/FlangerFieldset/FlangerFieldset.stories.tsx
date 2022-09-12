@@ -4,7 +4,7 @@ import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
 import { FlangerFieldset } from './FlangerFieldset';
 import '../../../main.css';
 
-import { X } from 'xsound';
+import { X, ajax } from 'xsound';
 
 export default {
   component: FlangerFieldset
@@ -26,7 +26,7 @@ const Template: ComponentStoryObj<typeof FlangerFieldset> = {
         }
       });
 
-      X.ajax({
+      ajax({
         url            : 'https://weblike-curtaincall.ssl-lolipop.jp/assets/wav/forever-love-piano-instruments.wav',
         timeout        : 60000,
         successCallback: (event: ProgressEvent, arraybuffer: ArrayBuffer) => {

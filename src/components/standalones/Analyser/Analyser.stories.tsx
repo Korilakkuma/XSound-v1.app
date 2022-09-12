@@ -6,7 +6,7 @@ import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
 import { Analyser } from './Analyser';
 import '../../../main.css';
 
-import { X } from 'xsound';
+import { X, ajax } from 'xsound';
 
 export default {
   component: Analyser
@@ -28,7 +28,7 @@ const Template: ComponentStoryObj<typeof Analyser> = {
         }
       });
 
-      X.ajax({
+      ajax({
         url            : 'https://weblike-curtaincall.ssl-lolipop.jp/assets/wav/forever-love-piano-instruments.wav',
         timeout        : 60000,
         successCallback: (event: ProgressEvent, arraybuffer: ArrayBuffer) => {

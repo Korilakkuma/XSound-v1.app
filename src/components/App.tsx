@@ -28,7 +28,7 @@ import { DelayFieldset } from './standalones/DelayFieldset';
 import { ReverbFieldset } from './standalones/ReverbFieldset';
 import { Footer } from './standalones/Footer';
 import { BASE_URL, NUMBER_OF_ONESHOTS, NUMBER_OF_CHANNELS, NUMBER_OF_TRACKS, AJAX_TIMEOUT } from '../config';
-import { X, OneshotSetting, OneshotSettings } from 'xsound';
+import { X, OneshotSetting, OneshotSettings, clone, free, ajax, decode, get } from 'xsound';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Props {
@@ -757,12 +757,12 @@ export const App: React.FC<Props> = () => {
     const rirs: AudioBuffer[] = [];
 
     rirDescriptors.forEach((rirDescriptor: RIRDescriptor) => {
-      X.ajax({
+      ajax({
         url            : rirDescriptor.url,
         type           : 'arraybuffer',
         timeout        : AJAX_TIMEOUT,
         successCallback: (event: ProgressEvent, arrayBuffer: ArrayBuffer) => {
-          X.decode(X.get(), arrayBuffer, (audioBuffer: AudioBuffer) => {
+          decode(get(), arrayBuffer, (audioBuffer: AudioBuffer) => {
             rirs.push(audioBuffer);
 
             const rate = Math.trunc((rirs.length / rirDescriptors.length) * 100);
@@ -809,10 +809,10 @@ export const App: React.FC<Props> = () => {
   // Initialization for using XSound
   useEffect(() => {
     // Clone X object as global object
-    window.C = X.clone();  // for MML of OscillatorModule
+    window.C = clone();  // for MML of OscillatorModule
 
     // Not used
-    X.free([X('media')]);
+    free([X('media')]);
 
     window.C.free([
       window.C('oneshot'),

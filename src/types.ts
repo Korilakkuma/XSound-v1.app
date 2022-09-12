@@ -1,11 +1,11 @@
-import { X } from 'xsound';
+import { clone } from 'xsound';
 import { Action } from 'redux';
 import { store } from './store';
 import { ActionTypes } from './actions/ActionTypes';
 
 declare global {
   interface Window {
-    C: ReturnType<typeof X.clone>;
+    C: ReturnType<typeof clone>;
   }
 }
 

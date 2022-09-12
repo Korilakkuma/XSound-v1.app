@@ -12,7 +12,7 @@ import { Select } from '../../atoms/Select';
 import { Modal } from '../../atoms/Modal';
 import { ParameterController } from '../../helpers/ParameterController';
 import { NUMBER_OF_ONESHOTS } from '../../../config';
-import { X } from 'xsound';
+import { X, toFrequencies } from 'xsound';
 
 export interface Props {
   currentSoundSource: SoundSource;
@@ -91,8 +91,8 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
         window.C('oscillator').get(i).param({ volume });
       }
 
-      X('oscillator').ready(0, 0).start(X.toFrequencies(indexes));
-      window.C('oscillator').ready(0, 0).start(X.toFrequencies(indexes));
+      X('oscillator').ready(0, 0).start(toFrequencies(indexes));
+      window.C('oscillator').ready(0, 0).start(toFrequencies(indexes));
 
       X('mixer').start([X('oscillator'), window.C('oscillator')], [volume, volume]);
 

@@ -4,7 +4,7 @@ import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
 import { FilterFieldset } from './FilterFieldset';
 import '../../../main.css';
 
-import { X } from 'xsound';
+import { X, toFrequencies } from 'xsound';
 
 export default {
   component: FilterFieldset
@@ -17,7 +17,7 @@ const Template: ComponentStoryObj<typeof FilterFieldset> = {
 
     const onClickCallback = useCallback(() => {
       if (isStop) {
-        X('oscillator').start(X.toFrequencies([40, (40 + 4), (40 + 7), (40 + 10)]));
+        X('oscillator').start(toFrequencies([40, (40 + 4), (40 + 7), (40 + 10)]));
       } else {
         X('oscillator').stop();
       }
