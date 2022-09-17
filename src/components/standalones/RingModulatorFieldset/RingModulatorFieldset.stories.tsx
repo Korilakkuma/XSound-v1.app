@@ -4,7 +4,7 @@ import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
 import { RingModulatorFieldset } from './RingModulatorFieldset';
 import '../../../main.css';
 
-import { X, ajax } from 'xsound';
+import { X } from 'xsound';
 
 export default {
   component: RingModulatorFieldset
@@ -26,7 +26,7 @@ const Template: ComponentStoryObj<typeof RingModulatorFieldset> = {
         }
       });
 
-      ajax({
+      X.ajax({
         url            : 'https://weblike-curtaincall.ssl-lolipop.jp/assets/wav/forever-love-piano-instruments.wav',
         timeout        : 60000,
         successCallback: (event: ProgressEvent, arraybuffer: ArrayBuffer) => {

@@ -17,7 +17,6 @@ export const OscillatorFieldset: React.FC<Props> = (props: Props) => {
   const [oscillator, setOscillator] = useState<boolean>(oscillatorNumber === 0);
   const [type, setType] = useState<OscillatorType>('sawtooth');
 
-
   const onChangeStateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const checked = event.currentTarget.checked;
 

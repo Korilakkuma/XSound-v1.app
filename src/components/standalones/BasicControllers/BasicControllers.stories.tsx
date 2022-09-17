@@ -7,7 +7,7 @@ import { BasicControllers } from './BasicControllers';
 import '../../../main.css';
 
 import { SoundSource } from '../../../types';
-import { X, OneshotSetting, OneshotSettings, clone, toFrequencies } from 'xsound';
+import { X, OneshotSetting, OneshotSettings } from 'xsound';
 
 export default {
   component: BasicControllers
@@ -114,7 +114,7 @@ const Template: ComponentStoryObj<typeof BasicControllers> = {
 
     const onClickOscillatorCallback = useCallback(() => {
       if (isOscillatorStop) {
-        X('oscillator').start(toFrequencies([40, (40 + 4), (40 + 7), (40 + 10)]));
+        X('oscillator').start(X.toFrequencies([40, (40 + 4), (40 + 7), (40 + 10)]));
       } else {
         X('oscillator').stop();
       }
@@ -137,7 +137,7 @@ const Template: ComponentStoryObj<typeof BasicControllers> = {
         return;
       }
 
-      window.C = clone();
+      window.C = X.clone();
 
       X('oscillator').setup([true, true, true, true]);
       window.C('oscillator').setup([true, true, true, true]);

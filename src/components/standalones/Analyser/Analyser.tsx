@@ -5,7 +5,7 @@ import { formatAudioTime } from '../../../utils';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
 import { ParameterController } from '../../helpers/ParameterController';
-import { X, AnalyserParams, TimeOverviewParams, TimeParams, FFTParams, DragMode, DragCallbackFunction, convertTime } from 'xsound';
+import { X, AnalyserParams, TimeOverviewParams, TimeParams, FFTParams, DragMode, DragCallbackFunction } from 'xsound';
 
 export interface Props {
   loadedApp: boolean;
@@ -192,8 +192,8 @@ export const Analyser: React.FC<Props> = (props: Props) => {
       }
 
       if ((event.type === 'mousemove') || (event.type === 'touchmove')) {
-        const convertedStartTime = convertTime(startTime);
-        const convertedEndTime = convertTime(endTime);
+        const convertedStartTime = X.convertTime(startTime);
+        const convertedEndTime = X.convertTime(endTime);
 
         setDragTime(`${formatAudioTime(convertedStartTime)} - ${formatAudioTime(convertedEndTime)}`);
         return;

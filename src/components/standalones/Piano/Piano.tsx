@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { IState, SoundSource } from '../../../types';
 import { NUMBER_OF_PIANO_KEYBOARDS } from '../../../config';
-import { X, toFrequencies } from 'xsound';
+import { X } from 'xsound';
 
 export interface Props {
   currentSoundSource: SoundSource;
@@ -45,8 +45,8 @@ export const Piano: React.FC<Props> = (props: Props) => {
 
     switch (props.currentSoundSource) {
       case 'oscillator':
-        X('oscillator').ready(0, 0).start(toFrequencies([index, -1, -1, -1]));
-        window.C('oscillator').ready(0, 0).start(toFrequencies([index, -1, -1, -1]));
+        X('oscillator').ready(0, 0).start(X.toFrequencies([index, -1, -1, -1]));
+        window.C('oscillator').ready(0, 0).start(X.toFrequencies([index, -1, -1, -1]));
 
         X('mixer').start([X('oscillator'), window.C('oscillator')], [1, 1]);
 

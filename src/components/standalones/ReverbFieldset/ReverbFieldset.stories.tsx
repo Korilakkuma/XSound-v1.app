@@ -5,7 +5,7 @@ import { ReverbFieldset } from './ReverbFieldset';
 import '../../../main.css';
 
 import { RIRDescriptor } from '../../../types';
-import { X, ajax, decode, get } from 'xsound';
+import { X } from 'xsound';
 
 export default {
   component: ReverbFieldset
@@ -37,12 +37,12 @@ const Template: ComponentStoryObj<typeof ReverbFieldset> = {
       });
 
       rirDescriptors.forEach((rirDescriptor: RIRDescriptor) => {
-        ajax({
+        X.ajax({
           url            : rirDescriptor.url,
           type           : 'arraybuffer',
           timeout        : 60000,
           successCallback: (event: ProgressEvent, arraybuffer: ArrayBuffer) => {
-            decode(get(), arraybuffer, (audiobuffer: AudioBuffer) => {
+            X.decode(X.get(), arraybuffer, (audiobuffer: AudioBuffer) => {
               rirs.push(audiobuffer);
 
               if (rirs.length === rirDescriptors.length) {
@@ -53,7 +53,7 @@ const Template: ComponentStoryObj<typeof ReverbFieldset> = {
         });
       });
 
-      ajax({
+      X.ajax({
         url            : 'https://weblike-curtaincall.ssl-lolipop.jp/assets/wav/forever-love-piano-instruments.wav',
         timeout        : 60000,
         successCallback: (event: ProgressEvent, arraybuffer: ArrayBuffer) => {

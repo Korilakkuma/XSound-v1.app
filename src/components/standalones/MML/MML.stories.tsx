@@ -6,7 +6,7 @@ import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
 import { MML } from './MML';
 import '../../../main.css';
 
-import { X, OneshotSetting, OneshotSettings, clone } from 'xsound';
+import { X, OneshotSetting, OneshotSettings } from 'xsound';
 
 export default {
   component: MML
@@ -112,7 +112,7 @@ const Template: ComponentStoryObj<typeof MML> = {
         return;
       }
 
-      window.C = clone();
+      window.C = X.clone();
 
       X('oscillator').setup([true, true, true, true]);
       window.C('oscillator').setup([true, true, true, true]);

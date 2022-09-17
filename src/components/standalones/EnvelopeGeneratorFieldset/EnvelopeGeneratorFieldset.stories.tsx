@@ -5,7 +5,7 @@ import { EnvelopeGeneratorFieldset } from './EnvelopeGeneratorFieldset';
 import '../../../main.css';
 
 import '../../../types';
-import { X, clone, toFrequencies } from 'xsound';
+import { X } from 'xsound';
 
 export default {
   component: EnvelopeGeneratorFieldset
@@ -18,8 +18,8 @@ const Template: ComponentStoryObj<typeof EnvelopeGeneratorFieldset> = {
 
     const onClickCallback = useCallback(() => {
       if (isStop) {
-        X('oscillator').start(toFrequencies([40, (40 + 4), (40 + 7), (40 + 10)]));
-        window.C('oscillator').start(toFrequencies([28, (28 + 4), (28 + 7), (28 + 10)]));
+        X('oscillator').start(X.toFrequencies([40, (40 + 4), (40 + 7), (40 + 10)]));
+        window.C('oscillator').start(X.toFrequencies([28, (28 + 4), (28 + 7), (28 + 10)]));
       } else {
         X('oscillator').stop();
         window.C('oscillator').stop();
@@ -33,7 +33,7 @@ const Template: ComponentStoryObj<typeof EnvelopeGeneratorFieldset> = {
         return;
       }
 
-      window.C = clone();
+      window.C = X.clone();
 
       X('oscillator').setup([true, true, true, true]);
       window.C('oscillator').setup([true, true, true, true]);
