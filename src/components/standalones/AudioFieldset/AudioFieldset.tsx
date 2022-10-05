@@ -268,7 +268,7 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
               defaultValue={1}
               min={0.05}
               max={4}
-              step={0.05}
+              step={0.025}
               onChange={onChangePitchCallback}
             />
           )
@@ -279,7 +279,7 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
               defaultValue={1}
               min={0.05}
               max={2}
-              step={0.05}
+              step={0.025}
               onChange={onChangePlaybackRate}
             />
           )}
