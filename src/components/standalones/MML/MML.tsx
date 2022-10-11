@@ -24,7 +24,7 @@ export interface Props {
 
 const CLEAR_HIGHLIGHT_REGEXP = /<span class="x-highlight">(.+?)<\/span>/g;
 
-// HACK:
+// HACK: Prevent from updating local state on confirm
 const savedMMLs = ['', ''];
 
 export const MML: React.FC<Props> = (props: Props) => {
