@@ -291,6 +291,7 @@ export const MML: React.FC<Props> = (props: Props) => {
       type            : 'json',
       successCallback : (_: ProgressEvent, mmls: ReturnType<typeof JSON.parse>) => {
         event.target.value = '';
+
         if (melody || bass) {
           savedMMLs[0] = mmls.melody;
           savedMMLs[1] = mmls.bass;
@@ -404,6 +405,7 @@ export const MML: React.FC<Props> = (props: Props) => {
   }, [readyMMLCallback]);
 
   const onClickCancelCallback = useCallback(() => {
+    setFilename('');
     setIsShowModalConfirmation(false);
   }, []);
 
