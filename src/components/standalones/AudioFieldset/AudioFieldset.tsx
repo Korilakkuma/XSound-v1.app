@@ -38,12 +38,12 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
     setIsShowModalForDecoding(true);
   }, []);
 
-  const onChangeFileCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeFileCallback = useCallback((event: React.BaseSyntheticEvent<FileEvent>) => {
     const file = X.file({
-      event           : event.nativeEvent as FileEvent,  // HACK:
+      event           : event.nativeEvent,
       type            : 'arraybuffer',
       successCallback : (_: ProgressEvent, arraybuffer: ArrayBuffer) => {
-        event.target.value = '';
+        event.nativeEvent.target.value = '';
 
         startDecodeCallback();
         X('audio').ready(arraybuffer);

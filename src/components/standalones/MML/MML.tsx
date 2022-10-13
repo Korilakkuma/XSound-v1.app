@@ -285,12 +285,12 @@ export const MML: React.FC<Props> = (props: Props) => {
     setHighlight(event.currentTarget.checked);
   }, []);
 
-  const onChangeFileCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeFileCallback = useCallback((event: React.BaseSyntheticEvent<FileEvent>) => {
     const file = X.file({
-      event           : event.nativeEvent as FileEvent,  // HACK:
+      event           : event.nativeEvent,
       type            : 'json',
       successCallback : (_: ProgressEvent, mmls: ReturnType<typeof JSON.parse>) => {
-        event.target.value = '';
+        event.nativeEvent.target.value = '';
 
         if (melody || bass) {
           savedMMLs[0] = mmls.melody;
