@@ -89,6 +89,7 @@ export const ChorusFieldset: React.FC<Props> = () => {
             id="chorus-state"
             label="Chorus"
             checked={chorus}
+            labelAsText={false}
             onChange={onChangeStateCallback}
           />
         </legend>

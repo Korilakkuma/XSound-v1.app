@@ -79,6 +79,7 @@ export const EqualizerFieldset: React.FC<Props> = () => {
             id="equalizer-state"
             label="Equalizer"
             checked={equalizer}
+            labelAsText={false}
             onChange={onChangeStateCallback}
           />
         </legend>

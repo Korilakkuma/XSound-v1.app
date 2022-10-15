@@ -111,6 +111,7 @@ export const PhaserFieldset: React.FC<Props> = () => {
             id="phaser-state"
             label="Phaser"
             checked={phaser}
+            labelAsText={false}
             onChange={onChangeStateCallback}
           />
         </legend>

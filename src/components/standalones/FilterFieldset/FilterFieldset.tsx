@@ -133,6 +133,7 @@ export const FilterFieldset: React.FC<Props> = () => {
             id="filter-state"
             label="Filter"
             checked={filter}
+            labelAsText={false}
             onChange={onChangeStateCallback}
           />
         </legend>

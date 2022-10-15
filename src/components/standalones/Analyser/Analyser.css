@@ -88,13 +88,6 @@
   margin-top: 24px;
 }
 
-/* HACK */
-.Analyser__controllers > .Switch > label {
-  font-size: 12px;
-  color: var(--white);
-  text-transform: uppercase;
-}
-
 .Analyser.-active {
   padding: 24px 48px;
 }

@@ -59,6 +59,7 @@ export const AutopanFieldset: React.FC<Props> = () => {
             id="autopan-state"
             label="Autopan"
             checked={autopan}
+            labelAsText={false}
             onChange={onChangeStateCallback}
           />
         </legend>

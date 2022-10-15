@@ -107,6 +107,7 @@ export const ReverbFieldset: React.FC<Props> = (props: Props) => {
             id="reverb-state"
             label="Reverb"
             checked={reverb}
+            labelAsText={false}
             onChange={onChangeStateCallback}
           />
         </legend>

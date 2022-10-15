@@ -79,6 +79,7 @@ export const WahFieldset: React.FC<Props> = () => {
             id="wah-state"
             label="Wah"
             checked={wah}
+            labelAsText={false}
             onChange={onChangeStateCallback}
           />
         </legend>

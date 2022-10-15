@@ -343,6 +343,7 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
         id="analyser"
         label="Analyser"
         checked={analyserState}
+        labelAsText={true}
         controls="analyser-fieldset"
         onChange={onChangeAnalyserStateCallback}
       />
@@ -350,6 +351,7 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
         id="mml"
         label="MML"
         checked={mmlState}
+        labelAsText={true}
         controls="mml-fieldset"
         onChange={onChangeMMLStateCallback}
       />

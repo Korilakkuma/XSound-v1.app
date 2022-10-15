@@ -273,9 +273,10 @@ export const Analyser: React.FC<Props> = (props: Props) => {
       </div>
       <div className="Analyser__controllers">
         <Switch
-          label="Audio Sprite"
           id="analyser-audio-sprite-mode"
+          label="Audio Sprite"
           checked={analyser}
+          labelAsText={true}
           tabIndex={active ? 0 : -1}
           onChange={onChangeModeCallback}
         />

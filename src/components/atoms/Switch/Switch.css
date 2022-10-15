@@ -11,6 +11,12 @@
   padding: 0 4px;
 }
 
+.Switch.-text > label {
+  font-size: 12px;
+  color: var(--white);
+  text-transform: uppercase;
+}
+
 .Switch > label > span {
   cursor: pointer;
   display: inline-block;

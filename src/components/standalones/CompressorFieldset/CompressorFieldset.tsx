@@ -89,6 +89,7 @@ export const CompressorFieldset: React.FC<Props> = () => {
             id="compressor-state"
             label="Compressor"
             checked={compressor}
+            labelAsText={false}
             onChange={onChangeStateCallback}
           />
         </legend>

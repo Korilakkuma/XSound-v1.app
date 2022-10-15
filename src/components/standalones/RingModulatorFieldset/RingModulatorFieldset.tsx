@@ -59,6 +59,7 @@ export const RingModulatorFieldset: React.FC<Props> = () => {
             id="ringmodulator-state"
             label="Ring MOD."
             checked={ringmodulator}
+            labelAsText={false}
             onChange={onChangeStateCallback}
           />
         </legend>

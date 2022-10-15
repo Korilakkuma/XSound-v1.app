@@ -89,6 +89,7 @@ export const DelayFieldset: React.FC<Props> = () => {
             id="delay-state"
             label="Delay"
             checked={delay}
+            labelAsText={false}
             onChange={onChangeStateCallback}
           />
         </legend>

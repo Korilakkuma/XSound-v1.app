@@ -121,6 +121,7 @@ export const OscillatorFieldset: React.FC<Props> = (props: Props) => {
             id={`oscillator-fieldset-state-${oscillatorNumber}`}
             label={label}
             checked={oscillator}
+            labelAsText={false}
             onChange={onChangeStateCallback}
           />
         </legend>

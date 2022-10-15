@@ -99,6 +99,7 @@ export const FlangerFieldset: React.FC<Props> = () => {
             id="flanger-state"
             label="Flanger"
             checked={flanger}
+            labelAsText={false}
             onChange={onChangeStateCallback}
           />
         </legend>

@@ -562,6 +562,7 @@ export const MML: React.FC<Props> = (props: Props) => {
           id="mml-switch-highlight"
           label="Highlight"
           checked={highlight}
+          labelAsText={true}
           tabIndex={active ? 0 : -1}
           onChange={onChangeHightlightCallback}
         />

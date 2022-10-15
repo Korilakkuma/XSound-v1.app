@@ -133,6 +133,7 @@ export const DistortionFieldset: React.FC<Props> = () => {
             id="distortion-state"
             label="Distortion"
             checked={distortion}
+            labelAsText={false}
             onChange={onChangeStateCallback}
           />
         </legend>
@@ -221,6 +222,7 @@ export const DistortionFieldset: React.FC<Props> = () => {
           id="distortion-cabinet"
           label="cabinet"
           checked={cabinet}
+          labelAsText={true}
           onChange={onChangeCabinetCallback}
         />
       </fieldset>

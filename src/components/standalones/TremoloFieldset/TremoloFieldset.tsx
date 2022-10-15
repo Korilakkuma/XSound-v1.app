@@ -59,6 +59,7 @@ export const TremoloFieldset: React.FC<Props> = () => {
             id="tremolo-state"
             label="Tremolo"
             checked={tremolo}
+            labelAsText={false}
             onChange={onChangeStateCallback}
           />
         </legend>

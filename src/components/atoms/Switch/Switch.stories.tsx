@@ -19,17 +19,29 @@ const Template: ComponentStoryObj<typeof Switch> = {
 export const Primary = {
   ...Template,
   args: {
-    id     : 'primary-switch',
-    label  : 'checked false',
-    checked: false
+    id         : 'primary-switch',
+    label      : 'checked false',
+    checked    : false,
+    labelAsText: false
   }
 };
 
 export const Secondary = {
   ...Template,
   args: {
-    id     : 'secondary-switch',
-    label  : 'checked true',
-    checked: true
+    id         : 'secondary-switch',
+    label      : 'checked true',
+    checked    : true,
+    labelAsText: false
+  }
+};
+
+export const Tertiary = {
+  ...Template,
+  args: {
+    id         : 'tertiary-switch',
+    label      : 'checked false',
+    checked    : false,
+    labelAsText: true
   }
 };
