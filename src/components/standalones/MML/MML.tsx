@@ -594,9 +594,9 @@ export const MML: React.FC<Props> = (props: Props) => {
       </div>
       <Modal
         id="modal-mml-file-upload-error"
-        hasOverlay
         isShow={isShowModalForFileUploadError}
         title="Error"
+        hasOverlay={true}
         asAlert={true}
         onClose={onCloseModalCallback}
       >
@@ -604,16 +604,16 @@ export const MML: React.FC<Props> = (props: Props) => {
       </Modal>
       <Modal
         id="modal-mml-for-progress"
-        hasOverlay
         isShow={isShowModalForProgress}
         title="Progress ..."
+        hasOverlay={true}
         asAlert={false}
       >
         {showProgress ? <ProgressBar id="progress-bar-read-mml" label={`${loadedByte} bytes (${rate} %)`} rate={rate} /> : null}
       </Modal>
       <SelectableModal
-        hasOverlay
         id="modal-mml-confirmation"
+        hasOverlay={true}
         isShow={isShowModalConfirmation}
         title="Confirmation"
         first={{

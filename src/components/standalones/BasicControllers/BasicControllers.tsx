@@ -356,10 +356,10 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
         onChange={onChangeMMLStateCallback}
       />
       <Modal
-        hasOverlay
         id="modal-basic-midi-error"
         isShow={isShowModalForMIDIError}
         title="Error"
+        hasOverlay={true}
         asAlert={true}
         onClose={onCloseModalCallback}
       >

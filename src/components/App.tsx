@@ -985,20 +985,20 @@ export const App: React.FC<Props> = () => {
       </main>
       <Footer />
       <Modal
-        hasOverlay
         id="modal-app-ajax"
         isShow={isShowModalForAjax}
         title="Error"
+        hasOverlay={true}
         asAlert={true}
         onClose={onCloseModalForAjaxCallback}
       >
         {errorMessage}
       </Modal>
       <Modal
-        hasOverlay
         id="modal-app-decoding"
         isShow={isShowModalForDecoding}
         title="Error"
+        hasOverlay={true}
         asAlert={true}
         onClose={onCloseModalForDecodingCallback}
       >
