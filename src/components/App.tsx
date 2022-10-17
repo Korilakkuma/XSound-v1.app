@@ -945,39 +945,49 @@ export const App: React.FC<Props> = () => {
       <Header progress={progress} rate={rate} />
       <main>
         <Flexbox>
-          <OscillatorFieldset oscillatorNumber={0} label="Oscillator - 1" radioName="oscillator-type-0" />
-          <OscillatorFieldset oscillatorNumber={1} label="Oscillator - 2" radioName="oscillator-type-1" />
-          <EnvelopeGeneratorFieldset />
-          <RecorderFieldset loadedApp={loadedApp} />
-          <AudioFieldset loadedApp={loadedApp} />
+          <VerticalBox numberOfDivisions={5}>
+            <OscillatorFieldset oscillatorNumber={0} label="Oscillator - 1" radioName="oscillator-type-0" />
+          </VerticalBox>
+          <VerticalBox numberOfDivisions={5}>
+            <OscillatorFieldset oscillatorNumber={1} label="Oscillator - 2" radioName="oscillator-type-1" />
+          </VerticalBox>
+          <VerticalBox numberOfDivisions={5}>
+            <EnvelopeGeneratorFieldset />
+          </VerticalBox>
+          <VerticalBox numberOfDivisions={5}>
+            <RecorderFieldset loadedApp={loadedApp} />
+          </VerticalBox>
+          <VerticalBox numberOfDivisions={5}>
+            <AudioFieldset loadedApp={loadedApp} />
+          </VerticalBox>
         </Flexbox>
         <Analyser loadedApp={loadedApp} />
         <MML loadedApp={loadedApp} currentSoundSource={currentSoundSource} />
         <BasicControllers currentSoundSource={currentSoundSource} />
         <Piano currentSoundSource={currentSoundSource} />
         <Flexbox>
-          <VerticalBox>
+          <VerticalBox numberOfDivisions={6}>
             <CompressorFieldset />
             <DistortionFieldset />
           </VerticalBox>
-          <VerticalBox>
+          <VerticalBox numberOfDivisions={6}>
             <WahFieldset />
             <EqualizerFieldset />
           </VerticalBox>
-          <VerticalBox>
+          <VerticalBox numberOfDivisions={6}>
             <FilterFieldset />
             <AutopanFieldset />
           </VerticalBox>
-          <VerticalBox>
+          <VerticalBox numberOfDivisions={6}>
             <TremoloFieldset />
             <RingModulatorFieldset />
             <PhaserFieldset />
           </VerticalBox>
-          <VerticalBox>
+          <VerticalBox numberOfDivisions={6}>
             <ChorusFieldset />
             <FlangerFieldset />
           </VerticalBox>
-          <VerticalBox>
+          <VerticalBox numberOfDivisions={6}>
             <DelayFieldset />
             <ReverbFieldset rirDescriptors={rirDescriptors} />
           </VerticalBox>
