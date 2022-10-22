@@ -8,25 +8,16 @@ export interface Props {
 export const Spacer: React.FC<Props> = (props: Props) => {
   const { space, direction } = props;
 
-  let value = '';
-
   switch (direction) {
     case 'top':
-      value = `${space}px 0 0 0`;
-      break;
+      return <div role="presentation" style={{ marginTop: `${space}px` }} />;
     case 'left':
-      value = `0 0 0 ${space}px`;
-      break;
+      return <div role="presentation" style={{ width: `${space}px`, height: '1px' }} />;
     case 'right':
-      value = `0 ${space}px 0 0`;
-      break;
+      return <div role="presentation" style={{ width: `${space}px`, height: '1px' }} />;
     case 'bottom':
-      value = `0 0 ${space}px`;
-      break;
+      return <div role="presentation" style={{ marginBottom: `${space}px` }} />;
     default:
-      value = `0 0 ${space}px`;
-      break;
+      return <div role="presentation" style={{ marginBottom: `${space}px` }} />;
   }
-
-  return <div role="presentation" style={{ margin: value }} />;
 };
