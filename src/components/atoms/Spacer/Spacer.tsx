@@ -12,9 +12,9 @@ export const Spacer: React.FC<Props> = (props: Props) => {
     case 'top':
       return <div role="presentation" style={{ marginTop: `${space}px` }} />;
     case 'left':
-      return <div role="presentation" style={{ width: `${space}px`, height: '1px' }} />;
+      return <div role="presentation" style={{ width: `${space}px` }} />;
     case 'right':
-      return <div role="presentation" style={{ width: `${space}px`, height: '1px' }} />;
+      return <div role="presentation" style={{ width: `${space}px` }} />;
     case 'bottom':
       return <div role="presentation" style={{ marginBottom: `${space}px` }} />;
     default:

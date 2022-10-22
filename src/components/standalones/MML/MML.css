@@ -153,11 +153,6 @@
 }
 
 /* HACK */
-.MML__controllers > .Switch {
-  margin: 0 8px;
-}
-
-/* HACK */
 .MML__controllers > .Select > select {
   margin: 0 0 0 12px;
   padding-left: 12px;

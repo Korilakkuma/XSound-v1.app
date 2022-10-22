@@ -8,6 +8,7 @@ import {
   upBassKeyboards
 } from '../../../actions';
 import { createFilename } from '../../../utils';
+import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
 import { Select } from '../../atoms/Select';
 import { FileUploader } from '../../atoms/FileUploader';
@@ -558,6 +559,7 @@ export const MML: React.FC<Props> = (props: Props) => {
         >
           Download
         </a>
+        <Spacer space={8} direction="left" />
         <Switch
           id="mml-switch-highlight"
           label="Highlight"
@@ -566,6 +568,7 @@ export const MML: React.FC<Props> = (props: Props) => {
           tabIndex={active ? 0 : -1}
           onChange={onChangeHightlightCallback}
         />
+        <Spacer space={8} direction="right" />
         <FileUploader
           id="uploader-mml"
           accept="application/json"

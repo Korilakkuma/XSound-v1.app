@@ -13,7 +13,7 @@ const Template: ComponentStoryObj<typeof Spacer> = {
     return (
       <React.Fragment>
         <div style={{ height: '24px', backgroundColor: '#ccc' }} />
-        <Spacer {...args} />
+        <Spacer {...args} direction="bottom" />
         <div style={{ display: 'flex' }}>
           <div style={{ width: '45%', height: '24px', backgroundColor: '#999' }} />
           <Spacer {...args} />
