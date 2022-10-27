@@ -1,4 +1,7 @@
 import React, { useState, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { IState } from '../../../types';
+import { changeOscillatorStates } from '../../../actions';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
 import { OscillatorSelector } from '../../helpers/OscillatorSelector';
@@ -14,8 +17,11 @@ export interface Props {
 export const OscillatorFieldset: React.FC<Props> = (props: Props) => {
   const { oscillatorNumber, label, radioName } = props;
 
-  const [oscillator, setOscillator] = useState<boolean>(oscillatorNumber === 0);
   const [type, setType] = useState<OscillatorType>('sawtooth');
+
+  const dispatch = useDispatch();
+
+  const states = useSelector((state: IState) => state.oscillatorStates);
 
   const onChangeStateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const checked = event.currentTarget.checked;
@@ -28,7 +34,7 @@ export const OscillatorFieldset: React.FC<Props> = (props: Props) => {
           X('oscillator').get(i).deactivate();
         }
 
-        setOscillator(checked);
+        dispatch(changeOscillatorStates([checked, states[1]]));
       } else {
         if (checked) {
           window.C('oscillator').get(i).activate();
@@ -36,10 +42,10 @@ export const OscillatorFieldset: React.FC<Props> = (props: Props) => {
           window.C('oscillator').get(i).deactivate();
         }
 
-        setOscillator(checked);
+        dispatch(changeOscillatorStates([states[0], checked]));
       }
     }
-  }, [oscillatorNumber]);
+  }, [dispatch, states, oscillatorNumber]);
 
   const onChangeTypeCallback = useCallback((event: React.ChangeEvent<HTMLFormElement>) => {
     const items = event.currentTarget.elements.namedItem(`radio-${radioName}`);
@@ -120,7 +126,7 @@ export const OscillatorFieldset: React.FC<Props> = (props: Props) => {
           <Switch
             id={`oscillator-fieldset-state-${oscillatorNumber}`}
             label={label}
-            checked={oscillator}
+            checked={states[oscillatorNumber]}
             labelAsText={false}
             onChange={onChangeStateCallback}
           />

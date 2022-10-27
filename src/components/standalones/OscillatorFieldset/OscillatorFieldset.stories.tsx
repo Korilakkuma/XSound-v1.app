@@ -1,5 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react';
+import { Provider } from 'react-redux';
+import { createStoreMock } from '../../../../mock/createStoreMock';
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
 import { OscillatorFieldset } from './OscillatorFieldset';
 import '../../../main.css';
@@ -9,7 +11,13 @@ export default {
 } as ComponentMeta<typeof OscillatorFieldset>;
 
 const Template: ComponentStoryObj<typeof OscillatorFieldset> = {
-  render: (args) => <OscillatorFieldset {...args} />
+  render: (args) => {
+    return (
+      <Provider store={createStoreMock({ oscillatorStates: [true, false] })}>
+        <OscillatorFieldset {...args} />
+      </Provider>
+    );
+  }
 };
 
 export const Primary = {
