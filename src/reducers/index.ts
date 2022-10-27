@@ -3,6 +3,7 @@ import { routerReducer } from 'react-router-redux';
 import { ActionTypes } from '../actions/ActionTypes';
 import {
   CurrentSoundSourceAction,
+  OscillatorStatesAction,
   AnalyserStateAction,
   MMLStateAction,
   KeyboardAction,
@@ -12,6 +13,15 @@ import {
 export function currentSoundSource(state = 'oscillator', action: CurrentSoundSourceAction): string {
   switch (action.type) {
     case ActionTypes.CHANGE_CURRENT_SOUND_SOURCE:
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
+export function oscillatorStates(state: [boolean, boolean] = [true, false], action: OscillatorStatesAction): [boolean, boolean] {
+  switch (action.type) {
+    case ActionTypes.CHANGE_OSCILLATOR_STATES:
       return action.payload;
     default:
       return state;
@@ -83,6 +93,7 @@ export function activeMIDIKeyboardIndexes(state: number[] = [], action: MIDIActi
 
 export const rootReducer = (): Reducer => combineReducers({
   currentSoundSource,
+  oscillatorStates,
   analyserState,
   mmlState,
   downMelodyKeyboardIndexes,

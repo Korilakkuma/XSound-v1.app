@@ -1,5 +1,6 @@
 import {
   currentSoundSource,
+  oscillatorStates,
   analyserState,
   mmlState,
   downMelodyKeyboardIndexes,
@@ -12,6 +13,7 @@ import { ActionTypes } from '../actions/ActionTypes';
 import {
   SoundSource,
   CurrentSoundSourceAction,
+  OscillatorStatesAction,
   AnalyserStateAction,
   MMLStateAction,
   KeyboardAction,
@@ -30,6 +32,19 @@ describe('Reducers', () => {
     expect(currentSoundSource(undefined, {} as CurrentSoundSourceAction)).toStrictEqual('oscillator');
     expect(currentSoundSource(undefined, action)).toStrictEqual(expectedState);
     expect(currentSoundSource('oscillator' as SoundSource, action)).toStrictEqual(expectedState);
+  });
+
+  test('should handle CHANGE_OSCILLATOR_STATES', () => {
+    const expectedState: [boolean, boolean] = [true, true];
+
+    const action = {
+      type   : ActionTypes.CHANGE_OSCILLATOR_STATES,
+      payload: expectedState
+    };
+
+    expect(oscillatorStates(undefined, {} as OscillatorStatesAction)).toStrictEqual([true, false]);
+    expect(oscillatorStates(undefined, action)).toStrictEqual(expectedState);
+    expect(oscillatorStates([false, false], action)).toStrictEqual(expectedState);
   });
 
   test('should handle CHANGE_ANALYSER_STATE', () => {

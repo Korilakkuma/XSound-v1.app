@@ -41,6 +41,11 @@ export interface CurrentSoundSourceAction extends Action {
   payload: SoundSource;
 }
 
+export interface OscillatorStatesAction extends Action {
+  type: typeof ActionTypes.CHANGE_OSCILLATOR_STATES,
+  payload: [boolean, boolean];
+}
+
 export interface AnalyserStateAction extends Action {
   type: typeof ActionTypes.CHANGE_ANALYSER_STATE;
   payload: boolean;

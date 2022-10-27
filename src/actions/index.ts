@@ -2,6 +2,7 @@ import { ActionTypes } from './ActionTypes';
 import {
   SoundSource,
   CurrentSoundSourceAction,
+  OscillatorStatesAction,
   AnalyserStateAction,
   MMLStateAction,
   KeyboardAction,
@@ -12,6 +13,13 @@ export function changeCurrentSoundSource(source: SoundSource): CurrentSoundSourc
   return {
     type   : ActionTypes.CHANGE_CURRENT_SOUND_SOURCE,
     payload: source
+  };
+}
+
+export function changeOscillatorStates(states: [boolean, boolean]): OscillatorStatesAction {
+  return {
+    type   : ActionTypes.CHANGE_OSCILLATOR_STATES,
+    payload: states
   };
 }
 

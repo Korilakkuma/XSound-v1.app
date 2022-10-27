@@ -1,6 +1,7 @@
 import { ActionTypes } from './ActionTypes';
 import {
   changeCurrentSoundSource,
+  changeOscillatorStates,
   changeAnalyserState,
   changeMMLState,
   downMelodyKeyboards,
@@ -21,6 +22,17 @@ describe('Actions', () => {
     };
 
     expect(changeCurrentSoundSource(payload)).toStrictEqual(expectedAction);
+  });
+
+  test('should create an action to change oscillator states', () => {
+    const payload: [boolean, boolean] = [true, false];
+
+    const expectedAction = {
+      type: ActionTypes.CHANGE_OSCILLATOR_STATES,
+      payload
+    };
+
+    expect(changeOscillatorStates(payload)).toStrictEqual(expectedAction);
   });
 
   test('should create an action to change analyser state', () => {
