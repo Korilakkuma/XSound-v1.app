@@ -7,4 +7,4 @@ export const ActionTypes = {
   UP_MELODY_KEYBOARDS        : 'UP_MELODY_KEYBOARDS',
   UP_BASS_KEYBOARDS          : 'UP_BASS_KEYBOARDS',
   ACTIVATE_MIDI_KEYBOARDS    : 'ACTIVATE_MIDI_KEYBOARDS'
-};
+} as const;
