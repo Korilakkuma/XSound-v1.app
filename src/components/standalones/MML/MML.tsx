@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { IState, SoundSource, MMLDescriptor } from '../../../types';
 import {
+  changeOscillatorStates,
   downMelodyKeyboards,
   downBassKeyboards,
   upMelodyKeyboards,
@@ -211,6 +212,8 @@ export const MML: React.FC<Props> = (props: Props) => {
         X('mixer').start([X('oscillator'), window.C('oscillator')], [1, 1]);
 
         X('mixer').module('recorder').start();
+
+        dispatch(changeOscillatorStates([true, true]));
       } else if (currentSoundSource.endsWith('noise')) {
         X('mml').start(0, true);
         window.C('mml').start(0, true);
@@ -241,6 +244,7 @@ export const MML: React.FC<Props> = (props: Props) => {
 
     setPaused(!paused);
   }, [
+    dispatch,
     currentSoundSource,
     paused,
     melody,
