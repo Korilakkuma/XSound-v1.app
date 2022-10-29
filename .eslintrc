@@ -36,6 +36,7 @@
     "quotes": [2, "single"],
     "quote-props": 0,
     "radix": 1,
+    "react-hooks/exhaustive-deps": 2,
     "react/prop-types": 0,
     "react/self-closing-comp": 2,
     "semi": [2, "always"],
