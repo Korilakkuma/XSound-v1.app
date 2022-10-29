@@ -824,12 +824,12 @@ export const App: React.FC<Props> = () => {
     ]);
 
     // Resize buffer of ScriptProcessorNode
-    X('mixer').resize(1024);
-    X('oneshot').resize(1024);
+    X('mixer').resize(0);  // Automatic buffer size
+    X('oneshot').resize(0);  // Automatic buffer size
     X('audio').resize(8192);
     X('stream').resize(512);
-    X('oscillator').resize(1024);
-    window.C('oscillator').resize(1024);
+    X('oscillator').resize(0);  // Automatic buffer size
+    window.C('oscillator').resize(0);  // Automatic buffer size
 
     X('oscillator').setup([true, false, false, false]);
     window.C('oscillator').setup([false, false, false, false]);
