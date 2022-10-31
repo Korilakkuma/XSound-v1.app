@@ -2,7 +2,7 @@
   "name": "xsound-app",
   "version": "1.0.0",
   "engines": {
-    "node": ">=14.0.0 <=18.9.x"
+    "node": ">=14.0.0 <=18.12.x"
   },
   "description": "Multifunctional Synthesizer by XSound (Web Audio API Library)",
   "main": "./assets/app.js",
