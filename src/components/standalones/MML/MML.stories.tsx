@@ -107,6 +107,7 @@ const Template: ComponentStoryObj<typeof MML> = {
 
       return settings;
     }, [getBufferIndexCallback, calculatePianoRateCallback]);
+
     useEffect(() => {
       if (loaded) {
         return;

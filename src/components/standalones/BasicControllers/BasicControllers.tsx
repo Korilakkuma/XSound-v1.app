@@ -155,7 +155,7 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
           case 0x80:
             noteOff(event.data[1], event.data[2]);
             break;
-          default :
+          default:
             break;
         }
       };
