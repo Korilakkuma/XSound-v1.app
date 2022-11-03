@@ -4,7 +4,7 @@
   "engines": {
     "node": ">=14.0.0 <=18.12.x"
   },
-  "description": "Multifunctional Synthesizer by XSound (Web Audio API Library)",
+  "description": "Web Music Application by XSound (Web Audio API Library)",
   "main": "./assets/app.js",
   "scripts": {
     "clean": "rimraf register.js sw.js ./assets/app.* ./assets/vendor.*",

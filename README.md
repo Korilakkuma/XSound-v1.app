@@ -5,7 +5,7 @@
   
 [![XSound.app](https://user-images.githubusercontent.com/4006693/119640903-09731780-be54-11eb-9329-733a6afd86de.png)](https://xsound.app)
   
-**[XSound.app](https://xsound.app)** is Multifunctional Synthesizer by [XSound](https://github.com/Korilakkuma/XSound) (Web Audio API Library).
+**[XSound.app](https://xsound.app)** is Web Music Application by [XSound](https://github.com/Korilakkuma/XSound) (Web Audio API Library).
   
 ## Features
 
