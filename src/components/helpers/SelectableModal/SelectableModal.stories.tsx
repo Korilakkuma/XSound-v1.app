@@ -50,7 +50,6 @@ const Template: ComponentStoryObj<typeof SelectableModal> = {
 export const Primary = {
   ...Template,
   args: {
-    id        : 'modal-without-overlay',
     hasOverlay: false,
     title     : 'without overlay'
   }
@@ -59,7 +58,6 @@ export const Primary = {
 export const Secondary = {
   ...Template,
   args: {
-    id        : 'modal-with-overlay',
     hasOverlay: true,
     title     : 'with overlay'
   }

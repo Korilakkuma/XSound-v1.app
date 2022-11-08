@@ -995,7 +995,6 @@ export const App: React.FC<Props> = () => {
       </main>
       <Footer />
       <Modal
-        id="modal-app-ajax"
         isShow={isShowModalForAjax}
         title="Error"
         hasOverlay={true}
@@ -1005,7 +1004,6 @@ export const App: React.FC<Props> = () => {
         {errorMessage}
       </Modal>
       <Modal
-        id="modal-app-decoding"
         isShow={isShowModalForDecoding}
         title="Error"
         hasOverlay={true}

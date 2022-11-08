@@ -7,7 +7,6 @@ describe('atoms/Select', () => {
     const mockOnChange = jest.fn();
 
     const props = {
-      id      : 'select',
       label   : 'Select',
       values  : ['A', 'B', 'C'],
       texts   : ['0 - 0', '0 - 1', '0 - 2'],

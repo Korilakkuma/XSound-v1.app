@@ -7,7 +7,6 @@ describe('atoms/Switch', () => {
     const mockOnChange = jest.fn();
 
     const props = {
-      id         : 'switch',
       label      : 'checked',
       checked    : false,
       labelAsText: false,
@@ -27,7 +26,6 @@ describe('atoms/Switch', () => {
     const mockOnChange = jest.fn();
 
     const props = {
-      id         : 'switch',
       label      : 'checked',
       checked    : false,
       labelAsText: false,
@@ -51,7 +49,6 @@ describe('atoms/Switch', () => {
     const mockOnChange = jest.fn();
 
     const props = {
-      id         : 'switch',
       label      : 'checked',
       checked    : false,
       labelAsText: false,

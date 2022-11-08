@@ -56,7 +56,6 @@ export const RingModulatorFieldset: React.FC<Props> = () => {
       <fieldset>
         <legend>
           <Switch
-            id="ringmodulator-state"
             label="Ring MOD."
             checked={ringmodulator}
             labelAsText={false}
@@ -65,7 +64,7 @@ export const RingModulatorFieldset: React.FC<Props> = () => {
         </legend>
         <ParameterController
           label="Depth"
-          id="ringmodulator-depth"
+          autoupdate={false}
           defaultValue={0}
           min={0}
           max={1}
@@ -75,7 +74,7 @@ export const RingModulatorFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Rate"
-          id="ringmodulator-rate"
+          autoupdate={false}
           defaultValue={0}
           min={0}
           max={4000}

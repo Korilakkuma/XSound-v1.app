@@ -5,7 +5,6 @@ import { FileUploader } from './FileUploader';
 describe('atoms/FileUploader', () => {
   test('click', () => {
     const props = {
-      id         : 'uploader-1',
       accept     : 'audio/*',
       disabled   : false,
       placeholder: 'MP3, Ogg, WAV ... etc',
@@ -32,7 +31,6 @@ describe('atoms/FileUploader', () => {
 
   test('click (file is `null`)', () => {
     const props = {
-      id         : 'uploader-1',
       accept     : 'audio/*',
       disabled   : false,
       placeholder: 'MP3, Ogg, WAV ... etc',

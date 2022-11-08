@@ -96,7 +96,6 @@ export const FlangerFieldset: React.FC<Props> = () => {
       <fieldset>
         <legend>
           <Switch
-            id="flanger-state"
             label="Flanger"
             checked={flanger}
             labelAsText={false}
@@ -105,7 +104,7 @@ export const FlangerFieldset: React.FC<Props> = () => {
         </legend>
         <ParameterController
           label="Time"
-          id="flanger-time"
+          autoupdate={false}
           defaultValue={0}
           min={0}
           max={10}
@@ -115,7 +114,7 @@ export const FlangerFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Depth"
-          id="flanger-depth"
+          autoupdate={false}
           defaultValue={0}
           min={0}
           max={1}
@@ -125,7 +124,7 @@ export const FlangerFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Rate"
-          id="flanger-rate"
+          autoupdate={false}
           defaultValue={0}
           min={0}
           max={10}
@@ -135,7 +134,7 @@ export const FlangerFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Mix"
-          id="flanger-mix"
+          autoupdate={false}
           defaultValue={0}
           min={0}
           max={1}
@@ -145,7 +144,7 @@ export const FlangerFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Tone"
-          id="flanger-tone"
+          autoupdate={false}
           defaultValue={4000}
           min={20}
           max={8000}
@@ -155,7 +154,7 @@ export const FlangerFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Feedback"
-          id="flanger-feedback"
+          autoupdate={false}
           defaultValue={0}
           min={0}
           max={0.95}

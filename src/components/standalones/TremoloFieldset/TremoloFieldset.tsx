@@ -56,7 +56,6 @@ export const TremoloFieldset: React.FC<Props> = () => {
       <fieldset>
         <legend>
           <Switch
-            id="tremolo-state"
             label="Tremolo"
             checked={tremolo}
             labelAsText={false}
@@ -65,7 +64,7 @@ export const TremoloFieldset: React.FC<Props> = () => {
         </legend>
         <ParameterController
           label="Depth"
-          id="tremolo-depth"
+          autoupdate={false}
           defaultValue={0}
           min={0}
           max={1}
@@ -75,7 +74,7 @@ export const TremoloFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Rate"
-          id="tremolo-rate"
+          autoupdate={false}
           defaultValue={0}
           min={0}
           max={25}

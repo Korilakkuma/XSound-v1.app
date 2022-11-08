@@ -53,7 +53,6 @@ const Template: ComponentStoryObj<typeof FileUploader> = {
 export const Primary = {
   ...Template,
   args: {
-    id         : 'uploader-1',
     accept     : 'audio/*',
     disabled   : false,
     placeholder: 'MP3, Ogg, WAV ... etc',
@@ -67,7 +66,6 @@ export const Primary = {
 export const Secondary = {
   ...Template,
   args: {
-    id         : 'uploader-2',
     accept     : 'audio/*',
     disabled   : false,
     placeholder: 'MP3, Ogg, WAV ... etc',

@@ -124,7 +124,6 @@ export const OscillatorFieldset: React.FC<Props> = (props: Props) => {
       <fieldset>
         <legend>
           <Switch
-            id={`oscillator-fieldset-state-${oscillatorNumber}`}
             label={label}
             checked={states[oscillatorNumber]}
             labelAsText={false}
@@ -141,7 +140,7 @@ export const OscillatorFieldset: React.FC<Props> = (props: Props) => {
         <Spacer space={16} />
         <ParameterController
           label="Volume"
-          id={`oscillator-fieldset-volume-${oscillatorNumber}`}
+          autoupdate={false}
           defaultValue={1}
           min={0}
           max={1}
@@ -151,7 +150,7 @@ export const OscillatorFieldset: React.FC<Props> = (props: Props) => {
         <Spacer space={8} />
         <ParameterController
           label="Octave"
-          id={`oscillator-fieldset-octave-${oscillatorNumber}`}
+          autoupdate={false}
           defaultValue={0}
           min={-4}
           max={4}
@@ -161,7 +160,7 @@ export const OscillatorFieldset: React.FC<Props> = (props: Props) => {
         <Spacer space={8} />
         <ParameterController
           label="Fine"
-          id={`oscillator-fieldset-fine-${oscillatorNumber}`}
+          autoupdate={false}
           defaultValue={0}
           min={-1200}
           max={1200}

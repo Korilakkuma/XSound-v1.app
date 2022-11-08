@@ -7,7 +7,6 @@ interface Selection {
 }
 
 export interface Props {
-  id: string;
   isShow: boolean;
   hasOverlay: boolean;
   title: string;
@@ -19,7 +18,6 @@ export interface Props {
 
 export const SelectableModal: React.FC<Props> = (props: Props) => {
   const {
-    id,
     isShow,
     hasOverlay,
     title,
@@ -31,7 +29,7 @@ export const SelectableModal: React.FC<Props> = (props: Props) => {
 
   return (
     <div className="SelectableModal">
-      <Modal id={id} isShow={isShow} hasOverlay={hasOverlay} title={title} asAlert={false} onClose={onClose}>
+      <Modal isShow={isShow} hasOverlay={hasOverlay} title={title} asAlert={false} onClose={onClose}>
         <div className="SelectableModal__contents">{children}</div>
         <div className="SelectableModal__buttons">
           <button type="button" onClick={first.action}>{first.label}</button>

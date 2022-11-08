@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useId } from 'react';
 import { Slider } from '../../atoms/Slider';
 import { Spinner } from '../../atoms/Spinner';
 
 export interface Props {
   label: string;
-  id: string;
+  autoupdate: boolean;
   min: number;
   max: number;
   step: number;
@@ -17,7 +17,7 @@ export interface Props {
 export const ParameterController: React.FC<Props> = (props: Props) => {
   const {
     label,
-    id,
+    autoupdate,
     min,
     max,
     step,
@@ -34,11 +34,13 @@ export const ParameterController: React.FC<Props> = (props: Props) => {
     setValue(event.currentTarget.valueAsNumber);
   }, [onChange]);
 
+  const id = useId();
+
   useEffect(() => {
-    if (id === 'audio-fieldset-current-time') {
+    if (autoupdate) {
       setValue(defaultValue);
     }
-  }, [id, defaultValue]);
+  }, [autoupdate, defaultValue]);
 
   return (
     <dl className="ParameterController" style={width ? { width } : { width: 'auto' }}>

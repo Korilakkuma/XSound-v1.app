@@ -276,7 +276,6 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
         </div>
         <Spacer space={24} />
         <Select
-          id="select-track"
           label="Select Track"
           values={['0', '1', '2', '3']}
           texts={['track 1', 'track 2', 'track 3', 'track 4']}
@@ -286,7 +285,7 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
         <Spacer space={24} />
         <ParameterController
           label="Left Channel"
-          id="recorder-fieldset-left-channel-gain"
+          autoupdate={false}
           defaultValue={1}
           min={0}
           max={1}
@@ -296,7 +295,7 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
         <Spacer space={8} />
         <ParameterController
           label="Right Channel"
-          id="recorder-fieldset-right-channel-gain"
+          autoupdate={false}
           defaultValue={1}
           min={0}
           max={1}
@@ -305,7 +304,6 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
         />
       </fieldset>
       <SelectableModal
-        id="modal-recorder-confirmation"
         hasOverlay={true}
         isShow={isShowModal}
         title="Confirmation"

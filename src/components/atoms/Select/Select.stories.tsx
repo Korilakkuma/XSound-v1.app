@@ -15,7 +15,6 @@ const Template: ComponentStoryObj<typeof Select> = {
 export const Primary = {
   ...Template,
   args: {
-    id      : 'primary-select',
     label   : 'Primary Select',
     values  : ['A', 'B', 'C'],
     texts   : ['0 - 0', '0 - 1', '0 - 2'],
@@ -29,7 +28,6 @@ export const Primary = {
 export const Secondary = {
   ...Template,
   args: {
-    id      : 'secondary-select',
     label   : 'Secondary Select',
     values  : ['A', 'B', 'C'],
     texts   : ['0 - 0', '0 - 1', '0 - 2'],
@@ -44,7 +42,6 @@ export const Secondary = {
 export const Tertiary = {
   ...Template,
   args: {
-    id          : 'tertiary-select',
     label       : 'Tertiary Select',
     values      : ['A', 'B', 'C'],
     texts       : ['0 - 0', '0 - 1', '0 - 2'],

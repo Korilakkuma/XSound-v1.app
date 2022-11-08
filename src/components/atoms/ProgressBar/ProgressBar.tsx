@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { useId } from 'react';
 
 export interface Props {
-  id?: string;
   label?: string;
   rate?: number;
 }
 
 export const ProgressBar: React.FC<Props> = (props: Props) => {
-  const { rate, id, label } = props;
+  const { rate, label } = props;
 
   const manual = typeof rate === 'number';
   const style  = typeof rate === 'number' ? { width: `${(rate <= 100) ? rate : 100}%` } : {};
+
+  const id = useId();
 
   return (
     <div className="ProgressBar">

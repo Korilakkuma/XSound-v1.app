@@ -7,7 +7,6 @@ describe('atoms/GroupSelect', () => {
     const mockOnChange = jest.fn();
 
     const props = {
-      id      : 'group-select',
       label   : 'Group Select',
       values  : {
         group0: ['A', 'B', 'C'],

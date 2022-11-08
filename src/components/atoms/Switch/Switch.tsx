@@ -1,7 +1,6 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useId } from 'react';
 
 export interface Props {
-  id: string;
   label: string;
   checked: boolean;
   labelAsText: boolean;
@@ -11,9 +10,11 @@ export interface Props {
 }
 
 export const Switch: React.FC<Props> = (props: Props) => {
-  const { id, label, checked, labelAsText, controls, tabIndex = 0, onChange } = props;
+  const { label, checked, labelAsText, controls, tabIndex = 0, onChange } = props;
 
   const checkboxRef = useRef<HTMLInputElement>(null);
+
+  const id = useId();
 
   const onKeyDownCallback = useCallback((event: React.KeyboardEvent<HTMLInputElement>) => {
     const nativeEvent = event.nativeEvent;

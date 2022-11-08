@@ -1,9 +1,8 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useMemo, useCallback, useId } from 'react';
 import ReactDOM from 'react-dom';
 import { FOCUSABLE_ELEMENTS } from '../../../config';
 
 export interface Props {
-  id: string;
   isShow: boolean;
   hasOverlay: boolean;
   title: string;
@@ -38,10 +37,11 @@ const Overlay: React.FC<OverlayProps> = (props: OverlayProps) => {
 };
 
 const ModalBody: React.FC<Props> = (props: Props) => {
-  const { id, isShow, hasOverlay, title, asAlert, children, onClose } = props;
+  const { isShow, hasOverlay, title, asAlert, children, onClose } = props;
 
-  const labelId    = `label-${id}`;
-  const describeId = `describe-${id}`;
+  const id         = useId();
+  const labelId    = useMemo(() => `label-${id}`, [id]);
+  const describeId = useMemo(() => `describe-${id}`, [id]);
 
   useEffect(() => {
     const root = document.getElementById('app');

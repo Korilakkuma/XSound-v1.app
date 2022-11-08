@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useMemo, useCallback, useRef, useId } from 'react';
 import { ProgressBar } from '../../atoms/ProgressBar';
 import { FOCUSABLE_ELEMENTS } from '../../../config';
 
@@ -65,14 +65,18 @@ export const Header: React.FC<Props> = (props: Props) => {
     }
   }, [progress, animationEnd]);
 
+  const id         = useId();
+  const labelId    = useMemo(() => `header-label-${id}`, [id]);
+  const describeId = useMemo(() => `header-describe-${id}`, [id]);
+
   return (
     <header
       ref={headerRef}
       role="dialog"
       hidden={animationEnd}
       aria-modal={!animationEnd}
-      aria-labelledby="header-label"
-      aria-describedby="header-describe"
+      aria-labelledby={labelId}
+      aria-describedby={describeId}
       className={`Header${progress ? ' -progress' : ' -fadeIn'}${running ? ' -fadeOut' : ''}`}
       onAnimationEnd={onAnimationEndCallback}
     >
@@ -83,7 +87,7 @@ export const Header: React.FC<Props> = (props: Props) => {
           </a>
         </div>
         <div>
-          <h1 id="header-label" className="Header__logo">
+          <h1 id={labelId} className="Header__logo">
             <img src="/assets/images/logo-v09.png" alt="XSound.app" width="200" height="100" />
             <img src="/assets/images/logo-v09.png" alt="" width="200" height="100" />
             <img src="/assets/images/logo-v09.png" alt="" width="200" height="100" />
@@ -91,7 +95,7 @@ export const Header: React.FC<Props> = (props: Props) => {
             <img src="/assets/images/logo-v09.png" alt="" width="200" height="100" />
             <img src="/assets/images/logo-v09.png" alt="" width="200" height="100" />
           </h1>
-          <div id="header-describe" className="Header__intro">
+          <div id={describeId} className="Header__intro">
             <span className="Header__moveLeft">This application is created by <strong>Web Audio API</strong>. You can create sound or listen to audio or record sound.</span>
             <span className="Header__moveRight">The sound that can be created corresponds to 88 keyboards of Piano, and you can play the 2 sounds at the same time.</span>
             <span className="Header__moveLeft">Moreover, you can make effects to sound. Other, you can watch sound waves on time and spectrum.</span>
@@ -99,7 +103,7 @@ export const Header: React.FC<Props> = (props: Props) => {
           <nav className="Header__startButton"><button type="button" onClick={onClickCallback}>Start Application</button></nav>
         </div>
       </div>
-      {progress ? <ProgressBar id="progress-bar-load-assets" label={`Now Loading ... (${rate} %)`} rate={rate} /> : null}
+      {progress ? <ProgressBar label={`Now Loading ... (${rate} %)`} rate={rate} /> : null}
     </header>
   );
 };

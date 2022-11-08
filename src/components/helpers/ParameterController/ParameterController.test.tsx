@@ -8,7 +8,7 @@ describe('helpers/ParameterController', () => {
 
     const props = {
       label       : 'Value Controller',
-      id          : 'value-controller',
+      autoupdate  : false,
       min         : -100,
       max         : 100,
       step        : 1,
@@ -27,10 +27,10 @@ describe('helpers/ParameterController', () => {
     // expect(mockOnChange).toBeCalledTimes(1);
   });
 
-  test('change (id is `audio-fieldset-current-time`)', () => {
+  test('change (`autoupdate` is `true`)', () => {
     const props = {
       label       : 'Value Controller',
-      id          : 'audio-fieldset-current-time',
+      autoupdate  : true,
       min         : -100,
       max         : 100,
       step        : 1,

@@ -50,7 +50,7 @@ export const EnvelopeGeneratorFieldset: React.FC<Props> = () => {
         <legend>Envelope Generator</legend>
         <ParameterController
           label="Attack"
-          id="envelope-generator-attack"
+          autoupdate={false}
           defaultValue={0.01}
           min={0}
           max={1}
@@ -60,7 +60,7 @@ export const EnvelopeGeneratorFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Decay"
-          id="envelope-generator-decay"
+          autoupdate={false}
           defaultValue={0.3}
           min={0}
           max={1}
@@ -70,7 +70,7 @@ export const EnvelopeGeneratorFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Sustain"
-          id="envelope-generator-sustain"
+          autoupdate={false}
           defaultValue={0.5}
           min={0}
           max={1}
@@ -80,7 +80,7 @@ export const EnvelopeGeneratorFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Release"
-          id="envelope-generator-release"
+          autoupdate={false}
           defaultValue={1}
           min={0}
           max={1}

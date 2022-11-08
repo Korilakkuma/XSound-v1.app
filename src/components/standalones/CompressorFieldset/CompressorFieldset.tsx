@@ -86,7 +86,6 @@ export const CompressorFieldset: React.FC<Props> = () => {
       <fieldset>
         <legend>
           <Switch
-            id="compressor-state"
             label="Compressor"
             checked={compressor}
             labelAsText={false}
@@ -95,7 +94,7 @@ export const CompressorFieldset: React.FC<Props> = () => {
         </legend>
         <ParameterController
           label="Threshold"
-          id="compressor-threshold"
+          autoupdate={false}
           defaultValue={-24}
           min={-100}
           max={0}
@@ -105,7 +104,7 @@ export const CompressorFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Knee"
-          id="compressor-knee"
+          autoupdate={false}
           defaultValue={30}
           min={0}
           max={40}
@@ -115,7 +114,7 @@ export const CompressorFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Ratio"
-          id="compressor-ratio"
+          autoupdate={false}
           defaultValue={12}
           min={1}
           max={20}
@@ -125,7 +124,7 @@ export const CompressorFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Attack"
-          id="compressor-attack"
+          autoupdate={false}
           defaultValue={0.003}
           min={0}
           max={1}
@@ -135,7 +134,7 @@ export const CompressorFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Release"
-          id="compressor-release"
+          autoupdate={false}
           defaultValue={0.25}
           min={0.01}
           max={1}

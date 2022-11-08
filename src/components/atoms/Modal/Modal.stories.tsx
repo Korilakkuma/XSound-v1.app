@@ -36,7 +36,6 @@ const Template: ComponentStoryObj<typeof Modal> = {
 export const Primary = {
   ...Template,
   args: {
-    id        : 'modal-without-overlay',
     hasOverlay: false,
     title     : 'without overlay',
     asAlert   : false
@@ -46,7 +45,6 @@ export const Primary = {
 export const Secondary = {
   ...Template,
   args: {
-    id        : 'modal-with-overlay',
     hasOverlay: true,
     title     : 'with overlay',
     asAlert   : false
@@ -56,7 +54,6 @@ export const Secondary = {
 export const Tertiary = {
   ...Template,
   args: {
-    id        : 'modal-alert',
     hasOverlay: false,
     title     : 'Alert',
     asAlert   : true

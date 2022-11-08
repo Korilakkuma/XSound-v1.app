@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useId } from 'react';
 
 export interface Props {
-  id: string;
   label: string;
   values: { [group: string]: string[] };
   texts: { [group: string]: string[] };
@@ -13,7 +12,6 @@ export interface Props {
 
 export const GroupSelect: React.FC<Props> = (props: Props) => {
   const {
-    id,
     label,
     values,
     texts,
@@ -22,6 +20,8 @@ export const GroupSelect: React.FC<Props> = (props: Props) => {
     defaultValue,
     onChange
   } = props;
+
+  const id = useId();
 
   return (
     <div className="GroupSelect" style={width ? { width } : undefined}>

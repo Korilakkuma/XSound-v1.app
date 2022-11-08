@@ -1,7 +1,6 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useId } from 'react';
 
 export interface Props {
-  id: string;
   accept: string;
   disabled: boolean;
   placeholder: string;
@@ -18,7 +17,6 @@ export interface Props {
 
 export const FileUploader: React.FC<Props> = (props: Props) => {
   const {
-    id,
     accept,
     disabled,
     placeholder,
@@ -34,6 +32,8 @@ export const FileUploader: React.FC<Props> = (props: Props) => {
   } = props;
 
   const fileUploaderRef = useRef<HTMLInputElement>(null);
+
+  const id = useId();
 
   const onClickCallback = useCallback(() => {
     const node = fileUploaderRef.current;

@@ -15,7 +15,6 @@ const Template: ComponentStoryObj<typeof GroupSelect> = {
 export const Primary = {
   ...Template,
   args: {
-    id      : 'primary-group-select',
     label   : 'Primary Group Select',
     values  : {
       group0: ['A', 'B', 'C'],
@@ -37,7 +36,6 @@ export const Primary = {
 export const Secondary = {
   ...Template,
   args: {
-    id      : 'secondary-group-select',
     label   : 'Secondary Group Select',
     values  : {
       group0: ['A', 'B', 'C'],
@@ -60,7 +58,6 @@ export const Secondary = {
 export const Tertiary = {
   ...Template,
   args: {
-    id          : 'tertiary-group-select',
     label       : 'Tertiary Group Select',
     values      : {
       group0: ['A', 'B', 'C'],

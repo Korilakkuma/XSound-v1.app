@@ -282,7 +282,7 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
     <div className="BasicControllers">
       <ParameterController
         label="Master Volume"
-        id="master-volume"
+        autoupdate={false}
         defaultValue={1}
         min={0}
         max={1}
@@ -292,7 +292,7 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
       />
       <ParameterController
         label="Glide"
-        id="glide"
+        autoupdate={false}
         defaultValue={0}
         min={0}
         max={1}
@@ -302,7 +302,7 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
       />
       <ParameterController
         label="Transpose"
-        id="transpose"
+        autoupdate={false}
         defaultValue={0}
         min={-6}
         max={6}
@@ -311,7 +311,6 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
         onChange={onChangeTransposeCallback}
       />
       <Select
-        id="select-sound-source"
         label="Select Sound Source"
         values={[
           'oscillator',
@@ -340,7 +339,6 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
         onChange={onChangeSoundSourceCallback}
       />
       <Switch
-        id="analyser"
         label="Analyser"
         checked={analyserState}
         labelAsText={true}
@@ -348,7 +346,6 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
         onChange={onChangeAnalyserStateCallback}
       />
       <Switch
-        id="mml"
         label="MML"
         checked={mmlState}
         labelAsText={true}
@@ -356,7 +353,6 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
         onChange={onChangeMMLStateCallback}
       />
       <Modal
-        id="modal-basic-midi-error"
         isShow={isShowModalForMIDIError}
         title="Error"
         hasOverlay={true}

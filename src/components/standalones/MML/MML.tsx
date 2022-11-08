@@ -565,7 +565,6 @@ export const MML: React.FC<Props> = (props: Props) => {
         </a>
         <Spacer space={8} direction="left" />
         <Switch
-          id="mml-switch-highlight"
           label="Highlight"
           checked={highlight}
           labelAsText={true}
@@ -574,7 +573,6 @@ export const MML: React.FC<Props> = (props: Props) => {
         />
         <Spacer space={8} direction="right" />
         <FileUploader
-          id="uploader-mml"
           accept="application/json"
           disabled={!paused}
           placeholder="MML JSON file"
@@ -589,7 +587,6 @@ export const MML: React.FC<Props> = (props: Props) => {
           onDrop={onDropCallback}
         />
         <Select
-          id="select-mml"
           label="Select Sample MML"
           values={values}
           texts={texts}
@@ -600,7 +597,6 @@ export const MML: React.FC<Props> = (props: Props) => {
         />
       </div>
       <Modal
-        id="modal-mml-file-upload-error"
         isShow={isShowModalForFileUploadError}
         title="Error"
         hasOverlay={true}
@@ -610,16 +606,14 @@ export const MML: React.FC<Props> = (props: Props) => {
         {errorMessage}
       </Modal>
       <Modal
-        id="modal-mml-for-progress"
         isShow={isShowModalForProgress}
         title="Progress ..."
         hasOverlay={true}
         asAlert={false}
       >
-        {showProgress ? <ProgressBar id="progress-bar-read-mml" label={`${loadedByte} bytes (${rate} %)`} rate={rate} /> : null}
+        {showProgress ? <ProgressBar label={`${loadedByte} bytes (${rate} %)`} rate={rate} /> : null}
       </Modal>
       <SelectableModal
-        id="modal-mml-confirmation"
         hasOverlay={true}
         isShow={isShowModalConfirmation}
         title="Confirmation"

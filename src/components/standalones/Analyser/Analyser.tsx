@@ -273,7 +273,6 @@ export const Analyser: React.FC<Props> = (props: Props) => {
       </div>
       <div className="Analyser__controllers">
         <Switch
-          id="analyser-audio-sprite-mode"
           label="Audio Sprite"
           checked={analyser}
           labelAsText={true}
@@ -283,7 +282,7 @@ export const Analyser: React.FC<Props> = (props: Props) => {
         <Spacer direction="right" space={12} />
         <ParameterController
           label="Interval"
-          id="analyser-interval"
+          autoupdate={false}
           defaultValue={0}
           min={0}
           max={1000}
@@ -295,7 +294,7 @@ export const Analyser: React.FC<Props> = (props: Props) => {
         <Spacer direction="right" space={12} />
         <ParameterController
           label="Smoothing"
-          id="analyser-smoothing"
+          autoupdate={false}
           defaultValue={0.8}
           min={0}
           max={1}

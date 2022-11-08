@@ -16,7 +16,7 @@ export const Primary = {
   ...Template,
   args: {
     label       : 'Parameter Controller default',
-    id          : 'parameter-controller-default',
+    autoupdate  : false,
     min         : -100,
     max         : 100,
     step        : 1,
@@ -32,7 +32,7 @@ export const Secondary = {
   ...Template,
   args: {
     label       : 'Parameter Controller with `width`',
-    id          : 'parameter-controller-with-width',
+    autoupdate  : false,
     min         : -100,
     max         : 100,
     step        : 1,

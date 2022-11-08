@@ -130,7 +130,6 @@ export const FilterFieldset: React.FC<Props> = () => {
       <fieldset>
         <legend>
           <Switch
-            id="filter-state"
             label="Filter"
             checked={filter}
             labelAsText={false}
@@ -138,7 +137,6 @@ export const FilterFieldset: React.FC<Props> = () => {
           />
         </legend>
         <Select
-          id="select-filter"
           label="Select Filter"
           values={[
             'lowpass',
@@ -166,7 +164,7 @@ export const FilterFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Frequency"
-          id="filter-frequency"
+          autoupdate={false}
           defaultValue={8000}
           min={20}
           max={22050}
@@ -176,7 +174,7 @@ export const FilterFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Quality"
-          id="filter-quality"
+          autoupdate={false}
           defaultValue={1}
           min={1}
           max={20}
@@ -186,7 +184,7 @@ export const FilterFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Gain"
-          id="filter-gain"
+          autoupdate={false}
           defaultValue={0}
           min={-18}
           max={18}
@@ -196,7 +194,7 @@ export const FilterFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Attack"
-          id="filter-attack"
+          autoupdate={false}
           defaultValue={0.01}
           min={0}
           max={1}
@@ -206,7 +204,7 @@ export const FilterFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Decay"
-          id="filter-decay"
+          autoupdate={false}
           defaultValue={0.3}
           min={0}
           max={1}
@@ -216,7 +214,7 @@ export const FilterFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Sustain"
-          id="filter-sustain"
+          autoupdate={false}
           defaultValue={0.5}
           min={0}
           max={1}
@@ -226,7 +224,7 @@ export const FilterFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Release"
-          id="filter-release"
+          autoupdate={false}
           defaultValue={1}
           min={0}
           max={1}

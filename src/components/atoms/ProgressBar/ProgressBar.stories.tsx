@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
 import { ProgressBar } from './ProgressBar';
 import '../../../main.css';
@@ -12,9 +12,9 @@ const Template: ComponentStoryObj<typeof ProgressBar> = {
   render: (args) => {
     const [rate, setRate] = useState<number>(0);
 
-    const label = `Loaded ${rate <= 100 ? rate : 100} %`;
+    const label = useMemo(() => `Loaded ${rate <= 100 ? rate : 100} %`, [rate]);
 
-    const props = args.id ? { ...args, rate, label } : args;
+    const props = { ...args, rate, label };
 
     return (
       <React.Fragment>
@@ -47,11 +47,4 @@ const Template: ComponentStoryObj<typeof ProgressBar> = {
 
 export const Primary = {
   ...Template,
-  args: {
-    id: 'primary-progress-bar'
-  }
-};
-
-export const Secondary = {
-  ...Template
 };

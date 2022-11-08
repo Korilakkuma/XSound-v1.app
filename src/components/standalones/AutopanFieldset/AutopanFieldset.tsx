@@ -56,7 +56,6 @@ export const AutopanFieldset: React.FC<Props> = () => {
       <fieldset>
         <legend>
           <Switch
-            id="autopan-state"
             label="Autopan"
             checked={autopan}
             labelAsText={false}
@@ -65,7 +64,7 @@ export const AutopanFieldset: React.FC<Props> = () => {
         </legend>
         <ParameterController
           label="Depth"
-          id="autopan-depth"
+          autoupdate={false}
           defaultValue={0}
           min={0}
           max={1}
@@ -75,7 +74,7 @@ export const AutopanFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Rate"
-          id="autopan-rate"
+          autoupdate={false}
           defaultValue={0}
           min={0}
           max={1}

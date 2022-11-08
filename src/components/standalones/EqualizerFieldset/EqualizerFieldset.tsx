@@ -76,7 +76,6 @@ export const EqualizerFieldset: React.FC<Props> = () => {
       <fieldset>
         <legend>
           <Switch
-            id="equalizer-state"
             label="Equalizer"
             checked={equalizer}
             labelAsText={false}
@@ -85,7 +84,7 @@ export const EqualizerFieldset: React.FC<Props> = () => {
         </legend>
         <ParameterController
           label="Bass"
-          id="equalizer-bass"
+          autoupdate={false}
           defaultValue={0}
           min={-18}
           max={18}
@@ -95,7 +94,7 @@ export const EqualizerFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Middle"
-          id="equalizer-middle"
+          autoupdate={false}
           defaultValue={0}
           min={-18}
           max={18}
@@ -105,7 +104,7 @@ export const EqualizerFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Treble"
-          id="equalizer-treble"
+          autoupdate={false}
           defaultValue={0}
           min={-18}
           max={18}
@@ -115,7 +114,7 @@ export const EqualizerFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Presence"
-          id="equalizer-presence"
+          autoupdate={false}
           defaultValue={0}
           min={-18}
           max={18}

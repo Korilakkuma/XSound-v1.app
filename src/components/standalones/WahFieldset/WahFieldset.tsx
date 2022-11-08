@@ -76,7 +76,6 @@ export const WahFieldset: React.FC<Props> = () => {
       <fieldset>
         <legend>
           <Switch
-            id="wah-state"
             label="Wah"
             checked={wah}
             labelAsText={false}
@@ -85,7 +84,7 @@ export const WahFieldset: React.FC<Props> = () => {
         </legend>
         <ParameterController
           label="Cutoff"
-          id="wah-cutoff"
+          autoupdate={false}
           defaultValue={350}
           min={350}
           max={8000}
@@ -95,7 +94,7 @@ export const WahFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Depth"
-          id="wah-depth"
+          autoupdate={false}
           defaultValue={0}
           min={0}
           max={0.9}
@@ -105,7 +104,7 @@ export const WahFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Rate"
-          id="wah-rate"
+          autoupdate={false}
           defaultValue={0}
           min={0}
           max={10}
@@ -115,7 +114,7 @@ export const WahFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Resonance"
-          id="wah-resonance"
+          autoupdate={false}
           defaultValue={1}
           min={1}
           max={20}

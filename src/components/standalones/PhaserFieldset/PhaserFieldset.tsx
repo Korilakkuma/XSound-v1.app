@@ -108,7 +108,6 @@ export const PhaserFieldset: React.FC<Props> = () => {
       <fieldset>
         <legend>
           <Switch
-            id="phaser-state"
             label="Phaser"
             checked={phaser}
             labelAsText={false}
@@ -116,7 +115,6 @@ export const PhaserFieldset: React.FC<Props> = () => {
           />
         </legend>
         <Select
-          id="select-phaser-stages"
           label="Select Phaser Stages"
           values={[
             '0',
@@ -141,7 +139,7 @@ export const PhaserFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Frequency"
-          id="phaser-frequency"
+          autoupdate={false}
           defaultValue={350}
           min={350}
           max={8000}
@@ -151,7 +149,7 @@ export const PhaserFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Depth"
-          id="phaser-depth"
+          autoupdate={false}
           defaultValue={0}
           min={0}
           max={0.9}
@@ -161,7 +159,7 @@ export const PhaserFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Rate"
-          id="phaser-rate"
+          autoupdate={false}
           defaultValue={0}
           min={0}
           max={5}
@@ -171,7 +169,7 @@ export const PhaserFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Resonance"
-          id="phaser-resonance"
+          autoupdate={false}
           defaultValue={1}
           min={1}
           max={20}
@@ -181,7 +179,7 @@ export const PhaserFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Mix"
-          id="phaser-mix"
+          autoupdate={false}
           defaultValue={0}
           min={0}
           max={1}

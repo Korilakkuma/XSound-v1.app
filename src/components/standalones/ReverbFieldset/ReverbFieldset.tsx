@@ -104,7 +104,6 @@ export const ReverbFieldset: React.FC<Props> = (props: Props) => {
       <fieldset>
         <legend>
           <Switch
-            id="reverb-state"
             label="Reverb"
             checked={reverb}
             labelAsText={false}
@@ -112,7 +111,6 @@ export const ReverbFieldset: React.FC<Props> = (props: Props) => {
           />
         </legend>
         <GroupSelect
-          id="group-select-reverb"
           label="Select Reverb"
           groups={groups}
           values={values}
@@ -122,7 +120,7 @@ export const ReverbFieldset: React.FC<Props> = (props: Props) => {
         <Spacer space={8} />
         <ParameterController
           label="Dry"
-          id="reverb-dry"
+          autoupdate={false}
           defaultValue={1}
           min={0}
           max={1}
@@ -132,7 +130,7 @@ export const ReverbFieldset: React.FC<Props> = (props: Props) => {
         <Spacer space={8} />
         <ParameterController
           label="Wet"
-          id="reverb-wet"
+          autoupdate={false}
           defaultValue={0}
           min={0}
           max={1}
@@ -142,7 +140,7 @@ export const ReverbFieldset: React.FC<Props> = (props: Props) => {
         <Spacer space={8} />
         <ParameterController
           label="Tone"
-          id="reverb-tone"
+          autoupdate={false}
           defaultValue={4000}
           min={20}
           max={8000}

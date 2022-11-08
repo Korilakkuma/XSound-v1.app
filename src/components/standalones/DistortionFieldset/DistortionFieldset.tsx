@@ -130,7 +130,6 @@ export const DistortionFieldset: React.FC<Props> = () => {
       <fieldset>
         <legend>
           <Switch
-            id="distortion-state"
             label="Distortion"
             checked={distortion}
             labelAsText={false}
@@ -138,7 +137,6 @@ export const DistortionFieldset: React.FC<Props> = () => {
           />
         </legend>
         <Select
-          id="select-distortion"
           label="Select Distortion"
           values={[
             'clean',
@@ -160,7 +158,7 @@ export const DistortionFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Gain"
-          id="distortion-gain"
+          autoupdate={false}
           defaultValue={0.5}
           min={0}
           max={1}
@@ -170,7 +168,7 @@ export const DistortionFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Lead Gain"
-          id="distortion-lead-gain"
+          autoupdate={false}
           defaultValue={0.5}
           min={0}
           max={1}
@@ -180,7 +178,7 @@ export const DistortionFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Bass"
-          id="distortion-bass"
+          autoupdate={false}
           defaultValue={0}
           min={-18}
           max={18}
@@ -190,7 +188,7 @@ export const DistortionFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Middle"
-          id="distortion-middle"
+          autoupdate={false}
           defaultValue={0}
           min={-18}
           max={18}
@@ -200,7 +198,7 @@ export const DistortionFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Treble"
-          id="distortion-treble"
+          autoupdate={false}
           defaultValue={0}
           min={-18}
           max={18}
@@ -210,7 +208,7 @@ export const DistortionFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Middle Frequency"
-          id="distortion-middle-frequency"
+          autoupdate={false}
           defaultValue={500}
           min={20}
           max={8000}
@@ -219,7 +217,6 @@ export const DistortionFieldset: React.FC<Props> = () => {
         />
         <Spacer space={8} />
         <Switch
-          id="distortion-cabinet"
           label="cabinet"
           checked={cabinet}
           labelAsText={true}

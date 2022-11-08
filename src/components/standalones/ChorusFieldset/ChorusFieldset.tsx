@@ -86,7 +86,6 @@ export const ChorusFieldset: React.FC<Props> = () => {
       <fieldset>
         <legend>
           <Switch
-            id="chorus-state"
             label="Chorus"
             checked={chorus}
             labelAsText={false}
@@ -95,7 +94,7 @@ export const ChorusFieldset: React.FC<Props> = () => {
         </legend>
         <ParameterController
           label="Time"
-          id="chorus-time"
+          autoupdate={false}
           defaultValue={0}
           min={0}
           max={50}
@@ -105,7 +104,7 @@ export const ChorusFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Depth"
-          id="chorus-depth"
+          autoupdate={false}
           defaultValue={0}
           min={0}
           max={1}
@@ -115,7 +114,7 @@ export const ChorusFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Rate"
-          id="chorus-rate"
+          autoupdate={false}
           defaultValue={0}
           min={0}
           max={1}
@@ -125,7 +124,7 @@ export const ChorusFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Mix"
-          id="chorus-mix"
+          autoupdate={false}
           defaultValue={0}
           min={0}
           max={1}
@@ -135,7 +134,7 @@ export const ChorusFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Tone"
-          id="chorus-tone"
+          autoupdate={false}
           defaultValue={4000}
           min={20}
           max={8000}

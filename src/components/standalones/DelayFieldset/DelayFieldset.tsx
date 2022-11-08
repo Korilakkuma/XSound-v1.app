@@ -86,7 +86,6 @@ export const DelayFieldset: React.FC<Props> = () => {
       <fieldset>
         <legend>
           <Switch
-            id="delay-state"
             label="Delay"
             checked={delay}
             labelAsText={false}
@@ -95,7 +94,7 @@ export const DelayFieldset: React.FC<Props> = () => {
         </legend>
         <ParameterController
           label="Time"
-          id="delay-time"
+          autoupdate={false}
           defaultValue={0}
           min={0}
           max={1000}
@@ -105,7 +104,7 @@ export const DelayFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Dry"
-          id="delay-dry"
+          autoupdate={false}
           defaultValue={1}
           min={0}
           max={1}
@@ -115,7 +114,7 @@ export const DelayFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Wet"
-          id="delay-wet"
+          autoupdate={false}
           defaultValue={0}
           min={0}
           max={1}
@@ -125,7 +124,7 @@ export const DelayFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Tone"
-          id="delay-tone"
+          autoupdate={false}
           defaultValue={4000}
           min={20}
           max={8000}
@@ -135,7 +134,7 @@ export const DelayFieldset: React.FC<Props> = () => {
         <Spacer space={8} />
         <ParameterController
           label="Feedback"
-          id="delay-feedback"
+          autoupdate={false}
           defaultValue={0}
           min={0}
           max={0.95}

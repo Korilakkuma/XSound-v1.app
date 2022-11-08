@@ -226,7 +226,6 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
         <legend>Audio</legend>
         <div className="AudioFieldset__selectAudio">
           <FileUploader
-            id="uploader-audio"
             accept="audio/*, audio/mpeg, audio/ogg"
             disabled={false}
             placeholder="Audio File (wav, ogg, mp3 ... etc)"
@@ -252,7 +251,7 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
         <Spacer space={20} />
         <ParameterController
           label={`${currentTimeText} / ${durationText}`}
-          id="audio-fieldset-current-time"
+          autoupdate={true}
           defaultValue={Math.trunc(currentTime)}
           min={0}
           max={duration > 0 ? duration : 0}
@@ -264,7 +263,7 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
           ? (
             <ParameterController
               label="Pitch Shifter"
-              id="audio-fieldset-pitch"
+              autoupdate={false}
               defaultValue={1}
               min={0.05}
               max={4}
@@ -275,7 +274,7 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
           : (
             <ParameterController
               label="Playback Rate"
-              id="audio-fieldset-playback-rate"
+              autoupdate={false}
               defaultValue={1}
               min={0.05}
               max={2}
@@ -286,7 +285,7 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
         <Spacer space={8} />
         <ParameterController
           label="Vocal Canceler"
-          id="audio-fieldset-vocal-canceler"
+          autoupdate={false}
           defaultValue={0}
           min={0}
           max={1}
@@ -295,7 +294,6 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
         />
       </fieldset>
       <Modal
-        id="modal-audio-file-upload-error"
         isShow={isShowModalForFileUploadError}
         title="Error"
         hasOverlay={true}
@@ -305,7 +303,6 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
         {errorMessage}
       </Modal>
       <Modal
-        id="modal-audio-decoding-error"
         isShow={isShowModalForDecodingError}
         title="Error"
         hasOverlay={true}
@@ -315,16 +312,14 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
         {errorMessage}
       </Modal>
       <Modal
-        id="modal-audio-progress"
         isShow={isShowModalForProgress}
         title="Progress ..."
         hasOverlay={true}
         asAlert={false}
       >
-        {showProgress ? <ProgressBar id="progress-bar-read-audio" label={`${loadedByte} bytes (${rate} %)`} rate={rate} /> : null}
+        {showProgress ? <ProgressBar label={`${loadedByte} bytes (${rate} %)`} rate={rate} /> : null}
       </Modal>
       <Modal
-        id="modal-audio-decoding"
         isShow={isShowModalForDecoding}
         title="Decoding ..."
         hasOverlay={true}

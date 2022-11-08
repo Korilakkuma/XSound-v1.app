@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useId } from 'react';
 
 export interface Props {
-  id: string;
   label: string;
   values: string[];
   texts: string[];
@@ -14,7 +13,6 @@ export interface Props {
 
 export const Select: React.FC<Props> = (props: Props) => {
   const {
-    id,
     label,
     values,
     texts,
@@ -24,6 +22,8 @@ export const Select: React.FC<Props> = (props: Props) => {
     tabIndex,
     onChange
   } = props;
+
+  const id = useId();
 
   return (
     <div className="Select" style={width ? { width } : undefined}>
