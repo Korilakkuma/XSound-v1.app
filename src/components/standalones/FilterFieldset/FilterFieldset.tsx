@@ -5,11 +5,7 @@ import { Switch } from '../../atoms/Switch';
 import { ParameterController } from '../../helpers/ParameterController';
 import { X } from 'xsound';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface Props {
-}
-
-export const FilterFieldset: React.FC<Props> = () => {
+export const FilterFieldset: React.FC = () => {
   const [filter, setFilter] = useState<boolean>(false);
 
   const onChangeStateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {

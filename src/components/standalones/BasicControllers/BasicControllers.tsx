@@ -14,9 +14,9 @@ import { ParameterController } from '../../helpers/ParameterController';
 import { NUMBER_OF_ONESHOTS } from '../../../config';
 import { X } from 'xsound';
 
-export interface Props {
-  currentSoundSource: SoundSource;
-}
+export type Props = {
+  currentSoundSource: SoundSource
+};
 
 const MIN_NOTE_NUMBER = 21;
 const MAX_NOTE_NUMBER = 108;

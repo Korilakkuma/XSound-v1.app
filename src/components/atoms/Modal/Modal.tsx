@@ -2,19 +2,19 @@ import React, { useEffect, useMemo, useCallback, useId } from 'react';
 import ReactDOM from 'react-dom';
 import { FOCUSABLE_ELEMENTS } from '../../../config';
 
-export interface Props {
-  isShow: boolean;
-  hasOverlay: boolean;
-  title: string;
-  asAlert: boolean;
-  children: React.ReactNode;
-  onClose?(event: React.MouseEvent<HTMLButtonElement | HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>): void;
-}
+export type Props = {
+  isShow: boolean,
+  hasOverlay: boolean,
+  title: string,
+  asAlert: boolean,
+  children: React.ReactNode,
+  onClose?(event: React.MouseEvent<HTMLButtonElement | HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>): void
+};
 
-interface OverlayProps {
-  className: string;
-  onClose?(event: React.MouseEvent<HTMLButtonElement | HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>): void;
-}
+type OverlayProps = {
+  className: string,
+  onClose?(event: React.MouseEvent<HTMLButtonElement | HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>): void
+};
 
 const Overlay: React.FC<OverlayProps> = (props: OverlayProps) => {
   const { className, onClose } = props;

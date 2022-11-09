@@ -4,11 +4,7 @@ import { Switch } from '../../atoms/Switch';
 import { ParameterController } from '../../helpers/ParameterController';
 import { X } from 'xsound';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface Props {
-}
-
-export const CompressorFieldset: React.FC<Props> = () => {
+export const CompressorFieldset: React.FC = () => {
   const [compressor, setCompressor] = useState<boolean>(true);
 
   const onChangeStateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {

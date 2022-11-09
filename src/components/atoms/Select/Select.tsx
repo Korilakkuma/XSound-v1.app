@@ -1,15 +1,15 @@
 import React, { useId } from 'react';
 
-export interface Props {
-  label: string;
-  values: string[];
-  texts: string[];
-  disabled: boolean;
-  width?: string;
-  defaultValue?: string;
-  tabIndex?: number;
-  onChange(event: React.ChangeEvent<HTMLSelectElement>): void;
-}
+export type Props = {
+  label: string,
+  values: string[],
+  texts: string[],
+  disabled: boolean,
+  width?: string,
+  defaultValue?: string,
+  tabIndex?: number,
+  onChange(event: React.ChangeEvent<HTMLSelectElement>): void
+};
 
 export const Select: React.FC<Props> = (props: Props) => {
   const {

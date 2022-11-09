@@ -6,9 +6,9 @@ import { Switch } from '../../atoms/Switch';
 import { ParameterController } from '../../helpers/ParameterController';
 import { X } from 'xsound';
 
-export interface Props {
-  rirDescriptors: RIRDescriptor[];
-}
+export type Props = {
+  rirDescriptors: RIRDescriptor[]
+};
 
 export const ReverbFieldset: React.FC<Props> = (props: Props) => {
   const { rirDescriptors } = props;

@@ -1,14 +1,14 @@
 import React, { useId } from 'react';
 
-export interface Props {
-  label: string;
-  values: { [group: string]: string[] };
-  texts: { [group: string]: string[] };
-  groups: string[];
-  width?: string;
-  defaultValue?: string;
-  onChange(event: React.ChangeEvent<HTMLSelectElement>): void;
-}
+export type Props = {
+  label: string,
+  values: { [group: string]: string[] },
+  texts: { [group: string]: string[] },
+  groups: string[],
+  width?: string,
+  defaultValue?: string,
+  onChange(event: React.ChangeEvent<HTMLSelectElement>): void
+};
 
 export const GroupSelect: React.FC<Props> = (props: Props) => {
   const {

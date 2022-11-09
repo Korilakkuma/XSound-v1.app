@@ -5,11 +5,7 @@ import { Switch } from '../../atoms/Switch';
 import { ParameterController } from '../../helpers/ParameterController';
 import { X } from 'xsound';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface Props {
-}
-
-export const DistortionFieldset: React.FC<Props> = () => {
+export const DistortionFieldset: React.FC = () => {
   const [distortion, setDistortion] = useState<boolean>(false);
   const [cabinet, setCabinet] = useState<boolean>(false);
 

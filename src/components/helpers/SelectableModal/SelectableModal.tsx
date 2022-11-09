@@ -1,20 +1,20 @@
 import React from 'react';
 import { Modal } from '../../atoms/Modal';
 
-interface Selection {
-  label: string;
-  action(event: React.MouseEvent<HTMLButtonElement>): void;
-}
+type Selection = {
+  label: string,
+  action(event: React.MouseEvent<HTMLButtonElement>): void
+};
 
-export interface Props {
-  isShow: boolean;
-  hasOverlay: boolean;
-  title: string;
-  first: Selection;
-  second: Selection;
-  children: React.ReactNode;
-  onClose(event: React.MouseEvent<HTMLButtonElement | HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>): void;
-}
+export type Props = {
+  isShow: boolean,
+  hasOverlay: boolean,
+  title: string,
+  first: Selection,
+  second: Selection,
+  children: React.ReactNode,
+  onClose(event: React.MouseEvent<HTMLButtonElement | HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>): void
+};
 
 export const SelectableModal: React.FC<Props> = (props: Props) => {
   const {

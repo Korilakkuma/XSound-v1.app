@@ -19,10 +19,10 @@ import { SelectableModal } from '../../helpers/SelectableModal';
 import { NUMBER_OF_PIANO_KEYBOARDS } from '../../../config';
 import { X, Sequence, MMLSyntaxError, FileEvent, FileReaderErrorText } from 'xsound';
 
-export interface Props {
-  loadedApp: boolean;
-  currentSoundSource: SoundSource;
-}
+export type Props = {
+  loadedApp: boolean,
+  currentSoundSource: SoundSource
+};
 
 const CLEAR_HIGHLIGHT_REGEXP = /<span class="x-highlight">(.+?)<\/span>/g;
 

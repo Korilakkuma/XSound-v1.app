@@ -4,11 +4,7 @@ import { Switch } from '../../atoms/Switch';
 import { ParameterController } from '../../helpers/ParameterController';
 import { X } from 'xsound';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface Props {
-}
-
-export const AutopanFieldset: React.FC<Props> = () => {
+export const AutopanFieldset: React.FC = () => {
   const [autopan, setAutopan] = useState<boolean>(false);
 
   const onChangeStateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {

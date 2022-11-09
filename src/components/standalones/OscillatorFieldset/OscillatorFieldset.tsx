@@ -8,11 +8,11 @@ import { OscillatorSelector } from '../../helpers/OscillatorSelector';
 import { ParameterController } from '../../helpers/ParameterController';
 import { X } from 'xsound';
 
-export interface Props {
-  oscillatorNumber: number;
-  label: string;
-  radioName: string;
-}
+export type Props = {
+  oscillatorNumber: number,
+  label: string,
+  radioName: string
+};
 
 export const OscillatorFieldset: React.FC<Props> = (props: Props) => {
   const { oscillatorNumber, label, radioName } = props;

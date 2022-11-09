@@ -7,9 +7,9 @@ import { Switch } from '../../atoms/Switch';
 import { ParameterController } from '../../helpers/ParameterController';
 import { X, AnalyserParams, TimeOverviewParams, TimeParams, FFTParams, DragMode, DragCallbackFunction } from 'xsound';
 
-export interface Props {
-  loadedApp: boolean;
-}
+export type Props = {
+  loadedApp: boolean
+};
 
 export const Analyser: React.FC<Props> = (props: Props) => {
   const { loadedApp } = props;

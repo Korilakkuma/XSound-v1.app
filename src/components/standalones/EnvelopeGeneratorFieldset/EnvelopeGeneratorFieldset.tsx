@@ -3,11 +3,7 @@ import { Spacer } from '../../atoms/Spacer';
 import { ParameterController } from '../../helpers/ParameterController';
 import { X } from 'xsound';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface Props {
-}
-
-export const EnvelopeGeneratorFieldset: React.FC<Props> = () => {
+export const EnvelopeGeneratorFieldset: React.FC = () => {
   const onChangeAttackCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const attack = event.currentTarget.valueAsNumber;
 

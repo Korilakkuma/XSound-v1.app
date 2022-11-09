@@ -1,11 +1,11 @@
 import React from 'react';
 
-export interface Props {
-  radioName: string;
-  type: OscillatorType;
-  onChange(event: React.ChangeEvent<HTMLFormElement>): void;
-  onChangeRadio(event: React.ChangeEvent<HTMLInputElement>): void;
-}
+export type Props = {
+  radioName: string,
+  type: OscillatorType,
+  onChange(event: React.ChangeEvent<HTMLFormElement>): void,
+  onChangeRadio(event: React.ChangeEvent<HTMLInputElement>): void
+};
 
 export const OscillatorSelector: React.FC<Props> = (props: Props) => {
   const { radioName, type, onChange, onChangeRadio } = props;

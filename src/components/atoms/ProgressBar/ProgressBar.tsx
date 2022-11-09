@@ -1,9 +1,9 @@
 import React, { useId } from 'react';
 
-export interface Props {
-  label?: string;
-  rate?: number;
-}
+export type Props = {
+  label?: string,
+  rate?: number
+};
 
 export const ProgressBar: React.FC<Props> = (props: Props) => {
   const { rate, label } = props;

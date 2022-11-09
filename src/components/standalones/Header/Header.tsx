@@ -2,10 +2,10 @@ import React, { useState, useEffect, useMemo, useCallback, useRef, useId } from 
 import { ProgressBar } from '../../atoms/ProgressBar';
 import { FOCUSABLE_ELEMENTS } from '../../../config';
 
-export interface Props {
-  progress: boolean;
-  rate: number;
-}
+export type Props = {
+  progress: boolean,
+  rate: number
+};
 
 export const Header: React.FC<Props> = (props: Props) => {
   const { progress, rate } = props;

@@ -4,11 +4,7 @@ import { Switch } from '../../atoms/Switch';
 import { ParameterController } from '../../helpers/ParameterController';
 import { X } from 'xsound';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface Props {
-}
-
-export const RingModulatorFieldset: React.FC<Props> = () => {
+export const RingModulatorFieldset: React.FC = () => {
   const [ringmodulator, setRingmodulator] = useState<boolean>(false);
 
   const onChangeStateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {

@@ -1,13 +1,13 @@
 import React from 'react';
 
-export interface Props {
-  value: number;
-  min: number;
-  max: number;
-  step: number;
-  tabIndex?: number;
-  onChange(event: React.ChangeEvent<HTMLInputElement>): void;
-}
+export type Props = {
+  value: number,
+  min: number,
+  max: number,
+  step: number,
+  tabIndex?: number,
+  onChange(event: React.ChangeEvent<HTMLInputElement>): void
+};
 
 export const Slider: React.FC<Props> = (props: Props) => {
   const { value, min, max, step, tabIndex, onChange } = props;

@@ -6,9 +6,9 @@ import { ParameterController } from '../../helpers/ParameterController';
 import { SelectableModal } from '../../helpers/SelectableModal';
 import { X } from 'xsound';
 
-export interface Props {
-  loadedApp: boolean;
-}
+export type Props = {
+  loadedApp: boolean
+};
 
 const CHANNEL = 2;   // Stereo
 const BIT     = 16;  // 16 bit

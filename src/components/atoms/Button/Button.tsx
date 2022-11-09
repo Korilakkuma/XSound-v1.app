@@ -1,14 +1,14 @@
 import React from 'react';
 
-export interface Props {
-  active: boolean;
-  label: string;
-  width: number;
-  height: number;
-  image: string;
-  size: string;
-  onClick(event: React.MouseEvent<HTMLButtonElement>): void;
-}
+export type Props = {
+  active: boolean,
+  label: string,
+  width: number,
+  height: number,
+  image: string,
+  size: string,
+  onClick(event: React.MouseEvent<HTMLButtonElement>): void
+};
 
 export const Button: React.FC<Props> = (props: Props) => {
   const {

@@ -4,7 +4,7 @@ import { IState, SoundSource } from '../../../types';
 import { NUMBER_OF_PIANO_KEYBOARDS } from '../../../config';
 import { X } from 'xsound';
 
-export interface Props {
+export type Props = {
   currentSoundSource: SoundSource;
 }
 

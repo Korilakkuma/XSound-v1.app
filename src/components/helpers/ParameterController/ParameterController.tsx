@@ -2,17 +2,17 @@ import React, { useState, useEffect, useCallback, useId } from 'react';
 import { Slider } from '../../atoms/Slider';
 import { Spinner } from '../../atoms/Spinner';
 
-export interface Props {
-  label: string;
-  autoupdate: boolean;
-  min: number;
-  max: number;
-  step: number;
-  defaultValue: number;
-  width?: string;
-  tabIndex?: number;
-  onChange(event: React.SyntheticEvent): void;
-}
+export type Props = {
+  label: string,
+  autoupdate: boolean,
+  min: number,
+  max: number,
+  step: number,
+  defaultValue: number,
+  width?: string,
+  tabIndex?: number,
+  onChange(event: React.SyntheticEvent): void
+};
 
 export const ParameterController: React.FC<Props> = (props: Props) => {
   const {

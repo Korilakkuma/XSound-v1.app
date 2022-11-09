@@ -8,9 +8,9 @@ import { Modal } from '../../atoms/Modal';
 import { ParameterController } from '../../helpers/ParameterController';
 import { X, FileEvent, FileReaderErrorText } from 'xsound';
 
-export interface Props {
-  loadedApp: boolean;
-}
+export type Props = {
+  loadedApp: boolean
+};
 
 export const AudioFieldset: React.FC<Props> = (props: Props) => {
   const [loaded, setLoaded] = useState<boolean>(false);

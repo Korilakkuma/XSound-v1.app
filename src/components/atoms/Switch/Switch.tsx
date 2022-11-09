@@ -1,13 +1,13 @@
 import React, { useCallback, useRef, useId } from 'react';
 
-export interface Props {
-  label: string;
-  checked: boolean;
-  labelAsText: boolean;
-  controls?: string;
-  tabIndex?: number;
-  onChange(event: React.ChangeEvent<HTMLInputElement>): void;
-}
+export type Props = {
+  label: string,
+  checked: boolean,
+  labelAsText: boolean,
+  controls?: string,
+  tabIndex?: number,
+  onChange(event: React.ChangeEvent<HTMLInputElement>): void
+};
 
 export const Switch: React.FC<Props> = (props: Props) => {
   const { label, checked, labelAsText, controls, tabIndex = 0, onChange } = props;

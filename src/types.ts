@@ -21,20 +21,20 @@ export type SoundSource = 'oscillator'
                         | 'stream'
                         | 'midi';
 
-export interface RIRDescriptor {
-  url: string;
-  value: number;
-  label: string;
-  group: string;
-}
+export type RIRDescriptor = {
+  url: string,
+  value: number,
+  label: string,
+  group: string
+};
 
-export interface MMLDescriptor {
-  title: string;
-  artist: string;
-  description: string;
-  melody: string;
-  bass: string;
-}
+export type MMLDescriptor = {
+  title: string,
+  artist: string,
+  description: string,
+  melody: string,
+  bass: string
+};
 
 export interface CurrentSoundSourceAction extends Action {
   type: typeof ActionTypes.CHANGE_CURRENT_SOUND_SOURCE;
