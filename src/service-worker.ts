@@ -1,4 +1,11 @@
-'use strict';
+/// <reference lib="esnext" />
+/// <reference lib="webworker" />
+
+// eslint-disable-next-line
+interface Window extends ServiceWorkerGlobalScope {}
+
+// HACK:
+const worker = globalThis.self as ServiceWorkerGlobalScope;
 
 const CACHE_VERSION = '1.0.0';
 const CACHE_NAME    = `xsound.app-cache-v${CACHE_VERSION}`;
@@ -17,8 +24,8 @@ const CACHE_FILES = [
   `${BASE_URL}assets/vendor.js.map`
 ];
 
-self.addEventListener('install', (event: InstallEvent) => {
-  event.waitUntil(self.skipWaiting());
+worker.addEventListener('install', (event) => {
+  event.waitUntil(worker.skipWaiting());
 
   // const promise = caches.open(CACHE_NAME)
   //   .then((cache: Cache) => {
@@ -30,7 +37,7 @@ self.addEventListener('install', (event: InstallEvent) => {
   // event.waitUntil(promise);
 }, false);
 
-self.addEventListener('fetch', (event: FetchEvent) => {
+worker.addEventListener('fetch', (event: FetchEvent) => {
   if (!CACHE_FILES.some((file: string) => event.request.url.includes(file)) &&
     !event.request.url.startsWith('http') &&
     !event.request.url.endsWith('.wav') &&
@@ -48,7 +55,7 @@ self.addEventListener('fetch', (event: FetchEvent) => {
   }
 
   const promise = caches.match(event.request)
-    .then((response: Response) => {
+    .then((response?: Response) => {
       if (response) {
         return response;
       }
@@ -73,17 +80,23 @@ self.addEventListener('fetch', (event: FetchEvent) => {
         .catch((error: Error) => {
           // eslint-disable-next-line no-console
           console.error(error);
+
+          // for `Promise<Response>`
+          return new Response();
         });
     })
     .catch((error: Error) => {
       // eslint-disable-next-line no-console
       console.error(error);
+
+      // for `Promise<Response>`
+      return new Response();
     });
 
   event.respondWith(promise);
 }, false);
 
-self.addEventListener('activate', (event: ExtendableEvent) => {
+worker.addEventListener('activate', (event: ExtendableEvent) => {
   const promise = caches.keys()
     .then((cacheNames: string[]) => {
       return Promise.all(

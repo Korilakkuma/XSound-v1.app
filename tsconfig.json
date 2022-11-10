@@ -5,8 +5,7 @@
     "jsx": "react",
     "lib": [
       "dom",
-      "esnext",
-      "webworker"
+      "esnext"
     ],
     "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,
