@@ -25,6 +25,7 @@
     "test:coverage": "jest --coverage",
     "test:verbose": "jest --verbose",
     "test:detect": "jest --detectOpenHandles",
+    "migrate:actions": "set-env-to-github_env",
     "storybook": "start-storybook --port 6006",
     "build-storybook": "build-storybook"
   },
