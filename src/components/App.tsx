@@ -56,7 +56,7 @@ export const App: React.FC<Props> = () => {
     `${BASE_URL}/one-shots/e-guitar/C.mp3`
   ], []);
 
-  // for Revreb
+  // for Reverb
   const rirDescriptors: RIRDescriptor[] = useMemo(() => [
     { url: `${BASE_URL}/impulse-responses/s1_r1_c.mp3`, value:  1, label: '1 - 1', group: 'Sideways pointed cardioid measurements in the audience area' },
     { url: `${BASE_URL}/impulse-responses/s1_r2_c.mp3`, value:  2, label: '1 - 2', group: 'Sideways pointed cardioid measurements in the audience area' },
