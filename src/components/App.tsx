@@ -30,11 +30,7 @@ import { Footer } from './standalones/Footer';
 import { BASE_URL, NUMBER_OF_ONESHOTS, NUMBER_OF_CHANNELS, NUMBER_OF_TRACKS, AJAX_TIMEOUT } from '../config';
 import { X, OneshotSetting, OneshotSettings } from 'xsound';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface Props {
-}
-
-export const App: React.FC<Props> = () => {
+export const App: React.FC = () => {
   const [loadedApp, setLoadedApp] = useState<boolean>(false);
   const [progress, setProgress] = useState<boolean>(true);
   const [rate, setRate] = useState<number>(0);
