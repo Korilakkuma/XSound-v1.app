@@ -27,7 +27,7 @@ const Template: ComponentStoryObj<typeof TremoloFieldset> = {
       });
 
       X.ajax({
-        url            : 'https://weblike-curtaincall.ssl-lolipop.jp/assets/wav/forever-love-piano-instruments.wav',
+        url            : '/assets/audio/mp3/forever-love-piano-instruments.mp3',
         timeout        : 60000,
         successCallback: (event: ProgressEvent, arraybuffer: ArrayBuffer) => {
           X('audio').ready(arraybuffer);
