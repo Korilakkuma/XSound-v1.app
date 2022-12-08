@@ -23,6 +23,14 @@ const Template: ComponentStoryObj<typeof ReverbFieldset> = {
     const [loaded, setLoaded] = useState<boolean>(false);
     const [paused, setPaused] = useState<boolean>(true);
 
+    const label = useMemo(() => {
+      if (loaded) {
+        return paused ? 'Start' : 'Stop';
+      }
+
+      return 'Loading audio ...';
+    }, [loaded, paused]);
+
     const rirs: AudioBuffer[] = useMemo(() => [], []);
 
     useEffect(() => {
@@ -68,17 +76,17 @@ const Template: ComponentStoryObj<typeof ReverbFieldset> = {
           type="button"
           disabled={!loaded}
           onClick={() => {
-            if (X('audio').paused()) {
+            if (paused) {
               X('audio').start(X('audio').param('currentTime'));
+              setPaused(false);
             } else {
               X('audio').stop();
+              setPaused(true);
             }
-
-            setPaused(!paused);
           }}
           style={{ backgroundColor: '#fff' }}
         >
-          {loaded ? (paused ? 'Start' : 'Stop') : 'Loading audio ...'}
+          {label}
         </button>
         <ReverbFieldset rirDescriptors={rirDescriptors} />
       </React.Fragment>

@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Provider } from 'react-redux';
 import { createStoreMock } from '../../../../mock/createStoreMock';
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
@@ -16,6 +16,15 @@ const Template: ComponentStoryObj<typeof Analyser> = {
   render: () => {
     const [loaded, setLoaded] = useState<boolean>(false);
     const [active, setActive] = useState<boolean>(false);
+    const [paused, setPaused] = useState<boolean>(true);
+
+    const label = useMemo(() => {
+      if (loaded) {
+        return paused ? 'Start' : 'Stop';
+      }
+
+      return 'Loading audio ...';
+    }, [loaded, paused]);
 
     useEffect(() => {
       if (loaded) {
@@ -44,15 +53,17 @@ const Template: ComponentStoryObj<typeof Analyser> = {
             type="button"
             disabled={!loaded}
             onClick={() => {
-              if (X('audio').paused()) {
+              if (paused) {
                 X('audio').start(X('audio').param('currentTime'));
+                setPaused(false);
               } else {
                 X('audio').stop();
+                setPaused(true);
               }
             }}
             style={{ backgroundColor: '#fff' }}
           >
-            {loaded ? (X('audio').paused() ? 'Start' : 'Stop') : 'Loading audio ...'}
+            {label}
           </button>
           <button
             type="button"

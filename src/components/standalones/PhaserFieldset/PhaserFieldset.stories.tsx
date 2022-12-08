@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
 import { PhaserFieldset } from './PhaserFieldset';
 import '../../../main.css';
@@ -14,6 +14,14 @@ const Template: ComponentStoryObj<typeof PhaserFieldset> = {
   render: () => {
     const [loaded, setLoaded] = useState<boolean>(false);
     const [paused, setPaused] = useState<boolean>(true);
+
+    const label = useMemo(() => {
+      if (loaded) {
+        return paused ? 'Start' : 'Stop';
+      }
+
+      return 'Loading audio ...';
+    }, [loaded, paused]);
 
     useEffect(() => {
       if (loaded) {
@@ -41,17 +49,17 @@ const Template: ComponentStoryObj<typeof PhaserFieldset> = {
           type="button"
           disabled={!loaded}
           onClick={() => {
-            if (X('audio').paused()) {
+            if (paused) {
               X('audio').start(X('audio').param('currentTime'));
+              setPaused(false);
             } else {
               X('audio').stop();
+              setPaused(true);
             }
-
-            setPaused(!paused);
           }}
           style={{ backgroundColor: '#fff' }}
         >
-          {loaded ? (paused ? 'Start' : 'Stop') : 'Loading audio ...'}
+          {label}
         </button>
         <PhaserFieldset />
       </React.Fragment>
