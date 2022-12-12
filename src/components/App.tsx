@@ -14,7 +14,7 @@ import { MML } from './standalones/MML';
 import { BasicControllers } from './standalones/BasicControllers';
 import { Piano } from './standalones/Piano';
 import { CompressorFieldset } from './standalones/CompressorFieldset';
-import { DistortionFieldset } from './standalones/DistortionFieldset';
+import { PreampFieldset } from './standalones/PreampFieldset';
 import { WahFieldset } from './standalones/WahFieldset';
 import { EqualizerFieldset } from './standalones/EqualizerFieldset';
 import { FilterFieldset } from './standalones/FilterFieldset';
@@ -28,7 +28,7 @@ import { DelayFieldset } from './standalones/DelayFieldset';
 import { ReverbFieldset } from './standalones/ReverbFieldset';
 import { Footer } from './standalones/Footer';
 import { BASE_URL, NUMBER_OF_ONESHOTS, NUMBER_OF_CHANNELS, NUMBER_OF_TRACKS, AJAX_TIMEOUT } from '../config';
-import { X, OneshotSetting, OneshotSettings } from 'xsound';
+import { X, OneshotSetting, OneshotSettings, PreampParams } from 'xsound';
 
 export const App: React.FC = () => {
   const [loadedApp, setLoadedApp] = useState<boolean>(false);
@@ -842,51 +842,57 @@ export const App: React.FC = () => {
       video: false
     };
 
+    const preampParams: PreampParams = {
+      samples: 2048,
+      pre: { state: true, gain: 0.5, lead: 0.5 },
+      post: { state: true }
+    };
+
     X('stream').setup(constraints);
 
-    X('mixer').module('distortion').param({ pre: { state: true, gain: 0.5, lead: 0.5 }, post: { state: true } });
+    X('mixer').module('preamp').param(preampParams);
     X('mixer').module('chorus').param({ tone: 4000 });
     X('mixer').module('flanger').param({ tone: 4000 });
     X('mixer').module('delay').param({ tone: 4000 });
     X('mixer').module('reverb').param({ tone: 4000 });
     X('mixer').module('filter').param({ frequency: 8000 });
 
-    X('oneshot').module('distortion').param({ pre: { state: true, gain: 0.5, lead: 0.5 }, post: { state: true } });
+    X('oneshot').module('preamp').param(preampParams);
     X('oneshot').module('chorus').param({ tone: 4000 });
     X('oneshot').module('flanger').param({ tone: 4000 });
     X('oneshot').module('delay').param({ tone: 4000 });
     X('oneshot').module('reverb').param({ tone: 4000 });
     X('oneshot').module('filter').param({ frequency: 8000 });
 
-    X('audio').module('distortion').param({ pre: { state: true, gain: 0.5, lead: 0.5 }, post: { state: true } });
+    X('audio').module('preamp').param(preampParams);
     X('audio').module('chorus').param({ tone: 4000 });
     X('audio').module('flanger').param({ tone: 4000 });
     X('audio').module('delay').param({ tone: 4000 });
     X('audio').module('reverb').param({ tone: 4000 });
     X('audio').module('filter').param({ frequency: 8000 });
 
-    X('stream').module('distortion').param({ pre: { state: true, gain: 0.5, lead: 0.5 }, post: { state: true } });
+    X('stream').module('preamp').param(preampParams);
     X('stream').module('chorus').param({ tone: 4000 });
     X('stream').module('flanger').param({ tone: 4000 });
     X('stream').module('delay').param({ tone: 4000 });
     X('stream').module('reverb').param({ tone: 4000 });
     X('stream').module('filter').param({ frequency: 8000 });
 
-    X('noise').module('distortion').param({ pre: { state: true, gain: 0.5, lead: 0.5 }, post: { state: true } });
+    X('noise').module('preamp').param(preampParams);
     X('noise').module('chorus').param({ tone: 4000 });
     X('noise').module('flanger').param({ tone: 4000 });
     X('noise').module('delay').param({ tone: 4000 });
     X('noise').module('reverb').param({ tone: 4000 });
     X('noise').module('filter').param({ frequency: 8000 });
 
-    X('oscillator').module('distortion').param({ pre: { state: true, gain: 0.5, lead: 0.5 }, post: { state: true } });
+    X('oscillator').module('preamp').param(preampParams);
     X('oscillator').module('chorus').param({ tone: 4000 });
     X('oscillator').module('flanger').param({ tone: 4000 });
     X('oscillator').module('delay').param({ tone: 4000 });
     X('oscillator').module('reverb').param({ tone: 4000 });
     X('oscillator').module('filter').param({ frequency: 8000 });
 
-    window.C('oscillator').module('distortion').param({ pre: { state: true, gain: 0.5, lead: 0.5 }, post: { state: true } });
+    window.C('oscillator').module('preamp').param(preampParams);
     window.C('oscillator').module('chorus').param({ tone: 4000 });
     window.C('oscillator').module('flanger').param({ tone: 4000 });
     window.C('oscillator').module('delay').param({ tone: 4000 });
@@ -964,7 +970,7 @@ export const App: React.FC = () => {
         <Flexbox>
           <VerticalBox numberOfDivisions={6}>
             <CompressorFieldset />
-            <DistortionFieldset />
+            <PreampFieldset />
           </VerticalBox>
           <VerticalBox numberOfDivisions={6}>
             <WahFieldset />

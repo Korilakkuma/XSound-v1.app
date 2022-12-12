@@ -1,12 +1,12 @@
-.DistortionFieldset {
+.PreampFieldset {
   padding: 12px 0;
 }
 
-.DistortionFieldset > fieldset {
+.PreampFieldset > fieldset {
   border: none;
 }
 
-.DistortionFieldset > fieldset > legend {
+.PreampFieldset > fieldset > legend {
   display: block;
   margin: 0 auto 8px;
   width: var(--fieldset-width);

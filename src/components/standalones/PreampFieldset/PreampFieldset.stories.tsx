@@ -1,16 +1,16 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState, useEffect, useMemo } from 'react';
 import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
-import { DistortionFieldset } from './DistortionFieldset';
+import { PreampFieldset } from './PreampFieldset';
 import '../../../main.css';
 
 import { X } from 'xsound';
 
 export default {
-  component: DistortionFieldset
-} as ComponentMeta<typeof DistortionFieldset>;
+  component: PreampFieldset
+} as ComponentMeta<typeof PreampFieldset>;
 
-const Template: ComponentStoryObj<typeof DistortionFieldset> = {
+const Template: ComponentStoryObj<typeof PreampFieldset> = {
   render: () => {
     const [loaded, setLoaded] = useState<boolean>(false);
     const [paused, setPaused] = useState<boolean>(true);
@@ -31,6 +31,18 @@ const Template: ComponentStoryObj<typeof DistortionFieldset> = {
       X('audio').setup({
         decodeCallback: () => {
           setLoaded(true);
+        }
+      });
+
+      X('audio').module('preamp').param({
+        samples: 2048,
+        pre    : {
+          state: true,
+          gain : 0.5,
+          lead : 0.5
+        },
+        post   : {
+          state: true
         }
       });
 
@@ -61,7 +73,7 @@ const Template: ComponentStoryObj<typeof DistortionFieldset> = {
         >
           {label}
         </button>
-        <DistortionFieldset />
+        <PreampFieldset />
       </React.Fragment>
     );
   }
