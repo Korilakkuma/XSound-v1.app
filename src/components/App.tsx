@@ -14,11 +14,10 @@ import { MML } from './standalones/MML';
 import { BasicControllers } from './standalones/BasicControllers';
 import { Piano } from './standalones/Piano';
 import { CompressorFieldset } from './standalones/CompressorFieldset';
-import { PreampFieldset } from './standalones/PreampFieldset';
 import { WahFieldset } from './standalones/WahFieldset';
-import { EqualizerFieldset } from './standalones/EqualizerFieldset';
+import { BoosterFieldset } from './standalones/BoosterFieldset';
+import { PreampFieldset } from './standalones/PreampFieldset';
 import { FilterFieldset } from './standalones/FilterFieldset';
-import { AutopanFieldset } from './standalones/AutopanFieldset';
 import { TremoloFieldset } from './standalones/TremoloFieldset';
 import { RingModulatorFieldset } from './standalones/RingModulatorFieldset';
 import { PhaserFieldset } from './standalones/PhaserFieldset';
@@ -970,15 +969,14 @@ export const App: React.FC = () => {
         <Flexbox>
           <VerticalBox numberOfDivisions={6}>
             <CompressorFieldset />
+            <WahFieldset />
+          </VerticalBox>
+          <VerticalBox numberOfDivisions={6}>
+            <BoosterFieldset />
             <PreampFieldset />
           </VerticalBox>
           <VerticalBox numberOfDivisions={6}>
-            <WahFieldset />
-            <EqualizerFieldset />
-          </VerticalBox>
-          <VerticalBox numberOfDivisions={6}>
             <FilterFieldset />
-            <AutopanFieldset />
           </VerticalBox>
           <VerticalBox numberOfDivisions={6}>
             <TremoloFieldset />
