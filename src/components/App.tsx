@@ -18,6 +18,7 @@ import { WahFieldset } from './standalones/WahFieldset';
 import { BoosterFieldset } from './standalones/BoosterFieldset';
 import { PreampFieldset } from './standalones/PreampFieldset';
 import { FilterFieldset } from './standalones/FilterFieldset';
+import { NoiseSuppressorFieldset } from './standalones/NoiseSuppressorFieldset';
 import { TremoloFieldset } from './standalones/TremoloFieldset';
 import { RingModulatorFieldset } from './standalones/RingModulatorFieldset';
 import { PhaserFieldset } from './standalones/PhaserFieldset';
@@ -977,6 +978,7 @@ export const App: React.FC = () => {
           </VerticalBox>
           <VerticalBox numberOfDivisions={6}>
             <FilterFieldset />
+            <NoiseSuppressorFieldset />
           </VerticalBox>
           <VerticalBox numberOfDivisions={6}>
             <TremoloFieldset />
