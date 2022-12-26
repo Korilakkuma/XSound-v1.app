@@ -827,6 +827,127 @@ export const App: React.FC = () => {
     X('oscillator').resize(0);  // Automatic buffer size
     window.C('oscillator').resize(0);  // Automatic buffer size
 
+    if (process.env.NODE_ENV === 'production') {
+      X('mixer').edit([
+        X('mixer').module('compressor'),
+        X('mixer').module('wah'),
+        X('mixer').module('overdrive'),
+        X('mixer').module('fuzz'),
+        X('mixer').module('preamp'),
+        X('mixer').module('filter'),
+        X('mixer').module('noisesuppressor'),
+        X('mixer').module('tremolo'),
+        X('mixer').module('ringmodulator'),
+        X('mixer').module('phaser'),
+        X('mixer').module('chorus'),
+        X('mixer').module('flanger'),
+        X('mixer').module('delay'),
+        X('mixer').module('reverb')
+      ]);
+
+      X('oneshot').edit([
+        X('oneshot').module('compressor'),
+        X('oneshot').module('wah'),
+        X('oneshot').module('overdrive'),
+        X('oneshot').module('fuzz'),
+        X('oneshot').module('preamp'),
+        X('oneshot').module('filter'),
+        X('oneshot').module('noisesuppressor'),
+        X('oneshot').module('tremolo'),
+        X('oneshot').module('ringmodulator'),
+        X('oneshot').module('phaser'),
+        X('oneshot').module('chorus'),
+        X('oneshot').module('flanger'),
+        X('oneshot').module('delay'),
+        X('oneshot').module('reverb')
+      ]);
+
+      X('audio').edit([
+        X('audio').module('compressor'),
+        X('audio').module('wah'),
+        X('audio').module('overdrive'),
+        X('audio').module('fuzz'),
+        X('audio').module('preamp'),
+        X('audio').module('filter'),
+        X('audio').module('noisesuppressor'),
+        X('audio').module('tremolo'),
+        X('audio').module('ringmodulator'),
+        X('audio').module('phaser'),
+        X('audio').module('chorus'),
+        X('audio').module('flanger'),
+        X('audio').module('delay'),
+        X('audio').module('reverb')
+      ]);
+
+      X('stream').edit([
+        X('stream').module('compressor'),
+        X('stream').module('wah'),
+        X('stream').module('overdrive'),
+        X('stream').module('fuzz'),
+        X('stream').module('preamp'),
+        X('stream').module('filter'),
+        X('stream').module('noisesuppressor'),
+        X('stream').module('tremolo'),
+        X('stream').module('ringmodulator'),
+        X('stream').module('phaser'),
+        X('stream').module('chorus'),
+        X('stream').module('flanger'),
+        X('stream').module('delay'),
+        X('stream').module('reverb')
+      ]);
+
+      X('noise').edit([
+        X('noise').module('compressor'),
+        X('noise').module('wah'),
+        X('noise').module('overdrive'),
+        X('noise').module('fuzz'),
+        X('noise').module('preamp'),
+        X('noise').module('filter'),
+        X('noise').module('noisesuppressor'),
+        X('noise').module('tremolo'),
+        X('noise').module('ringmodulator'),
+        X('noise').module('phaser'),
+        X('noise').module('chorus'),
+        X('noise').module('flanger'),
+        X('noise').module('delay'),
+        X('noise').module('reverb')
+      ]);
+
+      X('oscillator').edit([
+        X('oscillator').module('compressor'),
+        X('oscillator').module('wah'),
+        X('oscillator').module('overdrive'),
+        X('oscillator').module('fuzz'),
+        X('oscillator').module('preamp'),
+        X('oscillator').module('filter'),
+        X('oscillator').module('noisesuppressor'),
+        X('oscillator').module('tremolo'),
+        X('oscillator').module('ringmodulator'),
+        X('oscillator').module('phaser'),
+        X('oscillator').module('chorus'),
+        X('oscillator').module('flanger'),
+        X('oscillator').module('delay'),
+        X('oscillator').module('reverb')
+      ]);
+
+      window.C('oscillator').edit([
+        X('oscillator').module('compressor'),
+        X('oscillator').module('wah'),
+        X('oscillator').module('overdrive'),
+        X('oscillator').module('fuzz'),
+        X('oscillator').module('preamp'),
+        X('oscillator').module('filter'),
+        X('oscillator').module('noisesuppressor'),
+        X('oscillator').module('tremolo'),
+        X('oscillator').module('ringmodulator'),
+        X('oscillator').module('phaser'),
+        X('oscillator').module('chorus'),
+        X('oscillator').module('flanger'),
+        X('oscillator').module('delay'),
+        X('oscillator').module('reverb')
+      ]);
+    }
+
     X('oscillator').setup([true, false, false, false]);
     window.C('oscillator').setup([false, false, false, false]);
 
