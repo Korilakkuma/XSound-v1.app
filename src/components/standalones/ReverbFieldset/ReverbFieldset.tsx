@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { RIRDescriptor } from '../../../types';
+import type { RIRDescriptor } from '../../../types';
 import { Spacer } from '../../atoms/Spacer';
 import { GroupSelect } from '../../atoms/GroupSelect';
 import { Switch } from '../../atoms/Switch';

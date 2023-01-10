@@ -10,7 +10,7 @@ import {
   upBassKeyboards,
   activateMIDIKeyboards
 } from './';
-import { SoundSource } from '../types';
+import type { SoundSource } from '../types';
 
 describe('Actions', () => {
   test('should create an action to change current sound source', () => {

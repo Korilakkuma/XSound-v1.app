@@ -1,4 +1,4 @@
-import { ConvertedTime } from 'xsound';
+import type { ConvertedTime } from 'xsound';
 
 function padZero(n: number) {
   return n.toString().padStart(2, '0');

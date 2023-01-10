@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { IState, RIRDescriptor } from '../types';
+import type { IState, RIRDescriptor } from '../types';
 import { Modal } from './atoms/Modal';
 import { Flexbox } from './atoms/Flexbox';
 import { VerticalBox } from './atoms/VerticalBox';
@@ -28,7 +28,8 @@ import { DelayFieldset } from './standalones/DelayFieldset';
 import { ReverbFieldset } from './standalones/ReverbFieldset';
 import { Footer } from './standalones/Footer';
 import { BASE_URL, NUMBER_OF_ONESHOTS, NUMBER_OF_CHANNELS, NUMBER_OF_TRACKS, AJAX_TIMEOUT } from '../config';
-import { X, OneshotSetting, OneshotSettings, PreampParams } from 'xsound';
+import type { OneshotSetting, OneshotSettings, PreampParams } from 'xsound';
+import { X } from 'xsound';
 
 export const App: React.FC = () => {
   const [loadedApp, setLoadedApp] = useState<boolean>(false);

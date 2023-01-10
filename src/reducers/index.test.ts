@@ -10,7 +10,7 @@ import {
   activeMIDIKeyboardIndexes
 } from './';
 import { ActionTypes } from '../actions/ActionTypes';
-import {
+import type {
   SoundSource,
   CurrentSoundSourceAction,
   OscillatorStatesAction,

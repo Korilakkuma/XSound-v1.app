@@ -2,7 +2,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { createStoreMock } from '../../../../mock/createStoreMock';
-import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
 import { OscillatorFieldset } from './OscillatorFieldset';
 import '../../../main.css';
 

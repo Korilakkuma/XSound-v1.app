@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
-import { SoundSource } from '../../../types';
+import type { SoundSource } from '../../../types';
 import {
   changeCurrentSoundSource,
   changeAnalyserState,

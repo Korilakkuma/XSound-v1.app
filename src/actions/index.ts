@@ -1,5 +1,5 @@
 import { ActionTypes } from './ActionTypes';
-import {
+import type {
   SoundSource,
   CurrentSoundSourceAction,
   OscillatorStatesAction,

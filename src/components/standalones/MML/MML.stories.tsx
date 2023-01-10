@@ -2,11 +2,12 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Provider } from 'react-redux';
 import { createStoreMock } from '../../../../mock/createStoreMock';
-import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
 import { MML } from './MML';
 import '../../../main.css';
 
-import { X, OneshotSetting, OneshotSettings } from 'xsound';
+import type { OneshotSetting, OneshotSettings } from 'xsound';
+import { X } from 'xsound';
 
 export default {
   component: MML

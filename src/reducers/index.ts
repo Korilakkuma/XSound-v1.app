@@ -1,7 +1,8 @@
-import { Reducer, combineReducers } from 'redux';
+import type { Reducer} from 'redux';
+import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 import { ActionTypes } from '../actions/ActionTypes';
-import {
+import type {
   CurrentSoundSourceAction,
   OscillatorStatesAction,
   AnalyserStateAction,

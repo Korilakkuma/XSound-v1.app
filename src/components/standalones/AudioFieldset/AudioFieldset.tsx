@@ -6,7 +6,8 @@ import { Button } from '../../atoms/Button';
 import { ProgressBar } from '../../atoms/ProgressBar';
 import { Modal } from '../../atoms/Modal';
 import { ParameterController } from '../../helpers/ParameterController';
-import { X, FileEvent, FileReaderErrorText } from 'xsound';
+import type { FileEvent, FileReaderErrorText } from 'xsound';
+import { X } from 'xsound';
 
 export type Props = {
   loadedApp: boolean

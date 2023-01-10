@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { IState } from '../../../types';
+import type { IState } from '../../../types';
 import { changeOscillatorStates } from '../../../actions';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';

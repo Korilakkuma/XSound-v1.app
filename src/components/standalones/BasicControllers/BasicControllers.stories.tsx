@@ -2,12 +2,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Provider } from 'react-redux';
 import { store } from '../../../store';
-import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
 import { BasicControllers } from './BasicControllers';
 import '../../../main.css';
 
-import { SoundSource } from '../../../types';
-import { X, OneshotSetting, OneshotSettings } from 'xsound';
+import type { SoundSource } from '../../../types';
+import type { OneshotSetting, OneshotSettings } from 'xsound';
+import { X } from 'xsound';
 
 export default {
   component: BasicControllers

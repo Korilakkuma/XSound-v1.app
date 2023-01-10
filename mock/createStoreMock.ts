@@ -1,5 +1,5 @@
 import { store } from '../src/store';
-import { IState } from '../src/types';
+import type { IState } from '../src/types';
 
 export const createStoreMock = (state: IState) => {
   return {

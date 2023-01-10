@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useSelector } from 'react-redux';
-import { IState } from '../../../types';
+import type { IState } from '../../../types';
 import { formatAudioTime } from '../../../utils';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
 import { ParameterController } from '../../helpers/ParameterController';
-import { X, AnalyserParams, TimeOverviewParams, TimeParams, FFTParams, DragMode, DragCallbackFunction } from 'xsound';
+import type { AnalyserParams, TimeOverviewParams, TimeParams, FFTParams, DragMode, DragCallbackFunction } from 'xsound';
+import { X } from 'xsound';
 
 export type Props = {
   loadedApp: boolean

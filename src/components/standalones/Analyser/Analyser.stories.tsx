@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Provider } from 'react-redux';
 import { createStoreMock } from '../../../../mock/createStoreMock';
-import { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
 import { Analyser } from './Analyser';
 import '../../../main.css';
 

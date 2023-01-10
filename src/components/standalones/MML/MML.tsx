@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { IState, SoundSource, MMLDescriptor } from '../../../types';
+import type { IState, SoundSource, MMLDescriptor } from '../../../types';
 import {
   changeOscillatorStates,
   downMelodyKeyboards,
@@ -17,7 +17,8 @@ import { ProgressBar } from '../../atoms/ProgressBar';
 import { Modal } from '../../atoms/Modal';
 import { SelectableModal } from '../../helpers/SelectableModal';
 import { NUMBER_OF_PIANO_KEYBOARDS } from '../../../config';
-import { X, Sequence, MMLSyntaxError, FileEvent, FileReaderErrorText } from 'xsound';
+import type { Sequence, MMLSyntaxError, FileEvent, FileReaderErrorText } from 'xsound';
+import { X } from 'xsound';
 
 export type Props = {
   loadedApp: boolean,

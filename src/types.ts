@@ -1,7 +1,7 @@
-import { X } from 'xsound';
-import { Action } from 'redux';
-import { store } from './store';
-import { ActionTypes } from './actions/ActionTypes';
+import type { X } from 'xsound';
+import type { Action } from 'redux';
+import type { store } from './store';
+import type { ActionTypes } from './actions/ActionTypes';
 
 declare global {
   interface Window {
