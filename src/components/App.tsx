@@ -877,7 +877,8 @@ export const App: React.FC = () => {
         X('audio').module('chorus'),
         X('audio').module('flanger'),
         X('audio').module('delay'),
-        X('audio').module('reverb')
+        X('audio').module('reverb'),
+        X('audio').module('vocalcanceler')
       ]);
 
       X('stream').edit([
