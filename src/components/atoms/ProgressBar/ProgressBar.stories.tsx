@@ -48,3 +48,10 @@ const Template: ComponentStoryObj<typeof ProgressBar> = {
 export const Primary = {
   ...Template,
 };
+
+export const Secondary = {
+  ...Template,
+  render: () => {
+    return <ProgressBar />;
+  }
+};
