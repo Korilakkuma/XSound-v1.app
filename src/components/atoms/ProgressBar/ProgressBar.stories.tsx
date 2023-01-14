@@ -52,6 +52,6 @@ export const Primary = {
 export const Secondary = {
   ...Template,
   render: () => {
-    return <ProgressBar />;
+    return <ProgressBar label="Now Loading ..." />;
   }
 };
