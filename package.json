@@ -7,7 +7,7 @@
   "description": "Web Music Application by XSound (Web Audio API Library)",
   "main": "./assets/app.js",
   "scripts": {
-    "clean": "rimraf register.js sw.js ./assets/app.* ./assets/vendor.*",
+    "clean": "rm -f register.js sw.js ./assets/app.* ./assets/vendor.*",
     "lint:js": "eslint 'src/**/*.{ts,tsx}' 'mock/**/*.ts'",
     "lint:css": "stylelint 'src/**/*.css'",
     "lint:html": "markuplint index.html",
@@ -124,7 +124,6 @@
     "postcss-easy-import": "^4.0.0",
     "postcss-loader": "^7.0.2",
     "react-test-renderer": "^18.2.0",
-    "rimraf": "^4.0.4",
     "set-env-to-github_env": "^1.1.1",
     "stylelint": "^14.16.1",
     "stylelint-config-standard": "^29.0.0",
