@@ -6,7 +6,7 @@ import { X } from 'xsound';
 
 export const PreampFieldset: React.FC = () => {
   const [preamp, setPreamp] = useState<boolean>(false);
-  const [cabinet, setCabinet] = useState<boolean>(true);
+  const [cabinet, setCabinet] = useState<boolean>(false);
 
   const onChangeStateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const checked = event.currentTarget.checked;
@@ -17,15 +17,28 @@ export const PreampFieldset: React.FC = () => {
       X('audio').module('preamp').activate();
       X('stream').module('preamp').activate();
       X('noise').module('preamp').activate();
+
+      X('mixer').module('preamp').param({ cabinet: { state: true } });
+      X('oneshot').module('preamp').param({ cabinet: { state: true } });
+      X('audio').module('preamp').param({ cabinet: { state: true } });
+      X('stream').module('preamp').param({ cabinet: { state: true } });
+      X('noise').module('preamp').param({ cabinet: { state: true } });
     } else {
       X('mixer').module('preamp').deactivate();
       X('oneshot').module('preamp').deactivate();
       X('audio').module('preamp').deactivate();
       X('stream').module('preamp').deactivate();
       X('noise').module('preamp').deactivate();
+
+      X('mixer').module('preamp').param({ cabinet: { state: false } });
+      X('oneshot').module('preamp').param({ cabinet: { state: false } });
+      X('audio').module('preamp').param({ cabinet: { state: false } });
+      X('stream').module('preamp').param({ cabinet: { state: false } });
+      X('noise').module('preamp').param({ cabinet: { state: false } });
     }
 
     setPreamp(checked);
+    setCabinet(checked);
   }, []);
 
   const onChangeLevelCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
