@@ -123,23 +123,17 @@ const Template: ComponentStoryObj<typeof Piano> = {
         window.C('oscillator').get(i).param({ type: 'sawtooth' });
       }
 
-      try {
-        X('oneshot').setup({
-          resources      : oneshots,
-          settings       : createOneshotSettingsCallback(),
-          timeout        : 60000,
-          successCallback: () => {
-            setLoaded(true);
-          },
-          errorCallback  : () => {
-            alert('The loading of audio files failed.');
-          }
-        });
-      } catch (error) {
-        if (error instanceof Error) {
-          alert(error.message);
+      X('oneshot').setup({
+        resources      : oneshots,
+        settings       : createOneshotSettingsCallback(),
+        timeout        : 60000,
+        successCallback: () => {
+          setLoaded(true);
+        },
+        errorCallback  : () => {
+          alert('The loading of audio files failed.');
         }
-      }
+      });
     }, [loaded, createOneshotSettingsCallback]);
 
     return (

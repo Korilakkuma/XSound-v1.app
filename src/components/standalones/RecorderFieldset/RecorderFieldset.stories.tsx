@@ -21,18 +21,15 @@ const Template: ComponentStoryObj<typeof RecorderFieldset> = {
 
       const constraints: MediaStreamConstraints = { audio : true, video : false };
 
-      try {
-        X('stream').setup(constraints);
-        X('stream').param({ output: false });
-        X('stream').ready()
-          .then(() => {
-            X('stream').start();
-          });
-      } catch (error) {
-        if (error instanceof Error) {
-          window.alert(error.message);
-        }
-      }
+      X('stream').setup(constraints);
+      X('stream').param({ output: false });
+      X('stream').ready()
+        .then(() => {
+          X('stream').start();
+        })
+        .catch((error: Error) => {
+          alert(error.message);
+        });
 
       setLoaded(true);
     }, [loaded]);

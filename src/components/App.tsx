@@ -1030,31 +1030,23 @@ export const App: React.FC = () => {
     X('stream').clearAudioDevices();
 
     // Load one-shot audio files
-    try {
-      X('oneshot').setup({
-        resources      : oneshots,
-        settings       : createOneshotSettingsCallback(),
-        timeout        : AJAX_TIMEOUT,
-        successCallback: () => {
-          // Next, Load RIRs
-          if (rirDescriptors.length === 0) {
-            setProgress(false);
-          } else {
-            loadRIRsCallback();
-          }
-        },
-        errorCallback  : () => {
-          setErrorMessage('The loading of audio files failed.');
-          setIsShowModalForAjax(true);
+    X('oneshot').setup({
+      resources      : oneshots,
+      settings       : createOneshotSettingsCallback(),
+      timeout        : AJAX_TIMEOUT,
+      successCallback: () => {
+        // Next, Load RIRs
+        if (rirDescriptors.length === 0) {
+          setProgress(false);
+        } else {
+          loadRIRsCallback();
         }
-      });
-    } catch (error) {
-      if (error instanceof Error) {
-        setErrorMessage(error.message);
+      },
+      errorCallback  : () => {
+        setErrorMessage('The loading of audio files failed.');
+        setIsShowModalForAjax(true);
       }
-
-      setIsShowModalForAjax(true);
-    }
+    });
 
     X('mixer').module('recorder').setup(NUMBER_OF_CHANNELS, NUMBER_OF_TRACKS);
     X('oneshot').module('recorder').setup(NUMBER_OF_CHANNELS, NUMBER_OF_TRACKS);

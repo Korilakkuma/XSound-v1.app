@@ -236,26 +236,18 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
 
         break;
       case 'midi':
-        try {
-          X('midi').setup({
-            options        : {
-              sysex: true
-            },
-            successCallback: (midiAccess: MIDIAccess, inputs: MIDIInput[], outputs: MIDIOutput[]) => {
-              successCallback(midiAccess, inputs, outputs);
-            },
-            errorCallback  : () => {
-              setErrorMessage('Cannot use Web MIDI API.');
-              setIsShowModalForMIDIError(true);
-            }
-          });
-        } catch (error) {
-          if (error instanceof Error) {
-            setErrorMessage(error.message);
+        X('midi').setup({
+          options        : {
+            sysex: true
+          },
+          successCallback: (midiAccess: MIDIAccess, inputs: MIDIInput[], outputs: MIDIOutput[]) => {
+            successCallback(midiAccess, inputs, outputs);
+          },
+          errorCallback  : () => {
+            setErrorMessage('Cannot use Web MIDI API.');
+            setIsShowModalForMIDIError(true);
           }
-
-          setIsShowModalForMIDIError(true);
-        }
+        });
 
         break;
       default:
