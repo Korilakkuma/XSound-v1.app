@@ -131,6 +131,7 @@ export const Analyser: React.FC<Props> = (props: Props) => {
     const fftParams: FFTParams = {
       interval: -1,
       type    : 'float',
+      scale   : 'logarithmic',
       styles  : {
         shape : 'line',
         grid  : 'rgba(255, 255, 255, 0.2)',
