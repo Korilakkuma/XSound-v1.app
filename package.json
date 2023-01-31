@@ -77,7 +77,7 @@
     "react-redux": "^8.0.5",
     "react-router-redux": "^4.0.8",
     "redux": "^4.2.0",
-    "xsound": "^3.0.16"
+    "xsound": "^3.0.17"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^6.5.15",
