@@ -1,6 +1,6 @@
 import { formatAudioTime, createFilename } from './utils';
 
-describe(formatAudioTime.name, () => {
+describe(`utils/${formatAudioTime.name}`, () => {
   test('1 digits', () => {
     const actual   = formatAudioTime({ minutes: 1, seconds: 1, milliseconds: 0 });
     const expected = '01 : 01';
@@ -16,7 +16,7 @@ describe(formatAudioTime.name, () => {
   });
 });
 
-describe(createFilename.name, () => {
+describe(`utils/${createFilename.name}`, () => {
   test('1 digits', () => {
     jest.spyOn(Date.prototype, 'getFullYear').mockReturnValueOnce(1970);
     jest.spyOn(Date.prototype, 'getMonth').mockReturnValueOnce(0);

@@ -19,7 +19,7 @@ describe('atoms/Switch', () => {
 
     fireEvent.click(checkbox);
 
-    expect(mockOnChange).toBeCalledTimes(1);
+    expect(mockOnChange).toHaveBeenCalledTimes(1);
   });
 
   test('keyboard access', () => {
@@ -40,7 +40,7 @@ describe('atoms/Switch', () => {
 
     fireEvent.keyDown(checkbox, { key: 13, code: 'Space' });
 
-    expect(mockOnChange).toBeCalledTimes(1);
+    expect(mockOnChange).toHaveBeenCalledTimes(1);
 
     spy.mockRestore();
   });
@@ -63,7 +63,7 @@ describe('atoms/Switch', () => {
 
     fireEvent.keyDown(checkbox, { key: 13, code: 'Space' });
 
-    expect(mockOnChange).toBeCalledTimes(1);
+    expect(mockOnChange).toHaveBeenCalledTimes(1);
 
     spy.mockRestore();
   });

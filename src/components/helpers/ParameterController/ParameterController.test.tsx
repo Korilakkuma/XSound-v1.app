@@ -24,7 +24,7 @@ describe('helpers/ParameterController', () => {
     fireEvent.change(spinner, { valueAsNumber: 100 });
     fireEvent.change(slider,  { valueAsNumber: 100 });
 
-    // expect(mockOnChange).toBeCalledTimes(1);
+    // expect(mockOnChange).toHaveBeenCalledTimes(1);
   });
 
   test('change (`autoupdate` is `true`)', () => {

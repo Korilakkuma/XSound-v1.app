@@ -33,7 +33,7 @@ describe('atoms/Modal', () => {
       jest.advanceTimersByTime(600);
     });
 
-    expect(mockOnClose).toBeCalledTimes(1);
+    expect(mockOnClose).toHaveBeenCalledTimes(1);
   });
 
   test('click overlay', () => {
@@ -55,6 +55,6 @@ describe('atoms/Modal', () => {
       jest.advanceTimersByTime(600);
     });
 
-    expect(mockOnClose).toBeCalledTimes(1);
+    expect(mockOnClose).toHaveBeenCalledTimes(1);
   });
 });

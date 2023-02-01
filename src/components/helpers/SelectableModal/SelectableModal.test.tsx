@@ -34,7 +34,7 @@ describe('helpers/SelectableModal', () => {
 
     fireEvent.click(screen.getByText('first'));
 
-    expect(mockOnClick).toBeCalledTimes(1);
+    expect(mockOnClick).toHaveBeenCalledTimes(1);
   });
 
   test('click second', () => {
@@ -59,6 +59,6 @@ describe('helpers/SelectableModal', () => {
 
     fireEvent.click(screen.getByText('second'));
 
-    expect(mockOnClick).toBeCalledTimes(1);
+    expect(mockOnClick).toHaveBeenCalledTimes(1);
   });
 });

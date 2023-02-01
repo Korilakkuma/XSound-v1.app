@@ -26,6 +26,6 @@ describe('atoms/GroupSelect', () => {
 
     fireEvent.change(screen.getByRole('combobox'));
 
-    expect(mockOnChange).toBeCalledTimes(1);
+    expect(mockOnChange).toHaveBeenCalledTimes(1);
   });
 });
