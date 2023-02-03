@@ -7,7 +7,8 @@ const terserPlugin = new TerserPlugin({
   terserOptions: {
     compress: {
       drop_console: true
-    }
+    },
+    keep_classnames: /^.*?Processor$/
   }
 });
 
