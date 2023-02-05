@@ -22,13 +22,7 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
   const [running, setRunning] = useState<boolean>(false);
   const [creating, setCreating] = useState<boolean>(false);
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
-
-  // Don't memo
-  const hasRecordedData = X('mixer').module('recorder').has(-1, -1) ||
-    X('oneshot').module('recorder').has(-1, -1) ||
-    X('audio').module('recorder').has(-1, -1) ||
-    X('stream').module('recorder').has(-1, -1) ||
-    X('noise').module('recorder').has(-1, -1);
+  const [hasRecordedData, sethasRecordedData] = useState<boolean>(false);
 
   const onClickRecordButtonCallback = useCallback(() => {
     if (
@@ -63,6 +57,14 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
 
       setRunning(true);
     }
+
+    sethasRecordedData(
+      X('mixer').module('recorder').has(-1, -1) ||
+      X('oneshot').module('recorder').has(-1, -1) ||
+      X('audio').module('recorder').has(-1, -1) ||
+      X('stream').module('recorder').has(-1, -1) ||
+      X('noise').module('recorder').has(-1, -1)
+    );
   }, [activeTrack]);
 
   const onClickCreateButtonCallback = useCallback(() => {
@@ -191,6 +193,14 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
     X('audio').module('recorder').clear(activeTrack);
     X('stream').module('recorder').clear(activeTrack);
     X('noise').module('recorder').clear(activeTrack);
+
+    sethasRecordedData(
+      X('mixer').module('recorder').has(-1, -1) ||
+      X('oneshot').module('recorder').has(-1, -1) ||
+      X('audio').module('recorder').has(-1, -1) ||
+      X('stream').module('recorder').has(-1, -1) ||
+      X('noise').module('recorder').has(-1, -1)
+    );
 
     setIsShowModal(false);
   }, [activeTrack]);
