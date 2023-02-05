@@ -864,6 +864,7 @@ export const App: React.FC = () => {
       ]);
 
       X('audio').edit([
+        X('audio').module('pitchshifter'),
         X('audio').module('compressor'),
         X('audio').module('wah'),
         X('audio').module('overdrive'),
@@ -882,6 +883,7 @@ export const App: React.FC = () => {
       ]);
 
       X('stream').edit([
+        X('audio').module('pitchshifter'),
         X('stream').module('compressor'),
         X('stream').module('wah'),
         X('stream').module('overdrive'),
