@@ -52,14 +52,10 @@ $ npm run storybook
 
 [Storybook is published](https://62204686ebafd3003a50f356-musqnffdvl.chromatic.com/)
 
-## Technologies
+## Libraries / Frameworks
 
 - [XSound](https://github.com/Korilakkuma/XSound)
-- TypeScript
 - React Hooks / Redux (Flux Architecture)
-- Atomic Design
-- BEM
-- Service Worker (Cache)
 - Modern Build
   - ESLint
   - webpack
