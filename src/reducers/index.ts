@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 import { ActionTypes } from '../actions/ActionTypes';
 import type {
+  CloneXSoundAction,
   CurrentSoundSourceAction,
   OscillatorStatesAction,
   AnalyserStateAction,
@@ -11,7 +12,17 @@ import type {
   MIDIAction
 } from '../types';
 
+export function clonedXSound(state = () => {}, action: CloneXSoundAction) {
+  switch (action.type) {
+    case ActionTypes.CLONE_XSOUND:
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
 export function currentSoundSource(state = 'oscillator', action: CurrentSoundSourceAction): string {
+
   switch (action.type) {
     case ActionTypes.CHANGE_CURRENT_SOUND_SOURCE:
       return action.payload;
@@ -93,6 +104,7 @@ export function activeMIDIKeyboardIndexes(state: number[] = [], action: MIDIActi
 }
 
 export const rootReducer = (): Reducer => combineReducers({
+  clonedXSound,
   currentSoundSource,
   oscillatorStates,
   analyserState,

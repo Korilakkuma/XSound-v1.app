@@ -58,7 +58,8 @@ export const MML: React.FC<Props> = (props: Props) => {
 
   const dispatch = useDispatch();
 
-  const active = useSelector((state: IState) => state.mmlState);
+  const clonedXSound = useSelector((state: IState) => state.clonedXSound);
+  const active       = useSelector((state: IState) => state.mmlState);
 
   const readyMMLCallback = useCallback((currentMelody: string, currentBass: string) => {
     const melody = currentMelody.replace(CLEAR_HIGHLIGHT_REGEXP, '$1');
@@ -67,7 +68,7 @@ export const MML: React.FC<Props> = (props: Props) => {
     switch (currentSoundSource) {
       case 'oscillator':
         X('mml').ready({ source: X('oscillator'), mmls: [melody] });
-        window.C('mml').ready({ source: window.C('oscillator'), mmls: [bass] });
+        clonedXSound('mml').ready({ source: clonedXSound('oscillator'), mmls: [bass] });
         break;
       case 'piano':
         X('mml').ready({ source: X('oneshot'), mmls: [melody, bass], offset: 0 });
@@ -82,12 +83,12 @@ export const MML: React.FC<Props> = (props: Props) => {
       case 'pinknoise'    :
       case 'browniannoise':
         X('mml').ready({ source: X('noise'), mmls: [melody] });
-        window.C('mml').ready({ source: X('noise'), mmls: [bass] });
+        clonedXSound('mml').ready({ source: X('noise'), mmls: [bass] });
         break;
       default:
         break;
     }
-  }, [currentSoundSource]);
+  }, [clonedXSound, currentSoundSource]);
 
   const startMelodyCallback = useCallback((sequence: Sequence) => {
     dispatch(downMelodyKeyboards(sequence.indexes));
@@ -102,8 +103,8 @@ export const MML: React.FC<Props> = (props: Props) => {
 
   const startBassCallback = useCallback((sequence: Sequence) => {
     dispatch(downBassKeyboards(sequence.indexes));
-    setBass(window.C('mml').getMML(0) ?? '');
-  }, [dispatch]);
+    setBass(clonedXSound('mml').getMML(0) ?? '');
+  }, [dispatch, clonedXSound]);
 
   const stopMelodyCallback = useCallback((sequence: Sequence) => {
     dispatch(upMelodyKeyboards(sequence.indexes));
@@ -117,7 +118,7 @@ export const MML: React.FC<Props> = (props: Props) => {
     for (let i = 0, len = X('oscillator').length(); i < len; i++) {
       if (i !== 0) {
         X('oscillator').get(i).deactivate();
-        window.C('oscillator').get(i).deactivate();
+        clonedXSound('oscillator').get(i).deactivate();
       }
     }
 
@@ -125,14 +126,14 @@ export const MML: React.FC<Props> = (props: Props) => {
     dispatch(downBassKeyboards([]));
 
     const currentMelody = X('mml').getMML(0)?.replace(CLEAR_HIGHLIGHT_REGEXP, '$1') ?? '';
-    const currentBass   = X('mml').getMML(1) ? X('mml').getMML(1)?.replace(CLEAR_HIGHLIGHT_REGEXP, '$1') ?? '' : window.C('mml').getMML(0)?.replace(CLEAR_HIGHLIGHT_REGEXP, '$1') ?? '';
+    const currentBass   = X('mml').getMML(1) ? X('mml').getMML(1)?.replace(CLEAR_HIGHLIGHT_REGEXP, '$1') ?? '' : clonedXSound('mml').getMML(0)?.replace(CLEAR_HIGHLIGHT_REGEXP, '$1') ?? '';
 
     readyMMLCallback(currentMelody, currentBass);
 
     setMelody(currentMelody);
     setBass(currentBass);
     setPaused(true);
-  }, [dispatch, readyMMLCallback]);
+  }, [dispatch, clonedXSound, readyMMLCallback]);
 
   const errorCallbackForMelody = useCallback((error: MMLSyntaxError) => {
     const token = error.token;
@@ -198,26 +199,26 @@ export const MML: React.FC<Props> = (props: Props) => {
       readyMMLCallback(melody, bass);
 
       X('mml').currentIndex(0, melodyIndex);
-      window.C('mml').currentIndex(0, bassIndex);
+      clonedXSound('mml').currentIndex(0, bassIndex);
 
       // Start MML
       if (currentSoundSource === 'oscillator') {
         for (let i = 0, len = X('oscillator').length(); i < len; i++) {
           X('oscillator').get(i).activate();
-          window.C('oscillator').get(i).activate();
+          clonedXSound('oscillator').get(i).activate();
         }
 
         X('mml').start(0, true);
-        window.C('mml').start(0, true);
+        clonedXSound('mml').start(0, true);
 
-        X('mixer').start([X('oscillator'), window.C('oscillator')], [1, 1]);
+        X('mixer').start([X('oscillator'), clonedXSound('oscillator')], [1, 1]);
 
         X('mixer').module('recorder').start();
 
         dispatch(changeOscillatorStates([true, true]));
       } else if (currentSoundSource.endsWith('noise')) {
         X('mml').start(0, true);
-        window.C('mml').start(0, true);
+        clonedXSound('mml').start(0, true);
 
         X('mixer').module('recorder').start();
       } else {
@@ -228,24 +229,25 @@ export const MML: React.FC<Props> = (props: Props) => {
       }
     } else {
       setMelodyIndex(X('mml').currentIndex(0));
-      setBassIndex(window.C('mml').currentIndex(0));
+      setBassIndex(clonedXSound('mml').currentIndex(0));
 
       // Stop MML
       X('mml').stop();
-      window.C('mml').stop();
+      clonedXSound('mml').stop();
 
       for (let i = 0, len = X('oscillator').length(); i < len; i++) {
         if (i !== 0) {
           X('oscillator').get(i).deactivate();
         }
 
-        window.C('oscillator').get(i).deactivate();
+        clonedXSound('oscillator').get(i).deactivate();
       }
     }
 
     setPaused(!paused);
   }, [
     dispatch,
+    clonedXSound,
     currentSoundSource,
     paused,
     melody,
@@ -257,7 +259,7 @@ export const MML: React.FC<Props> = (props: Props) => {
 
   const onClickRewindButtonCallback = useCallback(() => {
     X('mml').stop();
-    window.C('mml').stop();
+    clonedXSound('mml').stop();
 
     dispatch(downMelodyKeyboards([]));
     dispatch(downBassKeyboards([]));
@@ -270,7 +272,7 @@ export const MML: React.FC<Props> = (props: Props) => {
     setMelodyIndex(0);
     setBassIndex(0);
     setPaused(true);
-  }, [dispatch, melody, bass]);
+  }, [dispatch, clonedXSound, melody, bass]);
 
   const onClickDownloadButtonCallback = useCallback(() => {
     const currentMelody = melody.replace(CLEAR_HIGHLIGHT_REGEXP, '$1');
@@ -434,7 +436,7 @@ export const MML: React.FC<Props> = (props: Props) => {
       errorCallback: errorCallbackForMelody
     });
 
-    window.C('mml').setup({
+    clonedXSound('mml').setup({
       startCallback: startBassCallback,
       stopCallback : stopBassCallback,
       endedCallback: endedAllPartsCallback,
@@ -498,6 +500,7 @@ export const MML: React.FC<Props> = (props: Props) => {
         setLoaded(true);
       });
   }, [
+    clonedXSound,
     loadedApp,
     loaded,
     melody,

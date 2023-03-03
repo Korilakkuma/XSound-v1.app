@@ -1,44 +1,48 @@
 import React, { useCallback } from 'react';
+import type { IState } from '../../../types';
+import { useSelector } from 'react-redux';
 import { Spacer } from '../../atoms/Spacer';
 import { ParameterController } from '../../helpers/ParameterController';
 import { X } from 'xsound';
 
 export const EnvelopeGeneratorFieldset: React.FC = () => {
+  const clonedXSound = useSelector((state: IState) => state.clonedXSound);
+
   const onChangeAttackCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const attack = event.currentTarget.valueAsNumber;
 
     X('oscillator').module('envelopegenerator').param({ attack });
-    window.C('oscillator').module('envelopegenerator').param({ attack });
+    clonedXSound('oscillator').module('envelopegenerator').param({ attack });
     X('oneshot').module('envelopegenerator').param({ attack });
     X('noise').module('envelopegenerator').param({ attack });
-  }, []);
+  }, [clonedXSound]);
 
   const onChangeDecayCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const decay = event.currentTarget.valueAsNumber;
 
     X('oscillator').module('envelopegenerator').param({ decay });
-    window.C('oscillator').module('envelopegenerator').param({ decay });
+    clonedXSound('oscillator').module('envelopegenerator').param({ decay });
     X('oneshot').module('envelopegenerator').param({ decay });
     X('noise').module('envelopegenerator').param({ decay });
-  }, []);
+  }, [clonedXSound]);
 
   const onChangeSustainCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const sustain = event.currentTarget.valueAsNumber;
 
     X('oscillator').module('envelopegenerator').param({ sustain });
-    window.C('oscillator').module('envelopegenerator').param({ sustain });
+    clonedXSound('oscillator').module('envelopegenerator').param({ sustain });
     X('oneshot').module('envelopegenerator').param({ sustain });
     X('noise').module('envelopegenerator').param({ sustain });
-  }, []);
+  }, [clonedXSound]);
 
   const onChangeReleaseCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const release = event.currentTarget.valueAsNumber;
 
     X('oscillator').module('envelopegenerator').param({ release });
-    window.C('oscillator').module('envelopegenerator').param({ release });
+    clonedXSound('oscillator').module('envelopegenerator').param({ release });
     X('oneshot').module('envelopegenerator').param({ release });
     X('noise').module('envelopegenerator').param({ release });
-  }, []);
+  }, [clonedXSound]);
 
   return (
     <div className="EnvelopeGeneratorFieldset">

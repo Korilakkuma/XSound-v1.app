@@ -1,6 +1,7 @@
 import { ActionTypes } from './ActionTypes';
 import type {
   SoundSource,
+  CloneXSoundAction,
   CurrentSoundSourceAction,
   OscillatorStatesAction,
   AnalyserStateAction,
@@ -8,6 +9,14 @@ import type {
   KeyboardAction,
   MIDIAction
 } from '../types';
+import type { XSound } from 'xsound';
+
+export function cloneXSound(xsound: Partial<typeof XSound>): CloneXSoundAction {
+  return {
+    type   : ActionTypes.CLONE_XSOUND,
+    payload: xsound
+  };
+}
 
 export function changeCurrentSoundSource(source: SoundSource): CurrentSoundSourceAction {
   return {

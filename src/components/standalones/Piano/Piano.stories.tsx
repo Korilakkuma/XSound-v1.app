@@ -113,27 +113,35 @@ const Template: ComponentStoryObj<typeof Piano> = {
         return;
       }
 
-      window.C = X.clone();
+      const setup = async () => {
+        const clonedX = await X.clone();
 
-      X('oscillator').setup([true, true, true, true]);
-      window.C('oscillator').setup([true, true, true, true]);
-
-      for (let i = 0, len = X('oscillator').length(); i < len; i++) {
-        X('oscillator').get(i).param({ type: 'sawtooth' });
-        window.C('oscillator').get(i).param({ type: 'sawtooth' });
-      }
-
-      X('oneshot').setup({
-        resources      : oneshots,
-        settings       : createOneshotSettingsCallback(),
-        timeout        : 60000,
-        successCallback: () => {
-          setLoaded(true);
-        },
-        errorCallback  : () => {
-          alert('The loading of audio files failed.');
+        if (clonedX instanceof Error) {
+          return;
         }
-      });
+
+        X('oscillator').setup([true, true, true, true]);
+        clonedX('oscillator').setup([true, true, true, true]);
+
+        for (let i = 0, len = X('oscillator').length(); i < len; i++) {
+          X('oscillator').get(i).param({ type: 'sawtooth' });
+          clonedX('oscillator').get(i).param({ type: 'sawtooth' });
+        }
+
+        X('oneshot').setup({
+          resources      : oneshots,
+          settings       : createOneshotSettingsCallback(),
+          timeout        : 60000,
+          successCallback: () => {
+            setLoaded(true);
+          },
+          errorCallback  : () => {
+            alert('The loading of audio files failed.');
+          }
+        });
+      };
+
+      setup();
     }, [loaded, createOneshotSettingsCallback]);
 
     return (

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { useSelector } from 'react-redux';
 import type { IState, SoundSource } from '../../../types';
+import { useSelector } from 'react-redux';
 import { NUMBER_OF_PIANO_KEYBOARDS } from '../../../config';
 import { X } from 'xsound';
 
@@ -12,6 +12,7 @@ export const Piano: React.FC<Props> = (props: Props) => {
   const [downKeyboards, setDownKeyboards] = useState<boolean[]>(new Array(NUMBER_OF_PIANO_KEYBOARDS).fill(false));
   const [isDown, setIsDown] = useState<boolean>(false);  // for `mouseover` or `touchmove` event
 
+  const clonedXSound      = useSelector((state: IState) => state.clonedXSound);
   const downMelodyIndexes = useSelector((state: IState) => state.downMelodyKeyboardIndexes);
   const downBassIndexes   = useSelector((state: IState) => state.downBassKeyboardIndexes);
   const upMelodyIndexes   = useSelector((state: IState) => state.upMelodyKeyboardIndexes);
@@ -46,9 +47,9 @@ export const Piano: React.FC<Props> = (props: Props) => {
     switch (props.currentSoundSource) {
       case 'oscillator':
         X('oscillator').ready(0, 0).start(X.toFrequencies([index, -1, -1, -1]));
-        window.C('oscillator').ready(0, 0).start(X.toFrequencies([index, -1, -1, -1]));
+        clonedXSound('oscillator').ready(0, 0).start(X.toFrequencies([index, -1, -1, -1]));
 
-        X('mixer').start([X('oscillator'), window.C('oscillator')], [1, 1]);
+        X('mixer').start([X('oscillator'), clonedXSound('oscillator')], [1, 1]);
 
         X('mixer').module('recorder').start();
         // X('mixer').module('session').start();
@@ -106,7 +107,7 @@ export const Piano: React.FC<Props> = (props: Props) => {
 
     setDownKeyboards([...downKeyboards]);
     setIsDown(true);
-  }, [props.currentSoundSource, downKeyboards, isDown]);
+  }, [props.currentSoundSource, clonedXSound, downKeyboards, isDown]);
 
   const stopSoundCallback = useCallback((event: React.MouseEvent<HTMLButtonElement> | React.TouchEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement> | React.FocusEvent<HTMLButtonElement>) => {
     if (event.currentTarget.classList.contains('skip')) {
@@ -134,7 +135,7 @@ export const Piano: React.FC<Props> = (props: Props) => {
     switch (props.currentSoundSource) {
       case 'oscillator':
         X('oscillator').stop();
-        window.C('oscillator').stop();
+        clonedXSound('oscillator').stop();
 
         break;
       case 'piano':
@@ -158,13 +159,13 @@ export const Piano: React.FC<Props> = (props: Props) => {
     if ((event.type === 'mouseup') || (event.type === 'touchend')) {
       setIsDown(false);
     }
-  }, [props.currentSoundSource, downKeyboards]);
+  }, [props.currentSoundSource, clonedXSound, downKeyboards]);
 
   const stopSoundOnOutsideOfKeyboardCallback = useCallback(() => {
     switch (props.currentSoundSource) {
       case 'oscillator':
         X('oscillator').stop();
-        window.C('oscillator').stop();
+        clonedXSound('oscillator').stop();
 
         break;
       default:
@@ -174,7 +175,7 @@ export const Piano: React.FC<Props> = (props: Props) => {
 
     setDownKeyboards([...downKeyboards.map(() => false)]);
     setIsDown(false);
-  }, [props.currentSoundSource, downKeyboards]);
+  }, [props.currentSoundSource, clonedXSound, downKeyboards]);
 
   const indexMap: { [pitch: string]: number } = useMemo(() => ({
     'A-4' :  0,

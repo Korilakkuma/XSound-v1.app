@@ -1,3 +1,4 @@
+import { ActionTypes } from '../actions/ActionTypes';
 import {
   currentSoundSource,
   oscillatorStates,
@@ -7,9 +8,8 @@ import {
   downBassKeyboardIndexes,
   upMelodyKeyboardIndexes,
   upBassKeyboardIndexes,
-  activeMIDIKeyboardIndexes
+  activeMIDIKeyboardIndexes,
 } from './';
-import { ActionTypes } from '../actions/ActionTypes';
 import type {
   SoundSource,
   CurrentSoundSourceAction,
@@ -21,6 +21,25 @@ import type {
 } from '../types';
 
 describe('Reducers', () => {
+  /*
+  test('should handle CLONE_XSOUND', async () => {
+    const expectedState: Partial<typeof XSound> | Error = await XSound.clone();
+
+    if (expectedState instanceof Error) {
+      return;
+    }
+
+    const action = {
+      type   : ActionTypes.CLONE_XSOUND,
+      payload: expectedState
+    };
+
+    expect(clonedXSound(undefined, {} as CloneXSoundAction)).toBe(null);
+    expect(clonedXSound(undefined, action)).toStrictEqual(expectedState);
+    expect(clonedXSound(expectedState, action)).toStrictEqual(expectedState);
+  });
+  */
+
   test('should handle CHANGE_CURRENT_SOUND_SOURCE', () => {
     const expectedState: SoundSource = 'piano';
 

@@ -19,10 +19,8 @@ const Template: ComponentStoryObj<typeof EnvelopeGeneratorFieldset> = {
     const onClickCallback = useCallback(() => {
       if (isStop) {
         X('oscillator').start(X.toFrequencies([40, (40 + 4), (40 + 7), (40 + 10)]));
-        window.C('oscillator').start(X.toFrequencies([28, (28 + 4), (28 + 7), (28 + 10)]));
       } else {
         X('oscillator').stop();
-        window.C('oscillator').stop();
       }
 
       setIsStop(!isStop);
@@ -33,14 +31,10 @@ const Template: ComponentStoryObj<typeof EnvelopeGeneratorFieldset> = {
         return;
       }
 
-      window.C = X.clone();
-
       X('oscillator').setup([true, true, true, true]);
-      window.C('oscillator').setup([true, true, true, true]);
 
       for (let i = 0, len = X('oscillator').length(); i < len; i++) {
         X('oscillator').get(i).param({ type: 'sawtooth' });
-        window.C('oscillator').get(i).param({ type: 'sawtooth' });
       }
 
       setLoaded(true);

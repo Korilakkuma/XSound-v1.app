@@ -8,11 +8,28 @@ import {
   downBassKeyboards,
   upMelodyKeyboards,
   upBassKeyboards,
-  activateMIDIKeyboards
+  activateMIDIKeyboards,
 } from './';
 import type { SoundSource } from '../types';
 
 describe('Actions', () => {
+  /*
+  test('should create an action to clone `XSound`', async () => {
+    const payload: Partial<typeof XSound> | Error = await XSound.clone();
+
+    if (payload instanceof Error) {
+      return;
+    }
+
+    const expectedAction = {
+      type: ActionTypes.CHANGE_CURRENT_SOUND_SOURCE,
+      payload
+    };
+
+    expect(cloneXSound(payload)).toStrictEqual(expectedAction);
+  });
+  */
+
   test('should create an action to change current sound source', () => {
     const payload: SoundSource = 'oscillator';
 

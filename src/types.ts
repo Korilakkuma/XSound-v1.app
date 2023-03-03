@@ -1,13 +1,7 @@
-import type { X } from 'xsound';
+import type { XSound } from 'xsound';
 import type { Action } from 'redux';
 import type { store } from './store';
 import type { ActionTypes } from './actions/ActionTypes';
-
-declare global {
-  interface Window {
-    C: ReturnType<typeof X.clone>;
-  }
-}
 
 export type IState = ReturnType<typeof store.getState>;
 
@@ -35,6 +29,11 @@ export type MMLDescriptor = {
   melody: string,
   bass: string
 };
+
+export interface CloneXSoundAction extends Action {
+  type: typeof ActionTypes.CLONE_XSOUND;
+  payload: Partial<typeof XSound>;
+}
 
 export interface CurrentSoundSourceAction extends Action {
   type: typeof ActionTypes.CHANGE_CURRENT_SOUND_SOURCE;
