@@ -828,6 +828,24 @@ export const App: React.FC = () => {
     X('oscillator').resize(0);  // Automatic buffer size
     window.C('oscillator').resize(0);  // Automatic buffer size
 
+
+    // If use noise suppressor by `AudioWorkletProcessor`, cannot play one-shot audio on the way
+    X('oneshot').edit([
+      X('oneshot').module('compressor'),
+      X('oneshot').module('wah'),
+      X('oneshot').module('overdrive'),
+      X('oneshot').module('fuzz'),
+      X('oneshot').module('preamp'),
+      X('oneshot').module('filter'),
+      X('oneshot').module('tremolo'),
+      X('oneshot').module('ringmodulator'),
+      X('oneshot').module('phaser'),
+      X('oneshot').module('chorus'),
+      X('oneshot').module('flanger'),
+      X('oneshot').module('delay'),
+      X('oneshot').module('reverb')
+    ]);
+
     if (process.env.NODE_ENV === 'production') {
       X('mixer').edit([
         X('mixer').module('compressor'),
@@ -844,23 +862,6 @@ export const App: React.FC = () => {
         X('mixer').module('flanger'),
         X('mixer').module('delay'),
         X('mixer').module('reverb')
-      ]);
-
-      X('oneshot').edit([
-        X('oneshot').module('compressor'),
-        X('oneshot').module('wah'),
-        X('oneshot').module('overdrive'),
-        X('oneshot').module('fuzz'),
-        X('oneshot').module('preamp'),
-        X('oneshot').module('filter'),
-        X('oneshot').module('noisesuppressor'),
-        X('oneshot').module('tremolo'),
-        X('oneshot').module('ringmodulator'),
-        X('oneshot').module('phaser'),
-        X('oneshot').module('chorus'),
-        X('oneshot').module('flanger'),
-        X('oneshot').module('delay'),
-        X('oneshot').module('reverb')
       ]);
 
       X('audio').edit([
