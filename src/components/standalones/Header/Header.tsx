@@ -96,9 +96,9 @@ export const Header: React.FC<Props> = (props: Props) => {
             <img src="/assets/images/logo-v09.png" alt="" width="200" height="100" />
           </h1>
           <div id={describeId} className="Header__intro">
-            <span className="Header__moveLeft">This application is created by <strong>Web Audio API</strong>. You can create sound or listen to audio or record sound.</span>
-            <span className="Header__moveRight">The sound that can be created corresponds to 88 keyboards of Piano, and you can play the 2 sounds at the same time.</span>
-            <span className="Header__moveLeft">Moreover, you can make effects to sound. Other, you can watch sound waves on time and spectrum.</span>
+            <span className="Header__moveLeft">XSound.app is Web Music Application by XSound (Web Audio API Library).</span>
+            <span className="Header__moveRight">Synthesizer, Effects, Visualization, Multi-Track Recording, Visual Audio Sprite ...</span>
+            <span className="Header__moveLeft">Moreover, enable to use external devices such as Audio Interfaces, MIDI.</span>
           </div>
           <nav className="Header__startButton"><button type="button" onClick={onClickCallback}>Start Application</button></nav>
         </div>
