@@ -48,9 +48,11 @@ describe('Reducers', () => {
       payload: expectedState
     };
 
+    const soundSource: SoundSource = 'oscillator';
+
     expect(currentSoundSource(undefined, {} as CurrentSoundSourceAction)).toStrictEqual('oscillator');
     expect(currentSoundSource(undefined, action)).toStrictEqual(expectedState);
-    expect(currentSoundSource('oscillator' as SoundSource, action)).toStrictEqual(expectedState);
+    expect(currentSoundSource(soundSource, action)).toStrictEqual(expectedState);
   });
 
   test('should handle CHANGE_OSCILLATOR_STATES', () => {
@@ -100,9 +102,11 @@ describe('Reducers', () => {
       payload: expectedState
     };
 
+    const emptyIndexes: number[] = [];
+
     expect(downMelodyKeyboardIndexes(undefined, {} as KeyboardAction)).toStrictEqual([] as number[]);
     expect(downMelodyKeyboardIndexes(undefined, action)).toStrictEqual(expectedState);
-    expect(downMelodyKeyboardIndexes([] as number[], action)).toStrictEqual(expectedState);
+    expect(downMelodyKeyboardIndexes(emptyIndexes, action)).toStrictEqual(expectedState);
   });
 
   test('should handle DOWN_BASS_KEYBOARDS', () => {
@@ -113,9 +117,11 @@ describe('Reducers', () => {
       payload: expectedState
     };
 
+    const emptyIndexes: number[] = [];
+
     expect(downBassKeyboardIndexes(undefined, {} as KeyboardAction)).toStrictEqual([] as number[]);
     expect(downBassKeyboardIndexes(undefined, action)).toStrictEqual(expectedState);
-    expect(downBassKeyboardIndexes([] as number[], action)).toStrictEqual(expectedState);
+    expect(downBassKeyboardIndexes(emptyIndexes, action)).toStrictEqual(expectedState);
   });
 
   test('should handle UP_MELODY_KEYBOARDS', () => {
@@ -126,9 +132,11 @@ describe('Reducers', () => {
       payload: expectedState
     };
 
+    const emptyIndexes: number[] = [];
+
     expect(upMelodyKeyboardIndexes(undefined, {} as KeyboardAction)).toStrictEqual([] as number[]);
     expect(upMelodyKeyboardIndexes(undefined, action)).toStrictEqual(expectedState);
-    expect(upMelodyKeyboardIndexes([] as number[], action)).toStrictEqual(expectedState);
+    expect(upMelodyKeyboardIndexes(emptyIndexes, action)).toStrictEqual(expectedState);
   });
 
   test('should handle UP_BASS_KEYBOARDS', () => {
@@ -139,9 +147,11 @@ describe('Reducers', () => {
       payload: expectedState
     };
 
+    const emptyIndexes: number[] = [];
+
     expect(upBassKeyboardIndexes(undefined, {} as KeyboardAction)).toStrictEqual([] as number[]);
     expect(upBassKeyboardIndexes(undefined, action)).toStrictEqual(expectedState);
-    expect(upBassKeyboardIndexes([] as number[], action)).toStrictEqual(expectedState);
+    expect(upBassKeyboardIndexes(emptyIndexes, action)).toStrictEqual(expectedState);
   });
 
   test('should handle ACTIVATE_MIDI_KEYBOARDS', () => {
@@ -152,9 +162,11 @@ describe('Reducers', () => {
       payload: expectedState
     };
 
+    const emptyIndexes: number[] = [];
+
     expect(activeMIDIKeyboardIndexes(undefined, {} as MIDIAction)).toStrictEqual([] as number[]);
     expect(activeMIDIKeyboardIndexes(undefined, action)).toStrictEqual(expectedState);
-    expect(activeMIDIKeyboardIndexes([] as number[], action)).toStrictEqual(expectedState);
+    expect(activeMIDIKeyboardIndexes(emptyIndexes, action)).toStrictEqual(expectedState);
     expect(activeMIDIKeyboardIndexes(expectedState, action)).not.toBe(expectedState);
   });
 });
