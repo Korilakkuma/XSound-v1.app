@@ -37,7 +37,7 @@ const Template: ComponentStoryObj<typeof WahFieldset> = {
       X.ajax({
         url            : '/assets/audio/mp3/forever-love-piano-instruments.mp3',
         timeout        : 60000,
-        successCallback: (event: ProgressEvent, arraybuffer: ArrayBuffer) => {
+        successCallback: (_: ProgressEvent, arraybuffer: ArrayBuffer) => {
           X('audio').ready(arraybuffer);
         }
       });

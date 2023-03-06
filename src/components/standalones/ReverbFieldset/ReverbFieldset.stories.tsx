@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState, useEffect, useMemo } from 'react';
 import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import type { RIRDescriptor } from '../../../types';
 import { ReverbFieldset } from './ReverbFieldset';
 import '../../../main.css';
 
-import type { RIRDescriptor } from '../../../types';
 import { X } from 'xsound';
 
 export default {
@@ -49,7 +49,7 @@ const Template: ComponentStoryObj<typeof ReverbFieldset> = {
           url            : rirDescriptor.url,
           type           : 'arraybuffer',
           timeout        : 60000,
-          successCallback: (event: ProgressEvent, arraybuffer: ArrayBuffer) => {
+          successCallback: (_: ProgressEvent, arraybuffer: ArrayBuffer) => {
             X.decode(X.get(), arraybuffer, (audiobuffer: AudioBuffer) => {
               rirs.push(audiobuffer);
 
@@ -64,7 +64,7 @@ const Template: ComponentStoryObj<typeof ReverbFieldset> = {
       X.ajax({
         url            : '/assets/audio/mp3/forever-love-piano-instruments.mp3',
         timeout        : 60000,
-        successCallback: (event: ProgressEvent, arraybuffer: ArrayBuffer) => {
+        successCallback: (_: ProgressEvent, arraybuffer: ArrayBuffer) => {
           X('audio').ready(arraybuffer);
         }
       });
