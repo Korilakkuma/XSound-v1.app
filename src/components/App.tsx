@@ -947,6 +947,7 @@ export const App: React.FC = () => {
       X('mixer').module('delay').param({ tone: 4000 });
       X('mixer').module('reverb').param({ tone: 4000 });
       X('mixer').module('filter').param({ frequency: 8000 });
+      X('mixer').module('noisesuppressor').deactivate();
 
       X('oneshot').module('preamp').param(preampParams);
       X('oneshot').module('chorus').param({ tone: 4000 });
@@ -961,6 +962,7 @@ export const App: React.FC = () => {
       X('audio').module('delay').param({ tone: 4000 });
       X('audio').module('reverb').param({ tone: 4000 });
       X('audio').module('filter').param({ frequency: 8000 });
+      X('audio').module('noisesuppressor').deactivate();
 
       X('stream').module('preamp').param(preampParams);
       X('stream').module('chorus').param({ tone: 4000 });
@@ -968,6 +970,7 @@ export const App: React.FC = () => {
       X('stream').module('delay').param({ tone: 4000 });
       X('stream').module('reverb').param({ tone: 4000 });
       X('stream').module('filter').param({ frequency: 8000 });
+      X('stream').module('noisesuppressor').deactivate();
 
       X('noise').module('preamp').param(preampParams);
       X('noise').module('chorus').param({ tone: 4000 });
@@ -975,6 +978,7 @@ export const App: React.FC = () => {
       X('noise').module('delay').param({ tone: 4000 });
       X('noise').module('reverb').param({ tone: 4000 });
       X('noise').module('filter').param({ frequency: 8000 });
+      X('noise').module('noisesuppressor').deactivate();
 
       X('oscillator').module('preamp').param(preampParams);
       X('oscillator').module('chorus').param({ tone: 4000 });
@@ -982,6 +986,7 @@ export const App: React.FC = () => {
       X('oscillator').module('delay').param({ tone: 4000 });
       X('oscillator').module('reverb').param({ tone: 4000 });
       X('oscillator').module('filter').param({ frequency: 8000 });
+      X('oscillator').module('noisesuppressor').deactivate();
 
       clonedXSound('oscillator').module('preamp').param(preampParams);
       clonedXSound('oscillator').module('chorus').param({ tone: 4000 });
@@ -989,6 +994,7 @@ export const App: React.FC = () => {
       clonedXSound('oscillator').module('delay').param({ tone: 4000 });
       clonedXSound('oscillator').module('reverb').param({ tone: 4000 });
       clonedXSound('oscillator').module('filter').param({ frequency: 8000 });
+      clonedXSound('oscillator').module('noisesuppressor').deactivate();
 
       for (let i = 0, len = X('oscillator').length(); i < len; i++) {
         X('oscillator').get(i).param({ type: 'sawtooth' });

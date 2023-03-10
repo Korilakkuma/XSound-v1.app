@@ -5,7 +5,7 @@ import { ParameterController } from '../../helpers/ParameterController';
 import { X } from 'xsound';
 
 export const NoiseSuppressorFieldset: React.FC = () => {
-  const [noisesuppressor, setNoisesuppressor] = useState<boolean>(true);
+  const [noisesuppressor, setNoisesuppressor] = useState<boolean>(false);
 
   const onChangeStateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const checked = event.currentTarget.checked;

@@ -39,6 +39,7 @@ const Template: ComponentStoryObj<typeof NoiseSuppressorFieldset> = {
         timeout        : 60000,
         successCallback: (_: ProgressEvent, arraybuffer: ArrayBuffer) => {
           X('audio').ready(arraybuffer);
+          X('audio').module('noisesuppressor').deactivate();
         }
       });
     }, [loaded]);
