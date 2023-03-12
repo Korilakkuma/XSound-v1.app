@@ -1,18 +1,20 @@
-import React, { useState, useCallback, useMemo } from 'react';
-import type { IState, SoundSource } from '../../../types';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  changeCurrentSoundSource,
-  changeAnalyserState,
-  changeMMLState,
-  activateMIDIKeyboards,
-} from '../../../actions';
-import { Switch } from '../../atoms/Switch';
-import { Select } from '../../atoms/Select';
-import { Modal } from '../../atoms/Modal';
-import { ParameterController } from '../../helpers/ParameterController';
-import { NUMBER_OF_ONESHOTS } from '../../../config';
 import { X } from 'xsound';
+
+import {
+  activateMIDIKeyboards,
+  changeAnalyserState,
+  changeCurrentSoundSource,
+  changeMMLState,
+} from '../../../actions';
+import { NUMBER_OF_ONESHOTS } from '../../../config';
+import { Modal } from '../../atoms/Modal';
+import { Select } from '../../atoms/Select';
+import { Switch } from '../../atoms/Switch';
+import { ParameterController } from '../../helpers/ParameterController';
+
+import type { IState, SoundSource } from '../../../types';
 
 export type Props = {
   currentSoundSource: SoundSource

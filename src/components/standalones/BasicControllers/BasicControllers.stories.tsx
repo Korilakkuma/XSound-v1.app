@@ -1,14 +1,17 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
+import { X } from 'xsound';
+
 import { store } from '../../../store';
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+
 import { BasicControllers } from './BasicControllers';
-import '../../../main.css';
 
 import type { SoundSource } from '../../../types';
+import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
 import type { OneshotSetting, OneshotSettings } from 'xsound';
-import { X } from 'xsound';
+
+import '../../../main.css';
 
 export default {
   component: BasicControllers

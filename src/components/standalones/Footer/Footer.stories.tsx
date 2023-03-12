@@ -1,7 +1,10 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react';
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+
 import { Footer } from './Footer';
+
+import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+
 import '../../../main.css';
 
 export default {

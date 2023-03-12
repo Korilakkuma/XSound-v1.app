@@ -1,12 +1,14 @@
-import React, { useState, useCallback } from 'react';
-import type { IState } from '../../../types';
+import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { X } from 'xsound';
+
 import { changeOscillatorStates } from '../../../actions';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
 import { OscillatorSelector } from '../../helpers/OscillatorSelector';
 import { ParameterController } from '../../helpers/ParameterController';
-import { X } from 'xsound';
+
+import type { IState } from '../../../types';
 
 export type Props = {
   oscillatorNumber: number,

@@ -1,9 +1,11 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
+import { X } from 'xsound';
+
+import { Select } from '../../atoms/Select';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
-import { Select } from '../../atoms/Select';
 import { ParameterController } from '../../helpers/ParameterController';
-import { X } from 'xsound';
+
 
 type BoosterType = 'overdrive' | 'fuzz';
 

@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useMemo, useCallback, useRef, useId } from 'react';
-import { ProgressBar } from '../../atoms/ProgressBar';
+import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
+
 import { FOCUSABLE_ELEMENTS } from '../../../config';
+import { ProgressBar } from '../../atoms/ProgressBar';
 
 export type Props = {
   progress: boolean,

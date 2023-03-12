@@ -1,15 +1,17 @@
 import { ActionTypes } from './ActionTypes';
+
 import {
-  changeCurrentSoundSource,
-  changeOscillatorStates,
-  changeAnalyserState,
-  changeMMLState,
-  downMelodyKeyboards,
-  downBassKeyboards,
-  upMelodyKeyboards,
-  upBassKeyboards,
   activateMIDIKeyboards,
+  changeAnalyserState,
+  changeCurrentSoundSource,
+  changeMMLState,
+  changeOscillatorStates,
+  downBassKeyboards,
+  downMelodyKeyboards,
+  upBassKeyboards,
+  upMelodyKeyboards,
 } from './';
+
 import type { SoundSource } from '../types';
 
 describe('Actions', () => {

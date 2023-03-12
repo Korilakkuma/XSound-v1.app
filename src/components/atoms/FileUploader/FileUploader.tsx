@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useId } from 'react';
+import React, { useCallback, useId, useRef } from 'react';
 
 export type Props = {
   accept: string,

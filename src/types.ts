@@ -1,7 +1,7 @@
-import type { XSound } from 'xsound';
-import type { Action } from 'redux';
-import type { store } from './store';
 import type { ActionTypes } from './actions/ActionTypes';
+import type { store } from './store';
+import type { Action } from 'redux';
+import type { XSound } from 'xsound';
 
 export type IState = ReturnType<typeof store.getState>;
 

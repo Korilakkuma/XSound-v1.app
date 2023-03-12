@@ -1,16 +1,18 @@
-import type { Reducer} from 'redux';
-import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
+import { combineReducers } from 'redux';
+
 import { ActionTypes } from '../actions/ActionTypes';
+
 import type {
+  AnalyserStateAction,
   CloneXSoundAction,
   CurrentSoundSourceAction,
-  OscillatorStatesAction,
-  AnalyserStateAction,
-  MMLStateAction,
   KeyboardAction,
-  MIDIAction
+  MIDIAction,
+  MMLStateAction,
+  OscillatorStatesAction
 } from '../types';
+import type { Reducer} from 'redux';
 
 export function clonedXSound(state = () => {}, action: CloneXSoundAction) {
   switch (action.type) {

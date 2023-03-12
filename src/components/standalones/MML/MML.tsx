@@ -1,24 +1,27 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import type { IState, SoundSource, MMLDescriptor } from '../../../types';
+import { X } from 'xsound';
+
 import {
   changeOscillatorStates,
-  downMelodyKeyboards,
   downBassKeyboards,
-  upMelodyKeyboards,
-  upBassKeyboards
+  downMelodyKeyboards,
+  upBassKeyboards,
+  upMelodyKeyboards
 } from '../../../actions';
+import { NUMBER_OF_PIANO_KEYBOARDS } from '../../../config';
 import { createFilename } from '../../../utils';
+import { FileUploader } from '../../atoms/FileUploader';
+import { Modal } from '../../atoms/Modal';
+import { ProgressBar } from '../../atoms/ProgressBar';
+import { Select } from '../../atoms/Select';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
-import { Select } from '../../atoms/Select';
-import { FileUploader } from '../../atoms/FileUploader';
-import { ProgressBar } from '../../atoms/ProgressBar';
-import { Modal } from '../../atoms/Modal';
 import { SelectableModal } from '../../helpers/SelectableModal';
-import { NUMBER_OF_PIANO_KEYBOARDS } from '../../../config';
-import type { Sequence, MMLSyntaxError, FileEvent, FileReaderErrorText } from 'xsound';
-import { X } from 'xsound';
+
+import type { IState, MMLDescriptor, SoundSource } from '../../../types';
+import type { FileEvent, FileReaderErrorText, MMLSyntaxError, Sequence } from 'xsound';
+
 
 export type Props = {
   loadedApp: boolean,

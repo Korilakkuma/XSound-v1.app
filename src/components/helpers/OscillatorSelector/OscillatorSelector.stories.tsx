@@ -1,7 +1,9 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState, useCallback } from 'react';
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import React, { useCallback, useState } from 'react';
+
 import { OscillatorSelector } from './OscillatorSelector';
+
+import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
 import '../../../main.css';
 
 export default {

@@ -1,10 +1,12 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState, useEffect, useMemo } from 'react';
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
-import { NoiseSuppressorFieldset } from './NoiseSuppressorFieldset';
-import '../../../main.css';
-
+import React, { useEffect, useMemo, useState } from 'react';
 import { X } from 'xsound';
+
+import { NoiseSuppressorFieldset } from './NoiseSuppressorFieldset';
+
+import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+
+import '../../../main.css';
 
 export default {
   component: NoiseSuppressorFieldset

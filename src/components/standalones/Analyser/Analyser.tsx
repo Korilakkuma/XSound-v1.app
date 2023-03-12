@@ -1,12 +1,15 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import type { IState } from '../../../types';
+import { X } from 'xsound';
+
 import { formatAudioTime } from '../../../utils';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
 import { ParameterController } from '../../helpers/ParameterController';
-import type { AnalyserParams, TimeOverviewParams, TimeParams, FFTParams, DragMode, DragCallbackFunction } from 'xsound';
-import { X } from 'xsound';
+
+import type { IState } from '../../../types';
+import type { AnalyserParams, DragCallbackFunction, DragMode, FFTParams, TimeOverviewParams, TimeParams } from 'xsound';
+
 
 export type Props = {
   loadedApp: boolean

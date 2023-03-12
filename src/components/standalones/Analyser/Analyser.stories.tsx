@@ -1,12 +1,15 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Provider } from 'react-redux';
-import { createStoreMock } from '../../../../mock/createStoreMock';
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
-import { Analyser } from './Analyser';
-import '../../../main.css';
-
 import { X } from 'xsound';
+
+import { createStoreMock } from '../../../../mock/createStoreMock';
+
+import { Analyser } from './Analyser';
+
+import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+
+import '../../../main.css';
 
 export default {
   component: Analyser

@@ -1,13 +1,14 @@
 import { ActionTypes } from './ActionTypes';
+
 import type {
-  SoundSource,
+  AnalyserStateAction,
   CloneXSoundAction,
   CurrentSoundSourceAction,
-  OscillatorStatesAction,
-  AnalyserStateAction,
-  MMLStateAction,
   KeyboardAction,
-  MIDIAction
+  MIDIAction,
+  MMLStateAction,
+  OscillatorStatesAction,
+  SoundSource
 } from '../types';
 import type { XSound } from 'xsound';
 

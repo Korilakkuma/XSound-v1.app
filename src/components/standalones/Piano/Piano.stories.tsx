@@ -1,13 +1,16 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
-import { store } from '../../../store';
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
-import { Piano } from './Piano';
-import '../../../main.css';
-
-import type { OneshotSetting, OneshotSettings } from 'xsound';
 import { X } from 'xsound';
+
+import { store } from '../../../store';
+
+import { Piano } from './Piano';
+
+import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import type { OneshotSetting, OneshotSettings } from 'xsound';
+
+import '../../../main.css';
 
 export default {
   component: Piano

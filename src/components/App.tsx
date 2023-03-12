@@ -1,36 +1,40 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import type { IState, RIRDescriptor } from '../types';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { cloneXSound } from '../actions';
-import { Modal } from './atoms/Modal';
-import { Flexbox } from './atoms/Flexbox';
-import { VerticalBox } from './atoms/VerticalBox';
-import { Header } from './standalones/Header';
-import { OscillatorFieldset } from './standalones/OscillatorFieldset';
-import { EnvelopeGeneratorFieldset } from './standalones/EnvelopeGeneratorFieldset';
-import { RecorderFieldset } from './standalones/RecorderFieldset';
-import { AudioFieldset } from './standalones/AudioFieldset';
-import { Analyser } from './standalones/Analyser';
-import { MML } from './standalones/MML';
-import { BasicControllers } from './standalones/BasicControllers';
-import { Piano } from './standalones/Piano';
-import { CompressorFieldset } from './standalones/CompressorFieldset';
-import { WahFieldset } from './standalones/WahFieldset';
-import { BoosterFieldset } from './standalones/BoosterFieldset';
-import { PreampFieldset } from './standalones/PreampFieldset';
-import { FilterFieldset } from './standalones/FilterFieldset';
-import { NoiseSuppressorFieldset } from './standalones/NoiseSuppressorFieldset';
-import { TremoloFieldset } from './standalones/TremoloFieldset';
-import { RingModulatorFieldset } from './standalones/RingModulatorFieldset';
-import { PhaserFieldset } from './standalones/PhaserFieldset';
-import { ChorusFieldset } from './standalones/ChorusFieldset';
-import { FlangerFieldset } from './standalones/FlangerFieldset';
-import { DelayFieldset } from './standalones/DelayFieldset';
-import { ReverbFieldset } from './standalones/ReverbFieldset';
-import { Footer } from './standalones/Footer';
-import { BASE_URL, NUMBER_OF_ONESHOTS, NUMBER_OF_CHANNELS, NUMBER_OF_TRACKS, AJAX_TIMEOUT } from '../config';
-import type { OneshotSetting, OneshotSettings, PreampParams } from 'xsound';
 import { X } from 'xsound';
+
+import { cloneXSound } from '../actions';
+import { AJAX_TIMEOUT, BASE_URL, NUMBER_OF_CHANNELS, NUMBER_OF_ONESHOTS, NUMBER_OF_TRACKS } from '../config';
+
+import { Flexbox } from './atoms/Flexbox';
+import { Modal } from './atoms/Modal';
+import { VerticalBox } from './atoms/VerticalBox';
+import { Analyser } from './standalones/Analyser';
+import { AudioFieldset } from './standalones/AudioFieldset';
+import { BasicControllers } from './standalones/BasicControllers';
+import { BoosterFieldset } from './standalones/BoosterFieldset';
+import { ChorusFieldset } from './standalones/ChorusFieldset';
+import { CompressorFieldset } from './standalones/CompressorFieldset';
+import { DelayFieldset } from './standalones/DelayFieldset';
+import { EnvelopeGeneratorFieldset } from './standalones/EnvelopeGeneratorFieldset';
+import { FilterFieldset } from './standalones/FilterFieldset';
+import { FlangerFieldset } from './standalones/FlangerFieldset';
+import { Footer } from './standalones/Footer';
+import { Header } from './standalones/Header';
+import { MML } from './standalones/MML';
+import { NoiseSuppressorFieldset } from './standalones/NoiseSuppressorFieldset';
+import { OscillatorFieldset } from './standalones/OscillatorFieldset';
+import { PhaserFieldset } from './standalones/PhaserFieldset';
+import { Piano } from './standalones/Piano';
+import { PreampFieldset } from './standalones/PreampFieldset';
+import { RecorderFieldset } from './standalones/RecorderFieldset';
+import { ReverbFieldset } from './standalones/ReverbFieldset';
+import { RingModulatorFieldset } from './standalones/RingModulatorFieldset';
+import { TremoloFieldset } from './standalones/TremoloFieldset';
+import { WahFieldset } from './standalones/WahFieldset';
+
+import type { IState, RIRDescriptor } from '../types';
+import type { OneshotSetting, OneshotSettings, PreampParams } from 'xsound';
+
 
 export const App: React.FC = () => {
   const [loadedApp, setLoadedApp] = useState<boolean>(false);

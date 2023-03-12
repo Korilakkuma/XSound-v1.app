@@ -1,9 +1,13 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react';
 import { Provider } from 'react-redux';
+
 import { createStoreMock } from '../../../../mock/createStoreMock';
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+
 import { OscillatorFieldset } from './OscillatorFieldset';
+
+import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+
 import '../../../main.css';
 
 export default {

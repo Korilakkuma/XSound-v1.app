@@ -1,7 +1,10 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState, useEffect } from 'react';
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import React, { useEffect, useState } from 'react';
+
 import { Header } from './Header';
+
+import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+
 import '../../../main.css';
 
 export default {

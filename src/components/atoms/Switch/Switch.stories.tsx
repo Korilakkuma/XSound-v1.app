@@ -1,7 +1,9 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState } from 'react';
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+
 import { Switch } from './Switch';
+
+import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
 import '../../../main.css';
 
 export default {

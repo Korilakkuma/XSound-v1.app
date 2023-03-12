@@ -1,10 +1,12 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState, useEffect } from 'react';
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
-import { RecorderFieldset } from './RecorderFieldset';
-import '../../../main.css';
-
+import React, { useEffect, useState } from 'react';
 import { X } from 'xsound';
+
+import { RecorderFieldset } from './RecorderFieldset';
+
+import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+
+import '../../../main.css';
 
 export default {
   component: RecorderFieldset

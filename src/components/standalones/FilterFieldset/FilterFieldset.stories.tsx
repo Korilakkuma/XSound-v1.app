@@ -1,10 +1,12 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState, useEffect, useCallback } from 'react';
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
-import { FilterFieldset } from './FilterFieldset';
-import '../../../main.css';
-
+import React, { useCallback, useEffect, useState } from 'react';
 import { X } from 'xsound';
+
+import { FilterFieldset } from './FilterFieldset';
+
+import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+
+import '../../../main.css';
 
 export default {
   component: FilterFieldset

@@ -1,4 +1,4 @@
-import { formatAudioTime, createFilename } from './utils';
+import { createFilename, formatAudioTime } from './utils';
 
 describe(`utils/${formatAudioTime.name}`, () => {
   test('1 digits', () => {

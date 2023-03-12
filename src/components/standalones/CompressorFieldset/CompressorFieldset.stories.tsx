@@ -1,10 +1,12 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState, useEffect, useMemo } from 'react';
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
-import { CompressorFieldset } from './CompressorFieldset';
-import '../../../main.css';
-
+import React, { useEffect, useMemo, useState } from 'react';
 import { X } from 'xsound';
+
+import { CompressorFieldset } from './CompressorFieldset';
+
+import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+
+import '../../../main.css';
 
 export default {
   component: CompressorFieldset

@@ -1,10 +1,13 @@
-import React, { useState, useCallback } from 'react';
-import type { RIRDescriptor } from '../../../types';
-import { Spacer } from '../../atoms/Spacer';
+import React, { useCallback, useState } from 'react';
+import { X } from 'xsound';
+
 import { GroupSelect } from '../../atoms/GroupSelect';
+import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
 import { ParameterController } from '../../helpers/ParameterController';
-import { X } from 'xsound';
+
+import type { RIRDescriptor } from '../../../types';
+
 
 export type Props = {
   rirDescriptors: RIRDescriptor[]

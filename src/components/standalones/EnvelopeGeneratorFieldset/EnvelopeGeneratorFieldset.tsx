@@ -1,9 +1,11 @@
 import React, { useCallback } from 'react';
-import type { IState } from '../../../types';
 import { useSelector } from 'react-redux';
+import { X } from 'xsound';
+
 import { Spacer } from '../../atoms/Spacer';
 import { ParameterController } from '../../helpers/ParameterController';
-import { X } from 'xsound';
+
+import type { IState } from '../../../types';
 
 export const EnvelopeGeneratorFieldset: React.FC = () => {
   const clonedXSound = useSelector((state: IState) => state.clonedXSound);

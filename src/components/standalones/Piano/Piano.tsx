@@ -1,8 +1,10 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import type { IState, SoundSource } from '../../../types';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { NUMBER_OF_PIANO_KEYBOARDS } from '../../../config';
 import { X } from 'xsound';
+
+import { NUMBER_OF_PIANO_KEYBOARDS } from '../../../config';
+
+import type { IState, SoundSource } from '../../../types';
 
 export type Props = {
   currentSoundSource: SoundSource;

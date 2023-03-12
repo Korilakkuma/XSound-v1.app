@@ -1,10 +1,12 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState, useEffect, useMemo } from 'react';
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
-import { DelayFieldset } from './DelayFieldset';
-import '../../../main.css';
-
+import React, { useEffect, useMemo, useState } from 'react';
 import { X } from 'xsound';
+
+import { DelayFieldset } from './DelayFieldset';
+
+import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+
+import '../../../main.css';
 
 export default {
   component: DelayFieldset

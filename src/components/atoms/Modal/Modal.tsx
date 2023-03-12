@@ -1,5 +1,6 @@
-import React, { useEffect, useMemo, useCallback, useId } from 'react';
+import React, { useCallback, useEffect, useId, useMemo } from 'react';
 import ReactDOM from 'react-dom';
+
 import { FOCUSABLE_ELEMENTS } from '../../../config';
 
 export type Props = {

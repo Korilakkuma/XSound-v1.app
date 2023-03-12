@@ -1,8 +1,9 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
+import { X } from 'xsound';
+
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
 import { ParameterController } from '../../helpers/ParameterController';
-import { X } from 'xsound';
 
 export const EqualizerFieldset: React.FC = () => {
   const [equalizer, setEqualizer] = useState<boolean>(false);

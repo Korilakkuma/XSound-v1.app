@@ -1,13 +1,15 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { formatAudioTime } from '../../../utils';
-import { Spacer } from '../../atoms/Spacer';
-import { FileUploader } from '../../atoms/FileUploader';
-import { Button } from '../../atoms/Button';
-import { ProgressBar } from '../../atoms/ProgressBar';
-import { Modal } from '../../atoms/Modal';
-import { ParameterController } from '../../helpers/ParameterController';
-import type { FileEvent, FileReaderErrorText } from 'xsound';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { X } from 'xsound';
+
+import { formatAudioTime } from '../../../utils';
+import { Button } from '../../atoms/Button';
+import { FileUploader } from '../../atoms/FileUploader';
+import { Modal } from '../../atoms/Modal';
+import { ProgressBar } from '../../atoms/ProgressBar';
+import { Spacer } from '../../atoms/Spacer';
+import { ParameterController } from '../../helpers/ParameterController';
+
+import type { FileEvent, FileReaderErrorText } from 'xsound';
 
 export type Props = {
   loadedApp: boolean

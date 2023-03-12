@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useCallback, useId } from 'react';
+import React, { useCallback, useEffect, useId, useState } from 'react';
+
 import { Slider } from '../../atoms/Slider';
 import { Spinner } from '../../atoms/Spinner';
 

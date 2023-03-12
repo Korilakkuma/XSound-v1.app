@@ -1,23 +1,25 @@
 import { ActionTypes } from '../actions/ActionTypes';
+
 import {
-  currentSoundSource,
-  oscillatorStates,
-  analyserState,
-  mmlState,
-  downMelodyKeyboardIndexes,
-  downBassKeyboardIndexes,
-  upMelodyKeyboardIndexes,
-  upBassKeyboardIndexes,
   activeMIDIKeyboardIndexes,
+  analyserState,
+  currentSoundSource,
+  downBassKeyboardIndexes,
+  downMelodyKeyboardIndexes,
+  mmlState,
+  oscillatorStates,
+  upBassKeyboardIndexes,
+  upMelodyKeyboardIndexes,
 } from './';
+
 import type {
-  SoundSource,
-  CurrentSoundSourceAction,
-  OscillatorStatesAction,
   AnalyserStateAction,
-  MMLStateAction,
+  CurrentSoundSourceAction,
   KeyboardAction,
-  MIDIAction
+  MIDIAction,
+  MMLStateAction,
+  OscillatorStatesAction,
+  SoundSource
 } from '../types';
 
 describe('Reducers', () => {

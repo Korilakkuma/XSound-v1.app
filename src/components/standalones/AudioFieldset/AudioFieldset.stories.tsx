@@ -1,10 +1,12 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect } from 'react';
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
-import { AudioFieldset } from './AudioFieldset';
-import '../../../main.css';
-
 import { X } from 'xsound';
+
+import { AudioFieldset } from './AudioFieldset';
+
+import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+
+import '../../../main.css';
 
 export default {
   component: AudioFieldset

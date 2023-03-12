@@ -1,11 +1,13 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useState, useEffect, useMemo } from 'react';
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
-import type { RIRDescriptor } from '../../../types';
-import { ReverbFieldset } from './ReverbFieldset';
-import '../../../main.css';
-
+import React, { useEffect, useMemo, useState } from 'react';
 import { X } from 'xsound';
+
+import { ReverbFieldset } from './ReverbFieldset';
+
+import type { RIRDescriptor } from '../../../types';
+import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+
+import '../../../main.css';
 
 export default {
   component: ReverbFieldset
