@@ -27,7 +27,7 @@ const oneshots = [
 ];
 
 const Template: ComponentStoryObj<typeof Piano> = {
-  render: (args) => {
+  render: () => {
     const [loaded, setLoaded] = useState<boolean>(false);
 
     const getBufferIndexCallback = useCallback((pianoIndex: number) => {
@@ -116,48 +116,28 @@ const Template: ComponentStoryObj<typeof Piano> = {
         return;
       }
 
-      const setup = async () => {
-        const clonedX = await X.clone();
-
-        if (clonedX instanceof Error) {
-          return;
+      X('oneshot').edit([X('oneshot').module('compressor')]);
+      X('oneshot').setup({
+        resources      : oneshots,
+        settings       : createOneshotSettingsCallback(),
+        timeout        : 60000,
+        successCallback: () => {
+          setLoaded(true);
+        },
+        errorCallback  : () => {
+          alert('The loading of audio files failed.');
         }
-
-        X('oscillator').setup([true, true, true, true]);
-        clonedX('oscillator').setup([true, true, true, true]);
-
-        for (let i = 0, len = X('oscillator').length(); i < len; i++) {
-          X('oscillator').get(i).param({ type: 'sawtooth' });
-          clonedX('oscillator').get(i).param({ type: 'sawtooth' });
-        }
-
-        X('oneshot').setup({
-          resources      : oneshots,
-          settings       : createOneshotSettingsCallback(),
-          timeout        : 60000,
-          successCallback: () => {
-            setLoaded(true);
-          },
-          errorCallback  : () => {
-            alert('The loading of audio files failed.');
-          }
-        });
-      };
-
-      setup();
+      });
     }, [loaded, createOneshotSettingsCallback]);
 
     return (
       <Provider store={store}>
-        <Piano currentSoundSource={args.currentSoundSource} />
+        <Piano currentSoundSource='piano' />
       </Provider>
     );
   }
 };
 
 export const Primary = {
-  ...Template,
-  args: {
-    currentSoundSource: 'oscillator'
-  }
+  ...Template
 };
