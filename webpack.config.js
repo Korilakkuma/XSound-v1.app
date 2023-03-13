@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const webpack              = require('webpack');
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin   = require('css-minimizer-webpack-plugin');
 const TerserPlugin         = require('terser-webpack-plugin');
+/* eslint-enable @typescript-eslint/no-var-requires */
 
 const terserPlugin = new TerserPlugin({
   terserOptions: {
