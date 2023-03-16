@@ -2,14 +2,14 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { X } from 'xsound';
 
+import { NUMBER_OF_PIANO_KEYBOARDS } from '../../../config';
 import {
   changeOscillatorStates,
   downBassKeyboards,
   downMelodyKeyboards,
   upBassKeyboards,
   upMelodyKeyboards
-} from '../../../actions';
-import { NUMBER_OF_PIANO_KEYBOARDS } from '../../../config';
+} from '../../../slices';
 import { createFilename } from '../../../utils';
 import { FileUploader } from '../../atoms/FileUploader';
 import { Modal } from '../../atoms/Modal';
@@ -19,7 +19,7 @@ import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
 import { SelectableModal } from '../../helpers/SelectableModal';
 
-import type { IState, MMLDescriptor, SoundSource } from '../../../types';
+import type { RootState, MMLDescriptor, SoundSource } from '../../../types';
 import type { FileEvent, FileReaderErrorText, MMLSyntaxError, Sequence } from 'xsound';
 
 
@@ -61,8 +61,8 @@ export const MML: React.FC<Props> = (props: Props) => {
 
   const dispatch = useDispatch();
 
-  const clonedXSound = useSelector((state: IState) => state.clonedXSound);
-  const active       = useSelector((state: IState) => state.mmlState);
+  const clonedXSound = useSelector((state: RootState) => state.clonedXSound);
+  const active       = useSelector((state: RootState) => state.mmlState);
 
   const readyMMLCallback = useCallback((currentMelody: string, currentBass: string) => {
     const melody = currentMelody.replace(CLEAR_HIGHLIGHT_REGEXP, '$1');

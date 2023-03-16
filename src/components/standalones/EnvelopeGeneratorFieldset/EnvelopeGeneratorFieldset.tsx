@@ -5,10 +5,10 @@ import { X } from 'xsound';
 import { Spacer } from '../../atoms/Spacer';
 import { ParameterController } from '../../helpers/ParameterController';
 
-import type { IState } from '../../../types';
+import type { RootState } from '../../../types';
 
 export const EnvelopeGeneratorFieldset: React.FC = () => {
-  const clonedXSound = useSelector((state: IState) => state.clonedXSound);
+  const clonedXSound = useSelector((state: RootState) => state.clonedXSound);
 
   const onChangeAttackCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const attack = event.currentTarget.valueAsNumber;

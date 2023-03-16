@@ -4,7 +4,7 @@ import { X } from 'xsound';
 
 import { NUMBER_OF_PIANO_KEYBOARDS } from '../../../config';
 
-import type { IState, SoundSource } from '../../../types';
+import type { RootState, SoundSource } from '../../../types';
 
 export type Props = {
   currentSoundSource: SoundSource;
@@ -14,12 +14,12 @@ export const Piano: React.FC<Props> = (props: Props) => {
   const [downKeyboards, setDownKeyboards] = useState<boolean[]>(new Array(NUMBER_OF_PIANO_KEYBOARDS).fill(false));
   const [isDown, setIsDown] = useState<boolean>(false);  // for `mouseover` or `touchmove` event
 
-  const clonedXSound      = useSelector((state: IState) => state.clonedXSound);
-  const downMelodyIndexes = useSelector((state: IState) => state.downMelodyKeyboardIndexes);
-  const downBassIndexes   = useSelector((state: IState) => state.downBassKeyboardIndexes);
-  const upMelodyIndexes   = useSelector((state: IState) => state.upMelodyKeyboardIndexes);
-  const upBassIndexes     = useSelector((state: IState) => state.upBassKeyboardIndexes);
-  const activeMIDIIndexes = useSelector((state: IState) => state.activeMIDIKeyboardIndexes);
+  const clonedXSound      = useSelector((state: RootState) => state.clonedXSound);
+  const downMelodyIndexes = useSelector((state: RootState) => state.downMelodyKeyboardIndexes);
+  const downBassIndexes   = useSelector((state: RootState) => state.downBassKeyboardIndexes);
+  const upMelodyIndexes   = useSelector((state: RootState) => state.upMelodyKeyboardIndexes);
+  const upBassIndexes     = useSelector((state: RootState) => state.upBassKeyboardIndexes);
+  const activeMIDIIndexes = useSelector((state: RootState) => state.activeMIDIKeyboardIndexes);
 
   const startSoundCallback = useCallback((event: React.MouseEvent<HTMLButtonElement> | React.TouchEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement> | React.FocusEvent<HTMLButtonElement>) => {
     if (event.currentTarget.classList.contains('skip')) {

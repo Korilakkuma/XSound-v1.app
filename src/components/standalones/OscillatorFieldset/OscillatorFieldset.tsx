@@ -2,13 +2,13 @@ import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { X } from 'xsound';
 
-import { changeOscillatorStates } from '../../../actions';
+import { changeOscillatorStates } from '../../../slices';
 import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
 import { OscillatorSelector } from '../../helpers/OscillatorSelector';
 import { ParameterController } from '../../helpers/ParameterController';
 
-import type { IState } from '../../../types';
+import type { RootState } from '../../../types';
 
 export type Props = {
   oscillatorNumber: number,
@@ -23,8 +23,8 @@ export const OscillatorFieldset: React.FC<Props> = (props: Props) => {
 
   const dispatch = useDispatch();
 
-  const clonedXSound = useSelector((state: IState) => state.clonedXSound);
-  const states       = useSelector((state: IState) => state.oscillatorStates);
+  const clonedXSound = useSelector((state: RootState) => state.clonedXSound);
+  const states       = useSelector((state: RootState) => state.oscillatorStates);
 
   const onChangeStateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const checked = event.currentTarget.checked;

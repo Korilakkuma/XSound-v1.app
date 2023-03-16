@@ -2,8 +2,8 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { X } from 'xsound';
 
-import { cloneXSound } from '../actions';
 import { AJAX_TIMEOUT, BASE_URL, NUMBER_OF_CHANNELS, NUMBER_OF_ONESHOTS, NUMBER_OF_TRACKS } from '../config';
+import { setClonedXSound } from '../slices';
 
 import { Flexbox } from './atoms/Flexbox';
 import { Modal } from './atoms/Modal';
@@ -32,7 +32,7 @@ import { RingModulatorFieldset } from './standalones/RingModulatorFieldset';
 import { TremoloFieldset } from './standalones/TremoloFieldset';
 import { WahFieldset } from './standalones/WahFieldset';
 
-import type { IState, RIRDescriptor } from '../types';
+import type { RootState, RIRDescriptor } from '../types';
 import type { OneshotSetting, OneshotSettings, PreampParams } from 'xsound';
 
 
@@ -46,7 +46,7 @@ export const App: React.FC = () => {
 
   const dispatch = useDispatch();
 
-  const currentSoundSource = useSelector((state: IState) => state.currentSoundSource);
+  const currentSoundSource = useSelector((state: RootState) => state.currentSoundSource);
 
   const oneshots = useMemo(() => [
     `${BASE_URL}/one-shots/piano-2/C.mp3`,
@@ -776,7 +776,8 @@ export const App: React.FC = () => {
         return;
       }
 
-      dispatch(cloneXSound(clonedXSound));
+      // HACK:
+      dispatch(setClonedXSound(clonedXSound));
 
       // Not used
       X.free([X('media')]);

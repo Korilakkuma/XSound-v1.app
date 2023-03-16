@@ -7,7 +7,7 @@ import { Spacer } from '../../atoms/Spacer';
 import { Switch } from '../../atoms/Switch';
 import { ParameterController } from '../../helpers/ParameterController';
 
-import type { IState } from '../../../types';
+import type { RootState } from '../../../types';
 import type { AnalyserParams, DragCallbackFunction, DragMode, FFTParams, TimeOverviewParams, TimeParams } from 'xsound';
 
 
@@ -29,7 +29,7 @@ export const Analyser: React.FC<Props> = (props: Props) => {
   const [showDragTime, setShowDragTime] = useState<boolean>(false);
   const [showTimeOverview, setShowTimeOverview] = useState<'left' | 'right'>('left');
 
-  const active = useSelector((state: IState) => state.analyserState);
+  const active = useSelector((state: RootState) => state.analyserState);
 
   const onClickChannelCallback = useCallback(() => {
     setShowTimeOverview(showTimeOverview === 'right' ? 'left' : 'right');

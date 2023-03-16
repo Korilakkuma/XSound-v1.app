@@ -1,9 +1,6 @@
-import type { ActionTypes } from './actions/ActionTypes';
 import type { store } from './store';
-import type { Action } from 'redux';
-import type { XSound } from 'xsound';
 
-export type IState = ReturnType<typeof store.getState>;
+export type RootState = ReturnType<typeof store.getState>;
 
 export type SoundSource = 'oscillator'
                         | 'piano'
@@ -29,41 +26,3 @@ export type MMLDescriptor = {
   melody: string,
   bass: string
 };
-
-export interface CloneXSoundAction extends Action {
-  type: typeof ActionTypes.CLONE_XSOUND;
-  payload: Partial<typeof XSound>;
-}
-
-export interface CurrentSoundSourceAction extends Action {
-  type: typeof ActionTypes.CHANGE_CURRENT_SOUND_SOURCE;
-  payload: SoundSource;
-}
-
-export interface OscillatorStatesAction extends Action {
-  type: typeof ActionTypes.CHANGE_OSCILLATOR_STATES,
-  payload: [boolean, boolean];
-}
-
-export interface AnalyserStateAction extends Action {
-  type: typeof ActionTypes.CHANGE_ANALYSER_STATE;
-  payload: boolean;
-}
-
-export interface MMLStateAction extends Action {
-  type: typeof ActionTypes.CHANGE_MML_STATE;
-  payload: boolean;
-}
-
-export interface KeyboardAction extends Action {
-  type: typeof ActionTypes.DOWN_MELODY_KEYBOARDS
-      | typeof ActionTypes.DOWN_BASS_KEYBOARDS
-      | typeof ActionTypes.UP_MELODY_KEYBOARDS
-      | typeof ActionTypes.UP_BASS_KEYBOARDS;
-  payload: number[];
-}
-
-export interface MIDIAction extends Action {
-  type: typeof ActionTypes.ACTIVATE_MIDI_KEYBOARDS;
-  payload: number[];
-}

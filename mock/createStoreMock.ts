@@ -1,7 +1,7 @@
 import { store } from '../src/store';
-import type { IState } from '../src/types';
+import type { RootState } from '../src/types';
 
-export const createStoreMock = (state: IState) => {
+export const createStoreMock = (state: RootState) => {
   return {
     ...store,
     ...state,
