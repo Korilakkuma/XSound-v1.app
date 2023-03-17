@@ -1,3 +1,1 @@
-import { OscillatorSelector } from './OscillatorSelector';
-
-export { OscillatorSelector };
+export { OscillatorSelector } from './OscillatorSelector';

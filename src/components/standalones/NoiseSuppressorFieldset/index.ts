@@ -1,3 +1,1 @@
-import { NoiseSuppressorFieldset } from './NoiseSuppressorFieldset';
-
-export { NoiseSuppressorFieldset };
+export { NoiseSuppressorFieldset } from './NoiseSuppressorFieldset';

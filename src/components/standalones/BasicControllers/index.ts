@@ -1,3 +1,1 @@
-import { BasicControllers } from './BasicControllers';
-
-export { BasicControllers };
+export { BasicControllers } from './BasicControllers';

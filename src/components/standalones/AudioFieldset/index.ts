@@ -1,3 +1,1 @@
-import { AudioFieldset } from './AudioFieldset';
-
-export { AudioFieldset };
+export { AudioFieldset } from './AudioFieldset';

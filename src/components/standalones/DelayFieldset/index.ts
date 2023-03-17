@@ -1,3 +1,1 @@
-import { DelayFieldset } from './DelayFieldset';
-
-export { DelayFieldset };
+export { DelayFieldset } from './DelayFieldset';

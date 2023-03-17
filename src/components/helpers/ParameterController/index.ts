@@ -1,3 +1,1 @@
-import { ParameterController } from './ParameterController';
-
-export { ParameterController };
+export { ParameterController } from './ParameterController';

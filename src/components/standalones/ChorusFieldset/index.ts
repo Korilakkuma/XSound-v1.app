@@ -1,3 +1,1 @@
-import { ChorusFieldset } from './ChorusFieldset';
-
-export { ChorusFieldset };
+export { ChorusFieldset } from './ChorusFieldset';

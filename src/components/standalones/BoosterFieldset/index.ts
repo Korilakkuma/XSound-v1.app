@@ -1,3 +1,1 @@
-import { BoosterFieldset } from './BoosterFieldset';
-
-export { BoosterFieldset };
+export { BoosterFieldset } from './BoosterFieldset';

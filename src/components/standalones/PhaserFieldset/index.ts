@@ -1,3 +1,1 @@
-import { PhaserFieldset } from './PhaserFieldset';
-
-export { PhaserFieldset };
+export { PhaserFieldset } from './PhaserFieldset';

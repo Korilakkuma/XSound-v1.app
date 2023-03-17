@@ -1,3 +1,1 @@
-import { OscillatorFieldset } from './OscillatorFieldset';
-
-export { OscillatorFieldset };
+export { OscillatorFieldset } from './OscillatorFieldset';

@@ -1,3 +1,1 @@
-import { SelectableModal } from './SelectableModal';
-
-export { SelectableModal };
+export { SelectableModal } from './SelectableModal';

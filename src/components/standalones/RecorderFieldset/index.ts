@@ -1,3 +1,1 @@
-import { RecorderFieldset } from './RecorderFieldset';
-
-export { RecorderFieldset };
+export { RecorderFieldset } from './RecorderFieldset';

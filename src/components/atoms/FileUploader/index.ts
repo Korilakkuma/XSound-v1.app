@@ -1,3 +1,1 @@
-import { FileUploader } from './FileUploader';
-
-export { FileUploader };
+export { FileUploader } from './FileUploader';

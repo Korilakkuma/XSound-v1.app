@@ -1,3 +1,1 @@
-import { ReverbFieldset } from './ReverbFieldset';
-
-export { ReverbFieldset };
+export { ReverbFieldset } from './ReverbFieldset';

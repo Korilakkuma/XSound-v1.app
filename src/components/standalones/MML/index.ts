@@ -1,3 +1,1 @@
-import { MML } from './MML';
-
-export { MML };
+export { MML } from './MML';

@@ -1,3 +1,1 @@
-import { PreampFieldset } from './PreampFieldset';
-
-export { PreampFieldset };
+export { PreampFieldset } from './PreampFieldset';

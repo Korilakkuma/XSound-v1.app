@@ -1,3 +1,1 @@
-import { WahFieldset } from './WahFieldset';
-
-export { WahFieldset };
+export { WahFieldset } from './WahFieldset';
