@@ -16,15 +16,16 @@ export type Props = {
   radioName: string
 };
 
-export const OscillatorFieldset: React.FC<Props> = (props: Props) => {
-  const { oscillatorNumber, label, radioName } = props;
-
+export const OscillatorFieldset: React.FC<Props> = ({
+  oscillatorNumber,
+  label,
+  radioName
+}) => {
   const [type, setType] = useState<OscillatorType>('sawtooth');
 
   const dispatch = useDispatch();
 
-  const clonedXSound = useSelector((state: RootState) => state.clonedXSound);
-  const states       = useSelector((state: RootState) => state.oscillatorStates);
+  const states = useSelector((state: RootState) => state.oscillatorStates);
 
   const onChangeStateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const checked = event.currentTarget.checked;
@@ -40,15 +41,15 @@ export const OscillatorFieldset: React.FC<Props> = (props: Props) => {
         dispatch(changeOscillatorStates([checked, states[1]]));
       } else {
         if (checked) {
-          clonedXSound('oscillator').get(i).activate();
+          window.clonedXSound('oscillator').get(i).activate();
         } else {
-          clonedXSound('oscillator').get(i).deactivate();
+          window.clonedXSound('oscillator').get(i).deactivate();
         }
 
         dispatch(changeOscillatorStates([states[0], checked]));
       }
     }
-  }, [dispatch, clonedXSound, states, oscillatorNumber]);
+  }, [dispatch, states, oscillatorNumber]);
 
   const onChangeTypeCallback = useCallback((event: React.ChangeEvent<HTMLFormElement>) => {
     const items = event.currentTarget.elements.namedItem(`radio-${radioName}`);
@@ -76,7 +77,7 @@ export const OscillatorFieldset: React.FC<Props> = (props: Props) => {
           if (oscillatorNumber === 0) {
             X('oscillator').get(i).param({ type });
           } else {
-            clonedXSound('oscillator').get(i).param({ type });
+            window.clonedXSound('oscillator').get(i).param({ type });
           }
         }
 
@@ -84,7 +85,7 @@ export const OscillatorFieldset: React.FC<Props> = (props: Props) => {
       default:
         break;
     }
-  }, [clonedXSound, oscillatorNumber]);
+  }, [oscillatorNumber]);
 
   const onChangeVolumeCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const volume = event.currentTarget.valueAsNumber;
@@ -93,10 +94,10 @@ export const OscillatorFieldset: React.FC<Props> = (props: Props) => {
       if (oscillatorNumber === 0) {
         X('oscillator').get(i).param({ volume });
       } else {
-        clonedXSound('oscillator').get(i).param({ volume });
+        window.clonedXSound('oscillator').get(i).param({ volume });
       }
     }
-  }, [clonedXSound, oscillatorNumber]);
+  }, [oscillatorNumber]);
 
   const onChangeOctaveCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const octave = event.currentTarget.valueAsNumber;
@@ -105,10 +106,10 @@ export const OscillatorFieldset: React.FC<Props> = (props: Props) => {
       if (oscillatorNumber === 0) {
         X('oscillator').get(i).param({ octave });
       } else {
-        clonedXSound('oscillator').get(i).param({ octave });
+        window.clonedXSound('oscillator').get(i).param({ octave });
       }
     }
-  }, [clonedXSound, oscillatorNumber]);
+  }, [oscillatorNumber]);
 
   const onChangeFineCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const fine = event.currentTarget.valueAsNumber;
@@ -117,10 +118,10 @@ export const OscillatorFieldset: React.FC<Props> = (props: Props) => {
       if (oscillatorNumber === 0) {
         X('oscillator').get(i).param({ fine });
       } else {
-        clonedXSound('oscillator').get(i).param({ fine });
+        window.clonedXSound('oscillator').get(i).param({ fine });
       }
     }
-  }, [clonedXSound, oscillatorNumber]);
+  }, [oscillatorNumber]);
 
   return (
     <div className="OscillatorFieldset">

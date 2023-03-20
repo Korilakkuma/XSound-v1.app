@@ -132,7 +132,7 @@ const Template: ComponentStoryObj<typeof Piano> = {
 
     return (
       <Provider store={store}>
-        <Piano currentSoundSource='piano' />
+        <Piano loadedApp={loaded} currentSoundSource='piano' />
       </Provider>
     );
   }

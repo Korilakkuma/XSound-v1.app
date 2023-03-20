@@ -1,9 +1,8 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useCallback, useMemo, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { X } from 'xsound';
 
 import { AJAX_TIMEOUT, BASE_URL, NUMBER_OF_CHANNELS, NUMBER_OF_ONESHOTS, NUMBER_OF_TRACKS } from '../config';
-import { setClonedXSound } from '../slices';
 
 import { Flexbox } from './atoms/Flexbox';
 import { Modal } from './atoms/Modal';
@@ -35,16 +34,13 @@ import { WahFieldset } from './standalones/WahFieldset';
 import type { RootState, RIRDescriptor } from '../types';
 import type { OneshotSetting, OneshotSettings, PreampParams } from 'xsound';
 
-
 export const App: React.FC = () => {
   const [loadedApp, setLoadedApp] = useState<boolean>(false);
-  const [progress, setProgress] = useState<boolean>(true);
+  const [progress, setProgress] = useState<boolean>(false);
   const [rate, setRate] = useState<number>(0);
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [isShowModalForAjax, setIsShowModalForAjax] = useState<boolean>(false);
   const [isShowModalForDecoding, setIsShowModalForDecoding] = useState<boolean>(false);
-
-  const dispatch = useDispatch();
 
   const currentSoundSource = useSelector((state: RootState) => state.currentSoundSource);
 
@@ -766,322 +762,307 @@ export const App: React.FC = () => {
     setIsShowModalForDecoding(false);
   }, []);
 
-  // Initialization for using XSound
-  useEffect(() => {
-    const setup = async () => {
-      // Clone X object as global object
-      const clonedXSound = await X.clone();  // for MML of OscillatorModule
+  const onClickSetupCallback = useCallback(() => {
+    const clonedX = X.clone();
 
-      if (clonedXSound instanceof Error) {
-        return;
-      }
+    // Not used
+    X.free([X('media')]);
 
-      // HACK:
-      dispatch(setClonedXSound(clonedXSound));
+    clonedX.free([
+      clonedX('oneshot'),
+      clonedX('audio'),
+      clonedX('media'),
+      clonedX('stream'),
+      clonedX('mixer'),
+      clonedX('midi')
+    ]);
 
-      // Not used
-      X.free([X('media')]);
+    // Resize buffer of ScriptProcessorNode
+    X('mixer').resize(0);  // Automatic buffer size
+    X('oneshot').resize(0);  // Automatic buffer size
+    X('audio').resize(256);
+    X('stream').resize(256);
+    X('oscillator').resize(0);  // Automatic buffer size
+    clonedX('oscillator').resize(0);  // Automatic buffer size
 
-      clonedXSound.free([
-        clonedXSound('oneshot'),
-        clonedXSound('audio'),
-        clonedXSound('media'),
-        clonedXSound('stream'),
-        clonedXSound('mixer'),
-        clonedXSound('midi')
+    // If use noise suppressor by `AudioWorkletProcessor`, cannot play one-shot audio on the way
+    X('oneshot').edit([
+      X('oneshot').module('compressor'),
+      X('oneshot').module('wah'),
+      X('oneshot').module('overdrive'),
+      X('oneshot').module('fuzz'),
+      X('oneshot').module('preamp'),
+      X('oneshot').module('filter'),
+      X('oneshot').module('tremolo'),
+      X('oneshot').module('ringmodulator'),
+      X('oneshot').module('phaser'),
+      X('oneshot').module('chorus'),
+      X('oneshot').module('flanger'),
+      X('oneshot').module('delay'),
+      X('oneshot').module('reverb')
+    ]);
+
+    if (process.env.NODE_ENV === 'production') {
+      X('mixer').edit([
+        X('mixer').module('compressor'),
+        X('mixer').module('wah'),
+        X('mixer').module('overdrive'),
+        X('mixer').module('fuzz'),
+        X('mixer').module('preamp'),
+        X('mixer').module('filter'),
+        X('mixer').module('noisesuppressor'),
+        X('mixer').module('tremolo'),
+        X('mixer').module('ringmodulator'),
+        X('mixer').module('phaser'),
+        X('mixer').module('chorus'),
+        X('mixer').module('flanger'),
+        X('mixer').module('delay'),
+        X('mixer').module('reverb')
       ]);
 
-      // Resize buffer of ScriptProcessorNode
-      X('mixer').resize(0);  // Automatic buffer size
-      X('oneshot').resize(0);  // Automatic buffer size
-      X('audio').resize(256);
-      X('stream').resize(256);
-      X('oscillator').resize(0);  // Automatic buffer size
-      clonedXSound('oscillator').resize(0);  // Automatic buffer size
-
-      // If use noise suppressor by `AudioWorkletProcessor`, cannot play one-shot audio on the way
-      X('oneshot').edit([
-        X('oneshot').module('compressor'),
-        X('oneshot').module('wah'),
-        X('oneshot').module('overdrive'),
-        X('oneshot').module('fuzz'),
-        X('oneshot').module('preamp'),
-        X('oneshot').module('filter'),
-        X('oneshot').module('tremolo'),
-        X('oneshot').module('ringmodulator'),
-        X('oneshot').module('phaser'),
-        X('oneshot').module('chorus'),
-        X('oneshot').module('flanger'),
-        X('oneshot').module('delay'),
-        X('oneshot').module('reverb')
+      X('audio').edit([
+        X('audio').module('pitchshifter'),
+        X('audio').module('compressor'),
+        X('audio').module('wah'),
+        X('audio').module('overdrive'),
+        X('audio').module('fuzz'),
+        X('audio').module('preamp'),
+        X('audio').module('filter'),
+        X('audio').module('noisesuppressor'),
+        X('audio').module('tremolo'),
+        X('audio').module('ringmodulator'),
+        X('audio').module('phaser'),
+        X('audio').module('chorus'),
+        X('audio').module('flanger'),
+        X('audio').module('delay'),
+        X('audio').module('reverb'),
+        X('audio').module('vocalcanceler')
       ]);
 
-      if (process.env.NODE_ENV === 'production') {
-        X('mixer').edit([
-          X('mixer').module('compressor'),
-          X('mixer').module('wah'),
-          X('mixer').module('overdrive'),
-          X('mixer').module('fuzz'),
-          X('mixer').module('preamp'),
-          X('mixer').module('filter'),
-          X('mixer').module('noisesuppressor'),
-          X('mixer').module('tremolo'),
-          X('mixer').module('ringmodulator'),
-          X('mixer').module('phaser'),
-          X('mixer').module('chorus'),
-          X('mixer').module('flanger'),
-          X('mixer').module('delay'),
-          X('mixer').module('reverb')
-        ]);
+      X('stream').edit([
+        X('audio').module('pitchshifter'),
+        X('stream').module('compressor'),
+        X('stream').module('wah'),
+        X('stream').module('overdrive'),
+        X('stream').module('fuzz'),
+        X('stream').module('preamp'),
+        X('stream').module('filter'),
+        X('stream').module('noisesuppressor'),
+        X('stream').module('tremolo'),
+        X('stream').module('ringmodulator'),
+        X('stream').module('phaser'),
+        X('stream').module('chorus'),
+        X('stream').module('flanger'),
+        X('stream').module('delay'),
+        X('stream').module('reverb')
+      ]);
 
-        X('audio').edit([
-          X('audio').module('pitchshifter'),
-          X('audio').module('compressor'),
-          X('audio').module('wah'),
-          X('audio').module('overdrive'),
-          X('audio').module('fuzz'),
-          X('audio').module('preamp'),
-          X('audio').module('filter'),
-          X('audio').module('noisesuppressor'),
-          X('audio').module('tremolo'),
-          X('audio').module('ringmodulator'),
-          X('audio').module('phaser'),
-          X('audio').module('chorus'),
-          X('audio').module('flanger'),
-          X('audio').module('delay'),
-          X('audio').module('reverb'),
-          X('audio').module('vocalcanceler')
-        ]);
+      X('noise').edit([
+        X('noise').module('compressor'),
+        X('noise').module('wah'),
+        X('noise').module('overdrive'),
+        X('noise').module('fuzz'),
+        X('noise').module('preamp'),
+        X('noise').module('filter'),
+        X('noise').module('noisesuppressor'),
+        X('noise').module('tremolo'),
+        X('noise').module('ringmodulator'),
+        X('noise').module('phaser'),
+        X('noise').module('chorus'),
+        X('noise').module('flanger'),
+        X('noise').module('delay'),
+        X('noise').module('reverb')
+      ]);
 
-        X('stream').edit([
-          X('audio').module('pitchshifter'),
-          X('stream').module('compressor'),
-          X('stream').module('wah'),
-          X('stream').module('overdrive'),
-          X('stream').module('fuzz'),
-          X('stream').module('preamp'),
-          X('stream').module('filter'),
-          X('stream').module('noisesuppressor'),
-          X('stream').module('tremolo'),
-          X('stream').module('ringmodulator'),
-          X('stream').module('phaser'),
-          X('stream').module('chorus'),
-          X('stream').module('flanger'),
-          X('stream').module('delay'),
-          X('stream').module('reverb')
-        ]);
+      X('oscillator').edit([
+        X('oscillator').module('compressor'),
+        X('oscillator').module('wah'),
+        X('oscillator').module('overdrive'),
+        X('oscillator').module('fuzz'),
+        X('oscillator').module('preamp'),
+        X('oscillator').module('filter'),
+        X('oscillator').module('noisesuppressor'),
+        X('oscillator').module('tremolo'),
+        X('oscillator').module('ringmodulator'),
+        X('oscillator').module('phaser'),
+        X('oscillator').module('chorus'),
+        X('oscillator').module('flanger'),
+        X('oscillator').module('delay'),
+        X('oscillator').module('reverb')
+      ]);
 
-        X('noise').edit([
-          X('noise').module('compressor'),
-          X('noise').module('wah'),
-          X('noise').module('overdrive'),
-          X('noise').module('fuzz'),
-          X('noise').module('preamp'),
-          X('noise').module('filter'),
-          X('noise').module('noisesuppressor'),
-          X('noise').module('tremolo'),
-          X('noise').module('ringmodulator'),
-          X('noise').module('phaser'),
-          X('noise').module('chorus'),
-          X('noise').module('flanger'),
-          X('noise').module('delay'),
-          X('noise').module('reverb')
-        ]);
+      clonedX('oscillator').edit([
+        X('oscillator').module('compressor'),
+        X('oscillator').module('wah'),
+        X('oscillator').module('overdrive'),
+        X('oscillator').module('fuzz'),
+        X('oscillator').module('preamp'),
+        X('oscillator').module('filter'),
+        X('oscillator').module('noisesuppressor'),
+        X('oscillator').module('tremolo'),
+        X('oscillator').module('ringmodulator'),
+        X('oscillator').module('phaser'),
+        X('oscillator').module('chorus'),
+        X('oscillator').module('flanger'),
+        X('oscillator').module('delay'),
+        X('oscillator').module('reverb')
+      ]);
+    }
 
-        X('oscillator').edit([
-          X('oscillator').module('compressor'),
-          X('oscillator').module('wah'),
-          X('oscillator').module('overdrive'),
-          X('oscillator').module('fuzz'),
-          X('oscillator').module('preamp'),
-          X('oscillator').module('filter'),
-          X('oscillator').module('noisesuppressor'),
-          X('oscillator').module('tremolo'),
-          X('oscillator').module('ringmodulator'),
-          X('oscillator').module('phaser'),
-          X('oscillator').module('chorus'),
-          X('oscillator').module('flanger'),
-          X('oscillator').module('delay'),
-          X('oscillator').module('reverb')
-        ]);
+    X('oscillator').setup([true, false, false, false]);
+    clonedX('oscillator').setup([false, false, false, false]);
 
-        clonedXSound('oscillator').edit([
-          X('oscillator').module('compressor'),
-          X('oscillator').module('wah'),
-          X('oscillator').module('overdrive'),
-          X('oscillator').module('fuzz'),
-          X('oscillator').module('preamp'),
-          X('oscillator').module('filter'),
-          X('oscillator').module('noisesuppressor'),
-          X('oscillator').module('tremolo'),
-          X('oscillator').module('ringmodulator'),
-          X('oscillator').module('phaser'),
-          X('oscillator').module('chorus'),
-          X('oscillator').module('flanger'),
-          X('oscillator').module('delay'),
-          X('oscillator').module('reverb')
-        ]);
-      }
+    X('audio').module('wah').param({ auto: true });
+    X('audio').module('pitchshifter').activate();
 
-      X('oscillator').setup([true, false, false, false]);
-      clonedXSound('oscillator').setup([false, false, false, false]);
+    X('stream').module('pitchshifter').activate();
 
-      X('audio').module('wah').param({ auto: true });
-      X('audio').module('pitchshifter').activate();
-
-      X('stream').module('pitchshifter').activate();
-
-      const constraints: MediaStreamConstraints = {
-        audio: {
-          echoCancellation: true
-        },
-        video: false
-      };
-
-      const preampParams: PreampParams = {
-        samples: 2048,
-        pre: { state: true, gain: 0.5, lead: 0.5 },
-        post: { state: true }
-      };
-
-      X('stream').setup(constraints);
-
-      X('mixer').module('preamp').param(preampParams);
-      X('mixer').module('chorus').param({ tone: 4000 });
-      X('mixer').module('flanger').param({ tone: 4000 });
-      X('mixer').module('delay').param({ tone: 4000 });
-      X('mixer').module('reverb').param({ tone: 4000 });
-      X('mixer').module('filter').param({ frequency: 8000 });
-      X('mixer').module('noisesuppressor').deactivate();
-
-      X('oneshot').module('preamp').param(preampParams);
-      X('oneshot').module('chorus').param({ tone: 4000 });
-      X('oneshot').module('flanger').param({ tone: 4000 });
-      X('oneshot').module('delay').param({ tone: 4000 });
-      X('oneshot').module('reverb').param({ tone: 4000 });
-      X('oneshot').module('filter').param({ frequency: 8000 });
-
-      X('audio').module('preamp').param(preampParams);
-      X('audio').module('chorus').param({ tone: 4000 });
-      X('audio').module('flanger').param({ tone: 4000 });
-      X('audio').module('delay').param({ tone: 4000 });
-      X('audio').module('reverb').param({ tone: 4000 });
-      X('audio').module('filter').param({ frequency: 8000 });
-      X('audio').module('noisesuppressor').deactivate();
-
-      X('stream').module('preamp').param(preampParams);
-      X('stream').module('chorus').param({ tone: 4000 });
-      X('stream').module('flanger').param({ tone: 4000 });
-      X('stream').module('delay').param({ tone: 4000 });
-      X('stream').module('reverb').param({ tone: 4000 });
-      X('stream').module('filter').param({ frequency: 8000 });
-      X('stream').module('noisesuppressor').deactivate();
-
-      X('noise').module('preamp').param(preampParams);
-      X('noise').module('chorus').param({ tone: 4000 });
-      X('noise').module('flanger').param({ tone: 4000 });
-      X('noise').module('delay').param({ tone: 4000 });
-      X('noise').module('reverb').param({ tone: 4000 });
-      X('noise').module('filter').param({ frequency: 8000 });
-      X('noise').module('noisesuppressor').deactivate();
-
-      X('oscillator').module('preamp').param(preampParams);
-      X('oscillator').module('chorus').param({ tone: 4000 });
-      X('oscillator').module('flanger').param({ tone: 4000 });
-      X('oscillator').module('delay').param({ tone: 4000 });
-      X('oscillator').module('reverb').param({ tone: 4000 });
-      X('oscillator').module('filter').param({ frequency: 8000 });
-      X('oscillator').module('noisesuppressor').deactivate();
-
-      clonedXSound('oscillator').module('preamp').param(preampParams);
-      clonedXSound('oscillator').module('chorus').param({ tone: 4000 });
-      clonedXSound('oscillator').module('flanger').param({ tone: 4000 });
-      clonedXSound('oscillator').module('delay').param({ tone: 4000 });
-      clonedXSound('oscillator').module('reverb').param({ tone: 4000 });
-      clonedXSound('oscillator').module('filter').param({ frequency: 8000 });
-      clonedXSound('oscillator').module('noisesuppressor').deactivate();
-
-      for (let i = 0, len = X('oscillator').length(); i < len; i++) {
-        X('oscillator').get(i).param({ type: 'sawtooth' });
-        clonedXSound('oscillator').get(i).param({ type: 'sawtooth' });
-      }
-
-      X('stream').clearAudioDevices();
-
-      // Load one-shot audio files
-      X('oneshot').setup({
-        resources      : oneshots,
-        settings       : createOneshotSettingsCallback(),
-        timeout        : AJAX_TIMEOUT,
-        successCallback: () => {
-          // Next, Load RIRs
-          if (rirDescriptors.length === 0) {
-            setProgress(false);
-          } else {
-            // Load impulse responses
-            const rirs: AudioBuffer[] = [];
-
-            rirDescriptors.forEach((rirDescriptor: RIRDescriptor) => {
-              X.ajax({
-                url            : rirDescriptor.url,
-                type           : 'arraybuffer',
-                timeout        : AJAX_TIMEOUT,
-                successCallback: (_: ProgressEvent, arrayBuffer: ArrayBuffer) => {
-                  X.decode(X.get(), arrayBuffer, (audioBuffer: AudioBuffer) => {
-                    rirs.push(audioBuffer);
-
-                    const rate = Math.trunc((rirs.length / rirDescriptors.length) * 100);
-
-                    if (rirs.length === rirDescriptors.length) {
-                      X('mixer').module('reverb').preset({ rirs });
-                      X('oneshot').module('reverb').preset({ rirs });
-                      X('audio').module('reverb').preset({ rirs });
-                      X('stream').module('reverb').preset({ rirs });
-                      X('noise').module('reverb').preset({ rirs });
-                      X('oscillator').module('reverb').preset({ rirs });
-                      clonedXSound('oscillator').module('reverb').preset({ rirs });
-
-                      setProgress(false);
-                      setRate(100);
-
-                      return;
-                    }
-
-                    setRate(rate);
-                  }, () => {
-                    setErrorMessage('Decode error.');
-                    setIsShowModalForAjax(true);
-                  });
-                },
-                errorCallback  : () => {
-                  setErrorMessage('The loading of RIRs failed.');
-                  setIsShowModalForAjax(true);
-                }
-              });
-            });
-          }
-        },
-        errorCallback  : () => {
-          setErrorMessage('The loading of audio files failed.');
-          setIsShowModalForAjax(true);
-        }
-      });
-
-      X('mixer').module('recorder').setup(NUMBER_OF_CHANNELS, NUMBER_OF_TRACKS);
-      X('oneshot').module('recorder').setup(NUMBER_OF_CHANNELS, NUMBER_OF_TRACKS);
-      X('audio').module('recorder').setup(NUMBER_OF_CHANNELS, NUMBER_OF_TRACKS);
-      X('stream').module('recorder').setup(NUMBER_OF_CHANNELS, NUMBER_OF_TRACKS);
-      X('noise').module('recorder').setup(NUMBER_OF_CHANNELS, NUMBER_OF_TRACKS);
-
-      setLoadedApp(true);
+    const constraints: MediaStreamConstraints = {
+      audio: {
+        echoCancellation: true
+      },
+      video: false
     };
 
-    setup();
-  }, [dispatch, oneshots, rirDescriptors, createOneshotSettingsCallback]);
+    const preampParams: PreampParams = {
+      samples: 2048,
+      pre: { state: true, gain: 0.5, lead: 0.5 },
+      post: { state: true }
+    };
+
+    X('stream').setup(constraints);
+
+    X('mixer').module('preamp').param(preampParams);
+    X('mixer').module('chorus').param({ tone: 4000 });
+    X('mixer').module('flanger').param({ tone: 4000 });
+    X('mixer').module('delay').param({ tone: 4000 });
+    X('mixer').module('reverb').param({ tone: 4000 });
+    X('mixer').module('filter').param({ frequency: 8000 });
+    X('mixer').module('noisesuppressor').deactivate();
+
+    X('oneshot').module('preamp').param(preampParams);
+    X('oneshot').module('chorus').param({ tone: 4000 });
+    X('oneshot').module('flanger').param({ tone: 4000 });
+    X('oneshot').module('delay').param({ tone: 4000 });
+    X('oneshot').module('reverb').param({ tone: 4000 });
+    X('oneshot').module('filter').param({ frequency: 8000 });
+
+    X('audio').module('preamp').param(preampParams);
+    X('audio').module('chorus').param({ tone: 4000 });
+    X('audio').module('flanger').param({ tone: 4000 });
+    X('audio').module('delay').param({ tone: 4000 });
+    X('audio').module('reverb').param({ tone: 4000 });
+    X('audio').module('filter').param({ frequency: 8000 });
+    X('audio').module('noisesuppressor').deactivate();
+
+    X('stream').module('preamp').param(preampParams);
+    X('stream').module('chorus').param({ tone: 4000 });
+    X('stream').module('flanger').param({ tone: 4000 });
+    X('stream').module('delay').param({ tone: 4000 });
+    X('stream').module('reverb').param({ tone: 4000 });
+    X('stream').module('filter').param({ frequency: 8000 });
+    X('stream').module('noisesuppressor').deactivate();
+
+    X('noise').module('preamp').param(preampParams);
+    X('noise').module('chorus').param({ tone: 4000 });
+    X('noise').module('flanger').param({ tone: 4000 });
+    X('noise').module('delay').param({ tone: 4000 });
+    X('noise').module('reverb').param({ tone: 4000 });
+    X('noise').module('filter').param({ frequency: 8000 });
+    X('noise').module('noisesuppressor').deactivate();
+
+    X('oscillator').module('preamp').param(preampParams);
+    X('oscillator').module('chorus').param({ tone: 4000 });
+    X('oscillator').module('flanger').param({ tone: 4000 });
+    X('oscillator').module('delay').param({ tone: 4000 });
+    X('oscillator').module('reverb').param({ tone: 4000 });
+    X('oscillator').module('filter').param({ frequency: 8000 });
+    X('oscillator').module('noisesuppressor').deactivate();
+
+    clonedX('oscillator').module('preamp').param(preampParams);
+    clonedX('oscillator').module('chorus').param({ tone: 4000 });
+    clonedX('oscillator').module('flanger').param({ tone: 4000 });
+    clonedX('oscillator').module('delay').param({ tone: 4000 });
+    clonedX('oscillator').module('reverb').param({ tone: 4000 });
+    clonedX('oscillator').module('filter').param({ frequency: 8000 });
+    clonedX('oscillator').module('noisesuppressor').deactivate();
+
+    for (let i = 0, len = X('oscillator').length(); i < len; i++) {
+      X('oscillator').get(i).param({ type: 'sawtooth' });
+      clonedX('oscillator').get(i).param({ type: 'sawtooth' });
+    }
+
+    X('stream').clearAudioDevices();
+
+    // Load one-shot audio files
+    X('oneshot').setup({
+      resources      : oneshots,
+      settings       : createOneshotSettingsCallback(),
+      timeout        : AJAX_TIMEOUT,
+      successCallback: () => {
+        // Next, Load RIRs
+        if (rirDescriptors.length !== 0) {
+          // Load impulse responses
+          const rirs: AudioBuffer[] = [];
+
+          rirDescriptors.forEach((rirDescriptor: RIRDescriptor) => {
+            X.ajax({
+              url            : rirDescriptor.url,
+              type           : 'arraybuffer',
+              timeout        : AJAX_TIMEOUT,
+              successCallback: (_: ProgressEvent, arrayBuffer: ArrayBuffer) => {
+                X.decode(X.get(), arrayBuffer, (audioBuffer: AudioBuffer) => {
+                  rirs.push(audioBuffer);
+
+                  const rate = Math.trunc((rirs.length / rirDescriptors.length) * 100);
+
+                  if (rirs.length === rirDescriptors.length) {
+                    setRate(100);
+                    setProgress(false);
+                    setLoadedApp(true);
+                  } else {
+                    X('mixer').module('reverb').preset({ rirs });
+                    X('oneshot').module('reverb').preset({ rirs });
+                    X('audio').module('reverb').preset({ rirs });
+                    X('stream').module('reverb').preset({ rirs });
+                    X('noise').module('reverb').preset({ rirs });
+                    X('oscillator').module('reverb').preset({ rirs });
+                    clonedX('oscillator').module('reverb').preset({ rirs });
+
+                    setRate(rate);
+                    setProgress(true);
+                  }
+                }, () => {
+                  setErrorMessage('Decode error.');
+                  setIsShowModalForAjax(true);
+                });
+              },
+              errorCallback  : () => {
+                setErrorMessage('The loading of RIRs failed.');
+                setIsShowModalForAjax(true);
+              }
+            });
+          });
+        }
+      },
+      errorCallback  : () => {
+        setErrorMessage('The loading of audio files failed.');
+        setIsShowModalForAjax(true);
+      }
+    });
+
+    X('mixer').module('recorder').setup(NUMBER_OF_CHANNELS, NUMBER_OF_TRACKS);
+    X('oneshot').module('recorder').setup(NUMBER_OF_CHANNELS, NUMBER_OF_TRACKS);
+    X('audio').module('recorder').setup(NUMBER_OF_CHANNELS, NUMBER_OF_TRACKS);
+    X('stream').module('recorder').setup(NUMBER_OF_CHANNELS, NUMBER_OF_TRACKS);
+    X('noise').module('recorder').setup(NUMBER_OF_CHANNELS, NUMBER_OF_TRACKS);
+
+    window.clonedXSound = clonedX;
+  }, [oneshots, rirDescriptors, createOneshotSettingsCallback]);
 
   return (
     <React.Fragment>
-      <Header progress={progress} rate={rate} />
+      <Header loadedApp={loadedApp} progress={progress} rate={rate} onClickSetupCallback={onClickSetupCallback} />
       <main>
         <Flexbox>
           <VerticalBox numberOfDivisions={5}>
@@ -1103,7 +1084,7 @@ export const App: React.FC = () => {
         <Analyser loadedApp={loadedApp} />
         <MML loadedApp={loadedApp} currentSoundSource={currentSoundSource} />
         <BasicControllers currentSoundSource={currentSoundSource} />
-        <Piano currentSoundSource={currentSoundSource} />
+        <Piano loadedApp={loadedApp} currentSoundSource={currentSoundSource} />
         <Flexbox>
           <VerticalBox numberOfDivisions={6}>
             <CompressorFieldset />

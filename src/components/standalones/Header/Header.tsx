@@ -1,30 +1,21 @@
-import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useId, useMemo, useRef } from 'react';
 
 import { FOCUSABLE_ELEMENTS } from '../../../config';
 import { ProgressBar } from '../../atoms/ProgressBar';
 
 export type Props = {
+  loadedApp: boolean,
   progress: boolean,
-  rate: number
+  rate: number,
+  onClickSetupCallback: (event: React.MouseEvent<HTMLButtonElement>) => void
 };
 
-export const Header: React.FC<Props> = (props: Props) => {
-  const { progress, rate } = props;
-
+export const Header: React.FC<Props> = ({ loadedApp, progress, rate, onClickSetupCallback }) => {
   const headerRef = useRef<HTMLElement>(null);
 
-  const [running, setRunning] = useState<boolean>(false);
-  const [animationEnd, setAnimationEnd] = useState<boolean>(false);
-
-  const onClickCallback = useCallback(() => {
-    setRunning(true);
-  }, []);
-
-  const onAnimationEndCallback = useCallback((event: React.AnimationEvent<HTMLElement>) => {
-    if (event.nativeEvent.animationName === 'fade-out-header-animation') {
-      setAnimationEnd(true);
-    }
-  }, []);
+  const loaded = useMemo(() => {
+    return loadedApp && (rate >= 100);
+  }, [loadedApp, rate]);
 
   useEffect(() => {
     const root = document.getElementById('app');
@@ -37,7 +28,7 @@ export const Header: React.FC<Props> = (props: Props) => {
       return Array.from(document.querySelectorAll('[aria-hidden="true"]')).some((node: Element) => node.contains(element));
     };
 
-    if (!progress && !animationEnd) {
+    if (!progress) {
       Array.from(root.querySelectorAll(FOCUSABLE_ELEMENTS))
         .filter((node: Element) => {
           return (headerRef.current !== null) && !headerRef.current.contains(node) &&
@@ -47,7 +38,7 @@ export const Header: React.FC<Props> = (props: Props) => {
         .forEach((element: Element) => {
           element.setAttribute('tabindex', '-1');
         });
-    } else if (animationEnd) {
+    } else {
       Array.from(root.querySelectorAll(FOCUSABLE_ELEMENTS))
         .filter((node: Element) => {
           return (headerRef.current !== null) && !headerRef.current.contains(node) &&
@@ -64,7 +55,7 @@ export const Header: React.FC<Props> = (props: Props) => {
           }
         });
     }
-  }, [progress, animationEnd]);
+  }, [progress]);
 
   const id         = useId();
   const labelId    = useMemo(() => `header-label-${id}`, [id]);
@@ -74,12 +65,11 @@ export const Header: React.FC<Props> = (props: Props) => {
     <header
       ref={headerRef}
       role="dialog"
-      hidden={animationEnd}
-      aria-modal={!animationEnd}
+      hidden={loaded}
+      aria-modal={!loaded}
       aria-labelledby={labelId}
       aria-describedby={describeId}
-      className={`Header${progress ? ' -progress' : ' -fadeIn'}${running ? ' -fadeOut' : ''}`}
-      onAnimationEnd={onAnimationEndCallback}
+      className={`Header${progress ? ' -progress' : ' -fadeIn'}`}
     >
       <div hidden={progress}>
         <div className="Header__forkMeOnGitHub">
@@ -101,7 +91,7 @@ export const Header: React.FC<Props> = (props: Props) => {
             <span className="Header__moveRight">Synthesizer, Effects, Visualization, Multi-Track Recording, Visual Audio Sprite ...</span>
             <span className="Header__moveLeft">Moreover, enable to use external devices such as Audio Interfaces, MIDI.</span>
           </div>
-          <nav className="Header__startButton"><button type="button" onClick={onClickCallback}>Start Application</button></nav>
+          <nav className="Header__startButton"><button type="button" onClick={onClickSetupCallback}>Start Application</button></nav>
         </div>
       </div>
       {progress ? <ProgressBar label={`Now Loading ... (${rate} %)`} rate={rate} /> : null}

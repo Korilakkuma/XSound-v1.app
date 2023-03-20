@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { X } from 'xsound';
 
 import { NUMBER_OF_ONESHOTS } from '../../../config';
@@ -14,7 +14,7 @@ import { Select } from '../../atoms/Select';
 import { Switch } from '../../atoms/Switch';
 import { ParameterController } from '../../helpers/ParameterController';
 
-import type { RootState, SoundSource } from '../../../types';
+import type { SoundSource } from '../../../types';
 
 export type Props = {
   currentSoundSource: SoundSource
@@ -24,7 +24,7 @@ const MIN_NOTE_NUMBER = 21;
 const MAX_NOTE_NUMBER = 108;
 const MAX_VELOCITY    = 127;
 
-export const BasicControllers: React.FC<Props> = (props: Props) => {
+export const BasicControllers: React.FC<Props> = ({ currentSoundSource }) => {
   const [analyserState, setAnalyserState] = useState<boolean>(false);
   const [mmlState, setMMLState] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
@@ -32,12 +32,10 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
 
   const dispatch = useDispatch();
 
-  const clonedXSound = useSelector((state: RootState) => state.clonedXSound);
-
   const indexes: number[] = useMemo(() => [], []);
 
   const midiSource = useMemo(() => {
-    switch (props.currentSoundSource) {
+    switch (currentSoundSource) {
       case 'oscillator':
         return 'oscillator';
       case 'piano':
@@ -49,10 +47,10 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
       default:
         return 'noise';
     }
-  }, [props.currentSoundSource]);
+  }, [currentSoundSource]);
 
   const offset = useMemo(() => {
-    switch (props.currentSoundSource) {
+    switch (currentSoundSource) {
       case 'oscillator':
         return 0;
       case 'piano':
@@ -64,7 +62,7 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
       default:
         return 0;
     }
-  }, [props.currentSoundSource]);
+  }, [currentSoundSource]);
 
   const noteOn = useCallback((noteNumber: number, velocity: number) => {
     if ((noteNumber < MIN_NOTE_NUMBER) || (noteNumber > MAX_NOTE_NUMBER)) {
@@ -88,17 +86,17 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
       for (let i = 0, len = X('oscillator').length(); i < len; i++) {
         if (i !== 0) {
           X('oscillator').get(i).activate();
-          clonedXSound('oscillator').get(i).activate();
+          window.clonedXSound('oscillator').get(i).activate();
         }
 
         X('oscillator').get(i).param({ volume });
-        clonedXSound('oscillator').get(i).param({ volume });
+        window.clonedXSound('oscillator').get(i).param({ volume });
       }
 
       X('oscillator').ready(0, 0).start(X.toFrequencies(indexes));
-      clonedXSound('oscillator').ready(0, 0).start(X.toFrequencies(indexes));
+      window.clonedXSound('oscillator').ready(0, 0).start(X.toFrequencies(indexes));
 
-      X('mixer').start([X('oscillator'), clonedXSound('oscillator')], [volume, volume]);
+      X('mixer').start([X('oscillator'), window.clonedXSound('oscillator')], [volume, volume]);
 
       X('mixer').module('recorder').start();
     } else {
@@ -108,7 +106,7 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
     }
 
     dispatch(activateMIDIKeyboards(indexes));
-  }, [dispatch, clonedXSound, midiSource, indexes, offset]);
+  }, [dispatch, midiSource, indexes, offset]);
 
   const noteOff = useCallback((noteNumber: number, velocity: number) => {
     if ((noteNumber < MIN_NOTE_NUMBER) || (noteNumber > MAX_NOTE_NUMBER)) {
@@ -133,12 +131,12 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
       X('noise').module('recorder').start();
     } else if (midiSource === 'oscillator') {
       X('oscillator').stop();
-      clonedXSound('oscillator').stop();
+      window.clonedXSound('oscillator').stop();
 
       for (let i = 0, len = X('oscillator').length(); i < len; i++) {
         if (i !== 0) {
           X('oscillator').get(i).deactivate();
-          clonedXSound('oscillator').get(i).deactivate();
+          window.clonedXSound('oscillator').get(i).deactivate();
         }
       }
     } else {
@@ -146,7 +144,7 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
     }
 
     dispatch(activateMIDIKeyboards(indexes));
-  }, [dispatch, clonedXSound, midiSource, indexes, offset]);
+  }, [dispatch, midiSource, indexes, offset]);
 
   const successCallback = useCallback((midiAccess: MIDIAccess, inputs: MIDIInput[], outputs: MIDIOutput[]) => {
     if (inputs[0]) {
@@ -184,8 +182,8 @@ export const BasicControllers: React.FC<Props> = (props: Props) => {
     const time = event.currentTarget.valueAsNumber;
 
     X('oscillator').module('glide').param({ time });
-    clonedXSound('oscillator').module('glide').param({ time });
-  }, [clonedXSound]);
+    window.clonedXSound('oscillator').module('glide').param({ time });
+  }, []);
 
   const onChangeTransposeCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     X('oneshot').param({ transpose: event.currentTarget.valueAsNumber });

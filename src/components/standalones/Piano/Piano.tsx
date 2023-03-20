@@ -7,14 +7,14 @@ import { NUMBER_OF_PIANO_KEYBOARDS } from '../../../config';
 import type { RootState, SoundSource } from '../../../types';
 
 export type Props = {
-  currentSoundSource: SoundSource;
+  loadedApp: boolean;
+  currentSoundSource: SoundSource
 }
 
-export const Piano: React.FC<Props> = (props: Props) => {
+export const Piano: React.FC<Props> = ({ loadedApp, currentSoundSource }) => {
   const [downKeyboards, setDownKeyboards] = useState<boolean[]>(new Array(NUMBER_OF_PIANO_KEYBOARDS).fill(false));
   const [isDown, setIsDown] = useState<boolean>(false);  // for `mouseover` or `touchmove` event
 
-  const clonedXSound      = useSelector((state: RootState) => state.clonedXSound);
   const downMelodyIndexes = useSelector((state: RootState) => state.downMelodyKeyboardIndexes);
   const downBassIndexes   = useSelector((state: RootState) => state.downBassKeyboardIndexes);
   const upMelodyIndexes   = useSelector((state: RootState) => state.upMelodyKeyboardIndexes);
@@ -46,12 +46,12 @@ export const Piano: React.FC<Props> = (props: Props) => {
       return;
     }
 
-    switch (props.currentSoundSource) {
+    switch (currentSoundSource) {
       case 'oscillator':
         X('oscillator').ready(0, 0).start(X.toFrequencies([index, -1, -1, -1]));
-        clonedXSound('oscillator').ready(0, 0).start(X.toFrequencies([index, -1, -1, -1]));
+        window.clonedXSound('oscillator').ready(0, 0).start(X.toFrequencies([index, -1, -1, -1]));
 
-        X('mixer').start([X('oscillator'), clonedXSound('oscillator')], [1, 1]);
+        X('mixer').start([X('oscillator'), window.clonedXSound('oscillator')], [1, 1]);
 
         X('mixer').module('recorder').start();
         // X('mixer').module('session').start();
@@ -101,7 +101,7 @@ export const Piano: React.FC<Props> = (props: Props) => {
         break;
       default:
         // eslint-disable-next-line no-console
-        console.assert(`Error: currentSoundSource = ${props.currentSoundSource}`);
+        console.assert(`Error: currentSoundSource = ${currentSoundSource}`);
         break;
     }
 
@@ -109,7 +109,7 @@ export const Piano: React.FC<Props> = (props: Props) => {
 
     setDownKeyboards([...downKeyboards]);
     setIsDown(true);
-  }, [props.currentSoundSource, clonedXSound, downKeyboards, isDown]);
+  }, [currentSoundSource, downKeyboards, isDown]);
 
   const stopSoundCallback = useCallback((event: React.MouseEvent<HTMLButtonElement> | React.TouchEvent<HTMLButtonElement> | React.KeyboardEvent<HTMLButtonElement> | React.FocusEvent<HTMLButtonElement>) => {
     if (event.currentTarget.classList.contains('skip')) {
@@ -134,10 +134,10 @@ export const Piano: React.FC<Props> = (props: Props) => {
 
     const index = Number(dataIndex);
 
-    switch (props.currentSoundSource) {
+    switch (currentSoundSource) {
       case 'oscillator':
         X('oscillator').stop();
-        clonedXSound('oscillator').stop();
+        window.clonedXSound('oscillator').stop();
 
         break;
       case 'piano':
@@ -161,13 +161,13 @@ export const Piano: React.FC<Props> = (props: Props) => {
     if ((event.type === 'mouseup') || (event.type === 'touchend')) {
       setIsDown(false);
     }
-  }, [props.currentSoundSource, clonedXSound, downKeyboards]);
+  }, [currentSoundSource, downKeyboards]);
 
   const stopSoundOnOutsideOfKeyboardCallback = useCallback(() => {
-    switch (props.currentSoundSource) {
+    switch (currentSoundSource) {
       case 'oscillator':
         X('oscillator').stop();
-        clonedXSound('oscillator').stop();
+        window.clonedXSound('oscillator').stop();
 
         break;
       default:
@@ -177,7 +177,7 @@ export const Piano: React.FC<Props> = (props: Props) => {
 
     setDownKeyboards([...downKeyboards.map(() => false)]);
     setIsDown(false);
-  }, [props.currentSoundSource, clonedXSound, downKeyboards]);
+  }, [currentSoundSource, downKeyboards]);
 
   const indexMap: { [pitch: string]: number } = useMemo(() => ({
     'A-4' :  0,
@@ -294,6 +294,10 @@ export const Piano: React.FC<Props> = (props: Props) => {
   ], []);
 
   useEffect(() => {
+    if (!loadedApp) {
+      return;
+    }
+
     window.addEventListener('mouseup',  stopSoundOnOutsideOfKeyboardCallback, false);
     window.addEventListener('touchend', stopSoundOnOutsideOfKeyboardCallback, false);
 
@@ -301,7 +305,7 @@ export const Piano: React.FC<Props> = (props: Props) => {
       window.removeEventListener('mouseup',  stopSoundOnOutsideOfKeyboardCallback, false);
       window.removeEventListener('touchend', stopSoundOnOutsideOfKeyboardCallback, false);
     };
-  }, [stopSoundOnOutsideOfKeyboardCallback]);
+  }, [loadedApp, stopSoundOnOutsideOfKeyboardCallback]);
 
   return (
     <div className="Piano">

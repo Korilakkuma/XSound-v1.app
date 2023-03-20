@@ -8,7 +8,6 @@ import {
   changeOscillatorStates,
   downBassKeyboards,
   downMelodyKeyboards,
-  setClonedXSound,
   upBassKeyboards,
   upMelodyKeyboards
 } from './';
@@ -28,16 +27,6 @@ describe('analyserStateReducer', () => {
     const state  = reducer(initialState, action);
 
     expect(state.analyserState).toBe(true);
-  });
-});
-
-describe('clonedXSoundReducer', () => {
-  test('should return cloned XSound', () => {
-    const action = setClonedXSound(() => null);
-
-    const state = reducer(initialState, action);
-
-    expect(state.clonedXSound()).toBe(null);
   });
 });
 

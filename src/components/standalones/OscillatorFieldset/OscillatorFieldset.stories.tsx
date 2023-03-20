@@ -2,7 +2,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 
-import { createStoreMock } from '../../../../mock/createStoreMock';
+import { store } from '../../../store';
 
 import { OscillatorFieldset } from './OscillatorFieldset';
 
@@ -17,7 +17,7 @@ export default {
 const Template: ComponentStoryObj<typeof OscillatorFieldset> = {
   render: (args) => {
     return (
-      <Provider store={createStoreMock({ oscillatorStates: [true, false] })}>
+      <Provider store={store}>
         <OscillatorFieldset {...args} />
       </Provider>
     );

@@ -34,10 +34,14 @@ const Template: ComponentStoryObj<typeof EnvelopeGeneratorFieldset> = {
         return;
       }
 
+      window.clonedXSound = X.clone();
+
       X('oscillator').setup([true, true, true, true]);
+      window.clonedXSound('oscillator').setup([true, true, true, true]);
 
       for (let i = 0, len = X('oscillator').length(); i < len; i++) {
         X('oscillator').get(i).param({ type: 'sawtooth' });
+        window.clonedXSound('oscillator').get(i).param({ type: 'sawtooth' });
       }
 
       setLoaded(true);

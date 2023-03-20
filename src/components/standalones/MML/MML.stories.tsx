@@ -4,6 +4,8 @@ import { Provider } from 'react-redux';
 import { X } from 'xsound';
 
 import { createStoreMock } from '../../../../mock/createStoreMock';
+import { reducer, initialState, changeMMLState } from '../../../slices';
+import { store } from '../../../store';
 
 import { MML } from './MML';
 
@@ -27,7 +29,7 @@ const oneshots = [
 ];
 
 const Template: ComponentStoryObj<typeof MML> = {
-  render: (args) => {
+  render: () => {
     const [loaded, setLoaded] = useState<boolean>(false);
     const [active, setActive] = useState<boolean>(false);
 
@@ -117,39 +119,23 @@ const Template: ComponentStoryObj<typeof MML> = {
         return;
       }
 
-      const setup = async () => {
-        const clonedX = await X.clone();
-
-        if (clonedX instanceof Error) {
-          return;
+      X('oneshot').setup({
+        resources      : oneshots,
+        settings       : createOneshotSettingsCallback(),
+        timeout        : 60000,
+        successCallback: () => {
+          setLoaded(true);
+        },
+        errorCallback  : () => {
+          alert('The loading of audio files failed.');
         }
+      });
 
-        X('oscillator').setup([true, true, true, true]);
-        clonedX('oscillator').setup([true, true, true, true]);
-
-        for (let i = 0, len = X('oscillator').length(); i < len; i++) {
-          X('oscillator').get(i).param({ type: 'sawtooth' });
-          clonedX('oscillator').get(i).param({ type: 'sawtooth' });
-        }
-
-        X('oneshot').setup({
-          resources      : oneshots,
-          settings       : createOneshotSettingsCallback(),
-          timeout        : 60000,
-          successCallback: () => {
-            setLoaded(true);
-          },
-          errorCallback  : () => {
-            alert('The loading of audio files failed.');
-          }
-        });
-      };
-
-      setup();
+      window.clonedXSound = X.clone();
     }, [loaded, createOneshotSettingsCallback]);
 
     return (
-      <Provider store={createStoreMock({ mmlState: active })}>
+      <Provider store={createStoreMock({ ...store.getState(), mmlState: reducer(initialState, changeMMLState(active)).mmlState })}>
         <React.Fragment>
           <button
             type="button"
@@ -161,7 +147,7 @@ const Template: ComponentStoryObj<typeof MML> = {
           >
             {active ? 'Close' : 'Open'}
           </button>
-          <MML loadedApp={loaded} currentSoundSource={args.currentSoundSource} />
+          <MML loadedApp={loaded} currentSoundSource='piano' />
         </React.Fragment>
       </Provider>
     );
@@ -169,8 +155,5 @@ const Template: ComponentStoryObj<typeof MML> = {
 };
 
 export const Primary = {
-  ...Template,
-  args: {
-    currentSoundSource: 'oscillator'
-  }
+  ...Template
 };

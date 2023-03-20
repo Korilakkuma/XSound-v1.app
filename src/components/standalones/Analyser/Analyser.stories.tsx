@@ -4,6 +4,8 @@ import { Provider } from 'react-redux';
 import { X } from 'xsound';
 
 import { createStoreMock } from '../../../../mock/createStoreMock';
+import { reducer, initialState, changeAnalyserState } from '../../../slices';
+import { store } from '../../../store';
 
 import { Analyser } from './Analyser';
 
@@ -50,7 +52,7 @@ const Template: ComponentStoryObj<typeof Analyser> = {
     }, [loaded]);
 
     return (
-      <Provider store={createStoreMock({ analyserState: active })}>
+      <Provider store={createStoreMock({ ...store.getState(), analyserState: reducer(initialState, changeAnalyserState(active)).analyserState })}>
         <React.Fragment>
           <button
             type="button"

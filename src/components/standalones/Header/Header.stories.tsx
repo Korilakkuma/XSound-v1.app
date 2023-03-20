@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { X } from 'xsound';
 
 import { Header } from './Header';
 
@@ -13,8 +14,15 @@ export default {
 
 const Template: ComponentStoryObj<typeof Header> = {
   render: () => {
-    const [progress, setProgress] = useState<boolean>(true);
+    const [loadedApp, setLoadedApp] = useState<boolean>(false);
+    const [progress, setProgress] = useState<boolean>(false);
     const [rate, setRate] = useState<number>(0);
+
+    const onClickSetupCallback = useCallback(async () => {
+      await X.setup();
+      setLoadedApp(true);
+      setProgress(true);
+    }, []);
 
     useEffect(() => {
       if (!progress) {
@@ -34,7 +42,7 @@ const Template: ComponentStoryObj<typeof Header> = {
       };
     });
 
-    return <Header progress={progress} rate={rate} />;
+    return <Header loadedApp={loadedApp} progress={progress} rate={rate} onClickSetupCallback={onClickSetupCallback} />;
   }
 };
 

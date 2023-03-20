@@ -2,12 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import type { SoundSource } from '../types';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import type { XSound } from 'xsound';
 
 export type State = {
   activeMIDIKeyboardIndexes: number[],
   analyserState: boolean,
-  clonedXSound: () => null | typeof XSound,
   currentSoundSource: SoundSource,
   downBassKeyboardIndexes: number[],
   downMelodyKeyboardIndexes: number[],
@@ -20,7 +18,6 @@ export type State = {
 export const initialState: State = {
   activeMIDIKeyboardIndexes: [],
   analyserState: false,
-  clonedXSound: () => null,
   currentSoundSource: 'oscillator',
   downBassKeyboardIndexes: [],
   downMelodyKeyboardIndexes: [],
@@ -55,9 +52,6 @@ const slice = createSlice({
     downMelodyKeyboards: (state: State, action: PayloadAction<number[]>) => {
       state.downMelodyKeyboardIndexes = action.payload;
     },
-    setClonedXSound: (state: State, action: PayloadAction<() => null | typeof XSound>) => {
-      state.clonedXSound = action.payload;
-    },
     upBassKeyboards: (state: State, action: PayloadAction<number[]>) => {
       state.upBassKeyboardIndexes = action.payload;
     },
@@ -75,7 +69,6 @@ export const {
   changeOscillatorStates,
   downBassKeyboards,
   downMelodyKeyboards,
-  setClonedXSound,
   upBassKeyboards,
   upMelodyKeyboards
 } = slice.actions;
