@@ -14,7 +14,7 @@
 }
 
 .Header.-progress {
-  background-color: var(--black);
+  background-color: rgba(0, 0, 0, 0.8);
   color: var(--assort-color);
 }
 
