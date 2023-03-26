@@ -1,4 +1,4 @@
-import React, { useEffect, useId, useMemo, useRef } from 'react';
+import React, { useCallback, useEffect, useState, useId, useMemo, useRef } from 'react';
 
 import { FOCUSABLE_ELEMENTS } from '../../../config';
 import { ProgressBar } from '../../atoms/ProgressBar';
@@ -13,9 +13,15 @@ export type Props = {
 export const Header: React.FC<Props> = ({ loadedApp, progress, rate, onClickSetupCallback }) => {
   const headerRef = useRef<HTMLElement>(null);
 
+  const [animationEnded, setAnimationEnded] = useState<boolean>(false);
+
   const loaded = useMemo(() => {
     return loadedApp && (rate >= 100);
   }, [loadedApp, rate]);
+
+  const onAnimationEndCallback = useCallback(() => {
+    setAnimationEnded(true);
+  }, []);
 
   useEffect(() => {
     const root = document.getElementById('app');
@@ -28,17 +34,7 @@ export const Header: React.FC<Props> = ({ loadedApp, progress, rate, onClickSetu
       return Array.from(document.querySelectorAll('[aria-hidden="true"]')).some((node: Element) => node.contains(element));
     };
 
-    if (!progress) {
-      Array.from(root.querySelectorAll(FOCUSABLE_ELEMENTS))
-        .filter((node: Element) => {
-          return (headerRef.current !== null) && !headerRef.current.contains(node) &&
-            !hiddenElement(node) &&
-            (node.getAttribute('tabindex') !== '-1');
-        })
-        .forEach((element: Element) => {
-          element.setAttribute('tabindex', '-1');
-        });
-    } else {
+    if (loaded) {
       Array.from(root.querySelectorAll(FOCUSABLE_ELEMENTS))
         .filter((node: Element) => {
           return (headerRef.current !== null) && !headerRef.current.contains(node) &&
@@ -54,8 +50,18 @@ export const Header: React.FC<Props> = ({ loadedApp, progress, rate, onClickSetu
             element.removeAttribute('tabindex');
           }
         });
+    } else if (animationEnded) {
+      Array.from(root.querySelectorAll(FOCUSABLE_ELEMENTS))
+        .filter((node: Element) => {
+          return (headerRef.current !== null) && !headerRef.current.contains(node) &&
+            !hiddenElement(node) &&
+            (node.getAttribute('tabindex') !== '-1');
+        })
+        .forEach((element: Element) => {
+          element.setAttribute('tabindex', '-1');
+        });
     }
-  }, [progress]);
+  }, [animationEnded, loaded]);
 
   const id         = useId();
   const labelId    = useMemo(() => `header-label-${id}`, [id]);
@@ -70,6 +76,7 @@ export const Header: React.FC<Props> = ({ loadedApp, progress, rate, onClickSetu
       aria-labelledby={labelId}
       aria-describedby={describeId}
       className={`Header${progress ? ' -progress' : ' -fadeIn'}`}
+      onAnimationEnd={onAnimationEndCallback}
     >
       <div hidden={progress}>
         <div className="Header__forkMeOnGitHub">
