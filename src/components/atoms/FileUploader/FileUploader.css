@@ -1,37 +1,37 @@
 .FileUploader > button,
 .FileUploader.-drop > button {
   box-sizing: border-box;
-  border: 2px solid rgba(255, 255, 255, 0.05);
   width: 200px;
   height: 28px;
   padding: 4px;
+  overflow: hidden;
   font-size: 9px;
   color: var(--white);
+  text-overflow: ellipsis;
+  white-space: nowrap;
   background-color: var(--black);
   background-image: linear-gradient(to bottom, var(--gray), var(--black));
+  border: 2px solid rgba(255, 255, 255, 0.05);
   box-shadow: 0 0 0 1px var(--black) inset, 0 0 1px 3px rgba(0, 0, 0, 0.3);  /* outer (for emboss) */
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
 }
 
 .FileUploader > button:focus,
 .FileUploader > button:active,
 .FileUploader.-drag > button {
-  border: 2px solid rgba(255, 255, 255, 0.05);
   background-color: var(--assort-color);
   background-image: linear-gradient(to bottom, var(--base-color), var(--assort-color));
+  border: 2px solid rgba(255, 255, 255, 0.05);
   box-shadow: 0 0 0 1px var(--base-color) inset, 0 0 1px 3px rgba(0, 0, 0, 0.3);  /* outer (for emboss) */
 }
 
 .FileUploader > input[type="file"] {
   position: absolute;
-  margin: -1px;
-  border: none;
-  padding: 0;
   width: 1px;
   height: 1px;
+  padding: 0;
+  margin: -1px;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
+  border: none;
 }

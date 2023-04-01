@@ -3,25 +3,25 @@
   display: flex;
   -webkit-flex-direction: row;
   flex-direction: row;
-  -webkit-justify-content: center;
-  justify-content: center;
   -webkit-align-items: center;
   align-items: center;
-  margin: 0 auto;
+  -webkit-justify-content: center;
+  justify-content: center;
   width: 238px;
+  margin: 0 auto;
 }
 
 .OscillatorSelector > label {
-  cursor: pointer;
   display: block;
   height: 40px;
-
-  /* for Retina Display */
-  background-size: 238px 120px;
+  cursor: pointer;
 
   /* CSS Sprite */
   background-image: url("/assets/images/radio-wave-type.png");
   background-repeat: no-repeat;
+
+  /* for Retina Display */
+  background-size: 238px 120px;
 }
 
 .OscillatorSelector > label:focus:not(:focus-visible) {

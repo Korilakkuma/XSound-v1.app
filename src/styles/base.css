@@ -1,9 +1,9 @@
 body {
+  min-width: 320px;
   font-family: Helvetica, Arial, sans-serif;
   font-size: var(--base-font-size);
-  color: var(--gray);
   line-height: 1.5;
-  min-width: 320px;
+  color: var(--gray);
   background-color: var(--black);
 }
 
@@ -29,10 +29,10 @@ body.-linear {
 noscript {
   display: -webkit-flex;
   display: flex;
-  -webkit-justify-content: center;
-  justify-content: center;
   -webkit-align-items: center;
   align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
   height: 100vh;
   font-family: Alike, serif;
   font-size: var(--base-font-size);
@@ -52,9 +52,9 @@ h1 {
 }
 
 .Application {
-  margin: 0 auto;
-  max-width: 1400px;
   min-width: 1280px;  /* for Piano width */
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 a {

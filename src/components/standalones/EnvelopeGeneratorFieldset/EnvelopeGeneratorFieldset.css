@@ -8,8 +8,8 @@
 
 .EnvelopeGeneratorFieldset > fieldset > legend {
   display: block;
-  margin: 0 auto 4px;
   width: var(--fieldset-width);
+  margin: 0 auto 4px;
   font-family: Neuton, serif;
   font-size: 22px;
   font-weight: lighter;

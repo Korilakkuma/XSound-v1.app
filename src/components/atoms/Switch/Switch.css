@@ -1,14 +1,14 @@
 .Switch > label {
-  cursor: pointer;
   display: -webkit-flex;
   display: flex;
   -webkit-flex-direction: row;
   flex-direction: row;
-  -webkit-justify-content: space-between;
-  justify-content: space-between;
   -webkit-align-items: center;
   align-items: center;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
   padding: 0 4px;
+  cursor: pointer;
 }
 
 .Switch.-text > label {
@@ -18,32 +18,32 @@
 }
 
 .Switch > label > span {
-  cursor: pointer;
   display: inline-block;
-  margin-left: 12px;
-  vertical-align: -12px;
   width: 58px;
   height: 34px;
-
-  /* for Retina Display */
-  background-size: 58px 68px;
+  margin-left: 12px;
+  vertical-align: -12px;
+  cursor: pointer;
 
   /* CSS Sprite */
   background-image: url("/assets/images/flip-switch.png");
-  background-position: left top;
   background-repeat: no-repeat;
+  background-position: left top;
+
+  /* for Retina Display */
+  background-size: 58px 68px;
 }
 
 .Switch > input[type="checkbox"] {
   position: absolute;
-  margin: -1px;
-  border: none;
-  padding: 0;
   width: 1px;
   height: 1px;
+  padding: 0;
+  margin: -1px;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
+  border: none;
 }
 
 .Switch > input[type="checkbox"]:checked + label > span {

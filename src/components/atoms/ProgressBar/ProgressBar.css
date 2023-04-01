@@ -1,9 +1,9 @@
 .ProgressBar__wrapper {
   position: relative;
   z-index: 1;
-  margin: 0 auto;
   width: 204px;
   height: 12px;
+  margin: 0 auto;
   background-color: var(--base-color);
   background-image: linear-gradient(to bottom, var(--base-color), var(--assort-color));
 }

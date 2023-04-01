@@ -1,9 +1,9 @@
 .Button {
   display: inline-block;
+  background-repeat: no-repeat;
 
   /* CSS Sprite */
   background-position: left bottom;
-  background-repeat: no-repeat;
 }
 
 .Button:hover {

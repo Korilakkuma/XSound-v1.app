@@ -16,10 +16,10 @@
   display: flex;
   -webkit-flex-direction: row;
   flex-direction: row;
-  -webkit-justify-content: space-between;
-  justify-content: space-between;
   -webkit-align-items: center;
   align-items: center;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
 }
 
 .Analyser__canvas > dl > dt {
@@ -35,8 +35,8 @@
 }
 
 .Analyser__canvas > dl:first-child > dd {
-  margin-top: 8px;
   width: 420px;
+  margin-top: 8px;
   overflow-x: auto;
 }
 
@@ -50,18 +50,18 @@
 
 .Analyser__channelSelector {
   display: inline-block;
-  margin-right: 4px;
-  margin-bottom: 2px;
   width: 50px;
   height: 22px;
+  margin-right: 4px;
+  margin-bottom: 2px;
   vertical-align: middle;
-
-  /* for Retina Display */
-  background-size: 50px 44px;
 
   /* CSS Sprite */
   background-image: url("/assets/images/flip-switch-channel.png");
   background-repeat: no-repeat;
+
+  /* for Retina Display */
+  background-size: 50px 44px;
 }
 
 .Analyser__channelSelector.-left {
@@ -81,10 +81,10 @@
   display: flex;
   -webkit-flex-direction: row;
   flex-direction: row;
-  -webkit-justify-content: flex-end;
-  justify-content: flex-end;
   -webkit-align-items: flex-start;
   align-items: flex-start;
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
   margin-top: 24px;
 }
 

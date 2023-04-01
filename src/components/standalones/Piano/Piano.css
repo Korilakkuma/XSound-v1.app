@@ -1,13 +1,14 @@
 .Piano {
   position: relative;
   z-index: 1;
-  margin: 32px auto;
   width: 1256px;
   height: 240px;
+  margin: 32px auto;
+  -webkit-user-select: none;
   background-color: var(--gray);
   background-image: url("/assets/images/piano-frame-crystal.png");
-  background-position: left top;
   background-repeat: no-repeat;
+  background-position: left top;
 
   /* for Retina Display */
   background-size: 1256px 240px;
@@ -17,7 +18,6 @@
   /* box-shadow: 0 0 0 3px var(--black) inset, 0 -1px 5px 9px rgba(17, 17, 17, 0.4); */
 
   -webkit-touch-callout: none;
-  -webkit-user-select: none;
   -webkit-tap-highlight-color: var(--transparent);
 }
 
@@ -40,15 +40,15 @@
   box-sizing: border-box;
   width: 23px;
   height: 150px;
-
-  /* for Retina Display */
-  background-size: 23px 300px;
   background-color: var(--white);
 
   /* CSS Sprite */
   background-image: url("/assets/images/piano-keyboard-white.png");
   background-repeat: no-repeat;
   background-position: left bottom;
+
+  /* for Retina Display */
+  background-size: 23px 300px;
 }
 
 .Piano__whites > .Piano__keyboard.-active {
@@ -72,19 +72,19 @@
 
 .Piano__blacks > .Piano__keyboard {
   box-sizing: border-box;
-  cursor: pointer;
-  margin-left: 12px;
   width: 11px;
   height: 95px;
-
-  /* for Retina Display */
-  background-size: 11px 190px;
+  margin-left: 12px;
+  cursor: pointer;
   background-color: var(--black);
 
   /* CSS Sprite */
   background-image: url("/assets/images/piano-keyboard-black.png");
   background-repeat: no-repeat;
   background-position: left bottom;
+
+  /* for Retina Display */
+  background-size: 11px 190px;
 }
 
 .Piano__blacks > .Piano__keyboard.-active {
@@ -92,14 +92,14 @@
 }
 
 .Piano__keyboard > button {
-  cursor: pointer;
   display: block;
-  padding: 0;
   width: 100%;
   height: 100%;
+  padding: 0;
+  overflow: hidden;
   text-indent: 100%;
   white-space: nowrap;
-  overflow: hidden;
+  cursor: pointer;
 }
 
 .Piano__keyboard > button:focus:not(:focus-visible) {

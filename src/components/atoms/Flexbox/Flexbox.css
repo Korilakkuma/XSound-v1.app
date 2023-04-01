@@ -3,9 +3,9 @@
   display: flex;
   -webkit-flex-direction: row;
   flex-direction: row;
-  -webkit-justify-content: flex-start;
-  justify-content: flex-start;
   -webkit-align-items: stretch;
   align-items: stretch;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;
   background-color: rgba(255, 255, 255, 0.05);
 }

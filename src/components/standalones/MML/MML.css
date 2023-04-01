@@ -16,10 +16,10 @@
   display: flex;
   -webkit-flex-direction: row;
   flex-direction: row;
-  -webkit-justify-content: space-between;
-  justify-content: space-between;
   -webkit-align-items: flex-start;
   align-items: flex-start;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
 }
 
 .MML__editor > dl {
@@ -38,13 +38,13 @@
 }
 
 .MML__editor > dl > dd[contentEditable] {
-  outline: var(--assort-color);
-  padding: var(--base-font-size);
   height: 8rem;
+  padding: var(--base-font-size);
   overflow: auto;
   font-size: var(--base-font-size);
   color: var(--white);
   background-color: var(--black);
+  outline: var(--assort-color);
   transition: background-color ease 0.6s;
 }
 
@@ -53,8 +53,8 @@
 }
 
 .MML__editor > dl > dd[contentEditable][aria-disabled="true"] {
-  opacity: 1;
   color: rgba(255, 255, 255, 0.6);
+  opacity: 1;
 }
 
 .MML__editor > dl > dd[contentEditable].-highlight > span:last-of-type {
@@ -72,10 +72,10 @@
   display: flex;
   -webkit-flex-direction: row;
   flex-direction: row;
-  -webkit-justify-content: flex-end;
-  justify-content: flex-end;
   -webkit-align-items: center;
   align-items: center;
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
   margin-top: 24px;
 }
 
@@ -84,13 +84,13 @@
   width: 63px;
   height: 40px;
 
-  /* for Retina Display */
-  background-size: 238px 120px;
-
   /* CSS Sprite */
   background-image: url("/assets/images/buttons-mml.png");
   background-repeat: no-repeat;
   background-position: 0 top;
+
+  /* for Retina Display */
+  background-size: 238px 120px;
 }
 
 .MML__controller.-paused {
@@ -110,13 +110,13 @@
   width: 56px;
   height: 40px;
 
-  /* for Retina Display */
-  background-size: 238px 120px;
-
   /* CSS Sprite */
   background-image: url("/assets/images/buttons-mml.png");
   background-repeat: no-repeat;
   background-position: -63px bottom;
+
+  /* for Retina Display */
+  background-size: 238px 120px;
 }
 
 .MML__rewinder:hover {
@@ -131,17 +131,17 @@
   display: block;
   width: 63px;
   height: 40px;
-
-  /* for Retina Display */
-  background-size: 238px 120px;
+  overflow: hidden;
+  text-indent: 100%;
+  white-space: nowrap;
 
   /* CSS Sprite */
   background-image: url("/assets/images/buttons-mml.png");
   background-repeat: no-repeat;
   background-position: -175px bottom;
-  text-indent: 100%;
-  white-space: nowrap;
-  overflow: hidden;
+
+  /* for Retina Display */
+  background-size: 238px 120px;
 }
 
 .MML__download:hover {
@@ -154,8 +154,8 @@
 
 /* HACK */
 .MML__controllers > .Select > select {
-  margin: 0 0 0 12px;
   padding-left: 12px;
+  margin: 0 0 0 12px;
   font-size: 9px;
   text-align: center;
   text-transform: none;
