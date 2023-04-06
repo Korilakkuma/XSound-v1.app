@@ -3,14 +3,14 @@ import React, { useState } from 'react';
 
 import { Switch } from './Switch';
 
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import '../../../main.css';
 
 export default {
   component: Switch
-} as ComponentMeta<typeof Switch>;
+} as Meta<typeof Switch>;
 
-const Template: ComponentStoryObj<typeof Switch> = {
+const Template: StoryObj<typeof Switch> = {
   render: (args) => {
     const [checked, setChecked] = useState<boolean>(args.checked);
 

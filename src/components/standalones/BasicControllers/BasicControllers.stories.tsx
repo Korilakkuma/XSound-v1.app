@@ -8,14 +8,14 @@ import { store } from '../../../store';
 import { BasicControllers } from './BasicControllers';
 
 import type { SoundSource } from '../../../types';
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import type { OneshotSetting, OneshotSettings } from 'xsound';
 
 import '../../../main.css';
 
 export default {
   component: BasicControllers
-} as ComponentMeta<typeof BasicControllers>;
+} as Meta<typeof BasicControllers>;
 
 const oneshots = [
   'assets/one-shots/piano-2/C.wav',
@@ -27,7 +27,7 @@ const oneshots = [
   'assets/one-shots/piano-2/B.wav'
 ];
 
-const Template: ComponentStoryObj<typeof BasicControllers> = {
+const Template: StoryObj<typeof BasicControllers> = {
   render: () => {
     const [loaded, setLoaded] = useState<boolean>(false);
     const [isOscillatorStop, setIsOscillatorStop] = useState<boolean>(true);

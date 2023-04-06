@@ -3,14 +3,14 @@ import React from 'react';
 
 import { GroupSelect } from './GroupSelect';
 
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import '../../../main.css';
 
 export default {
   component: GroupSelect
-} as ComponentMeta<typeof GroupSelect>;
+} as Meta<typeof GroupSelect>;
 
-const Template: ComponentStoryObj<typeof GroupSelect> = {
+const Template: StoryObj<typeof GroupSelect> = {
   render: (args) => <GroupSelect {...args} />
 };
 

@@ -3,14 +3,14 @@ import React from 'react';
 
 import { ParameterController } from './ParameterController';
 
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import '../../../main.css';
 
 export default {
   component: ParameterController
-} as ComponentMeta<typeof ParameterController>;
+} as Meta<typeof ParameterController>;
 
-const Template: ComponentStoryObj<typeof ParameterController> = {
+const Template: StoryObj<typeof ParameterController> = {
   render: (args) => <ParameterController {...args} />
 };
 

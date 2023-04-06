@@ -3,14 +3,14 @@ import React, { useCallback, useState } from 'react';
 
 import { SelectableModal } from './SelectableModal';
 
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import '../../../main.css';
 
 export default {
   component: SelectableModal
-} as ComponentMeta<typeof SelectableModal>;
+} as Meta<typeof SelectableModal>;
 
-const Template: ComponentStoryObj<typeof SelectableModal> = {
+const Template: StoryObj<typeof SelectableModal> = {
   render: (args) => {
     const [isShow, setIsShow] = useState<boolean>(false);
 

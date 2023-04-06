@@ -4,15 +4,15 @@ import { X } from 'xsound';
 
 import { WahFieldset } from './WahFieldset';
 
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import '../../../main.css';
 
 export default {
   component: WahFieldset
-} as ComponentMeta<typeof WahFieldset>;
+} as Meta<typeof WahFieldset>;
 
-const Template: ComponentStoryObj<typeof WahFieldset> = {
+const Template: StoryObj<typeof WahFieldset> = {
   render: () => {
     const [loaded, setLoaded] = useState<boolean>(false);
     const [paused, setPaused] = useState<boolean>(true);

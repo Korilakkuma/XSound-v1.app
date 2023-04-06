@@ -5,13 +5,13 @@ import { X } from 'xsound';
 import { ReverbFieldset } from './ReverbFieldset';
 
 import type { RIRDescriptor } from '../../../types';
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import '../../../main.css';
 
 export default {
   component: ReverbFieldset
-} as ComponentMeta<typeof ReverbFieldset>;
+} as Meta<typeof ReverbFieldset>;
 
 const rirDescriptors: RIRDescriptor[] = [
   { url: '/assets/impulse-responses/s1_r1_c.mp3', value: 1, label: '1 - 1', group: 'Sideways pointed cardioid measurements in the audience area' },
@@ -20,7 +20,7 @@ const rirDescriptors: RIRDescriptor[] = [
   { url: '/assets/impulse-responses/s1_r2_o.mp3', value: 4, label: '1 - 2', group: 'Omnidirectional measurements in the audience area' }
 ];
 
-const Template: ComponentStoryObj<typeof ReverbFieldset> = {
+const Template: StoryObj<typeof ReverbFieldset> = {
   render: () => {
     const [loaded, setLoaded] = useState<boolean>(false);
     const [paused, setPaused] = useState<boolean>(true);

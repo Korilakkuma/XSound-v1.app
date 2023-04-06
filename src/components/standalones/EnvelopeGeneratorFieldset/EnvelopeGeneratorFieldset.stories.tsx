@@ -4,7 +4,7 @@ import { X } from 'xsound';
 
 import { EnvelopeGeneratorFieldset } from './EnvelopeGeneratorFieldset';
 
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import '../../../types';
 
@@ -12,9 +12,9 @@ import '../../../main.css';
 
 export default {
   component: EnvelopeGeneratorFieldset
-} as ComponentMeta<typeof EnvelopeGeneratorFieldset>;
+} as Meta<typeof EnvelopeGeneratorFieldset>;
 
-const Template: ComponentStoryObj<typeof EnvelopeGeneratorFieldset> = {
+const Template: StoryObj<typeof EnvelopeGeneratorFieldset> = {
   render: () => {
     const [loaded, setLoaded] = useState<boolean>(false);
     const [isStop, setIsStop] = useState<boolean>(true);

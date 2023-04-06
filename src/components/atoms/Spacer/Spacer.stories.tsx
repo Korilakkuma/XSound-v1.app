@@ -3,14 +3,14 @@ import React from 'react';
 
 import { Spacer } from './Spacer';
 
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import '../../../main.css';
 
 export default {
   component: Spacer
-} as ComponentMeta<typeof Spacer>;
+} as Meta<typeof Spacer>;
 
-const Template: ComponentStoryObj<typeof Spacer> = {
+const Template: StoryObj<typeof Spacer> = {
   render: (args) => {
     return (
       <React.Fragment>

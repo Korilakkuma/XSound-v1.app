@@ -7,14 +7,14 @@ import { store } from '../../../store';
 
 import { Piano } from './Piano';
 
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import type { OneshotSetting, OneshotSettings } from 'xsound';
 
 import '../../../main.css';
 
 export default {
   component: Piano
-} as ComponentMeta<typeof Piano>;
+} as Meta<typeof Piano>;
 
 const oneshots = [
   'assets/one-shots/piano-2/C.wav',
@@ -26,7 +26,7 @@ const oneshots = [
   'assets/one-shots/piano-2/B.wav'
 ];
 
-const Template: ComponentStoryObj<typeof Piano> = {
+const Template: StoryObj<typeof Piano> = {
   render: () => {
     const [loaded, setLoaded] = useState<boolean>(false);
 

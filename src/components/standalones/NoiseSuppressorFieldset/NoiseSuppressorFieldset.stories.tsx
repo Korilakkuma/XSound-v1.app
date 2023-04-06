@@ -4,15 +4,15 @@ import { X } from 'xsound';
 
 import { NoiseSuppressorFieldset } from './NoiseSuppressorFieldset';
 
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import '../../../main.css';
 
 export default {
   component: NoiseSuppressorFieldset
-} as ComponentMeta<typeof NoiseSuppressorFieldset>;
+} as Meta<typeof NoiseSuppressorFieldset>;
 
-const Template: ComponentStoryObj<typeof NoiseSuppressorFieldset> = {
+const Template: StoryObj<typeof NoiseSuppressorFieldset> = {
   render: () => {
     const [loaded, setLoaded] = useState<boolean>(false);
     const [paused, setPaused] = useState<boolean>(true);

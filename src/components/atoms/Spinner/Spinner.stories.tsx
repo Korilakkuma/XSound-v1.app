@@ -3,14 +3,14 @@ import React, { useCallback, useState } from 'react';
 
 import { Spinner } from './Spinner';
 
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import '../../../main.css';
 
 export default {
   component: Spinner
-} as ComponentMeta<typeof Spinner>;
+} as Meta<typeof Spinner>;
 
-const Template: ComponentStoryObj<typeof Spinner> = {
+const Template: StoryObj<typeof Spinner> = {
   render: (args) => {
     const [value, setValue] = useState<number>(0);
 

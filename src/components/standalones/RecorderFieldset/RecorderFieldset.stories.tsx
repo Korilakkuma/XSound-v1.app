@@ -4,15 +4,15 @@ import { X } from 'xsound';
 
 import { RecorderFieldset } from './RecorderFieldset';
 
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import '../../../main.css';
 
 export default {
   component: RecorderFieldset
-} as ComponentMeta<typeof RecorderFieldset>;
+} as Meta<typeof RecorderFieldset>;
 
-const Template: ComponentStoryObj<typeof RecorderFieldset> = {
+const Template: StoryObj<typeof RecorderFieldset> = {
   render: () => {
     const [loaded, setLoaded] = useState<boolean>(false);
 

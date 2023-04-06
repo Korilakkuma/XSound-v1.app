@@ -3,14 +3,14 @@ import React from 'react';
 
 import { Button } from './Button';
 
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import '../../../main.css';
 
 export default {
   component: Button
-} as ComponentMeta<typeof Button>;
+} as Meta<typeof Button>;
 
-const Template: ComponentStoryObj<typeof Button> = {
+const Template: StoryObj<typeof Button> = {
   render: (args) => <Button {...args} />
 };
 

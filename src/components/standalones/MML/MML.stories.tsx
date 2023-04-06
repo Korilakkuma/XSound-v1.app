@@ -9,14 +9,14 @@ import { store } from '../../../store';
 
 import { MML } from './MML';
 
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import type { OneshotSetting, OneshotSettings } from 'xsound';
 
 import '../../../main.css';
 
 export default {
   component: MML
-} as ComponentMeta<typeof MML>;
+} as Meta<typeof MML>;
 
 const oneshots = [
   'assets/one-shots/piano-2/C.wav',
@@ -28,7 +28,7 @@ const oneshots = [
   'assets/one-shots/piano-2/B.wav'
 ];
 
-const Template: ComponentStoryObj<typeof MML> = {
+const Template: StoryObj<typeof MML> = {
   render: () => {
     const [loaded, setLoaded] = useState<boolean>(false);
     const [active, setActive] = useState<boolean>(false);

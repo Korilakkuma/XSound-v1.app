@@ -4,15 +4,15 @@ import { X } from 'xsound';
 
 import { PreampFieldset } from './PreampFieldset';
 
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import '../../../main.css';
 
 export default {
   component: PreampFieldset
-} as ComponentMeta<typeof PreampFieldset>;
+} as Meta<typeof PreampFieldset>;
 
-const Template: ComponentStoryObj<typeof PreampFieldset> = {
+const Template: StoryObj<typeof PreampFieldset> = {
   render: () => {
     const [loaded, setLoaded] = useState<boolean>(false);
     const [paused, setPaused] = useState<boolean>(true);

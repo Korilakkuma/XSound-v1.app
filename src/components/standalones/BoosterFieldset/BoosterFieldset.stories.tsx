@@ -4,15 +4,15 @@ import { X } from 'xsound';
 
 import { BoosterFieldset } from './BoosterFieldset';
 
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import '../../../main.css';
 
 export default {
   component: BoosterFieldset
-} as ComponentMeta<typeof BoosterFieldset>;
+} as Meta<typeof BoosterFieldset>;
 
-const Template: ComponentStoryObj<typeof BoosterFieldset> = {
+const Template: StoryObj<typeof BoosterFieldset> = {
   render: () => {
     const [loaded, setLoaded] = useState<boolean>(false);
     const [paused, setPaused] = useState<boolean>(true);

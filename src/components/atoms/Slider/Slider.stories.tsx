@@ -3,14 +3,14 @@ import React, { useCallback, useState } from 'react';
 
 import { Slider } from './Slider';
 
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import '../../../main.css';
 
 export default {
   component: Slider
-} as ComponentMeta<typeof Slider>;
+} as Meta<typeof Slider>;
 
-const Template: ComponentStoryObj<typeof Slider> = {
+const Template: StoryObj<typeof Slider> = {
   render: (args) => {
     const [value, setValue] = useState<number>(0);
 

@@ -3,14 +3,14 @@ import React from 'react';
 
 import { Flexbox } from './Flexbox';
 
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import '../../../main.css';
 
 export default {
   component: Flexbox
-} as ComponentMeta<typeof Flexbox>;
+} as Meta<typeof Flexbox>;
 
-const Template: ComponentStoryObj<typeof Flexbox> = {
+const Template: StoryObj<typeof Flexbox> = {
   render: (args) => {
     return (
       <Flexbox {...args}>

@@ -9,15 +9,15 @@ import { store } from '../../../store';
 
 import { Analyser } from './Analyser';
 
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import '../../../main.css';
 
 export default {
   component: Analyser
-} as ComponentMeta<typeof Analyser>;
+} as Meta<typeof Analyser>;
 
-const Template: ComponentStoryObj<typeof Analyser> = {
+const Template: StoryObj<typeof Analyser> = {
   render: () => {
     const [loaded, setLoaded] = useState<boolean>(false);
     const [active, setActive] = useState<boolean>(false);

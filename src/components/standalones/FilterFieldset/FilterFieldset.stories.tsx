@@ -4,15 +4,15 @@ import { X } from 'xsound';
 
 import { FilterFieldset } from './FilterFieldset';
 
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import '../../../main.css';
 
 export default {
   component: FilterFieldset
-} as ComponentMeta<typeof FilterFieldset>;
+} as Meta<typeof FilterFieldset>;
 
-const Template: ComponentStoryObj<typeof FilterFieldset> = {
+const Template: StoryObj<typeof FilterFieldset> = {
   render: () => {
     const [loaded, setLoaded] = useState<boolean>(false);
     const [isStop, setIsStop] = useState<boolean>(true);

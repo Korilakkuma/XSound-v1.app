@@ -6,15 +6,15 @@ import { store } from '../../../store';
 
 import { OscillatorFieldset } from './OscillatorFieldset';
 
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import '../../../main.css';
 
 export default {
   component: OscillatorFieldset
-} as ComponentMeta<typeof OscillatorFieldset>;
+} as Meta<typeof OscillatorFieldset>;
 
-const Template: ComponentStoryObj<typeof OscillatorFieldset> = {
+const Template: StoryObj<typeof OscillatorFieldset> = {
   render: (args) => {
     return (
       <Provider store={store}>

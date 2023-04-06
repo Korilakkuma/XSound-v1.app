@@ -4,15 +4,15 @@ import { X } from 'xsound';
 
 import { AutopanFieldset } from './AutopanFieldset';
 
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import '../../../main.css';
 
 export default {
   component: AutopanFieldset
-} as ComponentMeta<typeof AutopanFieldset>;
+} as Meta<typeof AutopanFieldset>;
 
-const Template: ComponentStoryObj<typeof AutopanFieldset> = {
+const Template: StoryObj<typeof AutopanFieldset> = {
   render: () => {
     const [loaded, setLoaded] = useState<boolean>(false);
     const [paused, setPaused] = useState<boolean>(true);

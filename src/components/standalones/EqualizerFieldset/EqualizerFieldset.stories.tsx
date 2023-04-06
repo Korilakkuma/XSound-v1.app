@@ -4,15 +4,15 @@ import { X } from 'xsound';
 
 import { EqualizerFieldset } from './EqualizerFieldset';
 
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import '../../../main.css';
 
 export default {
   component: EqualizerFieldset
-} as ComponentMeta<typeof EqualizerFieldset>;
+} as Meta<typeof EqualizerFieldset>;
 
-const Template: ComponentStoryObj<typeof EqualizerFieldset> = {
+const Template: StoryObj<typeof EqualizerFieldset> = {
   render: () => {
     const [loaded, setLoaded] = useState<boolean>(false);
     const [paused, setPaused] = useState<boolean>(true);

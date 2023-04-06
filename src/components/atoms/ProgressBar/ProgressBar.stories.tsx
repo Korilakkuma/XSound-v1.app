@@ -3,14 +3,14 @@ import React, { useMemo, useState } from 'react';
 
 import { ProgressBar } from './ProgressBar';
 
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import '../../../main.css';
 
 export default {
   component: ProgressBar
-} as ComponentMeta<typeof ProgressBar>;
+} as Meta<typeof ProgressBar>;
 
-const Template: ComponentStoryObj<typeof ProgressBar> = {
+const Template: StoryObj<typeof ProgressBar> = {
   render: (args) => {
     const [rate, setRate] = useState<number>(0);
 

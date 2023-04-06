@@ -4,15 +4,15 @@ import { X } from 'xsound';
 
 import { Header } from './Header';
 
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import '../../../main.css';
 
 export default {
   component: Header
-} as ComponentMeta<typeof Header>;
+} as Meta<typeof Header>;
 
-const Template: ComponentStoryObj<typeof Header> = {
+const Template: StoryObj<typeof Header> = {
   render: () => {
     const [loadedApp, setLoadedApp] = useState<boolean>(false);
     const [progress, setProgress] = useState<boolean>(false);

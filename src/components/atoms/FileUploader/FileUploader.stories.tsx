@@ -3,14 +3,14 @@ import React, { useCallback, useState } from 'react';
 
 import { FileUploader } from './FileUploader';
 
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import '../../../main.css';
 
 export default {
   component: FileUploader
-} as ComponentMeta<typeof FileUploader>;
+} as Meta<typeof FileUploader>;
 
-const Template: ComponentStoryObj<typeof FileUploader> = {
+const Template: StoryObj<typeof FileUploader> = {
   render: (args) => {
     const [drag, setDrag] = useState<boolean>(false);
     const [drop, setDrop] = useState<boolean>(false);

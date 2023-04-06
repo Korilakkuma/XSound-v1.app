@@ -4,15 +4,15 @@ import { X } from 'xsound';
 
 import { ChorusFieldset } from './ChorusFieldset';
 
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import '../../../main.css';
 
 export default {
   component: ChorusFieldset
-} as ComponentMeta<typeof ChorusFieldset>;
+} as Meta<typeof ChorusFieldset>;
 
-const Template: ComponentStoryObj<typeof ChorusFieldset> = {
+const Template: StoryObj<typeof ChorusFieldset> = {
   render: () => {
     const [loaded, setLoaded] = useState<boolean>(false);
     const [paused, setPaused] = useState<boolean>(true);

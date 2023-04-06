@@ -26,8 +26,8 @@
     "test:verbose": "jest --verbose",
     "test:detect": "jest --detectOpenHandles",
     "migrate:actions": "set-env-to-github_env",
-    "storybook": "start-storybook --port 6006",
-    "build-storybook": "build-storybook"
+    "storybook": "storybook dev --port 6006",
+    "build-storybook": "storybook build"
   },
   "husky": {
     "hooks": {
@@ -79,13 +79,12 @@
     "xsound": "^3.1.1"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^6.5.16",
-    "@storybook/addon-essentials": "^6.5.16",
-    "@storybook/addon-links": "^6.5.16",
+    "@storybook/addon-actions": "^7.0.6",
+    "@storybook/addon-essentials": "^7.0.6",
+    "@storybook/addon-links": "^7.0.6",
     "@storybook/addon-postcss": "^2.0.0",
-    "@storybook/builder-webpack5": "^6.5.16",
-    "@storybook/manager-webpack5": "^6.5.16",
-    "@storybook/react": "^6.5.16",
+    "@storybook/react": "^7.0.6",
+    "@storybook/react-webpack5": "^7.0.6",
     "@testing-library/react": "^14.0.0",
     "@types/history": "^4.7.11",
     "@types/jest": "^29.5.0",
@@ -125,6 +124,7 @@
     "postcss-loader": "^7.2.4",
     "react-test-renderer": "^18.2.0",
     "set-env-to-github_env": "^1.2.1",
+    "storybook": "^7.0.6",
     "stylelint": "^15.4.0",
     "stylelint-config-recess-order": "^4.0.0",
     "stylelint-config-standard": "^32.0.0",

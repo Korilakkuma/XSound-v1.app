@@ -4,15 +4,15 @@ import { X } from 'xsound';
 
 import { PhaserFieldset } from './PhaserFieldset';
 
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import '../../../main.css';
 
 export default {
   component: PhaserFieldset
-} as ComponentMeta<typeof PhaserFieldset>;
+} as Meta<typeof PhaserFieldset>;
 
-const Template: ComponentStoryObj<typeof PhaserFieldset> = {
+const Template: StoryObj<typeof PhaserFieldset> = {
   render: () => {
     const [loaded, setLoaded] = useState<boolean>(false);
     const [paused, setPaused] = useState<boolean>(true);

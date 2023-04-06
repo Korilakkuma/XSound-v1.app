@@ -4,15 +4,15 @@ import { X } from 'xsound';
 
 import { CompressorFieldset } from './CompressorFieldset';
 
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import '../../../main.css';
 
 export default {
   component: CompressorFieldset
-} as ComponentMeta<typeof CompressorFieldset>;
+} as Meta<typeof CompressorFieldset>;
 
-const Template: ComponentStoryObj<typeof CompressorFieldset> = {
+const Template: StoryObj<typeof CompressorFieldset> = {
   render: () => {
     const [loaded, setLoaded] = useState<boolean>(false);
     const [paused, setPaused] = useState<boolean>(true);

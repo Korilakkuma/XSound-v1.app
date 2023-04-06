@@ -3,14 +3,14 @@ import React from 'react';
 
 import { Select } from './Select';
 
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import '../../../main.css';
 
 export default {
   component: Select
-} as ComponentMeta<typeof Select>;
+} as Meta<typeof Select>;
 
-const Template: ComponentStoryObj<typeof Select> = {
+const Template: StoryObj<typeof Select> = {
   render: (args) => <Select {...args} />
 };
 

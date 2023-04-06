@@ -4,15 +4,15 @@ import { X } from 'xsound';
 
 import { RingModulatorFieldset } from './RingModulatorFieldset';
 
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import '../../../main.css';
 
 export default {
   component: RingModulatorFieldset
-} as ComponentMeta<typeof RingModulatorFieldset>;
+} as Meta<typeof RingModulatorFieldset>;
 
-const Template: ComponentStoryObj<typeof RingModulatorFieldset> = {
+const Template: StoryObj<typeof RingModulatorFieldset> = {
   render: () => {
     const [loaded, setLoaded] = useState<boolean>(false);
     const [paused, setPaused] = useState<boolean>(true);

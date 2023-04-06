@@ -3,14 +3,14 @@ import React from 'react';
 
 import { VerticalBox } from './VerticalBox';
 
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import '../../../main.css';
 
 export default {
   component: VerticalBox
-} as ComponentMeta<typeof VerticalBox>;
+} as Meta<typeof VerticalBox>;
 
-const Template: ComponentStoryObj<typeof VerticalBox> = {
+const Template: StoryObj<typeof VerticalBox> = {
   render: (args) => {
     return (
       <VerticalBox {...args}>

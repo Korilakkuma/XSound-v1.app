@@ -3,14 +3,14 @@ import React, { useCallback, useState } from 'react';
 
 import { OscillatorSelector } from './OscillatorSelector';
 
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import '../../../main.css';
 
 export default {
   component: OscillatorSelector
-} as ComponentMeta<typeof OscillatorSelector>;
+} as Meta<typeof OscillatorSelector>;
 
-const Template: ComponentStoryObj<typeof OscillatorSelector> = {
+const Template: StoryObj<typeof OscillatorSelector> = {
   render: (args) => {
     const [type, setType] = useState<OscillatorType>('sawtooth');
 

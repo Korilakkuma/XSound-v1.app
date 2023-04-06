@@ -3,14 +3,14 @@ import React, { useCallback, useState } from 'react';
 
 import { Modal } from './Modal';
 
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import '../../../main.css';
 
 export default {
   component: Modal
-} as ComponentMeta<typeof Modal>;
+} as Meta<typeof Modal>;
 
-const Template: ComponentStoryObj<typeof Modal> = {
+const Template: StoryObj<typeof Modal> = {
   render: (args) => {
     const [isShow, setIsShow] = useState<boolean>(false);
 

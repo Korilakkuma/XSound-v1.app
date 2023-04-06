@@ -4,15 +4,15 @@ import { X } from 'xsound';
 
 import { DelayFieldset } from './DelayFieldset';
 
-import type { ComponentMeta, ComponentStoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import '../../../main.css';
 
 export default {
   component: DelayFieldset
-} as ComponentMeta<typeof DelayFieldset>;
+} as Meta<typeof DelayFieldset>;
 
-const Template: ComponentStoryObj<typeof DelayFieldset> = {
+const Template: StoryObj<typeof DelayFieldset> = {
   render: () => {
     const [loaded, setLoaded] = useState<boolean>(false);
     const [paused, setPaused] = useState<boolean>(true);
