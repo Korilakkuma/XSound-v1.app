@@ -442,6 +442,11 @@ export const MML: React.FC<Props> = ({ loadedApp, currentSoundSource }) => {
       errorCallback: errorCallbackForBass
     });
 
+    if (process.env.NODE_ENV === 'production') {
+      setLoaded(true);
+      return;
+    }
+
     Promise
       .all([
         fetch('/assets/mmls/endless-rain.json'),
@@ -588,15 +593,17 @@ export const MML: React.FC<Props> = ({ loadedApp, currentSoundSource }) => {
           onDragLeave={onDragLeaveCallback}
           onDrop={onDropCallback}
         />
-        <Select
-          label="Select Sample MML"
-          values={values}
-          texts={texts}
-          disabled={!paused}
-          width="200px"
-          tabIndex={active ? 0 : -1}
-          onChange={onChangeSampleMMLCallback}
-        />
+        {process.env.NODE_ENV !== 'production' ? (
+          <Select
+            label="Select Sample MML"
+            values={values}
+            texts={texts}
+            disabled={!paused}
+            width="200px"
+            tabIndex={active ? 0 : -1}
+            onChange={onChangeSampleMMLCallback}
+          />
+        ) : null}
       </div>
       <Modal
         isShow={isShowModalForFileUploadError}
