@@ -29,7 +29,6 @@
   top: 73px;
   left: 30px;
   z-index: 2;
-  display: -webkit-flex;
   display: flex;
   -webkit-flex-direction: row;
   flex-direction: row;
@@ -63,7 +62,6 @@
   top: 73px;
   left: 35px;
   z-index: 3;
-  display: -webkit-flex;
   display: flex;
   -webkit-flex-direction: row;
   flex-direction: row;

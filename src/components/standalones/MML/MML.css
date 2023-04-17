@@ -12,7 +12,6 @@
 }
 
 .MML__editor {
-  display: -webkit-flex;
   display: flex;
   -webkit-flex-direction: row;
   flex-direction: row;
@@ -68,7 +67,6 @@
 }
 
 .MML__controllers {
-  display: -webkit-flex;
   display: flex;
   -webkit-flex-direction: row;
   flex-direction: row;

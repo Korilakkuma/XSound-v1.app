@@ -12,7 +12,6 @@
 }
 
 .Analyser__canvas {
-  display: -webkit-flex;
   display: flex;
   -webkit-flex-direction: row;
   flex-direction: row;
@@ -77,7 +76,6 @@
 }
 
 .Analyser__controllers {
-  display: -webkit-flex;
   display: flex;
   -webkit-flex-direction: row;
   flex-direction: row;
