@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "jsx": "react",
@@ -13,6 +14,9 @@
     "noUnusedLocals": true,
     "noUnusedParameters": false,
     "outDir": "./assets/",
+    "paths": {
+      "@/*": ["src/*"]
+    },
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
