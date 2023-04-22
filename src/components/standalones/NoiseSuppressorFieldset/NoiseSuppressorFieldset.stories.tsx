@@ -37,7 +37,7 @@ const Template: StoryObj<typeof NoiseSuppressorFieldset> = {
       });
 
       X.ajax({
-        url            : '/assets/audio/mp3/forever-love-piano-instruments.mp3',
+        url            : '/assets/audio/mp3/sample.mp3',
         timeout        : 60000,
         successCallback: (_: ProgressEvent, arraybuffer: ArrayBuffer) => {
           X('audio').ready(arraybuffer);
