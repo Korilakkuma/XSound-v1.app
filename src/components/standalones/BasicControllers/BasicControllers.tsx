@@ -76,7 +76,10 @@ export const BasicControllers: React.FC<Props> = ({ currentSoundSource }) => {
     const targetIndex = noteNumber - MIN_NOTE_NUMBER;
     const volume      = velocity / MAX_VELOCITY;
 
-    indexes.push(targetIndex);
+    /** @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Non_configurable_array_element */
+    const newIndexes = [...indexes];
+
+    newIndexes.push(targetIndex);
 
     if (midiSource === 'noise') {
       X('noise').start();
@@ -93,19 +96,19 @@ export const BasicControllers: React.FC<Props> = ({ currentSoundSource }) => {
         window.clonedXSound('oscillator').get(i).param({ volume });
       }
 
-      X('oscillator').ready(0, 0).start(X.toFrequencies(indexes));
-      window.clonedXSound('oscillator').ready(0, 0).start(X.toFrequencies(indexes));
+      X('oscillator').ready(0, 0).start(X.toFrequencies(newIndexes));
+      window.clonedXSound('oscillator').ready(0, 0).start(X.toFrequencies(newIndexes));
 
       X('mixer').start([X('oscillator'), window.clonedXSound('oscillator')], [volume, volume]);
 
       X('mixer').module('recorder').start();
     } else {
-      X('oneshot').reset(targetIndex, 'volume', volume).ready(0, 0).start(indexes.map((index: number) => index + offset));
+      X('oneshot').reset(targetIndex, 'volume', volume).ready(0, 0).start(newIndexes.map((index: number) => index + offset));
 
       X('oneshot').module('recorder').start();
     }
 
-    dispatch(activateMIDIKeyboards(indexes));
+    dispatch(activateMIDIKeyboards(newIndexes));
   }, [dispatch, midiSource, indexes, offset]);
 
   const noteOff = useCallback((noteNumber: number, velocity: number) => {
@@ -121,8 +124,11 @@ export const BasicControllers: React.FC<Props> = ({ currentSoundSource }) => {
 
     const index = indexes.indexOf(targetIndex);
 
+    /** @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Non_configurable_array_element */
+    const newIndexes = [...indexes];
+
     if (index !== -1) {
-      indexes.splice(index, 1);
+      newIndexes.splice(index, 1);
     }
 
     if (midiSource === 'noise') {
@@ -140,10 +146,10 @@ export const BasicControllers: React.FC<Props> = ({ currentSoundSource }) => {
         }
       }
     } else {
-      X('oneshot').stop(indexes.map((index: number) => index + offset)).reset(targetIndex, 'volume', 1);
+      X('oneshot').stop(newIndexes.map((index: number) => index + offset)).reset(targetIndex, 'volume', 1);
     }
 
-    dispatch(activateMIDIKeyboards(indexes));
+    dispatch(activateMIDIKeyboards(newIndexes));
   }, [dispatch, midiSource, indexes, offset]);
 
   const successCallback = useCallback((midiAccess: MIDIAccess, inputs: MIDIInput[], outputs: MIDIOutput[]) => {
