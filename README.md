@@ -50,8 +50,6 @@ $ npm test
 $ npm run storybook
 ```
 
-[Storybook is published](https://62204686ebafd3003a50f356-musqnffdvl.chromatic.com/)
-
 ## Libraries / Frameworks
 
 - [XSound](https://github.com/Korilakkuma/XSound)
