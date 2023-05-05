@@ -141,7 +141,7 @@ export const Piano: React.FC<Props> = ({ loadedApp, currentSoundSource }) => {
 
         break;
       case 'piano':
-        X('oneshot').stop([index]);
+        // X('oneshot').stop([index]);
         break;
       case 'guitar':
         X('oneshot').stop([index + NUMBER_OF_PIANO_KEYBOARDS]);
