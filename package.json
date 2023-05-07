@@ -9,11 +9,11 @@
   "scripts": {
     "clean": "rm -f register.js sw.js ./assets/app.* ./assets/vendor.*",
     "lint:js": "eslint 'src/**/*.{ts,tsx}' 'mock/**/*.ts' '.storybook/*.js' jest.config.js postcss.config.js webpack.config.js",
-    "lint:css": "stylelint 'src/**/*.css'",
+    "lint:css": "stylelint 'src/**/*.css' && prettier --check 'src/**/*.css'",
     "lint:html": "markuplint index.html",
     "lint": "run-p lint:js lint:css lint:html",
     "fix:js": "eslint --fix 'src/**/*.{ts,tsx}' 'mock/**/*.ts' '.storybook/*.js' jest.config.js postcss.config.js webpack.config.js",
-    "fix:css": "stylelint --fix 'src/**/*.css'",
+    "fix:css": "stylelint --fix 'src/**/*.css' && prettier --write 'src/**/*.css'",
     "fix:html": "markuplint --fix index.html",
     "fix": "run-p fix:js fix:css fix:html",
     "type:main": "tsc --noEmit",
@@ -39,7 +39,8 @@
       "eslint --fix"
     ],
     "src/**/*.css": [
-      "stylelint --fix"
+      "stylelint --fix",
+      "prettier --write 'src/**/*.css'"
     ],
     "index.html": [
       "markuplint --fix"
