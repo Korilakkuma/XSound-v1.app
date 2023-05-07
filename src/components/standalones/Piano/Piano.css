@@ -65,7 +65,7 @@
   display: flex;
   -webkit-flex-direction: row;
   flex-direction: row;
-  height: 95px;  /* Enable to click keyboard */
+  height: 95px; /* Enable to click keyboard */
 }
 
 .Piano__blacks > .Piano__keyboard {

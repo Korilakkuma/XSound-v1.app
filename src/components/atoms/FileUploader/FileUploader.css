@@ -12,7 +12,7 @@
   background-color: var(--black);
   background-image: linear-gradient(to bottom, var(--gray), var(--black));
   border: 2px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 0 0 1px var(--black) inset, 0 0 1px 3px rgba(0, 0, 0, 0.3);  /* outer (for emboss) */
+  box-shadow: 0 0 0 1px var(--black) inset, 0 0 1px 3px rgba(0, 0, 0, 0.3); /* outer (for emboss) */
 }
 
 .FileUploader > button:focus,
@@ -21,7 +21,7 @@
   background-color: var(--assort-color);
   background-image: linear-gradient(to bottom, var(--base-color), var(--assort-color));
   border: 2px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 0 0 1px var(--base-color) inset, 0 0 1px 3px rgba(0, 0, 0, 0.3);  /* outer (for emboss) */
+  box-shadow: 0 0 0 1px var(--base-color) inset, 0 0 1px 3px rgba(0, 0, 0, 0.3); /* outer (for emboss) */
 }
 
 .FileUploader > input[type="file"] {
