@@ -18,7 +18,7 @@ export const Slider: React.FC<Props> = (props: Props) => {
 
   return (
     <div className="Slider">
-      <div className="Slider__value" style={{ width: `calc(${width}% - (${rate} * 28px))` }} />
+      <span className="Slider__value" style={{ width: `calc(${width}% - (${rate} * 28px))` }} />
       <input type="range" aria-label={label} value={value} min={min} max={max} step={step} tabIndex={tabIndex} onChange={onChange} />
     </div>
   );
