@@ -165,16 +165,6 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
   }, []);
 
   const updateCallback = useCallback((source: AudioBufferSourceNode, currentTime: number) => {
-    if (source.buffer === null) {
-      return;
-    }
-
-    const index = Math.trunc(currentTime * source.buffer.sampleRate);
-
-    if ((index % (source.buffer.sampleRate / 100)) !== 0) {
-      return;
-    }
-
     setCurrentTime(currentTime);
   }, []);
 
