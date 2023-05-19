@@ -32,6 +32,7 @@ const Template: StoryObj<typeof Slider> = {
 export const Primary = {
   ...Template,
   args: {
+    label: 'slider',
     value: 0,
     min  : -100,
     max  : 100,

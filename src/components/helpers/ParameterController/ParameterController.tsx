@@ -59,6 +59,7 @@ export const ParameterController: React.FC<Props> = (props: Props) => {
       </dt>
       <dd>
         <Slider
+          label={label}
           value={value}
           min={min}
           max={max}

@@ -8,6 +8,7 @@ describe('atoms/Slider', () => {
     const mockOnChange = jest.fn();
 
     const props = {
+      label   : 'slider',
       value   : 0,
       min     : -100,
       max     : 100,
