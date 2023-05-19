@@ -196,17 +196,23 @@ export const Analyser: React.FC<Props> = (props: Props) => {
         return;
       }
 
+      const time = direction ? endTime : startTime;
+
       if ((event.type === 'mousemove') || (event.type === 'touchmove')) {
         const convertedStartTime = X.convertTime(startTime);
         const convertedEndTime = X.convertTime(endTime);
 
         setDragTime(`${formatAudioTime(convertedStartTime)} - ${formatAudioTime(convertedEndTime)}`);
+
+
+        if ((time >= 0) && (time <= X('audio').param('duration'))) {
+          X('audio').param({ currentTime: time });
+        }
+
         return;
       }
 
       if ((event.type === 'mouseup') || (event.type === 'touchend')) {
-        const time = direction ? endTime : startTime;
-
         switch (mode) {
           case 'update':
             if ((time >= 0) && (time <= X('audio').param('duration'))) {
