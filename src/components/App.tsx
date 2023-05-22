@@ -777,14 +777,6 @@ export const App: React.FC = () => {
       clonedX('midi')
     ]);
 
-    // Resize buffer of ScriptProcessorNode
-    X('mixer').resize(0);  // Automatic buffer size
-    X('oneshot').resize(0);  // Automatic buffer size
-    X('audio').resize(256);
-    X('stream').resize(256);
-    X('oscillator').resize(0);  // Automatic buffer size
-    clonedX('oscillator').resize(0);  // Automatic buffer size
-
     // If use noise suppressor by `AudioWorkletProcessor`, cannot play one-shot audio on the way
     X('oneshot').edit([
       X('oneshot').module('compressor'),
