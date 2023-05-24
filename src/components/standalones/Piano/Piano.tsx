@@ -52,52 +52,31 @@ export const Piano: React.FC<Props> = ({ loadedApp, currentSoundSource }) => {
         window.clonedXSound('oscillator').ready(0, 0).start(X.toFrequencies([index, -1, -1, -1]));
 
         X('mixer').start([X('oscillator'), window.clonedXSound('oscillator')], [1, 1]);
-
         X('mixer').module('recorder').start();
-        // X('mixer').module('session').start();
-
         break;
       case 'piano':
         X('oneshot').ready(0, 0).start([index]);
-
         X('oneshot').module('recorder').start();
-        // X('oneshot').module('session').start();
-
         break;
       case 'guitar':
         X('oneshot').ready(0, 0).start([index + NUMBER_OF_PIANO_KEYBOARDS]);
-
         X('oneshot').module('recorder').start();
-        // X('oneshot').module('session').start();
-
         break;
       case 'electric-guitar':
         X('oneshot').ready(0, 0).start([index + NUMBER_OF_PIANO_KEYBOARDS + NUMBER_OF_PIANO_KEYBOARDS]);
-
         X('oneshot').module('recorder').start();
-        // X('oneshot').module('session').start();
-
         break;
       case 'whitenoise':
         X('noise').param({ type: 'whitenoise' }).start();
-
         X('noise').module('recorder').start();
-        // X('noise').module('session').start();
-
         break;
       case 'pinknoise':
         X('noise').param({ type: 'pinknoise' }).start();
-
         X('noise').module('recorder').start();
-        // X('noise').module('session').start();
-
         break;
       case 'browniannoise':
         X('noise').param({ type: 'browniannoise' }).start();
-
         X('noise').module('recorder').start();
-        // X('noise').module('session').start();
-
         break;
       default:
         // eslint-disable-next-line no-console
@@ -168,7 +147,6 @@ export const Piano: React.FC<Props> = ({ loadedApp, currentSoundSource }) => {
       case 'oscillator':
         X('oscillator').stop();
         window.clonedXSound('oscillator').stop();
-
         break;
       default:
         X('noise').stop();
