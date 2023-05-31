@@ -3,7 +3,7 @@
 [![Node.js CI](https://github.com/Korilakkuma/XSound.app/workflows/Node.js%20CI/badge.svg)](https://github.com/Korilakkuma/XSound.app/actions?query=workflow%3A%22Node.js+CI%22)
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
   
-[![XSound.app](https://user-images.githubusercontent.com/4006693/229384221-c0f92d43-159b-4552-bce0-ba0462e21587.png)](https://xsound.app)
+[![XSound.app](https://github.com/Korilakkuma/XSound.app/assets/4006693/ded2c261-f81f-42f4-b477-f6d411a26e27)](https://xsound.app)
   
 **[XSound.app](https://xsound.app)** is Web Music Application by [XSound](https://github.com/Korilakkuma/XSound) (Web Audio API Library).
   
