@@ -1,1 +1,1 @@
-export { AutopanFieldset } from './AutopanFieldset';
+export { AutopanFieldset } from '/src/components/standalones/AutopanFieldset/AutopanFieldset';

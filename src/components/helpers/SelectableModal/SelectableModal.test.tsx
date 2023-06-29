@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 
-import { SelectableModal } from './SelectableModal';
+import { SelectableModal } from '/src/components/helpers/SelectableModal';
 
 jest.mock('react-dom', () => {
   const original = jest.requireActual('react-dom');

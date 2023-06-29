@@ -1,1 +1,1 @@
-export { WahFieldset } from './WahFieldset';
+export { WahFieldset } from '/src/components/standalones/WahFieldset/WahFieldset';

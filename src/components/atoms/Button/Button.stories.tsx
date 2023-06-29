@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react';
 
-import { Button } from './Button';
+import { Button } from '/src/components/atoms/Button';
 
 import type { Meta, StoryObj } from '@storybook/react';
-import '../../../main.css';
+import '/src/main.css';
 
 export default {
   component: Button

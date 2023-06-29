@@ -1,10 +1,10 @@
 import React, { useCallback, useState } from 'react';
 import { X } from 'xsound';
 
-import { Select } from '../../atoms/Select';
-import { Spacer } from '../../atoms/Spacer';
-import { Switch } from '../../atoms/Switch';
-import { ParameterController } from '../../helpers/ParameterController';
+import { Select } from '/src/components/atoms/Select';
+import { Spacer } from '/src/components/atoms/Spacer';
+import { Switch } from '/src/components/atoms/Switch';
+import { ParameterController } from '/src/components/helpers/ParameterController';
 
 
 export const FilterFieldset: React.FC = () => {

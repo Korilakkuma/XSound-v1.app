@@ -1,1 +1,1 @@
-export { Analyser } from './Analyser';
+export { Analyser } from '/src/components/standalones/Analyser/Analyser';

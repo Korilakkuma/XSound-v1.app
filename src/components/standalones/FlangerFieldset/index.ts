@@ -1,1 +1,1 @@
-export { FlangerFieldset } from './FlangerFieldset';
+export { FlangerFieldset } from '/src/components/standalones/FlangerFieldset/FlangerFieldset';

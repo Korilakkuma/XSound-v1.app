@@ -1,1 +1,1 @@
-export { PhaserFieldset } from './PhaserFieldset';
+export { PhaserFieldset } from '/src/components/standalones/PhaserFieldset/PhaserFieldset';

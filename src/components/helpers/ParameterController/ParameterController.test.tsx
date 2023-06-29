@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 
-import { ParameterController } from './ParameterController';
+import { ParameterController } from '/src/components/helpers/ParameterController';
 
 describe('helpers/ParameterController', () => {
   test('change', () => {

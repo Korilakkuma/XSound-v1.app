@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import { X } from 'xsound';
 
-import { Spacer } from '../../atoms/Spacer';
-import { ParameterController } from '../../helpers/ParameterController';
+import { Spacer } from '/src/components/atoms/Spacer';
+import { ParameterController } from '/src/components/helpers/ParameterController';
 
 export const EnvelopeGeneratorFieldset: React.FC = () => {
   const onChangeAttackCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {

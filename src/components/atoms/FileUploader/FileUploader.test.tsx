@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 
-import { FileUploader } from './FileUploader';
+import { FileUploader } from '/src/components/atoms/FileUploader';
 
 describe('atoms/FileUploader', () => {
   test('click', () => {

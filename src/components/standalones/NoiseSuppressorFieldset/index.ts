@@ -1,1 +1,1 @@
-export { NoiseSuppressorFieldset } from './NoiseSuppressorFieldset';
+export { NoiseSuppressorFieldset } from '/src/components/standalones/NoiseSuppressorFieldset/NoiseSuppressorFieldset';

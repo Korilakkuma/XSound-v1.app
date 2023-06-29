@@ -1,1 +1,1 @@
-export { BoosterFieldset } from './BoosterFieldset';
+export { BoosterFieldset } from '/src/components/standalones/BoosterFieldset/BoosterFieldset';

@@ -1,13 +1,13 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { X } from 'xsound';
 
-import { formatAudioTime } from '../../../utils';
-import { Button } from '../../atoms/Button';
-import { FileUploader } from '../../atoms/FileUploader';
-import { Modal } from '../../atoms/Modal';
-import { ProgressBar } from '../../atoms/ProgressBar';
-import { Spacer } from '../../atoms/Spacer';
-import { ParameterController } from '../../helpers/ParameterController';
+import { formatAudioTime } from '/src/utils';
+import { Button } from '/src/components/atoms/Button';
+import { FileUploader } from '/src/components/atoms/FileUploader';
+import { Modal } from '/src/components/atoms/Modal';
+import { ProgressBar } from '/src/components/atoms/ProgressBar';
+import { Spacer } from '/src/components/atoms/Spacer';
+import { ParameterController } from '/src/components/helpers/ParameterController';
 
 import type { FileEvent, FileReaderErrorText } from 'xsound';
 

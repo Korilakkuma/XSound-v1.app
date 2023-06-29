@@ -1,1 +1,1 @@
-export { EnvelopeGeneratorFieldset } from './EnvelopeGeneratorFieldset';
+export { EnvelopeGeneratorFieldset } from '/src/components/standalones/EnvelopeGeneratorFieldset/EnvelopeGeneratorFieldset';

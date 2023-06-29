@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useMemo, useState } from 'react';
 
-import { ProgressBar } from './ProgressBar';
+import { ProgressBar } from '/src/components/atoms/ProgressBar';
 
 import type { Meta, StoryObj } from '@storybook/react';
-import '../../../main.css';
+import '/src/main.css';
 
 export default {
   component: ProgressBar

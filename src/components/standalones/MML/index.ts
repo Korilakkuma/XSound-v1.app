@@ -1,1 +1,1 @@
-export { MML } from './MML';
+export { MML } from '/src/components/standalones/MML/MML';

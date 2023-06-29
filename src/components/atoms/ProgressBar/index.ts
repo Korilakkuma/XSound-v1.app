@@ -1,1 +1,1 @@
-export { ProgressBar } from './ProgressBar';
+export { ProgressBar } from '/src/components/atoms/ProgressBar/ProgressBar';

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState, useId, useMemo, useRef } from 'react';
 
-import { FOCUSABLE_ELEMENTS } from '../../../config';
-import { ProgressBar } from '../../atoms/ProgressBar';
+import { FOCUSABLE_ELEMENTS } from '/src/config';
+import { ProgressBar } from '/src/components/atoms/ProgressBar/ProgressBar';
 
 export type Props = {
   loadedApp: boolean,

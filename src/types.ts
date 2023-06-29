@@ -1,4 +1,4 @@
-import type { store } from './store';
+import type { store } from '/src/store';
 import type { X } from 'xsound';
 
 declare global {

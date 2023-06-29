@@ -1,1 +1,1 @@
-export { BasicControllers } from './BasicControllers';
+export { BasicControllers } from '/src/components/standalones/BasicControllers/BasicControllers';

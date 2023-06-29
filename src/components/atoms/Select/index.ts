@@ -1,1 +1,1 @@
-export { Select } from './Select';
+export { Select } from '/src/components/atoms/Select/Select';

@@ -1,7 +1,7 @@
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 
-import { Modal } from './Modal';
+import { Modal } from '/src/components/atoms/Modal';
 
 jest.mock('react-dom', () => {
   const original = jest.requireActual('react-dom');

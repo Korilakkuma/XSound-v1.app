@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useId, useMemo } from 'react';
 import ReactDOM from 'react-dom';
 
-import { FOCUSABLE_ELEMENTS } from '../../../config';
+import { FOCUSABLE_ELEMENTS } from '/src/config';
 
 export type Props = {
   isShow: boolean,

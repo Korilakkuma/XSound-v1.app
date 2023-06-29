@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useCallback, useState } from 'react';
 
-import { FileUploader } from './FileUploader';
+import { FileUploader } from '/src/components/atoms/FileUploader';
 
 import type { Meta, StoryObj } from '@storybook/react';
-import '../../../main.css';
+import '/src/main.css';
 
 export default {
   component: FileUploader

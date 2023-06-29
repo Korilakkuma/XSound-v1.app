@@ -1,13 +1,12 @@
 import React, { useCallback, useState } from 'react';
 import { X } from 'xsound';
 
-import { GroupSelect } from '../../atoms/GroupSelect';
-import { Spacer } from '../../atoms/Spacer';
-import { Switch } from '../../atoms/Switch';
-import { ParameterController } from '../../helpers/ParameterController';
+import { GroupSelect } from '/src/components/atoms/GroupSelect';
+import { Spacer } from '/src/components/atoms/Spacer';
+import { Switch } from '/src/components/atoms/Switch';
+import { ParameterController } from '/src/components/helpers/ParameterController';
 
-import type { RIRDescriptor } from '../../../types';
-
+import type { RIRDescriptor } from '/src/types';
 
 export type Props = {
   rirDescriptors: RIRDescriptor[]

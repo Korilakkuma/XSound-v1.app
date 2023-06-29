@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react';
 
-import { GroupSelect } from './GroupSelect';
+import { GroupSelect } from '/src/components/atoms/GroupSelect';
 
 import type { Meta, StoryObj } from '@storybook/react';
-import '../../../main.css';
+import '/src/main.css';
 
 export default {
   component: GroupSelect

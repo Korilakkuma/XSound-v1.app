@@ -1,1 +1,1 @@
-export { VerticalBox } from './VerticalBox';
+export { VerticalBox } from '/src/components/atoms/VerticalBox/VerticalBox';

@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react';
 
-import { Spacer } from './Spacer';
+import { Spacer } from '/src/components/atoms/Spacer';
 
 import type { Meta, StoryObj } from '@storybook/react';
-import '../../../main.css';
+import '/src/main.css';
 
 export default {
   component: Spacer

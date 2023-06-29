@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 
-import { Select } from './Select';
+import { Select } from '/src/components/atoms/Select';
 
 describe('atoms/Select', () => {
   test('change', () => {

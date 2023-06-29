@@ -2,9 +2,9 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { X } from 'xsound';
 
-import { NUMBER_OF_PIANO_KEYBOARDS } from '../../../config';
+import { NUMBER_OF_PIANO_KEYBOARDS } from '/src/config';
 
-import type { RootState, SoundSource } from '../../../types';
+import type { RootState, SoundSource } from '/src/types';
 
 export type Props = {
   loadedApp: boolean;

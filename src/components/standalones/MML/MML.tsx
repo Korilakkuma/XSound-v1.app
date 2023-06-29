@@ -2,26 +2,25 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { X } from 'xsound';
 
-import { NUMBER_OF_PIANO_KEYBOARDS } from '../../../config';
+import { NUMBER_OF_PIANO_KEYBOARDS } from '/src/config';
 import {
   changeOscillatorStates,
   downBassKeyboards,
   downMelodyKeyboards,
   upBassKeyboards,
   upMelodyKeyboards
-} from '../../../slices';
-import { createFilename } from '../../../utils';
-import { FileUploader } from '../../atoms/FileUploader';
-import { Modal } from '../../atoms/Modal';
-import { ProgressBar } from '../../atoms/ProgressBar';
-import { Select } from '../../atoms/Select';
-import { Spacer } from '../../atoms/Spacer';
-import { Switch } from '../../atoms/Switch';
-import { SelectableModal } from '../../helpers/SelectableModal';
+} from '/src/slices';
+import { createFilename } from '/src/utils';
+import { FileUploader } from '/src/components/atoms/FileUploader';
+import { Modal } from '/src/components/atoms/Modal';
+import { ProgressBar } from '/src/components/atoms/ProgressBar';
+import { Select } from '/src/components/atoms/Select';
+import { Spacer } from '/src/components/atoms/Spacer';
+import { Switch } from '/src/components/atoms/Switch';
+import { SelectableModal } from '/src/components/helpers/SelectableModal';
 
-import type { RootState, MMLDescriptor, SoundSource } from '../../../types';
+import type { RootState, MMLDescriptor, SoundSource } from '/src/types';
 import type { FileEvent, FileReaderErrorText, MMLSyntaxError, Sequence } from 'xsound';
-
 
 export type Props = {
   loadedApp: boolean,

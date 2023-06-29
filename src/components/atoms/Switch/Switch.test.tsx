@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 
-import { Switch } from './Switch';
+import { Switch } from '/src/components/atoms/Switch/Switch';
 
 describe('atoms/Switch', () => {
   test('change', () => {

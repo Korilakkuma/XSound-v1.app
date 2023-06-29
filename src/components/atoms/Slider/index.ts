@@ -1,1 +1,1 @@
-export { Slider } from './Slider';
+export { Slider } from '/src/components/atoms/Slider/Slider';

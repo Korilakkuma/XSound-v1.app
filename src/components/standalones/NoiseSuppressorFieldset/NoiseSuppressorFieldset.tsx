@@ -1,9 +1,9 @@
 import React, { useCallback, useState } from 'react';
 import { X } from 'xsound';
 
-import { Spacer } from '../../atoms/Spacer';
-import { Switch } from '../../atoms/Switch';
-import { ParameterController } from '../../helpers/ParameterController';
+import { Spacer } from '/src/components/atoms/Spacer';
+import { Switch } from '/src/components/atoms/Switch';
+import { ParameterController } from '/src/components/helpers/ParameterController';
 
 export const NoiseSuppressorFieldset: React.FC = () => {
   const [noisesuppressor, setNoisesuppressor] = useState<boolean>(false);

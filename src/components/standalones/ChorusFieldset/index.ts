@@ -1,1 +1,1 @@
-export { ChorusFieldset } from './ChorusFieldset';
+export { ChorusFieldset } from '/src/components/standalones/ChorusFieldset/ChorusFieldset';

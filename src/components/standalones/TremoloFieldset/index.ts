@@ -1,1 +1,1 @@
-export { TremoloFieldset } from './TremoloFieldset';
+export { TremoloFieldset } from '/src/components/standalones/TremoloFieldset/TremoloFieldset';

@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 
-import { Button } from './Button';
+import { Button } from '/src/components/atoms/Button';
 
 describe('atoms/Button', () => {
   test('click', () => {

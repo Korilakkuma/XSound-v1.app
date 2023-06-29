@@ -1,1 +1,1 @@
-export { Spacer } from './Spacer';
+export { Spacer } from '/src/components/atoms/Spacer/Spacer';

@@ -1,1 +1,1 @@
-export { OscillatorSelector } from './OscillatorSelector';
+export { OscillatorSelector } from '/src/components/helpers/OscillatorSelector/OscillatorSelector';

@@ -2,13 +2,13 @@ import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { X } from 'xsound';
 
-import { changeOscillatorStates } from '../../../slices';
-import { Spacer } from '../../atoms/Spacer';
-import { Switch } from '../../atoms/Switch';
-import { OscillatorSelector } from '../../helpers/OscillatorSelector';
-import { ParameterController } from '../../helpers/ParameterController';
+import { changeOscillatorStates } from '/src/slices';
+import { Spacer } from '/src/components/atoms/Spacer';
+import { Switch } from '/src/components/atoms/Switch';
+import { OscillatorSelector } from '/src/components/helpers/OscillatorSelector';
+import { ParameterController } from '/src/components/helpers/ParameterController';
 
-import type { RootState } from '../../../types';
+import type { RootState } from '/src/types';
 
 export type Props = {
   oscillatorNumber: number,

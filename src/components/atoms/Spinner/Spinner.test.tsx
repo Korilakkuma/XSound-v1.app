@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 
-import { Spinner } from './Spinner';
+import { Spinner } from '/src/components/atoms/Spinner';
 
 describe('atoms/Spinner', () => {
   test('change', () => {

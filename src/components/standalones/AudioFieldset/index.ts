@@ -1,1 +1,1 @@
-export { AudioFieldset } from './AudioFieldset';
+export { AudioFieldset } from '/src/components/standalones/AudioFieldset/AudioFieldset';

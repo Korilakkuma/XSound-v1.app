@@ -2,12 +2,12 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { X } from 'xsound';
 
-import { formatAudioTime } from '../../../utils';
-import { Spacer } from '../../atoms/Spacer';
-import { Switch } from '../../atoms/Switch';
-import { ParameterController } from '../../helpers/ParameterController';
+import { formatAudioTime } from '/src/utils';
+import { Spacer } from '/src/components/atoms/Spacer';
+import { Switch } from '/src/components/atoms/Switch';
+import { ParameterController } from '/src/components/helpers/ParameterController';
 
-import type { RootState } from '../../../types';
+import type { RootState } from '/src/types';
 import type { AnalyserParams, DragCallbackFunction, DragMode, FFTParams, TimeOverviewParams, TimeParams } from 'xsound';
 
 

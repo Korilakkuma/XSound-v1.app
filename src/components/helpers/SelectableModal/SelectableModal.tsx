@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Modal } from '../../atoms/Modal';
+import { Modal } from '/src/components/atoms/Modal';
 
 type Selection = {
   label: string,

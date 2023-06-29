@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 
-import { Slider } from './Slider';
+import { Slider } from '/src/components/atoms/Slider';
 
 describe('atoms/Slider', () => {
   test('change', () => {

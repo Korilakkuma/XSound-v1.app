@@ -1,1 +1,1 @@
-export { ReverbFieldset } from './ReverbFieldset';
+export { ReverbFieldset } from '/src/components/standalones/ReverbFieldset/ReverbFieldset';

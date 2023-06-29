@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useId, useState } from 'react';
 
-import { Slider } from '../../atoms/Slider';
-import { Spinner } from '../../atoms/Spinner';
+import { Slider } from '/src/components/atoms/Slider';
+import { Spinner } from '/src/components/atoms/Spinner';
 
 export type Props = {
   label: string,

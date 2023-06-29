@@ -1,1 +1,1 @@
-export { Flexbox } from './Flexbox';
+export { Flexbox } from '/src/components/atoms/Flexbox/Flexbox';

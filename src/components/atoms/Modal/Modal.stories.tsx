@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useCallback, useState } from 'react';
 
-import { Modal } from './Modal';
+import { Modal } from '/src/components/atoms/Modal';
 
 import type { Meta, StoryObj } from '@storybook/react';
-import '../../../main.css';
+import '/src/main.css';
 
 export default {
   component: Modal

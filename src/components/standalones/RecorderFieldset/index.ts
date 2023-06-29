@@ -1,1 +1,1 @@
-export { RecorderFieldset } from './RecorderFieldset';
+export { RecorderFieldset } from '/src/components/standalones/RecorderFieldset/RecorderFieldset';

@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React from 'react';
 
-import { ParameterController } from './ParameterController';
+import { ParameterController } from '/src/components/helpers/ParameterController';
 
 import type { Meta, StoryObj } from '@storybook/react';
-import '../../../main.css';
+import '/src/main.css';
 
 export default {
   component: ParameterController

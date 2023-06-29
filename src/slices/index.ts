@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import type { SoundSource } from '../types';
+import type { SoundSource } from '/src/types';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
 export type State = {

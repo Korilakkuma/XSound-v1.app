@@ -1,1 +1,1 @@
-export { FilterFieldset } from './FilterFieldset';
+export { FilterFieldset } from '/src/components/standalones/FilterFieldset/FilterFieldset';

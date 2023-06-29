@@ -1,1 +1,1 @@
-export { CompressorFieldset } from './CompressorFieldset';
+export { CompressorFieldset } from '/src/components/standalones/CompressorFieldset/CompressorFieldset';

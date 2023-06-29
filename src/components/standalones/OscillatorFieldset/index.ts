@@ -1,1 +1,1 @@
-export { OscillatorFieldset } from './OscillatorFieldset';
+export { OscillatorFieldset } from '/src/components/standalones/OscillatorFieldset/OscillatorFieldset';

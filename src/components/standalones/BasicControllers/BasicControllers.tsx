@@ -2,19 +2,19 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { X } from 'xsound';
 
-import { NUMBER_OF_ONESHOTS } from '../../../config';
+import { NUMBER_OF_ONESHOTS } from '/src/config';
 import {
   activateMIDIKeyboards,
   changeAnalyserState,
   changeCurrentSoundSource,
   changeMMLState,
-} from '../../../slices';
-import { Modal } from '../../atoms/Modal';
-import { Select } from '../../atoms/Select';
-import { Switch } from '../../atoms/Switch';
-import { ParameterController } from '../../helpers/ParameterController';
+} from '/src/slices';
+import { Modal } from '/src/components/atoms/Modal';
+import { Select } from '/src/components/atoms/Select';
+import { Switch } from '/src/components/atoms/Switch';
+import { ParameterController } from '/src/components/helpers/ParameterController';
 
-import type { SoundSource } from '../../../types';
+import type { SoundSource } from '/src/types';
 
 export type Props = {
   currentSoundSource: SoundSource

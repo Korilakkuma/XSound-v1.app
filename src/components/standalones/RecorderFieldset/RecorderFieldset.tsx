@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { X } from 'xsound';
 
-import { createFilename } from '../../../utils';
-import { Select } from '../../atoms/Select';
-import { Spacer } from '../../atoms/Spacer';
-import { ParameterController } from '../../helpers/ParameterController';
-import { SelectableModal } from '../../helpers/SelectableModal';
+import { createFilename } from '/src/utils';
+import { Select } from '/src/components/atoms/Select';
+import { Spacer } from '/src/components/atoms/Spacer';
+import { ParameterController } from '/src/components/helpers/ParameterController';
+import { SelectableModal } from '/src/components/helpers/SelectableModal';
 
 export type Props = {
   loadedApp: boolean

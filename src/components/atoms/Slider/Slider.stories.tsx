@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useCallback, useState } from 'react';
 
-import { Slider } from './Slider';
+import { Slider } from '/src/components/atoms/Slider';
 
 import type { Meta, StoryObj } from '@storybook/react';
-import '../../../main.css';
+import '/src/main.css';
 
 export default {
   component: Slider

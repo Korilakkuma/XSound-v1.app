@@ -10,7 +10,7 @@ import {
   downMelodyKeyboards,
   upBassKeyboards,
   upMelodyKeyboards
-} from './';
+} from '/src/slices';
 
 describe('activeMIDIKeyboardsReducer', () => {
   test('should return array that contains number as MIDI keyboard index', () => {
