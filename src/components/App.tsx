@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { X } from 'xsound';
 
@@ -37,6 +37,7 @@ export const App: React.FC = () => {
   const [loadedApp, setLoadedApp] = useState<boolean>(false);
   const [progress, setProgress] = useState<boolean>(false);
   const [rate, setRate] = useState<number>(0);
+  const [isDesktop, setIsDesktop] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>('');
   const [isShowModalForAjax, setIsShowModalForAjax] = useState<boolean>(false);
   const [isShowModalForDecoding, setIsShowModalForDecoding] = useState<boolean>(false);
@@ -1049,6 +1050,12 @@ export const App: React.FC = () => {
     window.clonedXSound = clonedX;
   }, [oneshots, rirDescriptors, createOneshotSettingsCallback]);
 
+  useEffect(() => {
+    const mediaQueryList = window.matchMedia('(min-width: 1024px)');
+
+    setIsDesktop(mediaQueryList.matches);
+  }, []);
+
   return (
     <React.Fragment>
       <Header loadedApp={loadedApp} progress={progress} rate={rate} onClickSetupCallback={onClickSetupCallback} />
@@ -1067,7 +1074,7 @@ export const App: React.FC = () => {
             <RecorderFieldset loadedApp={loadedApp} />
           </VerticalBox>
           <VerticalBox numberOfDivisions={5}>
-            <AudioFieldset loadedApp={loadedApp} />
+            <AudioFieldset loadedApp={loadedApp} isDesktop={isDesktop} />
           </VerticalBox>
         </Flexbox>
         <Analyser loadedApp={loadedApp} />

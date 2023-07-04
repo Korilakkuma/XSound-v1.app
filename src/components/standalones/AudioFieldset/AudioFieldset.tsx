@@ -12,12 +12,12 @@ import { ParameterController } from '/src/components/helpers/ParameterController
 import type { FileEvent, FileReaderErrorText } from 'xsound';
 
 export type Props = {
-  loadedApp: boolean
+  loadedApp: boolean,
+  isDesktop: boolean
 };
 
 export const AudioFieldset: React.FC<Props> = (props: Props) => {
   const [loaded, setLoaded] = useState<boolean>(false);
-  const [isDesktop, setIsDesktop] = useState<boolean>(false);
   const [filename, setFilename] = useState<string>('');
   const [paused, setPaused] = useState<boolean>(true);
   const [currentTime, setCurrentTime] = useState<number>(0);
@@ -199,10 +199,6 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
       errorCallback
     });
 
-    const mediaQueryList = window.matchMedia('(min-width: 1024px)');
-
-    setIsDesktop(mediaQueryList.matches);
-
     setLoaded(true);
   }, [
     props.loadedApp,
@@ -252,7 +248,7 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
           onChange={onChangeCurrentTimeCallback}
         />
         <Spacer space={8} />
-        {isDesktop
+        {props.isDesktop
           ? (
             <ParameterController
               label="Pitch Shifter"
