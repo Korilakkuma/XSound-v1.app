@@ -3,7 +3,10 @@ const webpack              = require('webpack');
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin   = require('css-minimizer-webpack-plugin');
 const TerserPlugin         = require('terser-webpack-plugin');
+const path                 = require('path');
 /* eslint-enable @typescript-eslint/no-var-requires */
+
+const dirname = path.resolve('.');
 
 const terserPlugin = new TerserPlugin({
   terserOptions: {
@@ -25,7 +28,7 @@ module.exports = [{
   output: {
     globalObject: 'this',
     filename: '[name].js',
-    path: `${__dirname}/assets`,
+    path: `${dirname}/assets`,
     publicPath: '/assets/',
     assetModuleFilename: 'images/[name][ext]'
   },
@@ -85,7 +88,7 @@ module.exports = [{
   },
   devtool: 'source-map',
   devServer: {
-    static: __dirname,
+    static: dirname,
     host: '0.0.0.0'
   }
 },
@@ -102,7 +105,7 @@ module.exports = [{
   output: {
     globalObject: 'this',
     filename: '[name].js',
-    path: __dirname,
+    path: dirname,
     publicPath: '/'
   },
   module: {
