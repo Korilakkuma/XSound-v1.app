@@ -9,13 +9,15 @@
   "scripts": {
     "clean": "rm -f register.js sw.js ./assets/app.* ./assets/vendor.*",
     "lint:eslint": "eslint 'src/**/*.{ts,tsx}' 'mock/**/*.ts' '.storybook/*.js' jest.config.js postcss.config.js webpack.config.js",
-    "lint:stylelint": "stylelint 'src/**/*.css' && prettier --check 'src/**/*.css'",
+    "lint:stylelint": "stylelint 'src/**/*.css'",
     "lint:markuplint": "markuplint index.html",
     "lint": "run-p lint:eslint lint:stylelint lint:markuplint",
     "fix:eslint:": "eslint --fix 'src/**/*.{ts,tsx}' 'mock/**/*.ts' '.storybook/*.js' jest.config.js postcss.config.js webpack.config.js",
     "fix:stylelint": "stylelint --fix 'src/**/*.css' && prettier --write 'src/**/*.css'",
     "fix:markuplint": "markuplint --fix index.html",
     "fix": "run-p fix:eslint fix:stylelint fix:markuplint",
+    "format:check": "prettier --check 'src/**/*.{ts,tsx,css}' 'mock/**/*.ts' '.storybook/*.js' jest.config.js postcss.config.js webpack.config.js index.html",
+    "format": "prettier --write 'src/**/*.{ts,tsx,css}' 'mock/**/*.ts' '.storybook/*.js' jest.config.js postcss.config.js webpack.config.js index.html",
     "type:main": "tsc --noEmit",
     "type:sw": "tsc --noEmit --project tsconfig.sw.json",
     "type": "run-p type:main type:sw",
@@ -36,14 +38,16 @@
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
-      "eslint --fix"
+      "eslint --fix",
+      "prettier --write 'src/**/*.{ts,tsx}'"
     ],
     "src/**/*.css": [
       "stylelint --fix",
       "prettier --write 'src/**/*.css'"
     ],
     "index.html": [
-      "markuplint --fix"
+      "markuplint --fix",
+      "prettier --write index.html"
     ]
   },
   "repository": {
