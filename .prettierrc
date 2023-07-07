@@ -1,8 +1,16 @@
 {
-  "printWidth": 120,
+  "printWidth": 160,
   "semi": true,
-  "singleQuote": false,
+  "singleQuote": true,
   "tabWidth": 2,
   "trailingComma": "none",
-  "useTabs": false
+  "useTabs": false,
+  "overrides": [
+    {
+      "files": ["*.html", "*.css"],
+      "options": {
+        "singleQuote": false
+      }
+    }
+  ]
 }
