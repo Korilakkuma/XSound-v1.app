@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useId, useMemo } from 'react';
-import ReactDOM from 'react-dom';
+import { createPortal } from 'react-dom';
 
 import { FOCUSABLE_ELEMENTS } from '/src/config';
 
@@ -113,5 +113,5 @@ const ModalBody: React.FC<Props> = (props: Props) => {
 export const Modal: React.FC<Props> = (props: Props) => {
   const { children, ...bodyProps } = props;
 
-  return ReactDOM.createPortal(<ModalBody {...bodyProps}>{children}</ModalBody>, document.body);
+  return createPortal(<ModalBody {...bodyProps}>{children}</ModalBody>, document.body);
 };
