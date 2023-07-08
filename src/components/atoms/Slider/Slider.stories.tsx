@@ -34,8 +34,8 @@ export const Primary = {
   args: {
     label: 'slider',
     value: 0,
-    min  : -100,
-    max  : 100,
-    step : 1
+    min: -100,
+    max: 100,
+    step: 1
   }
 };

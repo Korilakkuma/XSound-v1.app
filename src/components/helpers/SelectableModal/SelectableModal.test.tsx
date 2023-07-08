@@ -17,21 +17,25 @@ describe('helpers/SelectableModal', () => {
     const mockOnClick = jest.fn();
 
     const props = {
-      isShow    : true,
+      isShow: true,
       hasOverlay: true,
-      title     : 'with overlay',
-      first     : {
-        label : 'first',
+      title: 'with overlay',
+      first: {
+        label: 'first',
         action: mockOnClick
       },
-      second    : {
-        label : 'second',
+      second: {
+        label: 'second',
         action: () => {}
       },
-      onClose   : () => {}
+      onClose: () => {}
     };
 
-    render(<SelectableModal {...props}><div>Contents</div></SelectableModal>);
+    render(
+      <SelectableModal {...props}>
+        <div>Contents</div>
+      </SelectableModal>
+    );
 
     fireEvent.click(screen.getByText('first'));
 
@@ -42,21 +46,25 @@ describe('helpers/SelectableModal', () => {
     const mockOnClick = jest.fn();
 
     const props = {
-      isShow    : true,
+      isShow: true,
       hasOverlay: true,
-      title     : 'with overlay',
-      first     : {
-        label : 'first',
+      title: 'with overlay',
+      first: {
+        label: 'first',
         action: () => {}
       },
-      second    : {
-        label : 'second',
+      second: {
+        label: 'second',
         action: mockOnClick
       },
-      onClose   : () => {}
+      onClose: () => {}
     };
 
-    render(<SelectableModal {...props}><div>Contents</div></SelectableModal>);
+    render(
+      <SelectableModal {...props}>
+        <div>Contents</div>
+      </SelectableModal>
+    );
 
     fireEvent.click(screen.getByText('second'));
 

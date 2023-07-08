@@ -8,12 +8,12 @@ describe('atoms/Button', () => {
     const mockOnClick = jest.fn();
 
     const props = {
-      active : false,
-      label  : 'Start',
-      width  : 70,
-      height : 33,
-      image  : 'https://xsound.app/assets/images/button-audio.png',
-      size   : '70px 99px',
+      active: false,
+      label: 'Start',
+      width: 70,
+      height: 33,
+      image: 'https://xsound.app/assets/images/button-audio.png',
+      size: '70px 99px',
       onClick: mockOnClick
     };
 

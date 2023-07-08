@@ -26,7 +26,7 @@ const Template: StoryObj<typeof OscillatorSelector> = {
         if (radio.checked) {
           const value = radio.value;
 
-          if ((value === 'sine') || (value === 'square') || (value === 'sawtooth') || (value === 'triangle')) {
+          if (value === 'sine' || value === 'square' || value === 'sawtooth' || value === 'triangle') {
             setType(value);
           }
         }
@@ -41,6 +41,6 @@ export const Primary = {
   ...Template,
   args: {
     radioName: 'oscillator-selector',
-    type     : 'sawtooth'
+    type: 'sawtooth'
   }
 };

@@ -1,8 +1,8 @@
 import React from 'react';
 
 export type Props = {
-  space: 2 | 4 | 8 | 12 | 16 | 20 | 24 | 28 | 32,
-  direction?: 'top' | 'right' | 'bottom' | 'left'
+  space: 2 | 4 | 8 | 12 | 16 | 20 | 24 | 28 | 32;
+  direction?: 'top' | 'right' | 'bottom' | 'left';
 };
 
 export const Spacer: React.FC<Props> = (props: Props) => {

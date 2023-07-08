@@ -8,11 +8,11 @@ describe('atoms/Spinner', () => {
     const mockOnChange = jest.fn();
 
     const props = {
-      value   : 0,
-      min     : -100,
-      max     : 100,
-      step    : 1,
-      id      : 'spinner',
+      value: 0,
+      min: -100,
+      max: 100,
+      step: 1,
+      id: 'spinner',
       onChange: mockOnChange
     };
 

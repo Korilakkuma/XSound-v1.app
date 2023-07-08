@@ -72,52 +72,15 @@ export const EqualizerFieldset: React.FC = () => {
     <div className="EqualizerFieldset">
       <fieldset>
         <legend>
-          <Switch
-            label="Equalizer"
-            checked={equalizer}
-            labelAsText={false}
-            onChange={onChangeStateCallback}
-          />
+          <Switch label="Equalizer" checked={equalizer} labelAsText={false} onChange={onChangeStateCallback} />
         </legend>
-        <ParameterController
-          label="Bass"
-          autoupdate={false}
-          defaultValue={0}
-          min={-18}
-          max={18}
-          step={1}
-          onChange={onChangeBassCallback}
-        />
+        <ParameterController label="Bass" autoupdate={false} defaultValue={0} min={-18} max={18} step={1} onChange={onChangeBassCallback} />
         <Spacer space={8} />
-        <ParameterController
-          label="Middle"
-          autoupdate={false}
-          defaultValue={0}
-          min={-18}
-          max={18}
-          step={1}
-          onChange={onChangeMiddleCallback}
-        />
+        <ParameterController label="Middle" autoupdate={false} defaultValue={0} min={-18} max={18} step={1} onChange={onChangeMiddleCallback} />
         <Spacer space={8} />
-        <ParameterController
-          label="Treble"
-          autoupdate={false}
-          defaultValue={0}
-          min={-18}
-          max={18}
-          step={1}
-          onChange={onChangeTrebleCallback}
-        />
+        <ParameterController label="Treble" autoupdate={false} defaultValue={0} min={-18} max={18} step={1} onChange={onChangeTrebleCallback} />
         <Spacer space={8} />
-        <ParameterController
-          label="Presence"
-          autoupdate={false}
-          defaultValue={0}
-          min={-18}
-          max={18}
-          step={1}
-          onChange={onChangePresenceCallback}
-        />
+        <ParameterController label="Presence" autoupdate={false} defaultValue={0} min={-18} max={18} step={1} onChange={onChangePresenceCallback} />
         <Spacer space={8} />
       </fieldset>
     </div>

@@ -17,13 +17,13 @@ const Template: StoryObj<typeof ParameterController> = {
 export const Primary = {
   ...Template,
   args: {
-    label       : 'Parameter Controller default',
-    autoupdate  : false,
-    min         : -100,
-    max         : 100,
-    step        : 1,
+    label: 'Parameter Controller default',
+    autoupdate: false,
+    min: -100,
+    max: 100,
+    step: 1,
     defaultValue: 0,
-    onChange    : (event: React.ChangeEvent<HTMLInputElement>) => {
+    onChange: (event: React.ChangeEvent<HTMLInputElement>) => {
       // eslint-disable-next-line no-console
       console.log(`${event.type} ${event.currentTarget.valueAsNumber}`);
     }
@@ -33,14 +33,14 @@ export const Primary = {
 export const Secondary = {
   ...Template,
   args: {
-    label       : 'Parameter Controller with `width`',
-    autoupdate  : false,
-    min         : -100,
-    max         : 100,
-    step        : 1,
+    label: 'Parameter Controller with `width`',
+    autoupdate: false,
+    min: -100,
+    max: 100,
+    step: 1,
     defaultValue: 0,
-    width       : '50%',
-    onChange    : (event: React.ChangeEvent<HTMLInputElement>) => {
+    width: '50%',
+    onChange: (event: React.ChangeEvent<HTMLInputElement>) => {
       // eslint-disable-next-line no-console
       console.log(`${event.type} ${event.currentTarget.valueAsNumber}`);
     }

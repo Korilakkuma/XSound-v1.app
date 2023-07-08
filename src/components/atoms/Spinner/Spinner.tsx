@@ -1,13 +1,13 @@
 import React from 'react';
 
 export type Props = {
-  value: number,
-  min: number,
-  max: number,
-  step: number,
-  id?: string,
-  tabIndex?: number,
-  onChange(event: React.ChangeEvent<HTMLInputElement>): void
+  value: number;
+  min: number;
+  max: number;
+  step: number;
+  id?: string;
+  tabIndex?: number;
+  onChange(event: React.ChangeEvent<HTMLInputElement>): void;
 };
 
 export const Spinner: React.FC<Props> = (props: Props) => {

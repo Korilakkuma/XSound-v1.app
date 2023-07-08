@@ -22,7 +22,9 @@ const Template: StoryObj<typeof Spinner> = {
 
     return (
       <React.Fragment>
-        <label htmlFor={props.id} style={{ marginRight: '12px' }}>Spinner</label>
+        <label htmlFor={props.id} style={{ marginRight: '12px' }}>
+          Spinner
+        </label>
         <Spinner {...props} />
       </React.Fragment>
     );
@@ -33,8 +35,8 @@ export const Primary = {
   ...Template,
   args: {
     value: 0,
-    min  : -100,
-    max  : 100,
-    step : 1
+    min: -100,
+    max: 100,
+    step: 1
   }
 };

@@ -8,12 +8,12 @@ import { ParameterController } from '/src/components/helpers/ParameterController
 import { SelectableModal } from '/src/components/helpers/SelectableModal';
 
 export type Props = {
-  loadedApp: boolean
+  loadedApp: boolean;
 };
 
-const CHANNEL = 2;   // Stereo
-const BIT     = 16;  // 16 bit
-const TYPE    = 'objectURL';
+const CHANNEL = 2; // Stereo
+const BIT = 16; // 16 bit
+const TYPE = 'objectURL';
 
 export const RecorderFieldset: React.FC<Props> = (props: Props) => {
   const { loadedApp } = props;
@@ -27,10 +27,10 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
 
   const onClickRecordButtonCallback = useCallback(() => {
     if (
-      (X('mixer').module('recorder').get() !== -1) ||
-      (X('oneshot').module('recorder').get() !== -1) ||
-      (X('audio').module('recorder').get() !== -1) ||
-      (X('noise').module('recorder').get() !== -1)
+      X('mixer').module('recorder').get() !== -1 ||
+      X('oneshot').module('recorder').get() !== -1 ||
+      X('audio').module('recorder').get() !== -1 ||
+      X('noise').module('recorder').get() !== -1
     ) {
       X('mixer').module('recorder').stop();
       X('oneshot').module('recorder').stop();
@@ -61,10 +61,10 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
 
     sethasRecordedData(
       X('mixer').module('recorder').has(-1, -1) ||
-      X('oneshot').module('recorder').has(-1, -1) ||
-      X('audio').module('recorder').has(-1, -1) ||
-      X('stream').module('recorder').has(-1, -1) ||
-      X('noise').module('recorder').has(-1, -1)
+        X('oneshot').module('recorder').has(-1, -1) ||
+        X('audio').module('recorder').has(-1, -1) ||
+        X('stream').module('recorder').has(-1, -1) ||
+        X('noise').module('recorder').has(-1, -1)
     );
   }, [activeTrack]);
 
@@ -172,12 +172,15 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
     }
   }, []);
 
-  const onClickDownloadButtonCallback = useCallback((event: React.MouseEvent<HTMLAnchorElement>) => {
-    if (!objectURL || running) {
-      // In the case of recording
-      event.preventDefault();
-    }
-  }, [objectURL, running]);
+  const onClickDownloadButtonCallback = useCallback(
+    (event: React.MouseEvent<HTMLAnchorElement>) => {
+      if (!objectURL || running) {
+        // In the case of recording
+        event.preventDefault();
+      }
+    },
+    [objectURL, running]
+  );
 
   const onClickClearButtonCallback = useCallback(() => {
     if (running) {
@@ -197,10 +200,10 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
 
     sethasRecordedData(
       X('mixer').module('recorder').has(-1, -1) ||
-      X('oneshot').module('recorder').has(-1, -1) ||
-      X('audio').module('recorder').has(-1, -1) ||
-      X('stream').module('recorder').has(-1, -1) ||
-      X('noise').module('recorder').has(-1, -1)
+        X('oneshot').module('recorder').has(-1, -1) ||
+        X('audio').module('recorder').has(-1, -1) ||
+        X('stream').module('recorder').has(-1, -1) ||
+        X('noise').module('recorder').has(-1, -1)
     );
 
     setIsShowModal(false);
@@ -210,19 +213,22 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
     setIsShowModal(false);
   }, []);
 
-  const onChangeTrackCallback = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
-    if (running) {
-      // In the case of recording
-      return;
-    }
+  const onChangeTrackCallback = useCallback(
+    (event: React.ChangeEvent<HTMLSelectElement>) => {
+      if (running) {
+        // In the case of recording
+        return;
+      }
 
-    const nextActiveTrack = Number(event.currentTarget.value);
+      const nextActiveTrack = Number(event.currentTarget.value);
 
-    X('stream').stop();
-    X('stream').module('recorder').stop();
+      X('stream').stop();
+      X('stream').module('recorder').stop();
 
-    setActiveTrack(nextActiveTrack);
-  }, [running]);
+      setActiveTrack(nextActiveTrack);
+    },
+    [running]
+  );
 
   const onChangeLeftChannelGainCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     X('mixer').module('recorder').param({ '0': event.currentTarget.valueAsNumber });
@@ -241,7 +247,7 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
   }, []);
 
   useEffect(() => {
-    if (!loadedApp || (activeTrack > -1)) {
+    if (!loadedApp || activeTrack > -1) {
       return;
     }
 
@@ -277,13 +283,7 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
           >
             Download
           </a>
-          <button
-            type="button"
-            disabled={running}
-            aria-label="Clear Track"
-            className="RecorderFieldset__clear"
-            onClick={onClickClearButtonCallback}
-          />
+          <button type="button" disabled={running} aria-label="Clear Track" className="RecorderFieldset__clear" onClick={onClickClearButtonCallback} />
         </div>
         <Spacer space={24} />
         <Select
@@ -294,15 +294,7 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
           onChange={onChangeTrackCallback}
         />
         <Spacer space={24} />
-        <ParameterController
-          label="Left Channel"
-          autoupdate={false}
-          defaultValue={1}
-          min={0}
-          max={1}
-          step={0.05}
-          onChange={onChangeLeftChannelGainCallback}
-        />
+        <ParameterController label="Left Channel" autoupdate={false} defaultValue={1} min={0} max={1} step={0.05} onChange={onChangeLeftChannelGainCallback} />
         <Spacer space={8} />
         <ParameterController
           label="Right Channel"
@@ -319,11 +311,11 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
         isShow={isShowModal}
         title="Confirmation"
         first={{
-          label : 'Cancel',
+          label: 'Cancel',
           action: onClickCancelClearTrackCallback
         }}
         second={{
-          label : 'OK',
+          label: 'OK',
           action: onClickClearTrackCallback
         }}
         onClose={onClickCancelClearTrackCallback}

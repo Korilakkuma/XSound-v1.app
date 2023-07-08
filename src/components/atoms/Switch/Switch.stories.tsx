@@ -21,8 +21,8 @@ const Template: StoryObj<typeof Switch> = {
 export const Primary = {
   ...Template,
   args: {
-    label      : 'checked false',
-    checked    : false,
+    label: 'checked false',
+    checked: false,
     labelAsText: false
   }
 };
@@ -30,8 +30,8 @@ export const Primary = {
 export const Secondary = {
   ...Template,
   args: {
-    label      : 'checked true',
-    checked    : true,
+    label: 'checked true',
+    checked: true,
     labelAsText: false
   }
 };
@@ -39,8 +39,8 @@ export const Secondary = {
 export const Tertiary = {
   ...Template,
   args: {
-    label      : 'checked false',
-    checked    : false,
+    label: 'checked false',
+    checked: false,
     labelAsText: true
   }
 };

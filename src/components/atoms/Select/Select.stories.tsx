@@ -17,9 +17,9 @@ const Template: StoryObj<typeof Select> = {
 export const Primary = {
   ...Template,
   args: {
-    label   : 'Primary Select',
-    values  : ['A', 'B', 'C'],
-    texts   : ['0 - 0', '0 - 1', '0 - 2'],
+    label: 'Primary Select',
+    values: ['A', 'B', 'C'],
+    texts: ['0 - 0', '0 - 1', '0 - 2'],
     disabled: false,
     onChange: (event: React.ChangeEvent<HTMLSelectElement>) => {
       alert(event.currentTarget.value);
@@ -30,11 +30,11 @@ export const Primary = {
 export const Secondary = {
   ...Template,
   args: {
-    label   : 'Secondary Select',
-    values  : ['A', 'B', 'C'],
-    texts   : ['0 - 0', '0 - 1', '0 - 2'],
+    label: 'Secondary Select',
+    values: ['A', 'B', 'C'],
+    texts: ['0 - 0', '0 - 1', '0 - 2'],
     disabled: false,
-    width   : '50%',
+    width: '50%',
     onChange: (event: React.ChangeEvent<HTMLSelectElement>) => {
       alert(event.currentTarget.value);
     }
@@ -44,12 +44,12 @@ export const Secondary = {
 export const Tertiary = {
   ...Template,
   args: {
-    label       : 'Tertiary Select',
-    values      : ['A', 'B', 'C'],
-    texts       : ['0 - 0', '0 - 1', '0 - 2'],
-    disabled    : false,
+    label: 'Tertiary Select',
+    values: ['A', 'B', 'C'],
+    texts: ['0 - 0', '0 - 1', '0 - 2'],
+    disabled: false,
     defaultValue: 'C',
-    onChange    : (event: React.ChangeEvent<HTMLSelectElement>) => {
+    onChange: (event: React.ChangeEvent<HTMLSelectElement>) => {
       alert(event.currentTarget.value);
     }
   }

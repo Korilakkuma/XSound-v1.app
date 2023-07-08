@@ -55,11 +55,11 @@ const Template: StoryObj<typeof FileUploader> = {
 export const Primary = {
   ...Template,
   args: {
-    accept     : 'audio/*',
-    disabled   : false,
+    accept: 'audio/*',
+    disabled: false,
     placeholder: 'MP3, Ogg, WAV ... etc',
-    filename   : '',
-    onChange   : (event: React.ChangeEvent<HTMLInputElement>) => {
+    filename: '',
+    onChange: (event: React.ChangeEvent<HTMLInputElement>) => {
       alert(event.type);
     }
   }
@@ -68,11 +68,11 @@ export const Primary = {
 export const Secondary = {
   ...Template,
   args: {
-    accept     : 'audio/*',
-    disabled   : false,
+    accept: 'audio/*',
+    disabled: false,
     placeholder: 'MP3, Ogg, WAV ... etc',
-    filename   : 'Default filename',
-    onChange   : (event: React.ChangeEvent<HTMLInputElement>) => {
+    filename: 'Default filename',
+    onChange: (event: React.ChangeEvent<HTMLInputElement>) => {
       alert(event.type);
     }
   }

@@ -1,7 +1,7 @@
 import React from 'react';
 
 export type Props = {
-  children: React.ReactNode
+  children: React.ReactNode;
 };
 
 export const Flexbox: React.FC<Props> = (props: Props) => {

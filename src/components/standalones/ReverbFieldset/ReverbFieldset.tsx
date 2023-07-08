@@ -9,7 +9,7 @@ import { ParameterController } from '/src/components/helpers/ParameterController
 import type { RIRDescriptor } from '/src/types';
 
 export type Props = {
-  rirDescriptors: RIRDescriptor[]
+  rirDescriptors: RIRDescriptor[];
 };
 
 export const ReverbFieldset: React.FC<Props> = (props: Props) => {
@@ -105,52 +105,21 @@ export const ReverbFieldset: React.FC<Props> = (props: Props) => {
     <div className="ReverbFieldset">
       <fieldset>
         <legend>
-          <Switch
-            label="Reverb"
-            checked={reverb}
-            labelAsText={false}
-            onChange={onChangeStateCallback}
-          />
+          <Switch label="Reverb" checked={reverb} labelAsText={false} onChange={onChangeStateCallback} />
         </legend>
-        <GroupSelect
-          label="Select Reverb"
-          groups={groups}
-          values={values}
-          texts={texts}
-          onChange={onChangeTypeCallback}
-        />
+        <GroupSelect label="Select Reverb" groups={groups} values={values} texts={texts} onChange={onChangeTypeCallback} />
         <Spacer space={8} />
-        <ParameterController
-          label="Dry"
-          autoupdate={false}
-          defaultValue={1}
-          min={0}
-          max={1}
-          step={0.05}
-          onChange={onChangeDryCallback}
-        />
+        <ParameterController label="Dry" autoupdate={false} defaultValue={1} min={0} max={1} step={0.05} onChange={onChangeDryCallback} />
         <Spacer space={8} />
-        <ParameterController
-          label="Wet"
-          autoupdate={false}
-          defaultValue={0}
-          min={0}
-          max={1}
-          step={0.05}
-          onChange={onChangeWetCallback}
-        />
+        <ParameterController label="Wet" autoupdate={false} defaultValue={0} min={0} max={1} step={0.05} onChange={onChangeWetCallback} />
         <Spacer space={8} />
-        <ParameterController
-          label="Tone"
-          autoupdate={false}
-          defaultValue={4000}
-          min={20}
-          max={8000}
-          step={1}
-          onChange={onChangeToneCallback}
-        />
+        <ParameterController label="Tone" autoupdate={false} defaultValue={4000} min={20} max={8000} step={1} onChange={onChangeToneCallback} />
         <Spacer space={8} />
-        <aside><a href="http://legacy.spa.aalto.fi/projects/poririrs/" target="_blank" rel="noopener noreferrer">This website enables to get RIR (Room Impulse Response) files !</a></aside>
+        <aside>
+          <a href="http://legacy.spa.aalto.fi/projects/poririrs/" target="_blank" rel="noopener noreferrer">
+            This website enables to get RIR (Room Impulse Response) files !
+          </a>
+        </aside>
       </fieldset>
     </div>
   );

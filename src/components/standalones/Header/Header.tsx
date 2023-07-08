@@ -4,10 +4,10 @@ import { FOCUSABLE_ELEMENTS } from '/src/config';
 import { ProgressBar } from '/src/components/atoms/ProgressBar/ProgressBar';
 
 export type Props = {
-  loadedApp: boolean,
-  progress: boolean,
-  rate: number,
-  onClickSetupCallback: (event: React.MouseEvent<HTMLButtonElement>) => void
+  loadedApp: boolean;
+  progress: boolean;
+  rate: number;
+  onClickSetupCallback: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
 export const Header: React.FC<Props> = ({ loadedApp, progress, rate, onClickSetupCallback }) => {
@@ -16,7 +16,7 @@ export const Header: React.FC<Props> = ({ loadedApp, progress, rate, onClickSetu
   const [animationEnded, setAnimationEnded] = useState<boolean>(false);
 
   const loaded = useMemo(() => {
-    return loadedApp && (rate >= 100);
+    return loadedApp && rate >= 100;
   }, [loadedApp, rate]);
 
   const onAnimationEndCallback = useCallback(() => {
@@ -37,14 +37,12 @@ export const Header: React.FC<Props> = ({ loadedApp, progress, rate, onClickSetu
     if (loaded) {
       Array.from(root.querySelectorAll(FOCUSABLE_ELEMENTS))
         .filter((node: Element) => {
-          return (headerRef.current !== null) && !headerRef.current.contains(node) &&
-            !hiddenElement(node) &&
-            (node.getAttribute('tabindex') === '-1');
+          return headerRef.current !== null && !headerRef.current.contains(node) && !hiddenElement(node) && node.getAttribute('tabindex') === '-1';
         })
         .forEach((element: Element) => {
           if (element.getAttribute('role') === 'switch') {
             element.setAttribute('tabindex', '0');
-          } else if ((element.getAttribute('type') === 'checkbox') || (element.getAttribute('type') === 'file')) {
+          } else if (element.getAttribute('type') === 'checkbox' || element.getAttribute('type') === 'file') {
             element.setAttribute('tabindex', '-1');
           } else {
             element.removeAttribute('tabindex');
@@ -53,9 +51,7 @@ export const Header: React.FC<Props> = ({ loadedApp, progress, rate, onClickSetu
     } else if (animationEnded) {
       Array.from(root.querySelectorAll(FOCUSABLE_ELEMENTS))
         .filter((node: Element) => {
-          return (headerRef.current !== null) && !headerRef.current.contains(node) &&
-            !hiddenElement(node) &&
-            (node.getAttribute('tabindex') !== '-1');
+          return headerRef.current !== null && !headerRef.current.contains(node) && !hiddenElement(node) && node.getAttribute('tabindex') !== '-1';
         })
         .forEach((element: Element) => {
           element.setAttribute('tabindex', '-1');
@@ -63,8 +59,8 @@ export const Header: React.FC<Props> = ({ loadedApp, progress, rate, onClickSetu
     }
   }, [animationEnded, loaded]);
 
-  const id         = useId();
-  const labelId    = useMemo(() => `header-label-${id}`, [id]);
+  const id = useId();
+  const labelId = useMemo(() => `header-label-${id}`, [id]);
   const describeId = useMemo(() => `header-describe-${id}`, [id]);
 
   return (
@@ -98,7 +94,11 @@ export const Header: React.FC<Props> = ({ loadedApp, progress, rate, onClickSetu
             <span className="Header__moveRight">Synthesizer, Effects, Visualization, Multi-Track Recording, Visual Audio Sprite ...</span>
             <span className="Header__moveLeft">Moreover, enable to use external devices such as Audio Interfaces, MIDI.</span>
           </div>
-          <nav className="Header__startButton"><button type="button" onClick={onClickSetupCallback}>Start Application</button></nav>
+          <nav className="Header__startButton">
+            <button type="button" onClick={onClickSetupCallback}>
+              Start Application
+            </button>
+          </nav>
         </div>
       </div>
       {progress ? <ProgressBar label={`Now Loading ... (${rate} %)`} rate={rate} /> : null}

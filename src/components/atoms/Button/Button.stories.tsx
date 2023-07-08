@@ -17,12 +17,12 @@ const Template: StoryObj<typeof Button> = {
 export const Primary = {
   ...Template,
   args: {
-    active : false,
-    label  : 'Start',
-    width  : 70,
-    height : 33,
-    image  : 'https://xsound.app/assets/images/button-audio.png',
-    size   : '70px 99px',
+    active: false,
+    label: 'Start',
+    width: 70,
+    height: 33,
+    image: 'https://xsound.app/assets/images/button-audio.png',
+    size: '70px 99px',
     onClick: (event: React.MouseEvent<HTMLButtonElement>) => {
       alert(`${event.type} start`);
     }
@@ -32,12 +32,12 @@ export const Primary = {
 export const Secondary = {
   ...Template,
   args: {
-    active : true,
-    label  : 'Stop',
-    width  : 70,
-    height : 33,
-    image  : 'https://xsound.app/assets/images/button-audio.png',
-    size   : '70px 99px',
+    active: true,
+    label: 'Stop',
+    width: 70,
+    height: 33,
+    image: 'https://xsound.app/assets/images/button-audio.png',
+    size: '70px 99px',
     onClick: (event: React.MouseEvent<HTMLButtonElement>) => {
       alert(`${event.type} stop`);
     }

@@ -26,7 +26,9 @@ const Template: StoryObj<typeof Modal> = {
 
     return (
       <React.Fragment>
-        <button type="button" onClick={onClick} style={{ backgroundColor: '#fff' }}>Open</button>
+        <button type="button" onClick={onClick} style={{ backgroundColor: '#fff' }}>
+          Open
+        </button>
         <Modal {...props}>
           <div>contents</div>
         </Modal>
@@ -39,8 +41,8 @@ export const Primary = {
   ...Template,
   args: {
     hasOverlay: false,
-    title     : 'without overlay',
-    asAlert   : false
+    title: 'without overlay',
+    asAlert: false
   }
 };
 
@@ -48,8 +50,8 @@ export const Secondary = {
   ...Template,
   args: {
     hasOverlay: true,
-    title     : 'with overlay',
-    asAlert   : false
+    title: 'with overlay',
+    asAlert: false
   }
 };
 
@@ -57,7 +59,7 @@ export const Tertiary = {
   ...Template,
   args: {
     hasOverlay: false,
-    title     : 'Alert',
-    asAlert   : true
+    title: 'Alert',
+    asAlert: true
   }
 };

@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const webpack              = require('webpack');
+const webpack = require('webpack');
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
-const CssMinimizerPlugin   = require('css-minimizer-webpack-plugin');
-const TerserPlugin         = require('terser-webpack-plugin');
-const path                 = require('path');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const path = require('path');
 /* eslint-enable @typescript-eslint/no-var-requires */
 
 const dirname = path.resolve('.');
@@ -17,120 +17,106 @@ const terserPlugin = new TerserPlugin({
   }
 });
 
-module.exports = [{
-  mode: 'development',
-  entry: {
-    app: [
-      './src/main.tsx',
-      './src/main.css'
-    ]
-  },
-  output: {
-    globalObject: 'this',
-    filename: '[name].js',
-    path: `${dirname}/assets`,
-    publicPath: '/assets/',
-    assetModuleFilename: 'images/[name][ext]'
-  },
-  module: {
-    rules: [
-      {
-        test: /\.(ts|tsx)$/,
-        exclude: /node_modules/,
-        use: [
-          {
-            loader: 'ts-loader',
-            options: {
-              transpileOnly: true
+module.exports = [
+  {
+    mode: 'development',
+    entry: {
+      app: ['./src/main.tsx', './src/main.css']
+    },
+    output: {
+      globalObject: 'this',
+      filename: '[name].js',
+      path: `${dirname}/assets`,
+      publicPath: '/assets/',
+      assetModuleFilename: 'images/[name][ext]'
+    },
+    module: {
+      rules: [
+        {
+          test: /\.(ts|tsx)$/,
+          exclude: /node_modules/,
+          use: [
+            {
+              loader: 'ts-loader',
+              options: {
+                transpileOnly: true
+              }
             }
-          }
-        ]
-      },
-      {
-        test: /\.css$/,
-        use: [
-          MiniCSSExtractPlugin.loader,
-          'css-loader',
-          'postcss-loader'
-        ]
-      },
-      {
-        test: /\.png$/,
-        type: 'asset/resource'
-      }
-    ]
-  },
-  resolve: {
-    extensions: ['.js', '.ts', '.tsx', '.json']
-  },
-  plugins: [
-    new webpack.LoaderOptionsPlugin({
-      options: {
-        config: {
-          path: './postcss.config.js'
+          ]
+        },
+        {
+          test: /\.css$/,
+          use: [MiniCSSExtractPlugin.loader, 'css-loader', 'postcss-loader']
+        },
+        {
+          test: /\.png$/,
+          type: 'asset/resource'
         }
-      }
-    }),
-    new MiniCSSExtractPlugin({
-      filename: 'app.css'
-    })
-  ],
-  optimization: {
-    minimize: process.env.NODE_ENV === 'production',
-    minimizer: [
-      terserPlugin,
-      new CssMinimizerPlugin()
+      ]
+    },
+    resolve: {
+      extensions: ['.js', '.ts', '.tsx', '.json']
+    },
+    plugins: [
+      new webpack.LoaderOptionsPlugin({
+        options: {
+          config: {
+            path: './postcss.config.js'
+          }
+        }
+      }),
+      new MiniCSSExtractPlugin({
+        filename: 'app.css'
+      })
     ],
-    splitChunks: {
-      chunks: 'all',
-      name: 'vendor'
+    optimization: {
+      minimize: process.env.NODE_ENV === 'production',
+      minimizer: [terserPlugin, new CssMinimizerPlugin()],
+      splitChunks: {
+        chunks: 'all',
+        name: 'vendor'
+      }
+    },
+    devtool: 'source-map',
+    devServer: {
+      static: dirname,
+      host: '0.0.0.0'
     }
   },
-  devtool: 'source-map',
-  devServer: {
-    static: dirname,
-    host: '0.0.0.0'
-  }
-},
-{
-  mode: 'development',
-  entry: {
-    register: [
-      './src/register-service-worker.ts'
-    ],
-    sw: [
-      './src/service-worker.ts'
-    ]
-  },
-  output: {
-    globalObject: 'this',
-    filename: '[name].js',
-    path: dirname,
-    publicPath: '/'
-  },
-  module: {
-    rules: [
-      {
-        test: /\.ts$/,
-        exclude: /node_modules/,
-        use: [
-          {
-            loader: 'ts-loader',
-            options: {
-              transpileOnly: true
+  {
+    mode: 'development',
+    entry: {
+      register: ['./src/register-service-worker.ts'],
+      sw: ['./src/service-worker.ts']
+    },
+    output: {
+      globalObject: 'this',
+      filename: '[name].js',
+      path: dirname,
+      publicPath: '/'
+    },
+    module: {
+      rules: [
+        {
+          test: /\.ts$/,
+          exclude: /node_modules/,
+          use: [
+            {
+              loader: 'ts-loader',
+              options: {
+                transpileOnly: true
+              }
             }
-          }
-        ]
-      }
-    ]
-  },
-  resolve: {
-    extensions: ['.js', '.ts']
-  },
-  optimization: {
-    minimize: process.env.NODE_ENV === 'production',
-    minimizer: [
-      terserPlugin
-    ]
+          ]
+        }
+      ]
+    },
+    resolve: {
+      extensions: ['.js', '.ts']
+    },
+    optimization: {
+      minimize: process.env.NODE_ENV === 'production',
+      minimizer: [terserPlugin]
+    }
   }
-}];
+];

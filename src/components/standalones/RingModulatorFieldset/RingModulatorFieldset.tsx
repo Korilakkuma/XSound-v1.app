@@ -52,32 +52,11 @@ export const RingModulatorFieldset: React.FC = () => {
     <div className="RingModulatorFieldset">
       <fieldset>
         <legend>
-          <Switch
-            label="Ring MOD."
-            checked={ringmodulator}
-            labelAsText={false}
-            onChange={onChangeStateCallback}
-          />
+          <Switch label="Ring MOD." checked={ringmodulator} labelAsText={false} onChange={onChangeStateCallback} />
         </legend>
-        <ParameterController
-          label="Depth"
-          autoupdate={false}
-          defaultValue={0}
-          min={0}
-          max={1}
-          step={0.05}
-          onChange={onChangeDepthCallback}
-        />
+        <ParameterController label="Depth" autoupdate={false} defaultValue={0} min={0} max={1} step={0.05} onChange={onChangeDepthCallback} />
         <Spacer space={8} />
-        <ParameterController
-          label="Rate"
-          autoupdate={false}
-          defaultValue={0}
-          min={0}
-          max={4000}
-          step={100}
-          onChange={onChangeRateCallback}
-        />
+        <ParameterController label="Rate" autoupdate={false} defaultValue={0} min={0} max={4000} step={100} onChange={onChangeRateCallback} />
         <Spacer space={8} />
       </fieldset>
     </div>

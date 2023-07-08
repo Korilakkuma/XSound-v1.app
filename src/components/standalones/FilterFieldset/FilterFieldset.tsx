@@ -6,7 +6,6 @@ import { Spacer } from '/src/components/atoms/Spacer';
 import { Switch } from '/src/components/atoms/Switch';
 import { ParameterController } from '/src/components/helpers/ParameterController';
 
-
 export const FilterFieldset: React.FC = () => {
   const [filter, setFilter] = useState<boolean>(false);
 
@@ -34,14 +33,14 @@ export const FilterFieldset: React.FC = () => {
     const type = event.currentTarget.value;
 
     switch (type) {
-      case 'lowpass'  :
-      case 'highpass' :
-      case 'bandpass' :
-      case 'lowshelf' :
+      case 'lowpass':
+      case 'highpass':
+      case 'bandpass':
+      case 'lowshelf':
       case 'highshelf':
-      case 'peaking'  :
-      case 'notch'    :
-      case 'allpass'  :
+      case 'peaking':
+      case 'notch':
+      case 'allpass':
         X('mixer').module('filter').param({ type });
         X('oneshot').module('filter').param({ type });
         X('audio').module('filter').param({ type });
@@ -127,108 +126,29 @@ export const FilterFieldset: React.FC = () => {
     <div className="FilterFieldset">
       <fieldset>
         <legend>
-          <Switch
-            label="Filter"
-            checked={filter}
-            labelAsText={false}
-            onChange={onChangeStateCallback}
-          />
+          <Switch label="Filter" checked={filter} labelAsText={false} onChange={onChangeStateCallback} />
         </legend>
         <Select
           label="Select Filter"
-          values={[
-            'lowpass',
-            'highpass',
-            'bandpass',
-            'lowshelf',
-            'highshelf',
-            'peaking',
-            'notch',
-            'allpass'
-          ]}
-          texts={[
-            'lowpass',
-            'highpass',
-            'bandpass',
-            'lowshelf',
-            'highshelf',
-            'peaking',
-            'notch',
-            'allpass'
-          ]}
+          values={['lowpass', 'highpass', 'bandpass', 'lowshelf', 'highshelf', 'peaking', 'notch', 'allpass']}
+          texts={['lowpass', 'highpass', 'bandpass', 'lowshelf', 'highshelf', 'peaking', 'notch', 'allpass']}
           disabled={false}
           onChange={onChangeTypeCallback}
         />
         <Spacer space={8} />
-        <ParameterController
-          label="Frequency"
-          autoupdate={false}
-          defaultValue={8000}
-          min={20}
-          max={22050}
-          step={1}
-          onChange={onChangeFrequencyCallback}
-        />
+        <ParameterController label="Frequency" autoupdate={false} defaultValue={8000} min={20} max={22050} step={1} onChange={onChangeFrequencyCallback} />
         <Spacer space={8} />
-        <ParameterController
-          label="Quality"
-          autoupdate={false}
-          defaultValue={1}
-          min={1}
-          max={20}
-          step={1}
-          onChange={onChangeQualityCallback}
-        />
+        <ParameterController label="Quality" autoupdate={false} defaultValue={1} min={1} max={20} step={1} onChange={onChangeQualityCallback} />
         <Spacer space={8} />
-        <ParameterController
-          label="Gain"
-          autoupdate={false}
-          defaultValue={0}
-          min={-18}
-          max={18}
-          step={1}
-          onChange={onChangeGainCallback}
-        />
+        <ParameterController label="Gain" autoupdate={false} defaultValue={0} min={-18} max={18} step={1} onChange={onChangeGainCallback} />
         <Spacer space={8} />
-        <ParameterController
-          label="Attack"
-          autoupdate={false}
-          defaultValue={0.01}
-          min={0}
-          max={1}
-          step={0.01}
-          onChange={onChangeAttackCallback}
-        />
+        <ParameterController label="Attack" autoupdate={false} defaultValue={0.01} min={0} max={1} step={0.01} onChange={onChangeAttackCallback} />
         <Spacer space={8} />
-        <ParameterController
-          label="Decay"
-          autoupdate={false}
-          defaultValue={0.3}
-          min={0}
-          max={1}
-          step={0.01}
-          onChange={onChangeDecayCallback}
-        />
+        <ParameterController label="Decay" autoupdate={false} defaultValue={0.3} min={0} max={1} step={0.01} onChange={onChangeDecayCallback} />
         <Spacer space={8} />
-        <ParameterController
-          label="Sustain"
-          autoupdate={false}
-          defaultValue={0.5}
-          min={0}
-          max={1}
-          step={0.01}
-          onChange={onChangeSustainCallback}
-        />
+        <ParameterController label="Sustain" autoupdate={false} defaultValue={0.5} min={0} max={1} step={0.01} onChange={onChangeSustainCallback} />
         <Spacer space={8} />
-        <ParameterController
-          label="Release"
-          autoupdate={false}
-          defaultValue={1}
-          min={0}
-          max={1}
-          step={0.01}
-          onChange={onChangeReleaseCallback}
-        />
+        <ParameterController label="Release" autoupdate={false} defaultValue={1} min={0} max={1} step={0.01} onChange={onChangeReleaseCallback} />
         <Spacer space={8} />
       </fieldset>
     </div>

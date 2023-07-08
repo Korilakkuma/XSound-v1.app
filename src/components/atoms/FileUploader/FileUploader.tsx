@@ -1,35 +1,22 @@
 import React, { useCallback, useId, useRef } from 'react';
 
 export type Props = {
-  accept: string,
-  disabled: boolean,
-  placeholder: string,
-  filename: string,
-  drag: boolean,
-  drop: boolean,
-  tabIndex?: number,
-  onChange(event: React.ChangeEvent<HTMLInputElement>): void,
-  onDragEnter(event: React.DragEvent<HTMLDivElement>): void,
-  onDragOver(event: React.DragEvent<HTMLDivElement>): void,
-  onDragLeave(event: React.DragEvent<HTMLDivElement>): void,
-  onDrop(event: React.DragEvent<HTMLDivElement>): void
+  accept: string;
+  disabled: boolean;
+  placeholder: string;
+  filename: string;
+  drag: boolean;
+  drop: boolean;
+  tabIndex?: number;
+  onChange(event: React.ChangeEvent<HTMLInputElement>): void;
+  onDragEnter(event: React.DragEvent<HTMLDivElement>): void;
+  onDragOver(event: React.DragEvent<HTMLDivElement>): void;
+  onDragLeave(event: React.DragEvent<HTMLDivElement>): void;
+  onDrop(event: React.DragEvent<HTMLDivElement>): void;
 };
 
 export const FileUploader: React.FC<Props> = (props: Props) => {
-  const {
-    accept,
-    disabled,
-    placeholder,
-    filename,
-    drag,
-    drop,
-    tabIndex,
-    onChange,
-    onDragEnter,
-    onDragOver,
-    onDragLeave,
-    onDrop
-  } = props;
+  const { accept, disabled, placeholder, filename, drag, drop, tabIndex, onChange, onDragEnter, onDragOver, onDragLeave, onDrop } = props;
 
   const fileUploaderRef = useRef<HTMLInputElement>(null);
 
@@ -54,25 +41,10 @@ export const FileUploader: React.FC<Props> = (props: Props) => {
       onDragLeave={onDragLeave}
       onDrop={onDrop}
     >
-      <button
-        type="button"
-        aria-controls={id}
-        disabled={disabled}
-        tabIndex={tabIndex}
-        onClick={onClickCallback}
-      >
+      <button type="button" aria-controls={id} disabled={disabled} tabIndex={tabIndex} onClick={onClickCallback}>
         {filename ? filename : placeholder}
       </button>
-      <input
-        type="file"
-        ref={fileUploaderRef}
-        id={id}
-        accept={accept}
-        disabled={disabled}
-        placeholder={placeholder}
-        tabIndex={-1}
-        onChange={onChange}
-      />
+      <input type="file" ref={fileUploaderRef} id={id} accept={accept} disabled={disabled} placeholder={placeholder} tabIndex={-1} onChange={onChange} />
     </div>
   );
 };

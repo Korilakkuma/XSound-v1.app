@@ -23,26 +23,34 @@ const Template: StoryObj<typeof SelectableModal> = {
     }, []);
 
     const first = {
-      label : 'first',
-      action: useCallback((event: React.MouseEvent<HTMLButtonElement | HTMLDivElement>) => {
-        alert(`${event.type} first`);
-        onClose();
-      }, [onClose])
+      label: 'first',
+      action: useCallback(
+        (event: React.MouseEvent<HTMLButtonElement | HTMLDivElement>) => {
+          alert(`${event.type} first`);
+          onClose();
+        },
+        [onClose]
+      )
     };
 
     const second = {
-      label : 'second',
-      action: useCallback((event: React.MouseEvent<HTMLButtonElement | HTMLDivElement>) => {
-        alert(`${event.type} second`);
-        onClose();
-      }, [onClose])
+      label: 'second',
+      action: useCallback(
+        (event: React.MouseEvent<HTMLButtonElement | HTMLDivElement>) => {
+          alert(`${event.type} second`);
+          onClose();
+        },
+        [onClose]
+      )
     };
 
     const props = { ...args, isShow, onClose, first, second };
 
     return (
       <React.Fragment>
-        <button type="button" onClick={onClick} style={{ backgroundColor: '#fff' }}>Open</button>
+        <button type="button" onClick={onClick} style={{ backgroundColor: '#fff' }}>
+          Open
+        </button>
         <SelectableModal {...props} />
       </React.Fragment>
     );
@@ -53,7 +61,7 @@ export const Primary = {
   ...Template,
   args: {
     hasOverlay: false,
-    title     : 'without overlay'
+    title: 'without overlay'
   }
 };
 
@@ -61,6 +69,6 @@ export const Secondary = {
   ...Template,
   args: {
     hasOverlay: true,
-    title     : 'with overlay'
+    title: 'with overlay'
   }
 };

@@ -36,7 +36,7 @@ export const Primary = {
 export const Secondary = {
   ...Template,
   args: {
-    space    : 2,
+    space: 2,
     direction: 'top'
   }
 };
@@ -44,7 +44,7 @@ export const Secondary = {
 export const Tertiary = {
   ...Template,
   args: {
-    space    : 2,
+    space: 2,
     direction: 'left'
   }
 };

@@ -8,10 +8,10 @@ describe('atoms/Switch', () => {
     const mockOnChange = jest.fn();
 
     const props = {
-      label      : 'checked',
-      checked    : false,
+      label: 'checked',
+      checked: false,
       labelAsText: false,
-      onChange   : mockOnChange
+      onChange: mockOnChange
     };
 
     render(<Switch {...props} />);
@@ -27,10 +27,10 @@ describe('atoms/Switch', () => {
     const mockOnChange = jest.fn();
 
     const props = {
-      label      : 'checked',
-      checked    : false,
+      label: 'checked',
+      checked: false,
       labelAsText: false,
-      onChange   : mockOnChange
+      onChange: mockOnChange
     };
 
     const spy = jest.spyOn(React, 'useRef').mockReturnValueOnce({ current: { click: () => {} } });
@@ -50,10 +50,10 @@ describe('atoms/Switch', () => {
     const mockOnChange = jest.fn();
 
     const props = {
-      label      : 'checked',
-      checked    : false,
+      label: 'checked',
+      checked: false,
       labelAsText: false,
-      onChange   : mockOnChange
+      onChange: mockOnChange
     };
 
     const spy = jest.spyOn(React, 'useRef').mockReturnValueOnce({ current: null });

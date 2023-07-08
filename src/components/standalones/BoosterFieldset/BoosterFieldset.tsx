@@ -12,57 +12,60 @@ export const BoosterFieldset: React.FC = () => {
   const [booster, setBooster] = useState<boolean>(false);
   const [boosterType, setBoosterType] = useState<BoosterType>('overdrive');
 
-  const onChangeStateCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    const checked = event.currentTarget.checked;
+  const onChangeStateCallback = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const checked = event.currentTarget.checked;
 
-    if (checked) {
-      switch (boosterType) {
-        case 'overdrive':
-          X('mixer').module('overdrive').activate();
-          X('oneshot').module('overdrive').activate();
-          X('audio').module('overdrive').activate();
-          X('stream').module('overdrive').activate();
-          X('noise').module('overdrive').activate();
+      if (checked) {
+        switch (boosterType) {
+          case 'overdrive':
+            X('mixer').module('overdrive').activate();
+            X('oneshot').module('overdrive').activate();
+            X('audio').module('overdrive').activate();
+            X('stream').module('overdrive').activate();
+            X('noise').module('overdrive').activate();
 
-          X('mixer').module('fuzz').deactivate();
-          X('oneshot').module('fuzz').deactivate();
-          X('audio').module('fuzz').deactivate();
-          X('stream').module('fuzz').deactivate();
-          X('noise').module('fuzz').deactivate();
+            X('mixer').module('fuzz').deactivate();
+            X('oneshot').module('fuzz').deactivate();
+            X('audio').module('fuzz').deactivate();
+            X('stream').module('fuzz').deactivate();
+            X('noise').module('fuzz').deactivate();
 
-          break;
-        case 'fuzz':
-          X('mixer').module('fuzz').activate();
-          X('oneshot').module('fuzz').activate();
-          X('audio').module('fuzz').activate();
-          X('stream').module('fuzz').activate();
-          X('noise').module('fuzz').activate();
+            break;
+          case 'fuzz':
+            X('mixer').module('fuzz').activate();
+            X('oneshot').module('fuzz').activate();
+            X('audio').module('fuzz').activate();
+            X('stream').module('fuzz').activate();
+            X('noise').module('fuzz').activate();
 
-          X('mixer').module('overdrive').deactivate();
-          X('oneshot').module('overdrive').deactivate();
-          X('audio').module('overdrive').deactivate();
-          X('stream').module('overdrive').deactivate();
-          X('noise').module('overdrive').deactivate();
-          break;
-        default:
-          break;
+            X('mixer').module('overdrive').deactivate();
+            X('oneshot').module('overdrive').deactivate();
+            X('audio').module('overdrive').deactivate();
+            X('stream').module('overdrive').deactivate();
+            X('noise').module('overdrive').deactivate();
+            break;
+          default:
+            break;
+        }
+      } else {
+        X('mixer').module('overdrive').deactivate();
+        X('oneshot').module('overdrive').deactivate();
+        X('audio').module('overdrive').deactivate();
+        X('stream').module('overdrive').deactivate();
+        X('noise').module('overdrive').deactivate();
+
+        X('mixer').module('fuzz').deactivate();
+        X('oneshot').module('fuzz').deactivate();
+        X('audio').module('fuzz').deactivate();
+        X('stream').module('fuzz').deactivate();
+        X('noise').module('fuzz').deactivate();
       }
-    } else {
-      X('mixer').module('overdrive').deactivate();
-      X('oneshot').module('overdrive').deactivate();
-      X('audio').module('overdrive').deactivate();
-      X('stream').module('overdrive').deactivate();
-      X('noise').module('overdrive').deactivate();
 
-      X('mixer').module('fuzz').deactivate();
-      X('oneshot').module('fuzz').deactivate();
-      X('audio').module('fuzz').deactivate();
-      X('stream').module('fuzz').deactivate();
-      X('noise').module('fuzz').deactivate();
-    }
-
-    setBooster(checked);
-  }, [boosterType]);
+      setBooster(checked);
+    },
+    [boosterType]
+  );
 
   const onChangeTypeCallback = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
     const type = event.currentTarget.value;
@@ -113,46 +116,13 @@ export const BoosterFieldset: React.FC = () => {
     <div className="BoosterFieldset">
       <fieldset>
         <legend>
-          <Switch
-            label="OD/DS"
-            checked={booster}
-            labelAsText={false}
-            onChange={onChangeStateCallback}
-          />
+          <Switch label="OD/DS" checked={booster} labelAsText={false} onChange={onChangeStateCallback} />
         </legend>
-        <Select
-          label="Select OD/DS"
-          values={[
-            'overdrive',
-            'fuzz'
-          ]}
-          texts={[
-            'overdrive',
-            'fuzz'
-          ]}
-          disabled={false}
-          onChange={onChangeTypeCallback}
-        />
+        <Select label="Select OD/DS" values={['overdrive', 'fuzz']} texts={['overdrive', 'fuzz']} disabled={false} onChange={onChangeTypeCallback} />
         <Spacer space={8} />
-        <ParameterController
-          label="Drive"
-          autoupdate={false}
-          defaultValue={0}
-          min={0}
-          max={1}
-          step={0.05}
-          onChange={onChangeDriveCallback}
-        />
+        <ParameterController label="Drive" autoupdate={false} defaultValue={0} min={0} max={1} step={0.05} onChange={onChangeDriveCallback} />
         <Spacer space={8} />
-        <ParameterController
-          label="Level"
-          autoupdate={false}
-          defaultValue={0}
-          min={0}
-          max={1}
-          step={0.05}
-          onChange={onChangeLevelCallback}
-        />
+        <ParameterController label="Level" autoupdate={false} defaultValue={0} min={0} max={1} step={0.05} onChange={onChangeLevelCallback} />
       </fieldset>
     </div>
   );

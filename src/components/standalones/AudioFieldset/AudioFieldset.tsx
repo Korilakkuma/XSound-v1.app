@@ -12,8 +12,8 @@ import { ParameterController } from '/src/components/helpers/ParameterController
 import type { FileEvent, FileReaderErrorText } from 'xsound';
 
 export type Props = {
-  loadedApp: boolean,
-  isDesktop: boolean
+  loadedApp: boolean;
+  isDesktop: boolean;
 };
 
 export const AudioFieldset: React.FC<Props> = (props: Props) => {
@@ -41,37 +41,40 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
     setIsShowModalForDecoding(true);
   }, []);
 
-  const onChangeFileCallback = useCallback((event: React.BaseSyntheticEvent<FileEvent>) => {
-    const file = X.file({
-      event           : event.nativeEvent,
-      type            : 'arraybuffer',
-      successCallback : (_: ProgressEvent, arraybuffer: ArrayBuffer) => {
-        event.nativeEvent.target.value = '';
+  const onChangeFileCallback = useCallback(
+    (event: React.BaseSyntheticEvent<FileEvent>) => {
+      const file = X.file({
+        event: event.nativeEvent,
+        type: 'arraybuffer',
+        successCallback: (_: ProgressEvent, arraybuffer: ArrayBuffer) => {
+          event.nativeEvent.target.value = '';
 
-        startDecodeCallback();
-        X('audio').ready(arraybuffer);
-      },
-      errorCallback   : (_: ProgressEvent, textStatus: FileReaderErrorText) => {
-        setErrorMessage(textStatus);
+          startDecodeCallback();
+          X('audio').ready(arraybuffer);
+        },
+        errorCallback: (_: ProgressEvent, textStatus: FileReaderErrorText) => {
+          setErrorMessage(textStatus);
+          setIsShowModalForFileUploadError(true);
+        },
+        progressCallback: (e: ProgressEvent) => {
+          const { lengthComputable, loaded, total } = e;
+
+          setShowProgress(lengthComputable);
+          setLoadedByte(loaded);
+          setRate(lengthComputable && total > 0 ? Math.trunc((loaded / total) * 100) : 0);
+          setIsShowModalForProgress(true);
+        }
+      });
+
+      if (file === null) {
+        setErrorMessage('Please upload file');
         setIsShowModalForFileUploadError(true);
-      },
-      progressCallback: (e: ProgressEvent) => {
-        const { lengthComputable, loaded, total } = e;
-
-        setShowProgress(lengthComputable);
-        setLoadedByte(loaded);
-        setRate(lengthComputable && (total > 0) ? Math.trunc((loaded / total) * 100) : 0);
-        setIsShowModalForProgress(true);
+      } else if (typeof file !== 'string') {
+        setFilename(file.name);
       }
-    });
-
-    if (file === null) {
-      setErrorMessage('Please upload file');
-      setIsShowModalForFileUploadError(true);
-    } else if (typeof file !== 'string') {
-      setFilename(file.name);
-    }
-  }, [startDecodeCallback]);
+    },
+    [startDecodeCallback]
+  );
 
   const onDragEnterCallback = useCallback((event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
@@ -87,38 +90,41 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
     setDrag(false);
   }, []);
 
-  const onDropCallback = useCallback((event: React.DragEvent<HTMLDivElement>) => {
-    const file = X.drop({
-      event           : event.nativeEvent,
-      type            : 'arraybuffer',
-      successCallback : (_: ProgressEvent, arraybuffer: ArrayBuffer) => {
-        startDecodeCallback();
-        X('audio').ready(arraybuffer);
-      },
-      errorCallback   : (_: ProgressEvent, textStatus: FileReaderErrorText) => {
-        setErrorMessage(textStatus);
+  const onDropCallback = useCallback(
+    (event: React.DragEvent<HTMLDivElement>) => {
+      const file = X.drop({
+        event: event.nativeEvent,
+        type: 'arraybuffer',
+        successCallback: (_: ProgressEvent, arraybuffer: ArrayBuffer) => {
+          startDecodeCallback();
+          X('audio').ready(arraybuffer);
+        },
+        errorCallback: (_: ProgressEvent, textStatus: FileReaderErrorText) => {
+          setErrorMessage(textStatus);
+          setIsShowModalForFileUploadError(true);
+        },
+        progressCallback: (e: ProgressEvent) => {
+          const { lengthComputable, loaded, total } = e;
+
+          setShowProgress(lengthComputable);
+          setLoadedByte(loaded);
+          setRate(lengthComputable && total > 0 ? Math.trunc((loaded / total) * 100) : 0);
+          setIsShowModalForProgress(true);
+        }
+      });
+
+      if (file === null) {
+        setErrorMessage('Please drop file');
         setIsShowModalForFileUploadError(true);
-      },
-      progressCallback: (e: ProgressEvent) => {
-        const { lengthComputable, loaded, total } = e;
-
-        setShowProgress(lengthComputable);
-        setLoadedByte(loaded);
-        setRate(lengthComputable && (total > 0) ? Math.trunc((loaded / total) * 100) : 0);
-        setIsShowModalForProgress(true);
+      } else if (typeof file !== 'string') {
+        setFilename(file.name);
       }
-    });
 
-    if (file === null) {
-      setErrorMessage('Please drop file');
-      setIsShowModalForFileUploadError(true);
-    } else if (typeof file !== 'string') {
-      setFilename(file.name);
-    }
-
-    setDrag(false);
-    setDrop(true);
-  }, [startDecodeCallback]);
+      setDrag(false);
+      setDrop(true);
+    },
+    [startDecodeCallback]
+  );
 
   const onClickCallback = useCallback(() => {
     if (!X('audio').has()) {
@@ -182,10 +188,10 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
   }, []);
 
   const convertedCurrenTime = useMemo(() => X.convertTime(currentTime), [currentTime]);
-  const convertedDuration   = useMemo(() => X.convertTime(duration), [duration]);
+  const convertedDuration = useMemo(() => X.convertTime(duration), [duration]);
 
   const currentTimeText = useMemo(() => `${formatAudioTime(convertedCurrenTime)}`, [convertedCurrenTime]);
-  const durationText    = useMemo(() => `${formatAudioTime(convertedDuration)}`, [convertedDuration]);
+  const durationText = useMemo(() => `${formatAudioTime(convertedDuration)}`, [convertedDuration]);
 
   useEffect(() => {
     if (!props.loadedApp || loaded) {
@@ -200,14 +206,7 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
     });
 
     setLoaded(true);
-  }, [
-    props.loadedApp,
-    loaded,
-    decodeCallback,
-    updateCallback,
-    endedCallback,
-    errorCallback
-  ]);
+  }, [props.loadedApp, loaded, decodeCallback, updateCallback, endedCallback, errorCallback]);
 
   return (
     <div className="AudioFieldset">
@@ -248,72 +247,24 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
           onChange={onChangeCurrentTimeCallback}
         />
         <Spacer space={8} />
-        {props.isDesktop
-          ? (
-            <ParameterController
-              label="Pitch Shifter"
-              autoupdate={false}
-              defaultValue={1}
-              min={0.05}
-              max={4}
-              step={0.025}
-              onChange={onChangePitchCallback}
-            />
-          )
-          : (
-            <ParameterController
-              label="Playback Rate"
-              autoupdate={false}
-              defaultValue={1}
-              min={0.05}
-              max={2}
-              step={0.025}
-              onChange={onChangePlaybackRate}
-            />
-          )}
+        {props.isDesktop ? (
+          <ParameterController label="Pitch Shifter" autoupdate={false} defaultValue={1} min={0.05} max={4} step={0.025} onChange={onChangePitchCallback} />
+        ) : (
+          <ParameterController label="Playback Rate" autoupdate={false} defaultValue={1} min={0.05} max={2} step={0.025} onChange={onChangePlaybackRate} />
+        )}
         <Spacer space={8} />
-        <ParameterController
-          label="Vocal Canceler"
-          autoupdate={false}
-          defaultValue={0}
-          min={0}
-          max={1}
-          step={0.05}
-          onChange={onChangeDepthCallback}
-        />
+        <ParameterController label="Vocal Canceler" autoupdate={false} defaultValue={0} min={0} max={1} step={0.05} onChange={onChangeDepthCallback} />
       </fieldset>
-      <Modal
-        isShow={isShowModalForFileUploadError}
-        title="Error"
-        hasOverlay={true}
-        asAlert={true}
-        onClose={onCloseModalCallback}
-      >
+      <Modal isShow={isShowModalForFileUploadError} title="Error" hasOverlay={true} asAlert={true} onClose={onCloseModalCallback}>
         {errorMessage}
       </Modal>
-      <Modal
-        isShow={isShowModalForDecodingError}
-        title="Error"
-        hasOverlay={true}
-        asAlert={true}
-        onClose={onCloseModalCallback}
-      >
+      <Modal isShow={isShowModalForDecodingError} title="Error" hasOverlay={true} asAlert={true} onClose={onCloseModalCallback}>
         {errorMessage}
       </Modal>
-      <Modal
-        isShow={isShowModalForProgress}
-        title="Progress ..."
-        hasOverlay={true}
-        asAlert={false}
-      >
+      <Modal isShow={isShowModalForProgress} title="Progress ..." hasOverlay={true} asAlert={false}>
         {showProgress ? <ProgressBar label={`${loadedByte} bytes (${rate} %)`} rate={rate} /> : null}
       </Modal>
-      <Modal
-        isShow={isShowModalForDecoding}
-        title="Decoding ..."
-        hasOverlay={true}
-        asAlert={false}
-      >
+      <Modal isShow={isShowModalForDecoding} title="Decoding ..." hasOverlay={true} asAlert={false}>
         {showProgress ? <ProgressBar /> : null}
       </Modal>
     </div>

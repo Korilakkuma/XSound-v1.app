@@ -19,14 +19,18 @@ describe('atoms/Modal', () => {
     const mockOnClose = jest.fn();
 
     const props = {
-      isShow    : true,
+      isShow: true,
       hasOverlay: true,
-      title     : 'has overlay',
-      asAlert   : false,
-      onClose   : mockOnClose
+      title: 'has overlay',
+      asAlert: false,
+      onClose: mockOnClose
     };
 
-    render(<Modal {...props}><div>Content</div></Modal>);
+    render(
+      <Modal {...props}>
+        <div>Content</div>
+      </Modal>
+    );
 
     fireEvent.click(screen.getAllByRole('button')[1]);
 
@@ -41,14 +45,18 @@ describe('atoms/Modal', () => {
     const mockOnClose = jest.fn();
 
     const props = {
-      isShow    : true,
+      isShow: true,
       hasOverlay: true,
-      title     : 'has overlay',
-      asAlert   : false,
-      onClose   : mockOnClose
+      title: 'has overlay',
+      asAlert: false,
+      onClose: mockOnClose
     };
 
-    render(<Modal {...props}><div>Content</div></Modal>);
+    render(
+      <Modal {...props}>
+        <div>Content</div>
+      </Modal>
+    );
 
     fireEvent.click(screen.getAllByRole('button')[0]);
 

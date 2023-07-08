@@ -10,18 +10,17 @@ import { ParameterController } from '/src/components/helpers/ParameterController
 import type { RootState } from '/src/types';
 import type { AnalyserParams, DragCallbackFunction, DragMode, FFTParams, TimeOverviewParams, TimeParams } from 'xsound';
 
-
 export type Props = {
-  loadedApp: boolean
+  loadedApp: boolean;
 };
 
 export const Analyser: React.FC<Props> = (props: Props) => {
   const { loadedApp } = props;
 
-  const canvasForTimeOverviewLeftRef  = useRef<HTMLCanvasElement>(null);
+  const canvasForTimeOverviewLeftRef = useRef<HTMLCanvasElement>(null);
   const canvasForTimeOverviewRightRef = useRef<HTMLCanvasElement>(null);
-  const canvasForTimeDomainRef        = useRef<HTMLCanvasElement>(null);
-  const canvasForFrequencyDomainRef   = useRef<HTMLCanvasElement>(null);
+  const canvasForTimeDomainRef = useRef<HTMLCanvasElement>(null);
+  const canvasForFrequencyDomainRef = useRef<HTMLCanvasElement>(null);
 
   const [loaded, setLoaded] = useState<boolean>(false);
   const [analyser, setAnalyser] = useState<boolean>(false);
@@ -44,7 +43,7 @@ export const Analyser: React.FC<Props> = (props: Props) => {
       X('audio').param({ loop: true });
     } else {
       const currentTime = X('audio').param('currentTime');
-      const duration    = X('audio').param('duration');
+      const duration = X('audio').param('duration');
 
       X('audio').module('analyser').domain('timeoverview', 0).param({ mode: 'update' });
       X('audio').module('analyser').domain('timeoverview', 1).param({ mode: 'update' });
@@ -58,16 +57,46 @@ export const Analyser: React.FC<Props> = (props: Props) => {
   const onChangeIntervalCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.currentTarget.valueAsNumber;
 
-    X('mixer').module('analyser').domain('time').param({ interval: (value > 0) ? value : -1 });
-    X('mixer').module('analyser').domain('fft').param({ interval: (value > 0) ? value : -1 });
-    X('oneshot').module('analyser').domain('time').param({ interval: (value > 0) ? value : -1 });
-    X('oneshot').module('analyser').domain('fft').param({ interval: (value > 0) ? value : -1 });
-    X('audio').module('analyser').domain('time').param({ interval: (value > 0) ? value : -1 });
-    X('audio').module('analyser').domain('fft').param({ interval: (value > 0) ? value : -1 });
-    X('stream').module('analyser').domain('time').param({ interval: (value > 0) ? value : -1 });
-    X('stream').module('analyser').domain('fft').param({ interval: (value > 0) ? value : -1 });
-    X('noise').module('analyser').domain('time').param({ interval: (value > 0) ? value : -1 });
-    X('noise').module('analyser').domain('fft').param({ interval: (value > 0) ? value : -1 });
+    X('mixer')
+      .module('analyser')
+      .domain('time')
+      .param({ interval: value > 0 ? value : -1 });
+    X('mixer')
+      .module('analyser')
+      .domain('fft')
+      .param({ interval: value > 0 ? value : -1 });
+    X('oneshot')
+      .module('analyser')
+      .domain('time')
+      .param({ interval: value > 0 ? value : -1 });
+    X('oneshot')
+      .module('analyser')
+      .domain('fft')
+      .param({ interval: value > 0 ? value : -1 });
+    X('audio')
+      .module('analyser')
+      .domain('time')
+      .param({ interval: value > 0 ? value : -1 });
+    X('audio')
+      .module('analyser')
+      .domain('fft')
+      .param({ interval: value > 0 ? value : -1 });
+    X('stream')
+      .module('analyser')
+      .domain('time')
+      .param({ interval: value > 0 ? value : -1 });
+    X('stream')
+      .module('analyser')
+      .domain('fft')
+      .param({ interval: value > 0 ? value : -1 });
+    X('noise')
+      .module('analyser')
+      .domain('time')
+      .param({ interval: value > 0 ? value : -1 });
+    X('noise')
+      .module('analyser')
+      .domain('fft')
+      .param({ interval: value > 0 ? value : -1 });
   }, []);
 
   const onChangeSmoothingCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
@@ -85,10 +114,12 @@ export const Analyser: React.FC<Props> = (props: Props) => {
       return;
     }
 
-    if (canvasForTimeOverviewLeftRef.current === null ||
+    if (
+      canvasForTimeOverviewLeftRef.current === null ||
       canvasForTimeOverviewRightRef.current === null ||
       canvasForTimeDomainRef.current === null ||
-      canvasForFrequencyDomainRef.current === null) {
+      canvasForFrequencyDomainRef.current === null
+    ) {
       return;
     }
 
@@ -108,45 +139,45 @@ export const Analyser: React.FC<Props> = (props: Props) => {
     }
 
     const analyserParams: AnalyserParams = {
-      fftSize              : 2048,
-      minDecibels          : -60,
-      maxDecibels          : 0,
+      fftSize: 2048,
+      minDecibels: -60,
+      maxDecibels: 0,
       smoothingTimeConstant: 0.8
     };
 
     const timeParams: TimeParams = {
       interval: -1,
-      type    : 'uint',
-      styles  : {
-        shape    : 'line',
-        grid     : 'rgba(255, 255, 255, 0.2)',
-        font     : {
+      type: 'uint',
+      styles: {
+        shape: 'line',
+        grid: 'rgba(255, 255, 255, 0.2)',
+        font: {
           family: 'Arial',
-          size  : '12px',
-          style : 'normal',
+          size: '12px',
+          style: 'normal',
           weight: 'normal'
         },
-        width : 1.5,
-        right : 15
+        width: 1.5,
+        right: 15
       }
     };
 
     const fftParams: FFTParams = {
       interval: -1,
-      type    : 'float',
-      scale   : 'logarithmic',
-      styles  : {
-        shape : 'line',
-        grid  : 'rgba(255, 255, 255, 0.2)',
-        font  : {
+      type: 'float',
+      scale: 'logarithmic',
+      styles: {
+        shape: 'line',
+        grid: 'rgba(255, 255, 255, 0.2)',
+        font: {
           family: 'Arial',
-          size  : '12px',
-          style : 'normal',
+          size: '12px',
+          style: 'normal',
           weight: 'normal'
         },
-        width : 1,
-        right : 15,
-        left  : 40
+        width: 1,
+        right: 15,
+        left: 40
       }
     };
 
@@ -154,21 +185,21 @@ export const Analyser: React.FC<Props> = (props: Props) => {
       currentTime: {
         color: 'rgba(255, 255, 255, 0.1)'
       },
-      styles     : {
-        shape      : 'rect',
-        grid       : 'rgba(255, 255, 255, 0.2)',
-        gradients  : [
+      styles: {
+        shape: 'rect',
+        grid: 'rgba(255, 255, 255, 0.2)',
+        gradients: [
           { offset: 0, color: 'rgba(0, 128, 255, 1.0)' },
           { offset: 1, color: 'rgba(0,   0, 255, 1.0)' }
         ],
-        font       : {
+        font: {
           family: 'Arial',
-          size  : '12px',
-          style : 'normal',
+          size: '12px',
+          style: 'normal',
           weight: 'normal'
         },
-        width    : 0.5,
-        right    : 15
+        width: 0.5,
+        right: 15
       }
     };
 
@@ -191,31 +222,30 @@ export const Analyser: React.FC<Props> = (props: Props) => {
     X('noise').module('analyser').domain('fft').setup(canvasForFrequencyDomainRef.current).param(fftParams);
 
     const dragCallback: DragCallbackFunction = (event: MouseEvent | TouchEvent, startTime: number, endTime: number, mode: DragMode, direction: boolean) => {
-      if ((event.type === 'mousedown') || (event.type === 'touchstart')) {
+      if (event.type === 'mousedown' || event.type === 'touchstart') {
         setShowDragTime(true);
         return;
       }
 
       const time = direction ? endTime : startTime;
 
-      if ((event.type === 'mousemove') || (event.type === 'touchmove')) {
+      if (event.type === 'mousemove' || event.type === 'touchmove') {
         const convertedStartTime = X.convertTime(startTime);
         const convertedEndTime = X.convertTime(endTime);
 
         setDragTime(`${formatAudioTime(convertedStartTime)} - ${formatAudioTime(convertedEndTime)}`);
 
-
-        if ((time >= 0) && (time <= X('audio').param('duration'))) {
+        if (time >= 0 && time <= X('audio').param('duration')) {
           X('audio').param({ currentTime: time });
         }
 
         return;
       }
 
-      if ((event.type === 'mouseup') || (event.type === 'touchend')) {
+      if (event.type === 'mouseup' || event.type === 'touchend') {
         switch (mode) {
           case 'update':
-            if ((time >= 0) && (time <= X('audio').param('duration'))) {
+            if (time >= 0 && time <= X('audio').param('duration')) {
               X('audio').module('analyser').domain('timeoverview', 0).update(time);
               X('audio').module('analyser').domain('timeoverview', 1).update(time);
               X('audio').param({ currentTime: time });
@@ -234,21 +264,9 @@ export const Analyser: React.FC<Props> = (props: Props) => {
       }
     };
 
-    X('audio')
-      .module('analyser')
-      .domain('timeoverview', 0)
-      .setup(canvasForTimeOverviewLeftRef.current)
-      .param(timeoverviewStyle)
-      .drag(dragCallback)
-      .activate();
+    X('audio').module('analyser').domain('timeoverview', 0).setup(canvasForTimeOverviewLeftRef.current).param(timeoverviewStyle).drag(dragCallback).activate();
 
-    X('audio')
-      .module('analyser')
-      .domain('timeoverview', 1)
-      .setup(canvasForTimeOverviewRightRef.current)
-      .param(timeoverviewStyle)
-      .drag(dragCallback)
-      .activate();
+    X('audio').module('analyser').domain('timeoverview', 1).setup(canvasForTimeOverviewRightRef.current).param(timeoverviewStyle).drag(dragCallback).activate();
 
     setLoaded(true);
   }, [loadedApp, loaded, active]);
@@ -270,26 +288,28 @@ export const Analyser: React.FC<Props> = (props: Props) => {
             </label>
             {showDragTime ? <span className="Analyser__dragTime">{dragTime}</span> : null}
           </dt>
-          <dd hidden={showTimeOverview === 'right'}><canvas ref={canvasForTimeOverviewLeftRef} width="1200" height="120" /></dd>
-          <dd hidden={showTimeOverview ===  'left'}><canvas ref={canvasForTimeOverviewRightRef} width="1200" height="120" /></dd>
+          <dd hidden={showTimeOverview === 'right'}>
+            <canvas ref={canvasForTimeOverviewLeftRef} width="1200" height="120" />
+          </dd>
+          <dd hidden={showTimeOverview === 'left'}>
+            <canvas ref={canvasForTimeOverviewRightRef} width="1200" height="120" />
+          </dd>
         </dl>
         <dl>
           <dt>Time Domain</dt>
-          <dd><canvas ref={canvasForTimeDomainRef} width="420" height="120" /></dd>
+          <dd>
+            <canvas ref={canvasForTimeDomainRef} width="420" height="120" />
+          </dd>
         </dl>
         <dl>
           <dt>Frequency Domain</dt>
-          <dd><canvas ref={canvasForFrequencyDomainRef} width="420" height="120" /></dd>
+          <dd>
+            <canvas ref={canvasForFrequencyDomainRef} width="420" height="120" />
+          </dd>
         </dl>
       </div>
       <div className="Analyser__controllers">
-        <Switch
-          label="Audio Sprite"
-          checked={analyser}
-          labelAsText={true}
-          tabIndex={active ? 0 : -1}
-          onChange={onChangeModeCallback}
-        />
+        <Switch label="Audio Sprite" checked={analyser} labelAsText={true} tabIndex={active ? 0 : -1} onChange={onChangeModeCallback} />
         <Spacer direction="right" space={12} />
         <ParameterController
           label="Interval"

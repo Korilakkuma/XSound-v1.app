@@ -82,62 +82,17 @@ export const CompressorFieldset: React.FC = () => {
     <div className="CompressorFieldset">
       <fieldset>
         <legend>
-          <Switch
-            label="Compressor"
-            checked={compressor}
-            labelAsText={false}
-            onChange={onChangeStateCallback}
-          />
+          <Switch label="Compressor" checked={compressor} labelAsText={false} onChange={onChangeStateCallback} />
         </legend>
-        <ParameterController
-          label="Threshold"
-          autoupdate={false}
-          defaultValue={-24}
-          min={-100}
-          max={0}
-          step={1}
-          onChange={onChangeThresholdCallback}
-        />
+        <ParameterController label="Threshold" autoupdate={false} defaultValue={-24} min={-100} max={0} step={1} onChange={onChangeThresholdCallback} />
         <Spacer space={8} />
-        <ParameterController
-          label="Knee"
-          autoupdate={false}
-          defaultValue={30}
-          min={0}
-          max={40}
-          step={1}
-          onChange={onChangeKneeCallback}
-        />
+        <ParameterController label="Knee" autoupdate={false} defaultValue={30} min={0} max={40} step={1} onChange={onChangeKneeCallback} />
         <Spacer space={8} />
-        <ParameterController
-          label="Ratio"
-          autoupdate={false}
-          defaultValue={12}
-          min={1}
-          max={20}
-          step={1}
-          onChange={onChangeRatioCallback}
-        />
+        <ParameterController label="Ratio" autoupdate={false} defaultValue={12} min={1} max={20} step={1} onChange={onChangeRatioCallback} />
         <Spacer space={8} />
-        <ParameterController
-          label="Attack"
-          autoupdate={false}
-          defaultValue={0.003}
-          min={0}
-          max={1}
-          step={0.001}
-          onChange={onChangeAttackCallback}
-        />
+        <ParameterController label="Attack" autoupdate={false} defaultValue={0.003} min={0} max={1} step={0.001} onChange={onChangeAttackCallback} />
         <Spacer space={8} />
-        <ParameterController
-          label="Release"
-          autoupdate={false}
-          defaultValue={0.25}
-          min={0.01}
-          max={1}
-          step={0.01}
-          onChange={onChangeReleaseCallback}
-        />
+        <ParameterController label="Release" autoupdate={false} defaultValue={0.25} min={0.01} max={1} step={0.01} onChange={onChangeReleaseCallback} />
         <Spacer space={8} />
       </fieldset>
     </div>

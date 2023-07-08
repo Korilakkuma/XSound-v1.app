@@ -4,15 +4,15 @@ import type { SoundSource } from '/src/types';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
 export type State = {
-  activeMIDIKeyboardIndexes: number[],
-  analyserState: boolean,
-  currentSoundSource: SoundSource,
-  downBassKeyboardIndexes: number[],
-  downMelodyKeyboardIndexes: number[],
-  mmlState: boolean,
-  oscillatorStates: [boolean, boolean],
-  upBassKeyboardIndexes: number[],
-  upMelodyKeyboardIndexes: number[]
+  activeMIDIKeyboardIndexes: number[];
+  analyserState: boolean;
+  currentSoundSource: SoundSource;
+  downBassKeyboardIndexes: number[];
+  downMelodyKeyboardIndexes: number[];
+  mmlState: boolean;
+  oscillatorStates: [boolean, boolean];
+  upBassKeyboardIndexes: number[];
+  upMelodyKeyboardIndexes: number[];
 };
 
 export const initialState: State = {

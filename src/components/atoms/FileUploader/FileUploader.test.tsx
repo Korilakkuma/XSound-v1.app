@@ -6,17 +6,17 @@ import { FileUploader } from '/src/components/atoms/FileUploader';
 describe('atoms/FileUploader', () => {
   test('click', () => {
     const props = {
-      accept     : 'audio/*',
-      disabled   : false,
+      accept: 'audio/*',
+      disabled: false,
       placeholder: 'MP3, Ogg, WAV ... etc',
-      filename   : '',
-      drag       : false,
-      drop       : true,
-      onChange   : () => {},
+      filename: '',
+      drag: false,
+      drop: true,
+      onChange: () => {},
       onDragEnter: () => {},
-      onDragOver : () => {},
+      onDragOver: () => {},
       onDragLeave: () => {},
-      onDrop     : () => {}
+      onDrop: () => {}
     };
 
     const mockOnClick = jest.fn();
@@ -32,17 +32,17 @@ describe('atoms/FileUploader', () => {
 
   test('click (file is `null`)', () => {
     const props = {
-      accept     : 'audio/*',
-      disabled   : false,
+      accept: 'audio/*',
+      disabled: false,
       placeholder: 'MP3, Ogg, WAV ... etc',
-      filename   : '',
-      drag       : false,
-      drop       : true,
-      onChange   : () => {},
+      filename: '',
+      drag: false,
+      drop: true,
+      onChange: () => {},
       onDragEnter: () => {},
-      onDragOver : () => {},
+      onDragOver: () => {},
       onDragLeave: () => {},
-      onDrop     : () => {}
+      onDrop: () => {}
     };
 
     const spy = jest.spyOn(React, 'useRef').mockReturnValueOnce({ current: null });
