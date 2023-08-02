@@ -11,7 +11,7 @@
   display: block;
 }
 
-.Analyser__canvas {
+.Analyser__svg {
   display: flex;
   -webkit-flex-direction: row;
   flex-direction: row;
@@ -21,13 +21,13 @@
   justify-content: space-between;
 }
 
-.Analyser__canvas > dl > dt {
+.Analyser__svg > dl > dt {
   font-size: 12px;
   color: var(--white);
   text-transform: uppercase;
 }
 
-.Analyser__canvas > dl > dd {
+.Analyser__svg > dl > dd {
   margin-top: 12px;
   border: 2px solid rgba(255, 255, 255, 0.05);
   box-shadow:
@@ -35,17 +35,17 @@
     0 -1px 1px 5px rgba(0, 0, 0, 0.5);
 }
 
-.Analyser__canvas > dl:first-child > dd {
+.Analyser__svg > dl:first-child > dd {
   width: 420px;
   margin-top: 8px;
   overflow-x: auto;
 }
 
-.Analyser__canvas > dl > dd > canvas {
+.Analyser__svg > dl > dd > svg {
   background-color: var(--black);
 }
 
-.Analyser__canvas > dl:first-child > dd > canvas:hover {
+.Analyser__svg > dl:first-child > dd > svg:hover {
   cursor: ew-resize;
 }
 
@@ -92,14 +92,14 @@
   padding: 24px 48px;
 }
 
-.Analyser__canvas,
+.Analyser__svg,
 .Analyser__controllers {
   max-height: 0;
   overflow: hidden;
   transition: max-height ease 0.6s;
 }
 
-.Analyser.-active .Analyser__canvas,
+.Analyser.-active .Analyser__svg,
 .Analyser.-active .Analyser__controllers {
   max-height: 100vh;
 }

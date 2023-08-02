@@ -17,10 +17,10 @@ export type Props = {
 export const Analyser: React.FC<Props> = (props: Props) => {
   const { loadedApp } = props;
 
-  const canvasForTimeOverviewLeftRef = useRef<HTMLCanvasElement>(null);
-  const canvasForTimeOverviewRightRef = useRef<HTMLCanvasElement>(null);
-  const canvasForTimeDomainRef = useRef<HTMLCanvasElement>(null);
-  const canvasForFrequencyDomainRef = useRef<HTMLCanvasElement>(null);
+  const svgForTimeOverviewLeftRef = useRef<SVGSVGElement>(null);
+  const svgForTimeOverviewRightRef = useRef<SVGSVGElement>(null);
+  const svgForTimeDomainRef = useRef<SVGSVGElement>(null);
+  const svgForFrequencyDomainRef = useRef<SVGSVGElement>(null);
 
   const [loaded, setLoaded] = useState<boolean>(false);
   const [analyser, setAnalyser] = useState<boolean>(false);
@@ -115,10 +115,10 @@ export const Analyser: React.FC<Props> = (props: Props) => {
     }
 
     if (
-      canvasForTimeOverviewLeftRef.current === null ||
-      canvasForTimeOverviewRightRef.current === null ||
-      canvasForTimeDomainRef.current === null ||
-      canvasForFrequencyDomainRef.current === null
+      svgForTimeOverviewLeftRef.current === null ||
+      svgForTimeOverviewRightRef.current === null ||
+      svgForTimeDomainRef.current === null ||
+      svgForFrequencyDomainRef.current === null
     ) {
       return;
     }
@@ -209,17 +209,17 @@ export const Analyser: React.FC<Props> = (props: Props) => {
     X('stream').module('analyser').param(analyserParams);
     X('noise').module('analyser').param(analyserParams);
 
-    X('mixer').module('analyser').domain('time').setup(canvasForTimeDomainRef.current).param(timeParams);
-    X('oneshot').module('analyser').domain('time').setup(canvasForTimeDomainRef.current).param(timeParams);
-    X('audio').module('analyser').domain('time').setup(canvasForTimeDomainRef.current).param(timeParams);
-    X('stream').module('analyser').domain('time').setup(canvasForTimeDomainRef.current).param(timeParams);
-    X('noise').module('analyser').domain('time').setup(canvasForTimeDomainRef.current).param(timeParams);
+    X('mixer').module('analyser').domain('time').setup(svgForTimeDomainRef.current).param(timeParams);
+    X('oneshot').module('analyser').domain('time').setup(svgForTimeDomainRef.current).param(timeParams);
+    X('audio').module('analyser').domain('time').setup(svgForTimeDomainRef.current).param(timeParams);
+    X('stream').module('analyser').domain('time').setup(svgForTimeDomainRef.current).param(timeParams);
+    X('noise').module('analyser').domain('time').setup(svgForTimeDomainRef.current).param(timeParams);
 
-    X('mixer').module('analyser').domain('fft').setup(canvasForFrequencyDomainRef.current).param(fftParams);
-    X('oneshot').module('analyser').domain('fft').setup(canvasForFrequencyDomainRef.current).param(fftParams);
-    X('audio').module('analyser').domain('fft').setup(canvasForFrequencyDomainRef.current).param(fftParams);
-    X('stream').module('analyser').domain('fft').setup(canvasForFrequencyDomainRef.current).param(fftParams);
-    X('noise').module('analyser').domain('fft').setup(canvasForFrequencyDomainRef.current).param(fftParams);
+    X('mixer').module('analyser').domain('fft').setup(svgForFrequencyDomainRef.current).param(fftParams);
+    X('oneshot').module('analyser').domain('fft').setup(svgForFrequencyDomainRef.current).param(fftParams);
+    X('audio').module('analyser').domain('fft').setup(svgForFrequencyDomainRef.current).param(fftParams);
+    X('stream').module('analyser').domain('fft').setup(svgForFrequencyDomainRef.current).param(fftParams);
+    X('noise').module('analyser').domain('fft').setup(svgForFrequencyDomainRef.current).param(fftParams);
 
     const dragCallback: DragCallbackFunction = (event: MouseEvent | TouchEvent, startTime: number, endTime: number, mode: DragMode, direction: boolean) => {
       if (event.type === 'mousedown' || event.type === 'touchstart') {
@@ -264,16 +264,16 @@ export const Analyser: React.FC<Props> = (props: Props) => {
       }
     };
 
-    X('audio').module('analyser').domain('timeoverview', 0).setup(canvasForTimeOverviewLeftRef.current).param(timeoverviewStyle).drag(dragCallback).activate();
+    X('audio').module('analyser').domain('timeoverview', 0).setup(svgForTimeOverviewLeftRef.current).param(timeoverviewStyle).drag(dragCallback).activate();
 
-    X('audio').module('analyser').domain('timeoverview', 1).setup(canvasForTimeOverviewRightRef.current).param(timeoverviewStyle).drag(dragCallback).activate();
+    X('audio').module('analyser').domain('timeoverview', 1).setup(svgForTimeOverviewRightRef.current).param(timeoverviewStyle).drag(dragCallback).activate();
 
     setLoaded(true);
   }, [loadedApp, loaded, active]);
 
   return (
     <div id="analyser-fieldset" aria-hidden={!active} className={`Analyser${active ? ' -active' : ''}`}>
-      <div className="Analyser__canvas">
+      <div className="Analyser__svg">
         <dl>
           <dt>
             <label>
@@ -289,22 +289,22 @@ export const Analyser: React.FC<Props> = (props: Props) => {
             {showDragTime ? <span className="Analyser__dragTime">{dragTime}</span> : null}
           </dt>
           <dd hidden={showTimeOverview === 'right'}>
-            <canvas ref={canvasForTimeOverviewLeftRef} width="1200" height="120" />
+            <svg ref={svgForTimeOverviewLeftRef} width="1200" height="120" />
           </dd>
           <dd hidden={showTimeOverview === 'left'}>
-            <canvas ref={canvasForTimeOverviewRightRef} width="1200" height="120" />
+            <svg ref={svgForTimeOverviewRightRef} width="1200" height="120" />
           </dd>
         </dl>
         <dl>
           <dt>Time Domain</dt>
           <dd>
-            <canvas ref={canvasForTimeDomainRef} width="420" height="120" />
+            <svg ref={svgForTimeDomainRef} width="420" height="120" />
           </dd>
         </dl>
         <dl>
           <dt>Frequency Domain</dt>
           <dd>
-            <canvas ref={canvasForFrequencyDomainRef} width="420" height="120" />
+            <svg ref={svgForFrequencyDomainRef} width="420" height="120" />
           </dd>
         </dl>
       </div>
