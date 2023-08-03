@@ -1,0 +1,7 @@
+.Canvas {
+  background-color: var(--black);
+}
+
+.Canvas.-hover:hover {
+  cursor: ew-resize;
+}
