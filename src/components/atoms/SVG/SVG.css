@@ -1,0 +1,7 @@
+.SVG {
+  background-color: var(--black);
+}
+
+.SVG.-hover:hover {
+  cursor: ew-resize;
+}
