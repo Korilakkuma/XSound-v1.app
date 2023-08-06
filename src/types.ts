@@ -11,6 +11,8 @@ export type RootState = ReturnType<typeof store.getState>;
 
 export type SoundSource = 'oscillator' | 'piano' | 'guitar' | 'electric-guitar' | 'whitenoise' | 'pinknoise' | 'browniannoise' | 'stream' | 'midi';
 
+export type VisualizerType = 'bitmap' | 'vector';
+
 export type RIRDescriptor = {
   url: string;
   value: number;
