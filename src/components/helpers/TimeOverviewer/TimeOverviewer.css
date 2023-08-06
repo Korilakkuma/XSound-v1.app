@@ -1,0 +1,43 @@
+.TimeOverviewer > dt {
+  font-size: 12px;
+  color: var(--white);
+  text-transform: uppercase;
+}
+
+.TimeOverviewer > dd {
+  width: 420px;
+  margin-top: 8px;
+  overflow-x: auto;
+  border: 2px solid rgba(255, 255, 255, 0.05);
+  box-shadow:
+    0 0 0 2px var(--black),
+    0 -1px 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+.TimeOverviewer__channelSelector {
+  display: inline-block;
+  width: 50px;
+  height: 22px;
+  margin-right: 4px;
+  margin-bottom: 2px;
+  vertical-align: middle;
+
+  /* CSS Sprite */
+  background-image: url("/assets/images/flip-switch-channel.png");
+  background-repeat: no-repeat;
+
+  /* for Retina Display */
+  background-size: 50px 44px;
+}
+
+.TimeOverviewer__channelSelector.-left {
+  background-position: left top;
+}
+
+.TimeOverviewer__channelSelector.-right {
+  background-position: left bottom;
+}
+
+.TimeOverviewer__dragTime {
+  margin-left: 12px;
+}
