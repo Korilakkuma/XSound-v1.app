@@ -1,4 +1,5 @@
 export const BASE_URL = '/assets';
+export const SESSION_STORAGE_KEY = 'xsound.app-config';
 export const NUMBER_OF_ONESHOTS = 88;
 export const NUMBER_OF_PIANO_KEYBOARDS = 88;
 export const NUMBER_OF_CHANNELS = 2;
