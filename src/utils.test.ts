@@ -1,4 +1,6 @@
-import { createFilename, formatAudioTime } from '/src/utils';
+import type { CustomizedParameters } from './types';
+
+import { createFilename, formatAudioTime, getStorage, setStorage, removeStorage } from '/src/utils';
 
 describe(`utils/${formatAudioTime.name}`, () => {
   test('1 digits', () => {
@@ -43,5 +45,48 @@ describe(`utils/${createFilename.name}`, () => {
     const expected = 'prefix-19701231235959.wav';
 
     expect(actual).toBe(expected);
+  });
+});
+
+describe(`utils/${getStorage.name}, utils/${setStorage.name}`, () => {
+  beforeAll(() => {
+    let storage: { [key: string]: string } = {};
+
+    const WebStorageMock = {
+      getItem: (key: string) => {
+        return storage[key] || null;
+      },
+      setItem: (key: string, value: string): void => {
+        storage[key] = value;
+      },
+      removeItem: (key: string): void => {
+        storage[key] = '';
+      },
+      clear: (): void => {
+        storage = {};
+      }
+    };
+
+    Object.defineProperty(window, 'sessionStorage', {
+      value: WebStorageMock
+    });
+  });
+
+  test('should set parameters', () => {
+    const params: CustomizedParameters = {
+      analyser: {
+        visualizer: 'bitmap'
+      }
+    };
+
+    expect(getStorage()).toStrictEqual({});
+
+    setStorage(params);
+
+    expect(getStorage()).toStrictEqual(params);
+
+    removeStorage();
+
+    expect(getStorage()).toStrictEqual({});
   });
 });
