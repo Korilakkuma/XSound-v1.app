@@ -13,6 +13,12 @@ export type SoundSource = 'oscillator' | 'piano' | 'guitar' | 'electric-guitar' 
 
 export type VisualizerType = 'bitmap' | 'vector';
 
+export type CustomizedParameters = {
+  analyser?: {
+    visualizer: VisualizerType;
+  };
+};
+
 export type RIRDescriptor = {
   url: string;
   value: number;
