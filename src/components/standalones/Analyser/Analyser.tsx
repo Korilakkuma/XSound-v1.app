@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { X } from 'xsound';
 
@@ -8,8 +8,9 @@ import { ParameterController } from '/src/components/helpers/ParameterController
 import { TimeOverviewer } from '/src/components/helpers/TimeOverviewer';
 import { TimeAnalyser } from '/src/components/helpers/TimeAnalyser';
 import { SpectrumAnalyser } from '/src/components/helpers/SpectrumAnalyser';
+import { getStorage } from '/src/utils';
 
-import type { RootState } from '/src/types';
+import type { CustomizedParameters, RootState, VisualizerType } from '/src/types';
 import type { AnalyserParams } from 'xsound';
 
 export type Props = {
@@ -23,6 +24,14 @@ export const Analyser: React.FC<Props> = (props: Props) => {
   const [analyser, setAnalyser] = useState<boolean>(false);
 
   const active = useSelector((state: RootState) => state.analyserState);
+
+  const storage: CustomizedParameters = useMemo(() => {
+    return getStorage();
+  }, []);
+
+  const type: VisualizerType = useMemo(() => {
+    return storage.analyser?.visualizer || 'vector';
+  }, [storage]);
 
   const onChangeModeCallback = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     const checked = event.currentTarget.checked;
@@ -138,9 +147,9 @@ export const Analyser: React.FC<Props> = (props: Props) => {
   return (
     <div id="analyser-fieldset" aria-hidden={!active} className={`Analyser${active ? ' -active' : ''}`}>
       <div className="Analyser__viewer">
-        <TimeOverviewer loadedApp={loadedApp} active={active} type="vector" />
-        <TimeAnalyser loadedApp={loadedApp} type="vector" />
-        <SpectrumAnalyser loadedApp={loadedApp} type="vector" />
+        <TimeOverviewer loadedApp={loadedApp} active={active} type={type} />
+        <TimeAnalyser loadedApp={loadedApp} type={type} />
+        <SpectrumAnalyser loadedApp={loadedApp} type={type} />
       </div>
       <div className="Analyser__controllers">
         <Switch label="Audio Sprite" checked={analyser} labelAsText={true} tabIndex={active ? 0 : -1} onChange={onChangeModeCallback} />

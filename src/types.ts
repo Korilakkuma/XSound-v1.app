@@ -1,5 +1,5 @@
 import type { store } from '/src/store';
-import type { X } from 'xsound';
+import type { X, RecordType, QuantizationBit, WaveExportType } from 'xsound';
 
 declare global {
   interface Window {
@@ -16,6 +16,11 @@ export type VisualizerType = 'bitmap' | 'vector';
 export type CustomizedParameters = {
   analyser?: {
     visualizer: VisualizerType;
+  };
+  recorder?: {
+    channel: RecordType;
+    bit: QuantizationBit;
+    type: Pick<WaveExportType, 'dataURL' | 'objectURL'>;
   };
 };
 
