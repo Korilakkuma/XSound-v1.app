@@ -1,7 +1,13 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+
+import type { RecordType, QuantizationBit, WaveExportType } from 'xsound';
+
 import { X } from 'xsound';
 
-import { createFilename } from '/src/utils';
+import { createFilename, getStorage } from '/src/utils';
+
+import type { CustomizedParameters } from '/src/types';
+
 import { Select } from '/src/components/atoms/Select';
 import { Spacer } from '/src/components/atoms/Spacer';
 import { ParameterController } from '/src/components/helpers/ParameterController';
@@ -10,10 +16,6 @@ import { SelectableModal } from '/src/components/helpers/SelectableModal';
 export type Props = {
   loadedApp: boolean;
 };
-
-const CHANNEL = 2; // Stereo
-const BIT = 16; // 16 bit
-const TYPE = 'objectURL';
 
 export const RecorderFieldset: React.FC<Props> = (props: Props) => {
   const { loadedApp } = props;
@@ -24,6 +26,22 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
   const [creating, setCreating] = useState<boolean>(false);
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
   const [hasRecordedData, sethasRecordedData] = useState<boolean>(false);
+
+  const storage: CustomizedParameters = useMemo(() => {
+    return getStorage();
+  }, []);
+
+  const channel: RecordType = useMemo(() => {
+    return storage.recorder?.channel || 2;
+  }, [storage]);
+
+  const bit: QuantizationBit = useMemo(() => {
+    return storage.recorder?.bit || 16;
+  }, [storage]);
+
+  const type: WaveExportType = useMemo(() => {
+    return storage.recorder?.type || 'objectURL';
+  }, [storage]);
 
   const onClickRecordButtonCallback = useCallback(() => {
     if (
@@ -74,7 +92,7 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
     if (X('mixer').module('recorder').has(-1, -1)) {
       setCreating(true);
 
-      const url = X('mixer').module('recorder').create(-1, CHANNEL, BIT, TYPE);
+      const url = X('mixer').module('recorder').create(-1, channel, bit, type);
 
       if (typeof url === 'string') {
         const audio = new Audio(url);
@@ -94,7 +112,7 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
     if (X('oneshot').module('recorder').has(-1, -1)) {
       setCreating(true);
 
-      const url = X('oneshot').module('recorder').create(-1, CHANNEL, BIT, TYPE);
+      const url = X('oneshot').module('recorder').create(-1, channel, bit, type);
 
       if (typeof url === 'string') {
         const audio = new Audio(url);
@@ -114,7 +132,7 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
     if (X('audio').module('recorder').has(-1, -1)) {
       setCreating(true);
 
-      const url = X('audio').module('recorder').create(-1, CHANNEL, BIT, TYPE);
+      const url = X('audio').module('recorder').create(-1, channel, bit, type);
 
       if (typeof url === 'string') {
         const audio = new Audio(url);
@@ -134,7 +152,7 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
     if (X('stream').module('recorder').has(-1, -1)) {
       setCreating(true);
 
-      const url = X('stream').module('recorder').create(-1, CHANNEL, BIT, TYPE);
+      const url = X('stream').module('recorder').create(-1, channel, bit, type);
 
       if (typeof url === 'string') {
         const audio = new Audio(url);
@@ -154,7 +172,7 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
     if (X('noise').module('recorder').has(-1, -1)) {
       setCreating(true);
 
-      const url = X('noise').module('recorder').create(-1, CHANNEL, BIT, TYPE);
+      const url = X('noise').module('recorder').create(-1, channel, bit, type);
 
       if (typeof url === 'string') {
         const audio = new Audio(url);
@@ -170,7 +188,7 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
 
       setCreating(false);
     }
-  }, []);
+  }, [channel, bit, type]);
 
   const onClickDownloadButtonCallback = useCallback(
     (event: React.MouseEvent<HTMLAnchorElement>) => {
