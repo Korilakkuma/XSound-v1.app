@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { X } from 'xsound';
 
-import { formatAudioTime } from '/src/utils';
+import { formatAudioTime, getStorage } from '/src/utils';
 import { Button } from '/src/components/atoms/Button';
 import { FileUploader } from '/src/components/atoms/FileUploader';
 import { Modal } from '/src/components/atoms/Modal';
@@ -13,7 +13,6 @@ import type { FileEvent, FileReaderErrorText } from 'xsound';
 
 export type Props = {
   loadedApp: boolean;
-  isDesktop: boolean;
 };
 
 export const AudioFieldset: React.FC<Props> = (props: Props) => {
@@ -32,6 +31,14 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
   const [isShowModalForDecodingError, setIsShowModalForDecodingError] = useState<boolean>(false);
   const [isShowModalForProgress, setIsShowModalForProgress] = useState<boolean>(false);
   const [isShowModalForDecoding, setIsShowModalForDecoding] = useState<boolean>(false);
+
+  const storage = useMemo(() => {
+    return getStorage();
+  }, []);
+
+  const usePlaybackRate = useMemo(() => {
+    return storage.audio?.playbackRate === true;
+  }, [storage]);
 
   const startDecodeCallback = useCallback(() => {
     setShowProgress(true);
@@ -247,10 +254,10 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
           onChange={onChangeCurrentTimeCallback}
         />
         <Spacer space={8} />
-        {props.isDesktop ? (
-          <ParameterController label="Pitch Shifter" autoupdate={false} defaultValue={1} min={0.05} max={4} step={0.025} onChange={onChangePitchCallback} />
-        ) : (
+        {usePlaybackRate ? (
           <ParameterController label="Playback Rate" autoupdate={false} defaultValue={1} min={0.05} max={2} step={0.025} onChange={onChangePlaybackRate} />
+        ) : (
+          <ParameterController label="Pitch Shifter" autoupdate={false} defaultValue={1} min={0.05} max={4} step={0.025} onChange={onChangePitchCallback} />
         )}
         <Spacer space={8} />
         <ParameterController label="Vocal Canceler" autoupdate={false} defaultValue={0} min={0} max={1} step={0.05} onChange={onChangeDepthCallback} />
