@@ -22,6 +22,9 @@ export type CustomizedParameters = {
     bit: QuantizationBit;
     type: Pick<WaveExportType, 'dataURL' | 'objectURL'>;
   };
+  audio?: {
+    playbackRate: boolean;
+  };
 };
 
 export type RIRDescriptor = {
