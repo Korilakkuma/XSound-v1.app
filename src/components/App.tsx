@@ -30,7 +30,8 @@ import { RingModulatorFieldset } from '/src/components/standalones/RingModulator
 import { TremoloFieldset } from '/src/components/standalones/TremoloFieldset';
 import { WahFieldset } from '/src/components/standalones/WahFieldset';
 
-import type { RootState, RIRDescriptor } from '/src/types';
+import type { RootState } from '/src/store';
+import type { RIRDescriptor } from '/src/types';
 import type { OneshotSetting, OneshotSettings, PreampParams } from 'xsound';
 
 export const App: React.FC = () => {

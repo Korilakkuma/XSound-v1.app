@@ -8,7 +8,7 @@ import { Switch } from '/src/components/atoms/Switch';
 import { OscillatorSelector } from '/src/components/helpers/OscillatorSelector';
 import { ParameterController } from '/src/components/helpers/ParameterController';
 
-import type { RootState } from '/src/types';
+import type { RootState } from '/src/store';
 
 export type Props = {
   oscillatorNumber: number;

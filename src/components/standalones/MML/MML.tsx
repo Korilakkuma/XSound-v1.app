@@ -13,7 +13,8 @@ import { Spacer } from '/src/components/atoms/Spacer';
 import { Switch } from '/src/components/atoms/Switch';
 import { SelectableModal } from '/src/components/helpers/SelectableModal';
 
-import type { RootState, MMLDescriptor, SoundSource } from '/src/types';
+import type { RootState } from '/src/store';
+import type { MMLDescriptor, SoundSource } from '/src/types';
 import type { FileEvent, FileReaderErrorText, MMLSyntaxError, Sequence } from 'xsound';
 
 export type Props = {

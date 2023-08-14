@@ -10,7 +10,8 @@ import { TimeAnalyser } from '/src/components/helpers/TimeAnalyser';
 import { SpectrumAnalyser } from '/src/components/helpers/SpectrumAnalyser';
 import { getStorage } from '/src/utils';
 
-import type { CustomizedParameters, RootState, VisualizerType } from '/src/types';
+import type { RootState } from '/src/store';
+import type { CustomizedParameters, VisualizerType } from '/src/types';
 import type { AnalyserParams } from 'xsound';
 
 export type Props = {

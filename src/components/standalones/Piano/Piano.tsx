@@ -4,7 +4,8 @@ import { X } from 'xsound';
 
 import { NUMBER_OF_PIANO_KEYBOARDS } from '/src/config';
 
-import type { RootState, SoundSource } from '/src/types';
+import type { RootState } from '/src/store';
+import type { SoundSource } from '/src/types';
 
 export type Props = {
   loadedApp: boolean;

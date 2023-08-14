@@ -1,4 +1,3 @@
-import type { store } from '/src/store';
 import type { X, RecordType, QuantizationBit, WaveExportType } from 'xsound';
 
 declare global {
@@ -6,8 +5,6 @@ declare global {
     clonedXSound: ReturnType<typeof X.clone>;
   }
 }
-
-export type RootState = ReturnType<typeof store.getState>;
 
 export type SoundSource = 'oscillator' | 'piano' | 'guitar' | 'electric-guitar' | 'whitenoise' | 'pinknoise' | 'browniannoise' | 'stream' | 'midi';
 
