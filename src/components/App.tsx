@@ -343,7 +343,7 @@ export const App: React.FC = () => {
     }
 
     if (isSharp) {
-      rate *= Math.pow(2, 1 / 12);
+      rate *= X.FREQUENCY_RATIO;
     }
 
     return rate;
@@ -354,256 +354,256 @@ export const App: React.FC = () => {
 
     switch (guitarIndex - NUMBER_OF_ONESHOTS) {
       case 0:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -39);
+        rate = 1 * X.FREQUENCY_RATIO ** -39;
         break;
       case 1:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -38);
+        rate = 1 * X.FREQUENCY_RATIO ** -38;
         break;
       case 2:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -37);
+        rate = 1 * X.FREQUENCY_RATIO ** -37;
         break;
       case 3:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -36);
+        rate = 1 * X.FREQUENCY_RATIO ** -36;
         break;
       case 4:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -35);
+        rate = 1 * X.FREQUENCY_RATIO ** -35;
         break;
       case 5:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -34);
+        rate = 1 * X.FREQUENCY_RATIO ** -34;
         break;
       case 6:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -33);
+        rate = 1 * X.FREQUENCY_RATIO ** -33;
         break;
       case 7:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -32);
+        rate = 1 * X.FREQUENCY_RATIO ** -32;
         break;
       case 8:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -31);
+        rate = 1 * X.FREQUENCY_RATIO ** -31;
         break;
       case 9:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -30);
+        rate = 1 * X.FREQUENCY_RATIO ** -30;
         break;
       case 10:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -29);
+        rate = 1 * X.FREQUENCY_RATIO ** -29;
         break;
       case 11:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -28);
+        rate = 1 * X.FREQUENCY_RATIO ** -28;
         break;
       case 12:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -27);
+        rate = 1 * X.FREQUENCY_RATIO ** -27;
         break;
       case 13:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -26);
+        rate = 1 * X.FREQUENCY_RATIO ** -26;
         break;
       case 14:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -25);
+        rate = 1 * X.FREQUENCY_RATIO ** -25;
         break;
       case 15:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -24);
+        rate = 1 * X.FREQUENCY_RATIO ** -24;
         break;
       case 16:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -23);
+        rate = 1 * X.FREQUENCY_RATIO ** -23;
         break;
       case 17:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -22);
+        rate = 1 * X.FREQUENCY_RATIO ** -22;
         break;
       case 18:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -21);
+        rate = 1 * X.FREQUENCY_RATIO ** -21;
         break;
       case 19:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -20);
+        rate = 1 * X.FREQUENCY_RATIO ** -20;
         break;
       case 20:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -19);
+        rate = 1 * X.FREQUENCY_RATIO ** -19;
         break;
       case 21:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -18);
+        rate = 1 * X.FREQUENCY_RATIO ** -18;
         break;
       case 22:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -17);
+        rate = 1 * X.FREQUENCY_RATIO ** -17;
         break;
       case 23:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -16);
+        rate = 1 * X.FREQUENCY_RATIO ** -16;
         break;
       case 24:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -15);
+        rate = 1 * X.FREQUENCY_RATIO ** -15;
         break;
       case 25:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -14);
+        rate = 1 * X.FREQUENCY_RATIO ** -14;
         break;
       case 26:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -13);
+        rate = 1 * X.FREQUENCY_RATIO ** -13;
         break;
       case 27:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -12);
+        rate = 1 * X.FREQUENCY_RATIO ** -12;
         break;
       case 28:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -11);
+        rate = 1 * X.FREQUENCY_RATIO ** -11;
         break;
       case 29:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -10);
+        rate = 1 * X.FREQUENCY_RATIO ** -10;
         break;
       case 30:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -9);
+        rate = 1 * X.FREQUENCY_RATIO ** -9;
         break;
       case 31:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -8);
+        rate = 1 * X.FREQUENCY_RATIO ** -8;
         break;
       case 32:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -7);
+        rate = 1 * X.FREQUENCY_RATIO ** -7;
         break;
       case 33:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -6);
+        rate = 1 * X.FREQUENCY_RATIO ** -6;
         break;
       case 34:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -5);
+        rate = 1 * X.FREQUENCY_RATIO ** -5;
         break;
       case 35:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -4);
+        rate = 1 * X.FREQUENCY_RATIO ** -4;
         break;
       case 36:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -3);
+        rate = 1 * X.FREQUENCY_RATIO ** -3;
         break;
       case 37:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -2);
+        rate = 1 * X.FREQUENCY_RATIO ** -2;
         break;
       case 38:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -1);
+        rate = 1 * X.FREQUENCY_RATIO ** -1;
         break;
       case 39:
         rate = 1;
         break;
       case 40:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 1);
+        rate = 1 * X.FREQUENCY_RATIO ** 1;
         break;
       case 41:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 2);
+        rate = 1 * X.FREQUENCY_RATIO ** 2;
         break;
       case 42:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 3);
+        rate = 1 * X.FREQUENCY_RATIO ** 3;
         break;
       case 43:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 4);
+        rate = 1 * X.FREQUENCY_RATIO ** 4;
         break;
       case 44:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 5);
+        rate = 1 * X.FREQUENCY_RATIO ** 5;
         break;
       case 45:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 6);
+        rate = 1 * X.FREQUENCY_RATIO ** 6;
         break;
       case 46:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 7);
+        rate = 1 * X.FREQUENCY_RATIO ** 7;
         break;
       case 47:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 8);
+        rate = 1 * X.FREQUENCY_RATIO ** 8;
         break;
       case 48:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 9);
+        rate = 1 * X.FREQUENCY_RATIO ** 9;
         break;
       case 49:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 10);
+        rate = 1 * X.FREQUENCY_RATIO ** 10;
         break;
       case 50:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 11);
+        rate = 1 * X.FREQUENCY_RATIO ** 11;
         break;
       case 51:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 12);
+        rate = 1 * X.FREQUENCY_RATIO ** 12;
         break;
       case 52:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 13);
+        rate = 1 * X.FREQUENCY_RATIO ** 13;
         break;
       case 53:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 14);
+        rate = 1 * X.FREQUENCY_RATIO ** 14;
         break;
       case 54:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 15);
+        rate = 1 * X.FREQUENCY_RATIO ** 15;
         break;
       case 55:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 16);
+        rate = 1 * X.FREQUENCY_RATIO ** 16;
         break;
       case 56:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 17);
+        rate = 1 * X.FREQUENCY_RATIO ** 17;
         break;
       case 57:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 18);
+        rate = 1 * X.FREQUENCY_RATIO ** 18;
         break;
       case 58:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 19);
+        rate = 1 * X.FREQUENCY_RATIO ** 19;
         break;
       case 59:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 20);
+        rate = 1 * X.FREQUENCY_RATIO ** 20;
         break;
       case 60:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 21);
+        rate = 1 * X.FREQUENCY_RATIO ** 21;
         break;
       case 61:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 22);
+        rate = 1 * X.FREQUENCY_RATIO ** 22;
         break;
       case 62:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 23);
+        rate = 1 * X.FREQUENCY_RATIO ** 23;
         break;
       case 63:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 24);
+        rate = 1 * X.FREQUENCY_RATIO ** 24;
         break;
       case 64:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 25);
+        rate = 1 * X.FREQUENCY_RATIO ** 25;
         break;
       case 65:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 26);
+        rate = 1 * X.FREQUENCY_RATIO ** 26;
         break;
       case 66:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 27);
+        rate = 1 * X.FREQUENCY_RATIO ** 27;
         break;
       case 67:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 28);
+        rate = 1 * X.FREQUENCY_RATIO ** 28;
         break;
       case 68:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 29);
+        rate = 1 * X.FREQUENCY_RATIO ** 29;
         break;
       case 69:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 30);
+        rate = 1 * X.FREQUENCY_RATIO ** 30;
         break;
       case 70:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 31);
+        rate = 1 * X.FREQUENCY_RATIO ** 31;
         break;
       case 71:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 33);
+        rate = 1 * X.FREQUENCY_RATIO ** 33;
         break;
       case 77:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 34);
+        rate = 1 * X.FREQUENCY_RATIO ** 34;
         break;
       case 78:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 35);
+        rate = 1 * X.FREQUENCY_RATIO ** 35;
         break;
       case 79:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 36);
+        rate = 1 * X.FREQUENCY_RATIO ** 36;
         break;
       case 80:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 37);
+        rate = 1 * X.FREQUENCY_RATIO ** 37;
         break;
       case 81:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 38);
+        rate = 1 * X.FREQUENCY_RATIO ** 38;
         break;
       case 82:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 39);
+        rate = 1 * X.FREQUENCY_RATIO ** 39;
         break;
       case 83:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 40);
+        rate = 1 * X.FREQUENCY_RATIO ** 40;
         break;
       case 84:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 41);
+        rate = 1 * X.FREQUENCY_RATIO ** 41;
         break;
       case 85:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 42);
+        rate = 1 * X.FREQUENCY_RATIO ** 42;
         break;
       case 86:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 43);
+        rate = 1 * X.FREQUENCY_RATIO ** 43;
         break;
       case 87:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 44);
+        rate = 1 * X.FREQUENCY_RATIO ** 44;
         break;
       case 88:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 45);
+        rate = 1 * X.FREQUENCY_RATIO ** 45;
         break;
     }
 
@@ -615,256 +615,256 @@ export const App: React.FC = () => {
 
     switch (guitarIndex - NUMBER_OF_ONESHOTS - NUMBER_OF_ONESHOTS) {
       case 0:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -39);
+        rate = 1 * X.FREQUENCY_RATIO ** -39;
         break;
       case 1:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -38);
+        rate = 1 * X.FREQUENCY_RATIO ** -38;
         break;
       case 2:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -37);
+        rate = 1 * X.FREQUENCY_RATIO ** -37;
         break;
       case 3:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -36);
+        rate = 1 * X.FREQUENCY_RATIO ** -36;
         break;
       case 4:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -35);
+        rate = 1 * X.FREQUENCY_RATIO ** -35;
         break;
       case 5:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -34);
+        rate = 1 * X.FREQUENCY_RATIO ** -34;
         break;
       case 6:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -33);
+        rate = 1 * X.FREQUENCY_RATIO ** -33;
         break;
       case 7:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -32);
+        rate = 1 * X.FREQUENCY_RATIO ** -32;
         break;
       case 8:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -31);
+        rate = 1 * X.FREQUENCY_RATIO ** -31;
         break;
       case 9:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -30);
+        rate = 1 * X.FREQUENCY_RATIO ** -30;
         break;
       case 10:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -29);
+        rate = 1 * X.FREQUENCY_RATIO ** -29;
         break;
       case 11:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -28);
+        rate = 1 * X.FREQUENCY_RATIO ** -28;
         break;
       case 12:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -27);
+        rate = 1 * X.FREQUENCY_RATIO ** -27;
         break;
       case 13:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -26);
+        rate = 1 * X.FREQUENCY_RATIO ** -26;
         break;
       case 14:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -25);
+        rate = 1 * X.FREQUENCY_RATIO ** -25;
         break;
       case 15:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -24);
+        rate = 1 * X.FREQUENCY_RATIO ** -24;
         break;
       case 16:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -23);
+        rate = 1 * X.FREQUENCY_RATIO ** -23;
         break;
       case 17:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -22);
+        rate = 1 * X.FREQUENCY_RATIO ** -22;
         break;
       case 18:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -21);
+        rate = 1 * X.FREQUENCY_RATIO ** -21;
         break;
       case 19:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -20);
+        rate = 1 * X.FREQUENCY_RATIO ** -20;
         break;
       case 20:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -19);
+        rate = 1 * X.FREQUENCY_RATIO ** -19;
         break;
       case 21:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -18);
+        rate = 1 * X.FREQUENCY_RATIO ** -18;
         break;
       case 22:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -17);
+        rate = 1 * X.FREQUENCY_RATIO ** -17;
         break;
       case 23:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -16);
+        rate = 1 * X.FREQUENCY_RATIO ** -16;
         break;
       case 24:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -15);
+        rate = 1 * X.FREQUENCY_RATIO ** -15;
         break;
       case 25:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -14);
+        rate = 1 * X.FREQUENCY_RATIO ** -14;
         break;
       case 26:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -13);
+        rate = 1 * X.FREQUENCY_RATIO ** -13;
         break;
       case 27:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -12);
+        rate = 1 * X.FREQUENCY_RATIO ** -12;
         break;
       case 28:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -11);
+        rate = 1 * X.FREQUENCY_RATIO ** -11;
         break;
       case 29:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -10);
+        rate = 1 * X.FREQUENCY_RATIO ** -10;
         break;
       case 30:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -9);
+        rate = 1 * X.FREQUENCY_RATIO ** -9;
         break;
       case 31:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -8);
+        rate = 1 * X.FREQUENCY_RATIO ** -8;
         break;
       case 32:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -7);
+        rate = 1 * X.FREQUENCY_RATIO ** -7;
         break;
       case 33:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -6);
+        rate = 1 * X.FREQUENCY_RATIO ** -6;
         break;
       case 34:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -5);
+        rate = 1 * X.FREQUENCY_RATIO ** -5;
         break;
       case 35:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -4);
+        rate = 1 * X.FREQUENCY_RATIO ** -4;
         break;
       case 36:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -3);
+        rate = 1 * X.FREQUENCY_RATIO ** -3;
         break;
       case 37:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -2);
+        rate = 1 * X.FREQUENCY_RATIO ** -2;
         break;
       case 38:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), -1);
+        rate = 1 * X.FREQUENCY_RATIO ** -1;
         break;
       case 39:
         rate = 1;
         break;
       case 40:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 1);
+        rate = 1 * X.FREQUENCY_RATIO ** 1;
         break;
       case 41:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 2);
+        rate = 1 * X.FREQUENCY_RATIO ** 2;
         break;
       case 42:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 3);
+        rate = 1 * X.FREQUENCY_RATIO ** 3;
         break;
       case 43:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 4);
+        rate = 1 * X.FREQUENCY_RATIO ** 4;
         break;
       case 44:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 5);
+        rate = 1 * X.FREQUENCY_RATIO ** 5;
         break;
       case 45:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 6);
+        rate = 1 * X.FREQUENCY_RATIO ** 6;
         break;
       case 46:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 7);
+        rate = 1 * X.FREQUENCY_RATIO ** 7;
         break;
       case 47:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 8);
+        rate = 1 * X.FREQUENCY_RATIO ** 8;
         break;
       case 48:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 9);
+        rate = 1 * X.FREQUENCY_RATIO ** 9;
         break;
       case 49:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 10);
+        rate = 1 * X.FREQUENCY_RATIO ** 10;
         break;
       case 50:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 11);
+        rate = 1 * X.FREQUENCY_RATIO ** 11;
         break;
       case 51:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 12);
+        rate = 1 * X.FREQUENCY_RATIO ** 12;
         break;
       case 52:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 13);
+        rate = 1 * X.FREQUENCY_RATIO ** 13;
         break;
       case 53:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 14);
+        rate = 1 * X.FREQUENCY_RATIO ** 14;
         break;
       case 54:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 15);
+        rate = 1 * X.FREQUENCY_RATIO ** 15;
         break;
       case 55:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 16);
+        rate = 1 * X.FREQUENCY_RATIO ** 16;
         break;
       case 56:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 17);
+        rate = 1 * X.FREQUENCY_RATIO ** 17;
         break;
       case 57:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 18);
+        rate = 1 * X.FREQUENCY_RATIO ** 18;
         break;
       case 58:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 19);
+        rate = 1 * X.FREQUENCY_RATIO ** 19;
         break;
       case 59:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 20);
+        rate = 1 * X.FREQUENCY_RATIO ** 20;
         break;
       case 60:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 21);
+        rate = 1 * X.FREQUENCY_RATIO ** 21;
         break;
       case 61:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 22);
+        rate = 1 * X.FREQUENCY_RATIO ** 22;
         break;
       case 62:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 23);
+        rate = 1 * X.FREQUENCY_RATIO ** 23;
         break;
       case 63:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 24);
+        rate = 1 * X.FREQUENCY_RATIO ** 24;
         break;
       case 64:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 25);
+        rate = 1 * X.FREQUENCY_RATIO ** 25;
         break;
       case 65:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 26);
+        rate = 1 * X.FREQUENCY_RATIO ** 26;
         break;
       case 66:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 27);
+        rate = 1 * X.FREQUENCY_RATIO ** 27;
         break;
       case 67:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 28);
+        rate = 1 * X.FREQUENCY_RATIO ** 28;
         break;
       case 68:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 29);
+        rate = 1 * X.FREQUENCY_RATIO ** 29;
         break;
       case 69:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 30);
+        rate = 1 * X.FREQUENCY_RATIO ** 30;
         break;
       case 70:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 31);
+        rate = 1 * X.FREQUENCY_RATIO ** 31;
         break;
       case 71:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 33);
+        rate = 1 * X.FREQUENCY_RATIO ** 33;
         break;
       case 77:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 34);
+        rate = 1 * X.FREQUENCY_RATIO ** 34;
         break;
       case 78:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 35);
+        rate = 1 * X.FREQUENCY_RATIO ** 35;
         break;
       case 79:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 36);
+        rate = 1 * X.FREQUENCY_RATIO ** 36;
         break;
       case 80:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 37);
+        rate = 1 * X.FREQUENCY_RATIO ** 37;
         break;
       case 81:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 38);
+        rate = 1 * X.FREQUENCY_RATIO ** 38;
         break;
       case 82:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 39);
+        rate = 1 * X.FREQUENCY_RATIO ** 39;
         break;
       case 83:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 40);
+        rate = 1 * X.FREQUENCY_RATIO ** 40;
         break;
       case 84:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 41);
+        rate = 1 * X.FREQUENCY_RATIO ** 41;
         break;
       case 85:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 42);
+        rate = 1 * X.FREQUENCY_RATIO ** 42;
         break;
       case 86:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 43);
+        rate = 1 * X.FREQUENCY_RATIO ** 43;
         break;
       case 87:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 44);
+        rate = 1 * X.FREQUENCY_RATIO ** 44;
         break;
       case 88:
-        rate = 1 * Math.pow(Math.pow(2, 1 / 12), 45);
+        rate = 1 * X.FREQUENCY_RATIO ** 45;
         break;
     }
 
