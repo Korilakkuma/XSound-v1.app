@@ -19,11 +19,8 @@
 
 .AudioFieldset__selectAudio {
   display: flex;
-  -webkit-flex-direction: row;
   flex-direction: row;
-  -webkit-align-items: center;
   align-items: center;
-  -webkit-justify-content: space-between;
   justify-content: space-between;
   width: var(--fieldset-width);
   margin: 0 auto;

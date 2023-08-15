@@ -7,10 +7,8 @@
 .Slider > input[type="range"] {
   width: calc(100% - 4px);
   height: 8px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
   appearance: none;
-  -webkit-user-select: none;
+  user-select: none;
   background-color: var(--white);
   background-image: linear-gradient(to bottom, var(--gray-light), var(--black));
   border-top: 2px solid rgba(255, 255, 255, 0.3);
@@ -29,7 +27,7 @@
 .Slider > input[type="range"]::-webkit-slider-thumb {
   width: 23px;
   height: 23px;
-  -webkit-appearance: none;
+  appearance: none;
   cursor: pointer;
   background-color: var(--transparent);
 
@@ -44,7 +42,7 @@
 .Slider > input[type="range"]::-moz-range-thumb {
   width: 23px;
   height: 23px;
-  -moz-appearance: none;
+  appearance: none;
   cursor: pointer;
   background-color: var(--transparent);
 

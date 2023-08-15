@@ -4,15 +4,12 @@
 
 .ParameterController > dt {
   display: flex;
-  -webkit-flex-direction: row;
   flex-direction: row;
-  -webkit-align-items: center;
   align-items: center;
   padding: 0 4px;
 }
 
 .ParameterController > dt > label {
-  -webkit-flex-grow: 6;
   flex-grow: 6;
   font-size: 12px;
   color: var(--white);

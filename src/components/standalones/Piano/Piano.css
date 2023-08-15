@@ -4,7 +4,7 @@
   width: 1256px;
   height: 240px;
   margin: 32px auto;
-  -webkit-user-select: none;
+  user-select: none;
   background-color: var(--gray);
   background-image: url("/assets/images/piano-frame-crystal.png");
   background-repeat: no-repeat;
@@ -30,7 +30,6 @@
   left: 30px;
   z-index: 2;
   display: flex;
-  -webkit-flex-direction: row;
   flex-direction: row;
   background-color: var(--white);
 }
@@ -63,7 +62,6 @@
   left: 35px;
   z-index: 3;
   display: flex;
-  -webkit-flex-direction: row;
   flex-direction: row;
   height: 95px; /* Enable to click keyboard */
 }

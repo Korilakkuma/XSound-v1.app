@@ -8,9 +8,6 @@
     "color-function-notation": "legacy",
     "declaration-empty-line-before": null,
     "declaration-property-value-no-unknown": true,
-    "property-no-vendor-prefix": null,
-    "selector-class-pattern": null,
-    "selector-no-vendor-prefix": null,
-    "value-no-vendor-prefix": null
+    "selector-class-pattern": null
   }
 }

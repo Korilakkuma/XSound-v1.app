@@ -5,7 +5,7 @@
   font-size: 13px;
   color: var(--white);
   cursor: pointer;
-  -webkit-user-select: none;
+  user-select: none;
   background-color: var(--black);
   background-image: linear-gradient(to bottom, var(--gray-deep), var(--black));
   border: 2px solid rgba(255, 255, 255, 0.05);

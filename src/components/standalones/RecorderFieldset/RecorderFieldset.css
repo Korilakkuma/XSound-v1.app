@@ -19,11 +19,8 @@
 
 .RecorderFieldset__buttons {
   display: flex;
-  -webkit-flex-direction: row;
   flex-direction: row;
-  -webkit-align-items: center;
   align-items: center;
-  -webkit-justify-content: center;
   justify-content: center;
   width: 238px;
   margin: 0 auto;

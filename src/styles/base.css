@@ -8,8 +8,7 @@ body {
 }
 
 body.-radial {
-  background-image: -webkit-radial-gradient(50% 50%, circle contain, var(--gray-lighter), var(--transparent));
-  background-image: -moz-radial-gradient(50% 50%, circle contain, var(--gray-lighter), var(--transparent));
+  background-image: radial-gradient(50% 50%, circle contain, var(--gray-lighter), var(--transparent));
 }
 
 body.-linear {
@@ -27,9 +26,7 @@ body.-linear {
 
 noscript {
   display: flex;
-  -webkit-align-items: center;
   align-items: center;
-  -webkit-justify-content: center;
   justify-content: center;
   height: 100vh;
   font-family: Alike, serif;

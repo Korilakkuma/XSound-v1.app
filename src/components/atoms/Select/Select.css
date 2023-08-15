@@ -7,7 +7,6 @@
   font-size: 13px;
   color: var(--white);
   text-transform: uppercase;
-  -webkit-appearance: none;
   appearance: none;
   cursor: pointer;
   background-image: linear-gradient(to bottom, var(--gray), var(--black));
