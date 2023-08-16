@@ -1,6 +1,6 @@
 .MML {
   padding: 0 48px;
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgb(255 255 255 / 0.05);
 }
 
 .MML[aria-hidden="true"] {
@@ -49,7 +49,7 @@
 }
 
 .MML__editor > dl > dd[contentEditable][aria-disabled="true"] {
-  color: rgba(255, 255, 255, 0.6);
+  color: rgb(255 255 255 / 0.6);
   opacity: 1;
 }
 

@@ -10,6 +10,6 @@
   --gray-deep: #333;
   --black-light: #212121;
   --black: #000;
-  --transparent: rgba(0, 0, 0, 0);
+  --transparent: rgb(0 0 0 / 0);
   --fieldset-width: 98%;
 }

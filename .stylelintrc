@@ -5,7 +5,6 @@
   ],
   "rules": {
     "alpha-value-notation": null,
-    "color-function-notation": "legacy",
     "declaration-empty-line-before": null,
     "declaration-property-value-no-unknown": true,
     "selector-class-pattern": null

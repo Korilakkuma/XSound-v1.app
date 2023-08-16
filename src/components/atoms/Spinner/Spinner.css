@@ -8,13 +8,13 @@
   user-select: none;
   background-color: var(--black);
   background-image: linear-gradient(to bottom, var(--gray-deep), var(--black));
-  border: 2px solid rgba(255, 255, 255, 0.05);
+  border: 2px solid rgb(255 255 255 / 0.05);
   outline: none;
   box-shadow:
-    5px 5px 3px rgba(0, 0, 0, 0.8) inset,
-    3px -3px 3px rgba(0, 0, 0, 0.5) inset,
+    5px 5px 3px rgb(0 0 0 / 0.8) inset,
+    3px -3px 3px rgb(0 0 0 / 0.5) inset,
     0 0 0 2px var(--black) inset,
-    0 -1px 1px 2px rgba(0, 0, 0, 0.5); /* outer (for emboss) */
+    0 -1px 1px 2px rgb(0 0 0 / 0.5); /* outer (for emboss) */
   -webkit-touch-callout: none;
   -webkit-tap-highlight-color: var(--transparent);
 }
@@ -24,7 +24,7 @@
   background-color: var(--base-color);
   background-image: linear-gradient(to bottom, var(--base-color), var(--assort-color));
   box-shadow:
-    5px 5px 3px rgba(0, 0, 0, 0.4) inset,
-    3px -3px 3px rgba(0, 0, 0, 0.2) inset,
-    0 -1px 5px 1px rgba(17, 17, 17, 0.75); /* outer (for emboss) */
+    5px 5px 3px rgb(0 0 0 / 0.4) inset,
+    3px -3px 3px rgb(0 0 0 / 0.2) inset,
+    0 -1px 5px 1px rgb(17 17 17 / 0.75); /* outer (for emboss) */
 }
