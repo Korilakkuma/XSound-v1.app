@@ -6,7 +6,6 @@
   "rules": {
     "alpha-value-notation": null,
     "declaration-empty-line-before": null,
-    "declaration-property-value-no-unknown": true,
     "selector-class-pattern": null
   }
 }
