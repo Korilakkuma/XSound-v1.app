@@ -1,6 +1,6 @@
 .Analyser {
   padding: 0 48px;
-  background-color: rgb(255 255 255 / 0.05);
+  background-color: rgb(255 255 255 / 5%);
 }
 
 .Analyser[aria-hidden="true"] {

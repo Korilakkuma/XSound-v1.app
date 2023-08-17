@@ -15,8 +15,8 @@
   z-index: 3;
   width: 204px;
   height: 6px;
-  background-color: rgb(255 255 255 / 0.15);
-  background-image: linear-gradient(to bottom, rgb(255 255 255 / 0.2), var(--transparent));
+  background-color: rgb(255 255 255 / 15%);
+  background-image: linear-gradient(to bottom, rgb(255 255 255 / 20%), var(--transparent));
 }
 
 .ProgressBar__bar {

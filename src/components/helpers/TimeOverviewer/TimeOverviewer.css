@@ -8,10 +8,10 @@
   width: 420px;
   margin-top: 8px;
   overflow-x: auto;
-  border: 2px solid rgb(255 255 255 / 0.05);
+  border: 2px solid rgb(255 255 255 / 5%);
   box-shadow:
     0 0 0 2px var(--black),
-    0 -1px 1px 5px rgb(0 0 0 / 0.5);
+    0 -1px 1px 5px rgb(0 0 0 / 50%);
 }
 
 .TimeOverviewer__channelSelector {
