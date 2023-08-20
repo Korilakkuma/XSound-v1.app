@@ -15,6 +15,7 @@
     3px -3px 3px rgb(0 0 0 / 50%) inset,
     0 0 0 2px var(--black) inset,
     0 -1px 1px 2px rgb(0 0 0 / 50%); /* outer (for emboss) */
+
   -webkit-touch-callout: none;
   -webkit-tap-highlight-color: var(--transparent);
 }

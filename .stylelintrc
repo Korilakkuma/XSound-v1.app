@@ -4,7 +4,6 @@
     "stylelint-config-recess-order"
   ],
   "rules": {
-    "declaration-empty-line-before": null,
     "selector-class-pattern": null
   }
 }
