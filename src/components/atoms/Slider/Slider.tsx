@@ -13,13 +13,21 @@ export type Props = {
 export const Slider: React.FC<Props> = (props: Props) => {
   const { label, value, min, max, step, tabIndex, onChange } = props;
 
-  const rate = (value - min) / (max - min);
-  const width = rate * 100;
+  const rate = ((value - min) / (max - min)) * 100;
 
   return (
     <div className="Slider">
-      <span className="Slider__value" style={{ width: `calc(${width}% - (${rate} * 28px))` }} />
-      <input type="range" aria-label={label} value={value} min={min} max={max} step={step} tabIndex={tabIndex} onChange={onChange} />
+      <input
+        type="range"
+        aria-label={label}
+        value={value}
+        min={min}
+        max={max}
+        step={step}
+        tabIndex={tabIndex}
+        onChange={onChange}
+        style={{ backgroundImage: `linear-gradient(90deg, #d7d7d7 ${rate}%, #333 ${rate}%` }}
+      />
     </div>
   );
 };
