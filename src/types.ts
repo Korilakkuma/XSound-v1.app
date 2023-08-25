@@ -2,6 +2,7 @@ import type { X, RecordType, QuantizationBit, WaveExportType } from 'xsound';
 
 declare global {
   interface Window {
+    X: typeof X;
     clonedXSound: ReturnType<typeof X.clone>;
   }
 }
