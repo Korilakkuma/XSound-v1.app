@@ -1,6 +1,4 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React from 'react';
-
 import { Flexbox } from '/src/components/atoms/Flexbox';
 
 import type { Meta, StoryObj } from '@storybook/react';

@@ -1,6 +1,4 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React from 'react';
-
 import { VerticalBox } from '/src/components/atoms/VerticalBox';
 
 import type { Meta, StoryObj } from '@storybook/react';

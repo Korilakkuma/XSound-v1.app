@@ -1,6 +1,4 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React from 'react';
-
 import { Canvas } from '/src/components/atoms/Canvas';
 
 import type { Meta, StoryObj } from '@storybook/react';

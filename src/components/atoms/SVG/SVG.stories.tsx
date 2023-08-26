@@ -1,6 +1,4 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React from 'react';
-
 import { SVG } from '/src/components/atoms/SVG';
 
 import type { Meta, StoryObj } from '@storybook/react';
