@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 export type Props = {
   label: string;
@@ -13,7 +13,9 @@ export type Props = {
 export const Slider: React.FC<Props> = (props: Props) => {
   const { label, value, min, max, step, tabIndex, onChange } = props;
 
-  const rate = ((value - min) / (max - min)) * 100;
+  const rate = useMemo(() => {
+    return ((value - min) / (max - min)) * 100;
+  }, [value, min, max]);
 
   return (
     <div className="Slider">
