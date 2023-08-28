@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import { useState } from 'react';
 
 import { Switch } from '/src/components/atoms/Switch';
@@ -10,12 +9,18 @@ export default {
   component: Switch
 } as Meta<typeof Switch>;
 
-const Template: StoryObj<typeof Switch> = {
-  render: (args) => {
-    const [checked, setChecked] = useState<boolean>(args.checked);
+const SwitchContainer: React.FC<{
+  label: string;
+  checked: boolean;
+  labelAsText: boolean;
+}> = (args) => {
+  const [checked, setChecked] = useState<boolean>(args.checked);
 
-    return <Switch {...args} checked={checked} onChange={() => setChecked(!checked)} />;
-  }
+  return <Switch {...args} checked={checked} onChange={() => setChecked(!checked)} />;
+};
+
+const Template: StoryObj<typeof Switch> = {
+  render: (args) => <SwitchContainer {...args} />
 };
 
 export const Primary = {

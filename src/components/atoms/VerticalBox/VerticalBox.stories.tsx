@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import { VerticalBox } from '/src/components/atoms/VerticalBox';
 
 import type { Meta, StoryObj } from '@storybook/react';

@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useCallback, useState } from 'react';
 
 import { Modal } from '/src/components/atoms/Modal';
@@ -10,31 +9,37 @@ export default {
   component: Modal
 } as Meta<typeof Modal>;
 
+const ModalContainer: React.FC<{
+  hasOverlay: boolean;
+  title: string;
+  asAlert: boolean;
+}> = (args) => {
+  const [isShow, setIsShow] = useState<boolean>(false);
+
+  const onClick = useCallback(() => {
+    setIsShow(true);
+  }, []);
+
+  const onClose = useCallback(() => {
+    setIsShow(false);
+  }, []);
+
+  const props = { ...args, isShow, onClose };
+
+  return (
+    <React.Fragment>
+      <button type="button" onClick={onClick} style={{ backgroundColor: '#fff' }}>
+        Open
+      </button>
+      <Modal {...props}>
+        <div>contents</div>
+      </Modal>
+    </React.Fragment>
+  );
+};
+
 const Template: StoryObj<typeof Modal> = {
-  render: (args) => {
-    const [isShow, setIsShow] = useState<boolean>(false);
-
-    const onClick = useCallback(() => {
-      setIsShow(true);
-    }, []);
-
-    const onClose = useCallback(() => {
-      setIsShow(false);
-    }, []);
-
-    const props = { ...args, isShow, onClose };
-
-    return (
-      <React.Fragment>
-        <button type="button" onClick={onClick} style={{ backgroundColor: '#fff' }}>
-          Open
-        </button>
-        <Modal {...props}>
-          <div>contents</div>
-        </Modal>
-      </React.Fragment>
-    );
-  }
+  render: (args) => <ModalContainer {...args} />
 };
 
 export const Primary = {

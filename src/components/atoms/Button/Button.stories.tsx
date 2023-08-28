@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import { Button } from '/src/components/atoms/Button';
 
 import type { Meta, StoryObj } from '@storybook/react';

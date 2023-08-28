@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import { Flexbox } from '/src/components/atoms/Flexbox';
 
 import type { Meta, StoryObj } from '@storybook/react';
