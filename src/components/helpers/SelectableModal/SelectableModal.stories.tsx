@@ -3,7 +3,6 @@ import React, { useCallback, useState } from 'react';
 import { SelectableModal } from '/src/components/helpers/SelectableModal';
 
 import type { Meta, StoryObj } from '@storybook/react';
-import '/src/main.css';
 
 export default {
   component: SelectableModal

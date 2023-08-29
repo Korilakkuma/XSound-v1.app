@@ -3,7 +3,6 @@ import React, { useMemo, useState } from 'react';
 import { ProgressBar } from '/src/components/atoms/ProgressBar';
 
 import type { Meta, StoryObj } from '@storybook/react';
-import '/src/main.css';
 
 export default {
   component: ProgressBar

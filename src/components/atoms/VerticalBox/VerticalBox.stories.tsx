@@ -1,7 +1,6 @@
 import { VerticalBox } from '/src/components/atoms/VerticalBox';
 
 import type { Meta, StoryObj } from '@storybook/react';
-import '/src/main.css';
 
 export default {
   component: VerticalBox

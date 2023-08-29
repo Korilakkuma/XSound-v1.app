@@ -1,7 +1,6 @@
 import { Button } from '/src/components/atoms/Button';
 
 import type { Meta, StoryObj } from '@storybook/react';
-import '/src/main.css';
 
 export default {
   component: Button

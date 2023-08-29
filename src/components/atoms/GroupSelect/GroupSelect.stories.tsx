@@ -3,7 +3,6 @@ import React from 'react';
 import { GroupSelect } from '/src/components/atoms/GroupSelect';
 
 import type { Meta, StoryObj } from '@storybook/react';
-import '/src/main.css';
 
 export default {
   component: GroupSelect

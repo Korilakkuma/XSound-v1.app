@@ -1,7 +1,6 @@
 import { Canvas } from '/src/components/atoms/Canvas';
 
 import type { Meta, StoryObj } from '@storybook/react';
-import '/src/main.css';
 
 export default {
   component: Canvas

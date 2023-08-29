@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { Switch } from '/src/components/atoms/Switch';
 
 import type { Meta, StoryObj } from '@storybook/react';
-import '/src/main.css';
 
 export default {
   component: Switch

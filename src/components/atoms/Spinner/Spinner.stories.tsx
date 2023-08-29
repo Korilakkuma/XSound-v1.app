@@ -3,7 +3,6 @@ import React, { useCallback, useState } from 'react';
 import { Spinner } from '/src/components/atoms/Spinner';
 
 import type { Meta, StoryObj } from '@storybook/react';
-import '/src/main.css';
 
 export default {
   component: Spinner

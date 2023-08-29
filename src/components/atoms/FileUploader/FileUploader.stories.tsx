@@ -3,7 +3,6 @@ import React, { useCallback, useState } from 'react';
 import { FileUploader } from '/src/components/atoms/FileUploader';
 
 import type { Meta, StoryObj } from '@storybook/react';
-import '/src/main.css';
 
 export default {
   component: FileUploader

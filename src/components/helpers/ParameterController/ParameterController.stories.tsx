@@ -3,7 +3,6 @@ import React from 'react';
 import { ParameterController } from '/src/components/helpers/ParameterController';
 
 import type { Meta, StoryObj } from '@storybook/react';
-import '/src/main.css';
 
 export default {
   component: ParameterController

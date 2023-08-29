@@ -3,7 +3,6 @@ import React from 'react';
 import { Select } from '/src/components/atoms/Select';
 
 import type { Meta, StoryObj } from '@storybook/react';
-import '/src/main.css';
 
 export default {
   component: Select

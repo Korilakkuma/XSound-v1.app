@@ -3,7 +3,6 @@ import React, { useCallback, useState } from 'react';
 import { Modal } from '/src/components/atoms/Modal';
 
 import type { Meta, StoryObj } from '@storybook/react';
-import '/src/main.css';
 
 export default {
   component: Modal

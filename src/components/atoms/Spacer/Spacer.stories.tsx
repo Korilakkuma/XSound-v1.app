@@ -3,7 +3,6 @@ import React from 'react';
 import { Spacer } from '/src/components/atoms/Spacer';
 
 import type { Meta, StoryObj } from '@storybook/react';
-import '/src/main.css';
 
 export default {
   component: Spacer

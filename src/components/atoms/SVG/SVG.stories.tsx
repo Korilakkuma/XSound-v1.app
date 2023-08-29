@@ -1,7 +1,6 @@
 import { SVG } from '/src/components/atoms/SVG';
 
 import type { Meta, StoryObj } from '@storybook/react';
-import '/src/main.css';
 
 export default {
   component: SVG
