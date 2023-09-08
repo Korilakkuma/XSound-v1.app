@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const webpack = require('webpack');
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
@@ -46,7 +45,7 @@ module.exports = [
         },
         {
           test: /\.css$/,
-          use: [MiniCSSExtractPlugin.loader, 'css-loader', 'postcss-loader']
+          use: [MiniCSSExtractPlugin.loader, 'css-loader']
         },
         {
           test: /\.png$/,
@@ -58,13 +57,6 @@ module.exports = [
       extensions: ['.js', '.ts', '.tsx', '.json']
     },
     plugins: [
-      new webpack.LoaderOptionsPlugin({
-        options: {
-          config: {
-            path: './postcss.config.js'
-          }
-        }
-      }),
       new MiniCSSExtractPlugin({
         filename: 'app.css'
       })
