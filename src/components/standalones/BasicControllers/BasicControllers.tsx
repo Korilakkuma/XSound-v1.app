@@ -298,30 +298,30 @@ export const BasicControllers: React.FC<Props> = ({ currentSoundSource }) => {
   }, []);
 
   return (
-    <div className="BasicControllers">
+    <div className='BasicControllers'>
       <ParameterController
-        label="Master Volume"
+        label='Master Volume'
         autoupdate={false}
         defaultValue={1}
         min={0}
         max={1}
         step={0.05}
-        width="20%"
+        width='20%'
         onChange={onChangeMasterVolumeCallback}
       />
-      <ParameterController label="Glide" autoupdate={false} defaultValue={0} min={0} max={1} step={0.05} width="20%" onChange={onChangeGlideCallback} />
-      <ParameterController label="Transpose" autoupdate={false} defaultValue={0} min={-6} max={6} step={1} width="20%" onChange={onChangeTransposeCallback} />
+      <ParameterController label='Glide' autoupdate={false} defaultValue={0} min={0} max={1} step={0.05} width='20%' onChange={onChangeGlideCallback} />
+      <ParameterController label='Transpose' autoupdate={false} defaultValue={0} min={-6} max={6} step={1} width='20%' onChange={onChangeTransposeCallback} />
       <Select
-        label="Select Sound Source"
+        label='Select Sound Source'
         values={['oscillator', 'piano', 'guitar', 'electric-guitar', 'whitenoise', 'pinknoise', 'browniannoise', 'stream', 'midi']}
         texts={['oscillator', 'piano', 'A. guitar', 'E. guitar', 'white noise', 'pink noise', 'brownian noise', 'microphone', 'MIDI']}
         disabled={false}
-        width="20%"
+        width='20%'
         onChange={onChangeSoundSourceCallback}
       />
-      <Switch label="Analyser" checked={analyserState} labelAsText={true} controls="analyser-fieldset" onChange={onChangeAnalyserStateCallback} />
-      <Switch label="MML" checked={mmlState} labelAsText={true} controls="mml-fieldset" onChange={onChangeMMLStateCallback} />
-      <Modal isShow={isShowModalForMIDIError} title="Error" hasOverlay={true} asAlert={true} onClose={onCloseModalCallback}>
+      <Switch label='Analyser' checked={analyserState} labelAsText={true} controls='analyser-fieldset' onChange={onChangeAnalyserStateCallback} />
+      <Switch label='MML' checked={mmlState} labelAsText={true} controls='mml-fieldset' onChange={onChangeMMLStateCallback} />
+      <Modal isShow={isShowModalForMIDIError} title='Error' hasOverlay={true} asAlert={true} onClose={onCloseModalCallback}>
         {errorMessage}
       </Modal>
     </div>

@@ -113,16 +113,16 @@ export const BoosterFieldset: React.FC = () => {
   }, []);
 
   return (
-    <div className="BoosterFieldset">
+    <div className='BoosterFieldset'>
       <fieldset>
         <legend>
-          <Switch label="OD/DS" checked={booster} labelAsText={false} onChange={onChangeStateCallback} />
+          <Switch label='OD/DS' checked={booster} labelAsText={false} onChange={onChangeStateCallback} />
         </legend>
-        <Select label="Select OD/DS" values={['overdrive', 'fuzz']} texts={['overdrive', 'fuzz']} disabled={false} onChange={onChangeTypeCallback} />
+        <Select label='Select OD/DS' values={['overdrive', 'fuzz']} texts={['overdrive', 'fuzz']} disabled={false} onChange={onChangeTypeCallback} />
         <Spacer space={8} />
-        <ParameterController label="Drive" autoupdate={false} defaultValue={0} min={0} max={1} step={0.05} onChange={onChangeDriveCallback} />
+        <ParameterController label='Drive' autoupdate={false} defaultValue={0} min={0} max={1} step={0.05} onChange={onChangeDriveCallback} />
         <Spacer space={8} />
-        <ParameterController label="Level" autoupdate={false} defaultValue={0} min={0} max={1} step={0.05} onChange={onChangeLevelCallback} />
+        <ParameterController label='Level' autoupdate={false} defaultValue={0} min={0} max={1} step={0.05} onChange={onChangeLevelCallback} />
       </fieldset>
     </div>
   );

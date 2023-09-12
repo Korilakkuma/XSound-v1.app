@@ -49,14 +49,14 @@ export const AutopanFieldset: React.FC = () => {
   }, []);
 
   return (
-    <div className="AutopanFieldset">
+    <div className='AutopanFieldset'>
       <fieldset>
         <legend>
-          <Switch label="Autopan" checked={autopan} labelAsText={false} onChange={onChangeStateCallback} />
+          <Switch label='Autopan' checked={autopan} labelAsText={false} onChange={onChangeStateCallback} />
         </legend>
-        <ParameterController label="Depth" autoupdate={false} defaultValue={0} min={0} max={1} step={0.05} onChange={onChangeDepthCallback} />
+        <ParameterController label='Depth' autoupdate={false} defaultValue={0} min={0} max={1} step={0.05} onChange={onChangeDepthCallback} />
         <Spacer space={8} />
-        <ParameterController label="Rate" autoupdate={false} defaultValue={0} min={0} max={1} step={0.05} onChange={onChangeRateCallback} />
+        <ParameterController label='Rate' autoupdate={false} defaultValue={0} min={0} max={1} step={0.05} onChange={onChangeRateCallback} />
         <Spacer space={8} />
       </fieldset>
     </div>

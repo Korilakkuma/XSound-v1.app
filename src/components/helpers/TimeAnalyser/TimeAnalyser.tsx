@@ -51,7 +51,7 @@ export const TimeAnalyser: React.FC<Props> = (props: Props) => {
   );
 
   return (
-    <dl className="TimeAnalyser">
+    <dl className='TimeAnalyser'>
       <dt>Time Domain</dt>
       <dd>
         {type === 'bitmap' && <Canvas width={420} height={120} hasHoverStyle={false} setElementCallback={setElementCallback} />}

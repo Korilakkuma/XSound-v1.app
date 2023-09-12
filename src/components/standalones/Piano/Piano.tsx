@@ -408,8 +408,8 @@ export const Piano: React.FC<Props> = ({ loadedApp, currentSoundSource }) => {
   }, [loadedApp, stopSoundOnOutsideOfKeyboardCallback]);
 
   return (
-    <div className="Piano">
-      <ul className="Piano__whites">
+    <div className='Piano'>
+      <ul className='Piano__whites'>
         {whites.map((pitch: string) => {
           const index = indexMap[pitch];
           const hasMelody = downMelodyIndexes.includes(index) && !upMelodyIndexes.includes(index);
@@ -420,7 +420,7 @@ export const Piano: React.FC<Props> = ({ loadedApp, currentSoundSource }) => {
           return (
             <li key={pitch} className={`Piano__keyboard${downKeyboards[index] || isActive ? ' -active' : ''}`}>
               <button
-                type="button"
+                type='button'
                 aria-pressed={downKeyboards[index] || isAutoActive}
                 data-pitch={pitch}
                 data-index={indexMap[pitch]}
@@ -442,10 +442,10 @@ export const Piano: React.FC<Props> = ({ loadedApp, currentSoundSource }) => {
           );
         })}
       </ul>
-      <ul className="Piano__blacks">
+      <ul className='Piano__blacks'>
         {blacks.map((pitch: string) => {
           if (pitch.includes('skip')) {
-            return <li key={pitch} className="Piano__keyboard -skip" aria-label="skip" />;
+            return <li key={pitch} className='Piano__keyboard -skip' aria-label='skip' />;
           }
 
           const index = indexMap[pitch];
@@ -457,7 +457,7 @@ export const Piano: React.FC<Props> = ({ loadedApp, currentSoundSource }) => {
           return (
             <li key={pitch} className={`Piano__keyboard${downKeyboards[index] || isActive ? ' -active' : ''}`}>
               <button
-                type="button"
+                type='button'
                 aria-pressed={downKeyboards[index] || isAutoActive}
                 data-pitch={pitch}
                 data-index={indexMap[pitch]}

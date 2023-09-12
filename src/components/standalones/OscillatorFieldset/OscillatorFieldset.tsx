@@ -138,7 +138,7 @@ export const OscillatorFieldset: React.FC<Props> = ({ oscillatorNumber, label, r
   );
 
   return (
-    <div className="OscillatorFieldset">
+    <div className='OscillatorFieldset'>
       <fieldset>
         <legend>
           <Switch label={label} checked={states[oscillatorNumber]} labelAsText={false} onChange={onChangeStateCallback} />
@@ -146,11 +146,11 @@ export const OscillatorFieldset: React.FC<Props> = ({ oscillatorNumber, label, r
         <Spacer space={2} />
         <OscillatorSelector radioName={radioName} type={type} onChange={onChangeTypeCallback} onChangeRadio={onChangeRadioCallback} />
         <Spacer space={16} />
-        <ParameterController label="Volume" autoupdate={false} defaultValue={1} min={0} max={1} step={0.05} onChange={onChangeVolumeCallback} />
+        <ParameterController label='Volume' autoupdate={false} defaultValue={1} min={0} max={1} step={0.05} onChange={onChangeVolumeCallback} />
         <Spacer space={8} />
-        <ParameterController label="Octave" autoupdate={false} defaultValue={0} min={-4} max={4} step={1} onChange={onChangeOctaveCallback} />
+        <ParameterController label='Octave' autoupdate={false} defaultValue={0} min={-4} max={4} step={1} onChange={onChangeOctaveCallback} />
         <Spacer space={8} />
-        <ParameterController label="Fine" autoupdate={false} defaultValue={0} min={-1200} max={1200} step={1} onChange={onChangeFineCallback} />
+        <ParameterController label='Fine' autoupdate={false} defaultValue={0} min={-1200} max={1200} step={1} onChange={onChangeFineCallback} />
       </fieldset>
     </div>
   );

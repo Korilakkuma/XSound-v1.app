@@ -101,29 +101,29 @@ export const PhaserFieldset: React.FC = () => {
   }, []);
 
   return (
-    <div className="PhaserFieldset">
+    <div className='PhaserFieldset'>
       <fieldset>
         <legend>
-          <Switch label="Phaser" checked={phaser} labelAsText={false} onChange={onChangeStateCallback} />
+          <Switch label='Phaser' checked={phaser} labelAsText={false} onChange={onChangeStateCallback} />
         </legend>
         <Select
-          label="Select Phaser Stages"
+          label='Select Phaser Stages'
           values={['0', '2', '4', '8', '12', '24']}
           texts={['all-pass filter', '2 stages', '4 stages', '8 stages', '12 stages', '24 stages']}
           disabled={false}
           onChange={onChangeStageCallback}
-          defaultValue="12"
+          defaultValue='12'
         />
         <Spacer space={8} />
-        <ParameterController label="Frequency" autoupdate={false} defaultValue={350} min={350} max={8000} step={1} onChange={onChangeFrequencyCallback} />
+        <ParameterController label='Frequency' autoupdate={false} defaultValue={350} min={350} max={8000} step={1} onChange={onChangeFrequencyCallback} />
         <Spacer space={8} />
-        <ParameterController label="Depth" autoupdate={false} defaultValue={0} min={0} max={0.9} step={0.05} onChange={onChangeDepthCallback} />
+        <ParameterController label='Depth' autoupdate={false} defaultValue={0} min={0} max={0.9} step={0.05} onChange={onChangeDepthCallback} />
         <Spacer space={8} />
-        <ParameterController label="Rate" autoupdate={false} defaultValue={0} min={0} max={5} step={0.05} onChange={onChangeRateCallback} />
+        <ParameterController label='Rate' autoupdate={false} defaultValue={0} min={0} max={5} step={0.05} onChange={onChangeRateCallback} />
         <Spacer space={8} />
-        <ParameterController label="Resonance" autoupdate={false} defaultValue={1} min={1} max={20} step={1} onChange={onChangeResonanceCallback} />
+        <ParameterController label='Resonance' autoupdate={false} defaultValue={1} min={1} max={20} step={1} onChange={onChangeResonanceCallback} />
         <Spacer space={8} />
-        <ParameterController label="Mix" autoupdate={false} defaultValue={0} min={0} max={1} step={0.05} onChange={onChangeMixCallback} />
+        <ParameterController label='Mix' autoupdate={false} defaultValue={0} min={0} max={1} step={0.05} onChange={onChangeMixCallback} />
         <Spacer space={8} />
       </fieldset>
     </div>

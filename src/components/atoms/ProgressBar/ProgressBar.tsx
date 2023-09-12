@@ -14,18 +14,18 @@ export const ProgressBar: React.FC<Props> = (props: Props) => {
   const id = useId();
 
   return (
-    <div className="ProgressBar">
+    <div className='ProgressBar'>
       {label ? (
-        <p id={id} className="ProgressBar__label">
+        <p id={id} className='ProgressBar__label'>
           {label}
         </p>
       ) : null}
-      <div className="ProgressBar__wrapper">
-        <div role="presentation" className="ProgressBar__mask" />
+      <div className='ProgressBar__wrapper'>
+        <div role='presentation' className='ProgressBar__mask' />
         {manual ? (
-          <div role="progressbar" aria-valuenow={rate} aria-valuemin={0} aria-valuemax={100} aria-labelledby={id} style={style} className="ProgressBar__bar" />
+          <div role='progressbar' aria-valuenow={rate} aria-valuemin={0} aria-valuemax={100} aria-labelledby={id} style={style} className='ProgressBar__bar' />
         ) : (
-          <div role="progressbar" aria-valuemin={0} aria-valuemax={100} style={style} className="ProgressBar__bar -auto" />
+          <div role='progressbar' aria-valuemin={0} aria-valuemax={100} style={style} className='ProgressBar__bar -auto' />
         )}
       </div>
     </div>

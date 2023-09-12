@@ -122,19 +122,19 @@ export const TimeOverviewer: React.FC<Props> = (props: Props) => {
   );
 
   return (
-    <dl className="TimeOverviewer">
+    <dl className='TimeOverviewer'>
       <dt>
         <label>
           <button
-            type="button"
+            type='button'
             className={`TimeOverviewer__channelSelector -${showTimeOverview}`}
-            aria-label="Select Channel"
+            aria-label='Select Channel'
             tabIndex={active ? 0 : -1}
             onClick={onClickChannelCallback}
           />
           Time Overview [{showTimeOverview}]
         </label>
-        {showDragTime ? <span className="Analyser__dragTime">{dragTime}</span> : null}
+        {showDragTime ? <span className='Analyser__dragTime'>{dragTime}</span> : null}
       </dt>
       <dd hidden={showTimeOverview === 'right'}>
         {type === 'bitmap' && <Canvas width={1200} height={120} hasHoverStyle={true} setElementCallback={setElementForRightChannelCallback} />}

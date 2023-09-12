@@ -528,13 +528,13 @@ export const MML: React.FC<Props> = ({ loadedApp, currentSoundSource }) => {
   ]);
 
   return (
-    <div id="mml-fieldset" aria-hidden={!active} className={`MML${active ? ' -active' : ''}`}>
-      <div className="MML__editor">
+    <div id='mml-fieldset' aria-hidden={!active} className={`MML${active ? ' -active' : ''}`}>
+      <div className='MML__editor'>
         <dl>
           <dt>
             Melody
             {errorMessageForMMLMelody ? (
-              <span className="MML__error" role="alert">
+              <span className='MML__error' role='alert'>
                 {errorMessageForMMLMelody}
               </span>
             ) : null}
@@ -551,7 +551,7 @@ export const MML: React.FC<Props> = ({ loadedApp, currentSoundSource }) => {
           <dt>
             Bass
             {errorMessageForMMLBass ? (
-              <span className="MML__error" role="alert">
+              <span className='MML__error' role='alert'>
                 {errorMessageForMMLBass}
               </span>
             ) : null}
@@ -565,33 +565,33 @@ export const MML: React.FC<Props> = ({ loadedApp, currentSoundSource }) => {
           />
         </dl>
       </div>
-      <div className="MML__controllers">
+      <div className='MML__controllers'>
         <button
-          type="button"
+          type='button'
           disabled={!melody && !bass}
           aria-label={paused ? 'Start' : 'Pause'}
           tabIndex={active ? 0 : -1}
           className={`MML__controller${paused ? ' -paused' : ''}`}
           onClick={onClickMMLControllerCallback}
         />
-        <button type="button" aria-label="Rewind" tabIndex={active ? 0 : -1} className="MML__rewinder" onClick={onClickRewindButtonCallback} />
+        <button type='button' aria-label='Rewind' tabIndex={active ? 0 : -1} className='MML__rewinder' onClick={onClickRewindButtonCallback} />
         <a
           href={dataURL}
           download={dataURL ? createFilename('mml-', 'json') : null}
-          role="button"
+          role='button'
           tabIndex={active ? 0 : -1}
-          className="MML__download"
+          className='MML__download'
           onClick={onClickDownloadButtonCallback}
         >
           Download
         </a>
-        <Spacer space={8} direction="left" />
-        <Switch label="Highlight" checked={highlight} labelAsText={true} tabIndex={active ? 0 : -1} onChange={onChangeHightlightCallback} />
-        <Spacer space={8} direction="right" />
+        <Spacer space={8} direction='left' />
+        <Switch label='Highlight' checked={highlight} labelAsText={true} tabIndex={active ? 0 : -1} onChange={onChangeHightlightCallback} />
+        <Spacer space={8} direction='right' />
         <FileUploader
-          accept="application/json"
+          accept='application/json'
           disabled={!paused}
-          placeholder="MML JSON file"
+          placeholder='MML JSON file'
           filename={filename}
           drag={drag}
           drop={drop}
@@ -604,26 +604,26 @@ export const MML: React.FC<Props> = ({ loadedApp, currentSoundSource }) => {
         />
         {process.env.NODE_ENV !== 'production' ? (
           <Select
-            label="Select Sample MML"
+            label='Select Sample MML'
             values={values}
             texts={texts}
             disabled={!paused}
-            width="200px"
+            width='200px'
             tabIndex={active ? 0 : -1}
             onChange={onChangeSampleMMLCallback}
           />
         ) : null}
       </div>
-      <Modal isShow={isShowModalForFileUploadError} title="Error" hasOverlay={true} asAlert={true} onClose={onCloseModalCallback}>
+      <Modal isShow={isShowModalForFileUploadError} title='Error' hasOverlay={true} asAlert={true} onClose={onCloseModalCallback}>
         {errorMessage}
       </Modal>
-      <Modal isShow={isShowModalForProgress} title="Progress ..." hasOverlay={true} asAlert={false}>
+      <Modal isShow={isShowModalForProgress} title='Progress ...' hasOverlay={true} asAlert={false}>
         {showProgress ? <ProgressBar label={`${loadedByte} bytes (${rate} %)`} rate={rate} /> : null}
       </Modal>
       <SelectableModal
         hasOverlay={true}
         isShow={isShowModalConfirmation}
-        title="Confirmation"
+        title='Confirmation'
         first={{
           label: 'Cancel',
           action: onClickCancelCallback

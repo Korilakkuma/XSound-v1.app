@@ -18,9 +18,9 @@ export const Slider: React.FC<Props> = (props: Props) => {
   }, [value, min, max]);
 
   return (
-    <div className="Slider">
+    <div className='Slider'>
       <input
-        type="range"
+        type='range'
         aria-label={label}
         value={value}
         min={min}

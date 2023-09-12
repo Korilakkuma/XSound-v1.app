@@ -1232,10 +1232,10 @@ export const App: React.FC = () => {
       <main>
         <Flexbox>
           <VerticalBox numberOfDivisions={5}>
-            <OscillatorFieldset oscillatorNumber={0} label="Oscillator - 1" radioName="oscillator-type-0" />
+            <OscillatorFieldset oscillatorNumber={0} label='Oscillator - 1' radioName='oscillator-type-0' />
           </VerticalBox>
           <VerticalBox numberOfDivisions={5}>
-            <OscillatorFieldset oscillatorNumber={1} label="Oscillator - 2" radioName="oscillator-type-1" />
+            <OscillatorFieldset oscillatorNumber={1} label='Oscillator - 2' radioName='oscillator-type-1' />
           </VerticalBox>
           <VerticalBox numberOfDivisions={5}>
             <EnvelopeGeneratorFieldset />
@@ -1280,10 +1280,10 @@ export const App: React.FC = () => {
         </Flexbox>
       </main>
       <Footer />
-      <Modal isShow={isShowModalForAjax} title="Error" hasOverlay={true} asAlert={true} onClose={onCloseModalForAjaxCallback}>
+      <Modal isShow={isShowModalForAjax} title='Error' hasOverlay={true} asAlert={true} onClose={onCloseModalForAjaxCallback}>
         {errorMessage}
       </Modal>
-      <Modal isShow={isShowModalForDecoding} title="Error" hasOverlay={true} asAlert={true} onClose={onCloseModalForDecodingCallback}>
+      <Modal isShow={isShowModalForDecoding} title='Error' hasOverlay={true} asAlert={true} onClose={onCloseModalForDecodingCallback}>
         {errorMessage}
       </Modal>
     </React.Fragment>

@@ -273,18 +273,18 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
   }, [loadedApp, activeTrack]);
 
   return (
-    <div className="RecorderFieldset">
+    <div className='RecorderFieldset'>
       <fieldset>
         <legend>Recorder</legend>
-        <div className="RecorderFieldset__buttons">
+        <div className='RecorderFieldset__buttons'>
           <button
-            type="button"
+            type='button'
             aria-label={running ? 'Stop Recording' : 'Start Recording'}
             className={`RecorderFieldset__controller${running ? ' -active' : ''}`}
             onClick={onClickRecordButtonCallback}
           />
           <button
-            type="button"
+            type='button'
             disabled={running || !hasRecordedData}
             aria-label={creating ? 'Now creating WAVE file' : 'Create WAVE file'}
             className={`RecorderFieldset__creator${creating ? ' -active' : ''}`}
@@ -293,29 +293,29 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
           <a
             href={objectURL}
             download={objectURL ? createFilename('record-', 'wav') : null}
-            aria-label="Download"
+            aria-label='Download'
             aria-disabled={running || Boolean(objectURL === '')}
             tabIndex={objectURL === '' ? -1 : 0}
-            className="RecorderFieldset__download"
+            className='RecorderFieldset__download'
             onClick={onClickDownloadButtonCallback}
           >
             Download
           </a>
-          <button type="button" disabled={running} aria-label="Clear Track" className="RecorderFieldset__clear" onClick={onClickClearButtonCallback} />
+          <button type='button' disabled={running} aria-label='Clear Track' className='RecorderFieldset__clear' onClick={onClickClearButtonCallback} />
         </div>
         <Spacer space={24} />
         <Select
-          label="Select Track"
+          label='Select Track'
           values={['0', '1', '2', '3']}
           texts={['track 1', 'track 2', 'track 3', 'track 4']}
           disabled={running}
           onChange={onChangeTrackCallback}
         />
         <Spacer space={24} />
-        <ParameterController label="Left Channel" autoupdate={false} defaultValue={1} min={0} max={1} step={0.05} onChange={onChangeLeftChannelGainCallback} />
+        <ParameterController label='Left Channel' autoupdate={false} defaultValue={1} min={0} max={1} step={0.05} onChange={onChangeLeftChannelGainCallback} />
         <Spacer space={8} />
         <ParameterController
-          label="Right Channel"
+          label='Right Channel'
           autoupdate={false}
           defaultValue={1}
           min={0}
@@ -327,7 +327,7 @@ export const RecorderFieldset: React.FC<Props> = (props: Props) => {
       <SelectableModal
         hasOverlay={true}
         isShow={isShowModal}
-        title="Confirmation"
+        title='Confirmation'
         first={{
           label: 'Cancel',
           action: onClickCancelClearTrackCallback

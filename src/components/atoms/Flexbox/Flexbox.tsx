@@ -5,5 +5,5 @@ export type Props = {
 };
 
 export const Flexbox: React.FC<Props> = (props: Props) => {
-  return <div className="Flexbox">{props.children}</div>;
+  return <div className='Flexbox'>{props.children}</div>;
 };

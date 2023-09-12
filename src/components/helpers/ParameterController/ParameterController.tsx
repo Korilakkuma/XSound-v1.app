@@ -37,7 +37,7 @@ export const ParameterController: React.FC<Props> = (props: Props) => {
   }, [autoupdate, defaultValue]);
 
   return (
-    <dl className="ParameterController" style={width ? { width } : { width: 'auto' }}>
+    <dl className='ParameterController' style={width ? { width } : { width: 'auto' }}>
       <dt>
         <label htmlFor={id}>{label}</label>
         <Spinner id={id} value={value} min={min} max={max} step={step} tabIndex={tabIndex} onChange={onChangeCallback} />

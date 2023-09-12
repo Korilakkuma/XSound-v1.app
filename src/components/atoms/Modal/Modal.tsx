@@ -34,10 +34,10 @@ const Overlay: React.FC<OverlayProps> = (props: OverlayProps) => {
   );
 
   if (onClose) {
-    return <div role="button" tabIndex={0} className={className} onClick={onClose} onKeyDown={onKeyDownCallback} />;
+    return <div role='button' tabIndex={0} className={className} onClick={onClose} onKeyDown={onKeyDownCallback} />;
   }
 
-  return <div role="presentation" className={className} />;
+  return <div role='presentation' className={className} />;
 };
 
 const ModalBody: React.FC<Props> = (props: Props) => {
@@ -85,24 +85,24 @@ const ModalBody: React.FC<Props> = (props: Props) => {
 
   return (
     <div
-      role="dialog"
+      role='dialog'
       tabIndex={-1}
       aria-modal={isShow}
       aria-labelledby={labelId}
       aria-describedby={describeId}
       className={`Modal${isShow ? ' -show' : ' -hidden'}`}
     >
-      {hasOverlay ? <Overlay className="Modal__overlay" onClose={onClose} /> : null}
-      <div className="Modal__inner">
+      {hasOverlay ? <Overlay className='Modal__overlay' onClose={onClose} /> : null}
+      <div className='Modal__inner'>
         {onClose ? (
-          <button type="button" aria-label="Close modal" className="Modal__closer" onClick={onClose}>
+          <button type='button' aria-label='Close modal' className='Modal__closer' onClick={onClose}>
             X
           </button>
         ) : null}
-        <h2 id={labelId} className="Modal__title">
+        <h2 id={labelId} className='Modal__title'>
           {title}
         </h2>
-        <div role={asAlert ? 'alert' : undefined} id={describeId} className="Modal__contents">
+        <div role={asAlert ? 'alert' : undefined} id={describeId} className='Modal__contents'>
           {children}
         </div>
       </div>

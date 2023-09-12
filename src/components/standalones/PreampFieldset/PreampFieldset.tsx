@@ -145,25 +145,25 @@ export const PreampFieldset: React.FC = () => {
   }, []);
 
   return (
-    <div className="PreampFieldset">
+    <div className='PreampFieldset'>
       <fieldset>
         <legend>
-          <Switch label="Preamp" checked={preamp} labelAsText={false} onChange={onChangeStateCallback} />
+          <Switch label='Preamp' checked={preamp} labelAsText={false} onChange={onChangeStateCallback} />
         </legend>
-        <ParameterController label="Level" autoupdate={false} defaultValue={0} min={0} max={1} step={0.05} onChange={onChangeLevelCallback} />
+        <ParameterController label='Level' autoupdate={false} defaultValue={0} min={0} max={1} step={0.05} onChange={onChangeLevelCallback} />
         <Spacer space={8} />
-        <ParameterController label="Gain" autoupdate={false} defaultValue={0.5} min={0} max={1} step={0.05} onChange={onChangeGainCallback} />
+        <ParameterController label='Gain' autoupdate={false} defaultValue={0.5} min={0} max={1} step={0.05} onChange={onChangeGainCallback} />
         <Spacer space={8} />
-        <ParameterController label="Lead Gain" autoupdate={false} defaultValue={0.5} min={0} max={1} step={0.05} onChange={onChangeLeadGainCallback} />
+        <ParameterController label='Lead Gain' autoupdate={false} defaultValue={0.5} min={0} max={1} step={0.05} onChange={onChangeLeadGainCallback} />
         <Spacer space={8} />
-        <ParameterController label="Bass" autoupdate={false} defaultValue={0} min={-18} max={18} step={1} onChange={onChangeBassCallback} />
+        <ParameterController label='Bass' autoupdate={false} defaultValue={0} min={-18} max={18} step={1} onChange={onChangeBassCallback} />
         <Spacer space={8} />
-        <ParameterController label="Middle" autoupdate={false} defaultValue={0} min={-18} max={18} step={1} onChange={onChangeMiddleCallback} />
+        <ParameterController label='Middle' autoupdate={false} defaultValue={0} min={-18} max={18} step={1} onChange={onChangeMiddleCallback} />
         <Spacer space={8} />
-        <ParameterController label="Treble" autoupdate={false} defaultValue={0} min={-18} max={18} step={1} onChange={onChangeTrebleCallback} />
+        <ParameterController label='Treble' autoupdate={false} defaultValue={0} min={-18} max={18} step={1} onChange={onChangeTrebleCallback} />
         <Spacer space={8} />
         <ParameterController
-          label="Middle Frequency"
+          label='Middle Frequency'
           autoupdate={false}
           defaultValue={500}
           min={20}
@@ -172,7 +172,7 @@ export const PreampFieldset: React.FC = () => {
           onChange={onChangeMiddleFrequencyCallback}
         />
         <Spacer space={8} />
-        <Switch label="cabinet" checked={cabinet} labelAsText={true} onChange={onChangeCabinetCallback} />
+        <Switch label='cabinet' checked={cabinet} labelAsText={true} onChange={onChangeCabinetCallback} />
       </fieldset>
     </div>
   );

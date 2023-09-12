@@ -39,12 +39,12 @@ export const NoiseSuppressorFieldset: React.FC = () => {
   }, []);
 
   return (
-    <div className="NoiseSuppressorFieldset">
+    <div className='NoiseSuppressorFieldset'>
       <fieldset>
         <legend>
-          <Switch label="Noise Sup." checked={noisesuppressor} labelAsText={false} onChange={onChangeStateCallback} />
+          <Switch label='Noise Sup.' checked={noisesuppressor} labelAsText={false} onChange={onChangeStateCallback} />
         </legend>
-        <ParameterController label="Threshold" autoupdate={false} defaultValue={0} min={0} max={1} step={0.005} onChange={onChangeThresholdCallback} />
+        <ParameterController label='Threshold' autoupdate={false} defaultValue={0} min={0} max={1} step={0.005} onChange={onChangeThresholdCallback} />
         <Spacer space={8} />
       </fieldset>
     </div>

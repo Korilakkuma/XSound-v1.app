@@ -10,14 +10,14 @@ export const Spacer: React.FC<Props> = (props: Props) => {
 
   switch (direction) {
     case 'top':
-      return <div role="presentation" style={{ marginTop: `${space}px` }} />;
+      return <div role='presentation' style={{ marginTop: `${space}px` }} />;
     case 'left':
-      return <div role="presentation" style={{ width: `${space}px` }} />;
+      return <div role='presentation' style={{ width: `${space}px` }} />;
     case 'right':
-      return <div role="presentation" style={{ width: `${space}px` }} />;
+      return <div role='presentation' style={{ width: `${space}px` }} />;
     case 'bottom':
-      return <div role="presentation" style={{ marginBottom: `${space}px` }} />;
+      return <div role='presentation' style={{ marginBottom: `${space}px` }} />;
     default:
-      return <div role="presentation" style={{ marginBottom: `${space}px` }} />;
+      return <div role='presentation' style={{ marginBottom: `${space}px` }} />;
   }
 };

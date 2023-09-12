@@ -66,7 +66,7 @@ export const Header: React.FC<Props> = ({ loadedApp, progress, rate, onClickSetu
   return (
     <header
       ref={headerRef}
-      role="dialog"
+      role='dialog'
       hidden={loaded}
       aria-modal={!loaded}
       aria-labelledby={labelId}
@@ -75,27 +75,27 @@ export const Header: React.FC<Props> = ({ loadedApp, progress, rate, onClickSetu
       onAnimationEnd={onAnimationEndCallback}
     >
       <div hidden={progress}>
-        <div className="Header__forkMeOnGitHub">
-          <a href="https://github.com/Korilakkuma/XSound.app" target="_blank" rel="noopener noreferrer">
+        <div className='Header__forkMeOnGitHub'>
+          <a href='https://github.com/Korilakkuma/XSound.app' target='_blank' rel='noopener noreferrer'>
             Fork me on GitHub
           </a>
         </div>
         <div>
-          <h1 id={labelId} className="Header__logo">
-            <img src="/assets/images/logo-v09.png" alt="XSound.app" width="200" height="100" />
-            <img src="/assets/images/logo-v09.png" alt="" width="200" height="100" />
-            <img src="/assets/images/logo-v09.png" alt="" width="200" height="100" />
-            <img src="/assets/images/logo-v09.png" alt="" width="200" height="100" />
-            <img src="/assets/images/logo-v09.png" alt="" width="200" height="100" />
-            <img src="/assets/images/logo-v09.png" alt="" width="200" height="100" />
+          <h1 id={labelId} className='Header__logo'>
+            <img src='/assets/images/logo-v09.png' alt='XSound.app' width='200' height='100' />
+            <img src='/assets/images/logo-v09.png' alt='' width='200' height='100' />
+            <img src='/assets/images/logo-v09.png' alt='' width='200' height='100' />
+            <img src='/assets/images/logo-v09.png' alt='' width='200' height='100' />
+            <img src='/assets/images/logo-v09.png' alt='' width='200' height='100' />
+            <img src='/assets/images/logo-v09.png' alt='' width='200' height='100' />
           </h1>
-          <div id={describeId} className="Header__intro">
-            <span className="Header__moveLeft">XSound.app is Web Music Application by XSound (Web Audio API Library).</span>
-            <span className="Header__moveRight">Synthesizer, Effects, Visualization, Multi-Track Recording, Visual Audio Sprite ...</span>
-            <span className="Header__moveLeft">Moreover, enable to use external devices such as Audio Interfaces, MIDI.</span>
+          <div id={describeId} className='Header__intro'>
+            <span className='Header__moveLeft'>XSound.app is Web Music Application by XSound (Web Audio API Library).</span>
+            <span className='Header__moveRight'>Synthesizer, Effects, Visualization, Multi-Track Recording, Visual Audio Sprite ...</span>
+            <span className='Header__moveLeft'>Moreover, enable to use external devices such as Audio Interfaces, MIDI.</span>
           </div>
-          <nav className="Header__startButton">
-            <button type="button" onClick={onClickSetupCallback}>
+          <nav className='Header__startButton'>
+            <button type='button' onClick={onClickSetupCallback}>
               Start Application
             </button>
           </nav>

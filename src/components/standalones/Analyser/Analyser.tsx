@@ -146,35 +146,35 @@ export const Analyser: React.FC<Props> = (props: Props) => {
   }, [loadedApp, loaded, active]);
 
   return (
-    <div id="analyser-fieldset" aria-hidden={!active} className={`Analyser${active ? ' -active' : ''}`}>
-      <div className="Analyser__viewer">
+    <div id='analyser-fieldset' aria-hidden={!active} className={`Analyser${active ? ' -active' : ''}`}>
+      <div className='Analyser__viewer'>
         <TimeOverviewer loadedApp={loadedApp} active={active} type={type} />
         <TimeAnalyser loadedApp={loadedApp} type={type} />
         <SpectrumAnalyser loadedApp={loadedApp} type={type} />
       </div>
-      <div className="Analyser__controllers">
-        <Switch label="Audio Sprite" checked={analyser} labelAsText={true} tabIndex={active ? 0 : -1} onChange={onChangeModeCallback} />
-        <Spacer direction="right" space={12} />
+      <div className='Analyser__controllers'>
+        <Switch label='Audio Sprite' checked={analyser} labelAsText={true} tabIndex={active ? 0 : -1} onChange={onChangeModeCallback} />
+        <Spacer direction='right' space={12} />
         <ParameterController
-          label="Interval"
+          label='Interval'
           autoupdate={false}
           defaultValue={0}
           min={0}
           max={1000}
           step={10}
-          width="20%"
+          width='20%'
           tabIndex={active ? 0 : -1}
           onChange={onChangeIntervalCallback}
         />
-        <Spacer direction="right" space={12} />
+        <Spacer direction='right' space={12} />
         <ParameterController
-          label="Smoothing"
+          label='Smoothing'
           autoupdate={false}
           defaultValue={0.8}
           min={0}
           max={1}
           step={0.05}
-          width="20%"
+          width='20%'
           tabIndex={active ? 0 : -1}
           onChange={onChangeSmoothingCallback}
         />

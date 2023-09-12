@@ -79,20 +79,20 @@ export const ChorusFieldset: React.FC = () => {
   }, []);
 
   return (
-    <div className="ChorusFieldset">
+    <div className='ChorusFieldset'>
       <fieldset>
         <legend>
-          <Switch label="Chorus" checked={chorus} labelAsText={false} onChange={onChangeStateCallback} />
+          <Switch label='Chorus' checked={chorus} labelAsText={false} onChange={onChangeStateCallback} />
         </legend>
-        <ParameterController label="Time" autoupdate={false} defaultValue={0} min={0} max={50} step={1} onChange={onChangeTimeCallback} />
+        <ParameterController label='Time' autoupdate={false} defaultValue={0} min={0} max={50} step={1} onChange={onChangeTimeCallback} />
         <Spacer space={8} />
-        <ParameterController label="Depth" autoupdate={false} defaultValue={0} min={0} max={1} step={0.01} onChange={onChangeDepthCallback} />
+        <ParameterController label='Depth' autoupdate={false} defaultValue={0} min={0} max={1} step={0.01} onChange={onChangeDepthCallback} />
         <Spacer space={8} />
-        <ParameterController label="Rate" autoupdate={false} defaultValue={0} min={0} max={1} step={0.01} onChange={onChangeRateCallback} />
+        <ParameterController label='Rate' autoupdate={false} defaultValue={0} min={0} max={1} step={0.01} onChange={onChangeRateCallback} />
         <Spacer space={8} />
-        <ParameterController label="Mix" autoupdate={false} defaultValue={0} min={0} max={1} step={0.05} onChange={onChangeMixCallback} />
+        <ParameterController label='Mix' autoupdate={false} defaultValue={0} min={0} max={1} step={0.05} onChange={onChangeMixCallback} />
         <Spacer space={8} />
-        <ParameterController label="Tone" autoupdate={false} defaultValue={4000} min={20} max={8000} step={1} onChange={onChangeToneCallabck} />
+        <ParameterController label='Tone' autoupdate={false} defaultValue={4000} min={20} max={8000} step={1} onChange={onChangeToneCallabck} />
         <Spacer space={8} />
       </fieldset>
     </div>

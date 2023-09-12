@@ -49,14 +49,14 @@ export const TremoloFieldset: React.FC = () => {
   }, []);
 
   return (
-    <div className="TremoloFieldset">
+    <div className='TremoloFieldset'>
       <fieldset>
         <legend>
-          <Switch label="Tremolo" checked={tremolo} labelAsText={false} onChange={onChangeStateCallback} />
+          <Switch label='Tremolo' checked={tremolo} labelAsText={false} onChange={onChangeStateCallback} />
         </legend>
-        <ParameterController label="Depth" autoupdate={false} defaultValue={0} min={0} max={1} step={0.05} onChange={onChangeDepthCallback} />
+        <ParameterController label='Depth' autoupdate={false} defaultValue={0} min={0} max={1} step={0.05} onChange={onChangeDepthCallback} />
         <Spacer space={8} />
-        <ParameterController label="Rate" autoupdate={false} defaultValue={0} min={0} max={25} step={0.05} onChange={onChangeRateCallback} />
+        <ParameterController label='Rate' autoupdate={false} defaultValue={0} min={0} max={25} step={0.05} onChange={onChangeRateCallback} />
         <Spacer space={8} />
       </fieldset>
     </div>

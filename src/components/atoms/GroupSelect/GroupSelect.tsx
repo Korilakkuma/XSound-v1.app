@@ -16,7 +16,7 @@ export const GroupSelect: React.FC<Props> = (props: Props) => {
   const id = useId();
 
   return (
-    <div className="GroupSelect" style={width ? { width } : undefined}>
+    <div className='GroupSelect' style={width ? { width } : undefined}>
       <label htmlFor={id}>{label}</label>
       <select id={id} defaultValue={defaultValue} onChange={onChange}>
         {groups.map((group: string, key: number) => {

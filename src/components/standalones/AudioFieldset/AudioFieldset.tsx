@@ -216,14 +216,14 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
   }, [props.loadedApp, loaded, decodeCallback, updateCallback, endedCallback, errorCallback]);
 
   return (
-    <div className="AudioFieldset">
+    <div className='AudioFieldset'>
       <fieldset>
         <legend>Audio</legend>
-        <div className="AudioFieldset__selectAudio">
+        <div className='AudioFieldset__selectAudio'>
           <FileUploader
-            accept="audio/*, audio/mpeg, audio/ogg"
+            accept='audio/*, audio/mpeg, audio/ogg'
             disabled={false}
-            placeholder="Audio File (wav, ogg, mp3 ... etc)"
+            placeholder='Audio File (wav, ogg, mp3 ... etc)'
             filename={filename}
             drag={drag}
             drop={drop}
@@ -238,8 +238,8 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
             label={paused ? 'Start Audio' : 'Stop Audio'}
             width={70}
             height={33}
-            image="/assets/images/button-audio.png"
-            size="70px 99px"
+            image='/assets/images/button-audio.png'
+            size='70px 99px'
             onClick={onClickCallback}
           />
         </div>
@@ -255,23 +255,23 @@ export const AudioFieldset: React.FC<Props> = (props: Props) => {
         />
         <Spacer space={8} />
         {usePlaybackRate ? (
-          <ParameterController label="Playback Rate" autoupdate={false} defaultValue={1} min={0.05} max={2} step={0.025} onChange={onChangePlaybackRate} />
+          <ParameterController label='Playback Rate' autoupdate={false} defaultValue={1} min={0.05} max={2} step={0.025} onChange={onChangePlaybackRate} />
         ) : (
-          <ParameterController label="Pitch Shifter" autoupdate={false} defaultValue={1} min={0.05} max={4} step={0.025} onChange={onChangePitchCallback} />
+          <ParameterController label='Pitch Shifter' autoupdate={false} defaultValue={1} min={0.05} max={4} step={0.025} onChange={onChangePitchCallback} />
         )}
         <Spacer space={8} />
-        <ParameterController label="Vocal Canceler" autoupdate={false} defaultValue={0} min={0} max={1} step={0.05} onChange={onChangeDepthCallback} />
+        <ParameterController label='Vocal Canceler' autoupdate={false} defaultValue={0} min={0} max={1} step={0.05} onChange={onChangeDepthCallback} />
       </fieldset>
-      <Modal isShow={isShowModalForFileUploadError} title="Error" hasOverlay={true} asAlert={true} onClose={onCloseModalCallback}>
+      <Modal isShow={isShowModalForFileUploadError} title='Error' hasOverlay={true} asAlert={true} onClose={onCloseModalCallback}>
         {errorMessage}
       </Modal>
-      <Modal isShow={isShowModalForDecodingError} title="Error" hasOverlay={true} asAlert={true} onClose={onCloseModalCallback}>
+      <Modal isShow={isShowModalForDecodingError} title='Error' hasOverlay={true} asAlert={true} onClose={onCloseModalCallback}>
         {errorMessage}
       </Modal>
-      <Modal isShow={isShowModalForProgress} title="Progress ..." hasOverlay={true} asAlert={false}>
+      <Modal isShow={isShowModalForProgress} title='Progress ...' hasOverlay={true} asAlert={false}>
         {showProgress ? <ProgressBar label={`${loadedByte} bytes (${rate} %)`} rate={rate} /> : null}
       </Modal>
-      <Modal isShow={isShowModalForDecoding} title="Decoding ..." hasOverlay={true} asAlert={false}>
+      <Modal isShow={isShowModalForDecoding} title='Decoding ...' hasOverlay={true} asAlert={false}>
         {showProgress ? <ProgressBar /> : null}
       </Modal>
     </div>

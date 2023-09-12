@@ -17,13 +17,13 @@ const ProgressBarContainer: React.FC<{ label?: string }> = (args) => {
 
   return (
     <React.Fragment>
-      <button type="button" onClick={() => setRate(rate + 1)} style={{ backgroundColor: '#fff' }}>
+      <button type='button' onClick={() => setRate(rate + 1)} style={{ backgroundColor: '#fff' }}>
         +1
       </button>
-      <button type="button" onClick={() => setRate(rate + 10)} style={{ marginLeft: '4px', backgroundColor: '#fff' }}>
+      <button type='button' onClick={() => setRate(rate + 10)} style={{ marginLeft: '4px', backgroundColor: '#fff' }}>
         +10
       </button>
-      <button type="button" onClick={() => setRate(0)} style={{ marginLeft: '4px', backgroundColor: '#fff' }}>
+      <button type='button' onClick={() => setRate(0)} style={{ marginLeft: '4px', backgroundColor: '#fff' }}>
         0
       </button>
       <ProgressBar {...props} />
@@ -42,6 +42,6 @@ export const Primary = {
 export const Secondary = {
   ...Template,
   render: () => {
-    return <ProgressBar label="Now Loading ..." />;
+    return <ProgressBar label='Now Loading ...' />;
   }
 };

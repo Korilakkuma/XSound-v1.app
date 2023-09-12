@@ -53,7 +53,7 @@ export const SpectrumAnalyser: React.FC<Props> = (props: Props) => {
   );
 
   return (
-    <dl className="SpectrumAnalyser">
+    <dl className='SpectrumAnalyser'>
       <dt>Frequency Domain</dt>
       <dd>
         {type === 'bitmap' && <Canvas width={420} height={120} hasHoverStyle={false} setElementCallback={setElementCallback} />}

@@ -17,7 +17,7 @@ export const Select: React.FC<Props> = (props: Props) => {
   const id = useId();
 
   return (
-    <div className="Select" style={width ? { width } : undefined}>
+    <div className='Select' style={width ? { width } : undefined}>
       <label htmlFor={id}>{label}</label>
       <select id={id} disabled={disabled} defaultValue={defaultValue} tabIndex={tabIndex} onChange={onChange}>
         {values.map((value: string, index: number) => {

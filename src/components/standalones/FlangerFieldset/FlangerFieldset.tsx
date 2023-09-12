@@ -89,22 +89,22 @@ export const FlangerFieldset: React.FC = () => {
   }, []);
 
   return (
-    <div className="FlangerFieldset">
+    <div className='FlangerFieldset'>
       <fieldset>
         <legend>
-          <Switch label="Flanger" checked={flanger} labelAsText={false} onChange={onChangeStateCallback} />
+          <Switch label='Flanger' checked={flanger} labelAsText={false} onChange={onChangeStateCallback} />
         </legend>
-        <ParameterController label="Time" autoupdate={false} defaultValue={0} min={0} max={10} step={0.05} onChange={onChangeTimeCallback} />
+        <ParameterController label='Time' autoupdate={false} defaultValue={0} min={0} max={10} step={0.05} onChange={onChangeTimeCallback} />
         <Spacer space={8} />
-        <ParameterController label="Depth" autoupdate={false} defaultValue={0} min={0} max={1} step={0.01} onChange={onChangeDepthCallback} />
+        <ParameterController label='Depth' autoupdate={false} defaultValue={0} min={0} max={1} step={0.01} onChange={onChangeDepthCallback} />
         <Spacer space={8} />
-        <ParameterController label="Rate" autoupdate={false} defaultValue={0} min={0} max={10} step={0.05} onChange={onChangeRateCallback} />
+        <ParameterController label='Rate' autoupdate={false} defaultValue={0} min={0} max={10} step={0.05} onChange={onChangeRateCallback} />
         <Spacer space={8} />
-        <ParameterController label="Mix" autoupdate={false} defaultValue={0} min={0} max={1} step={0.05} onChange={onChangeMixCallback} />
+        <ParameterController label='Mix' autoupdate={false} defaultValue={0} min={0} max={1} step={0.05} onChange={onChangeMixCallback} />
         <Spacer space={8} />
-        <ParameterController label="Tone" autoupdate={false} defaultValue={4000} min={20} max={8000} step={1} onChange={onChangeToneCallback} />
+        <ParameterController label='Tone' autoupdate={false} defaultValue={4000} min={20} max={8000} step={1} onChange={onChangeToneCallback} />
         <Spacer space={8} />
-        <ParameterController label="Feedback" autoupdate={false} defaultValue={0} min={0} max={0.95} step={0.05} onChange={onChangeFeedbackCallback} />
+        <ParameterController label='Feedback' autoupdate={false} defaultValue={0} min={0} max={0.95} step={0.05} onChange={onChangeFeedbackCallback} />
         <Spacer space={8} />
       </fieldset>
     </div>

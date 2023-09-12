@@ -15,7 +15,7 @@ export const Button: React.FC<Props> = (props: Props) => {
 
   return (
     <button
-      type="button"
+      type='button'
       aria-label={label}
       style={{
         width: `${width}px`,

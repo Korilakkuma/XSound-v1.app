@@ -27,7 +27,7 @@ const ModalContainer: React.FC<{
 
   return (
     <React.Fragment>
-      <button type="button" onClick={onClick} style={{ backgroundColor: '#fff' }}>
+      <button type='button' onClick={onClick} style={{ backgroundColor: '#fff' }}>
         Open
       </button>
       <Modal {...props}>

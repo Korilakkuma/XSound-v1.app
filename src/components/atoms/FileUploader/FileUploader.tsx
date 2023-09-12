@@ -41,10 +41,10 @@ export const FileUploader: React.FC<Props> = (props: Props) => {
       onDragLeave={onDragLeave}
       onDrop={onDrop}
     >
-      <button type="button" aria-controls={id} disabled={disabled} tabIndex={tabIndex} onClick={onClickCallback}>
+      <button type='button' aria-controls={id} disabled={disabled} tabIndex={tabIndex} onClick={onClickCallback}>
         {filename ? filename : placeholder}
       </button>
-      <input type="file" ref={fileUploaderRef} id={id} accept={accept} disabled={disabled} placeholder={placeholder} tabIndex={-1} onChange={onChange} />
+      <input type='file' ref={fileUploaderRef} id={id} accept={accept} disabled={disabled} placeholder={placeholder} tabIndex={-1} onChange={onChange} />
     </div>
   );
 };
