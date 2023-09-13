@@ -3,8 +3,8 @@ import React from 'react';
 export const Footer: React.FC = () => {
   return (
     <footer className='Footer'>
+      <p>Copyright (c) 2012</p>
       <p>
-        Copyright (c) 2012{' '}
         <a href='https://github.com/Korilakkuma' target='_blank' rel='noopener noreferrer'>
           Tomohiro IKEDA
         </a>
