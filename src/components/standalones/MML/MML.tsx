@@ -74,6 +74,9 @@ export const MML: React.FC<Props> = ({ loadedApp, currentSoundSource }) => {
         case 'electric-guitar':
           X('mml').ready({ source: X('oneshot'), mmls: [melody, bass], offset: 2 * NUMBER_OF_PIANO_KEYBOARDS });
           break;
+        case 'orgel':
+          X('mml').ready({ source: X('oneshot'), mmls: [melody, bass], offset: 3 * NUMBER_OF_PIANO_KEYBOARDS });
+          break;
         case 'whitenoise':
         case 'pinknoise':
         case 'browniannoise':

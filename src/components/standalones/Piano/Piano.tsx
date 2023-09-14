@@ -83,6 +83,12 @@ export const Piano: React.FC<Props> = ({ loadedApp, currentSoundSource }) => {
             .start([index + NUMBER_OF_PIANO_KEYBOARDS + NUMBER_OF_PIANO_KEYBOARDS]);
           X('oneshot').module('recorder').start();
           break;
+        case 'orgel':
+          X('oneshot')
+            .ready(0, 0)
+            .start([index + NUMBER_OF_PIANO_KEYBOARDS + NUMBER_OF_PIANO_KEYBOARDS + NUMBER_OF_PIANO_KEYBOARDS]);
+          X('oneshot').module('recorder').start();
+          break;
         case 'whitenoise':
           X('noise').param({ type: 'whitenoise' }).start();
           X('noise').module('recorder').start();
@@ -153,6 +159,9 @@ export const Piano: React.FC<Props> = ({ loadedApp, currentSoundSource }) => {
           break;
         case 'electric-guitar':
           X('oneshot').stop([index + NUMBER_OF_PIANO_KEYBOARDS + NUMBER_OF_PIANO_KEYBOARDS]);
+          break;
+        case 'orgel':
+          X('oneshot').stop([index + NUMBER_OF_PIANO_KEYBOARDS + NUMBER_OF_PIANO_KEYBOARDS + NUMBER_OF_PIANO_KEYBOARDS]);
           break;
         default:
           X('noise').stop();

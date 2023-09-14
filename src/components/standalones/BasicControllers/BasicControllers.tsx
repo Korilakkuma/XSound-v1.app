@@ -39,6 +39,8 @@ export const BasicControllers: React.FC<Props> = ({ currentSoundSource }) => {
         return 'oneshot';
       case 'electric-guitar':
         return 'oneshot';
+      case 'orgel':
+        return 'oneshot';
       default:
         return 'noise';
     }
@@ -54,6 +56,8 @@ export const BasicControllers: React.FC<Props> = ({ currentSoundSource }) => {
         return NUMBER_OF_ONESHOTS;
       case 'electric-guitar':
         return NUMBER_OF_ONESHOTS + NUMBER_OF_ONESHOTS;
+      case 'orgel':
+        return NUMBER_OF_ONESHOTS + NUMBER_OF_ONESHOTS + NUMBER_OF_ONESHOTS;
       default:
         return 0;
     }
@@ -222,6 +226,7 @@ export const BasicControllers: React.FC<Props> = ({ currentSoundSource }) => {
         case 'piano':
         case 'guitar':
         case 'electric-guitar':
+        case 'orgel':
         case 'whitenoise':
         case 'pinknoise':
         case 'browniannoise':
@@ -313,8 +318,8 @@ export const BasicControllers: React.FC<Props> = ({ currentSoundSource }) => {
       <ParameterController label='Transpose' autoupdate={false} defaultValue={0} min={-6} max={6} step={1} width='20%' onChange={onChangeTransposeCallback} />
       <Select
         label='Select Sound Source'
-        values={['oscillator', 'piano', 'guitar', 'electric-guitar', 'whitenoise', 'pinknoise', 'browniannoise', 'stream', 'midi']}
-        texts={['oscillator', 'piano', 'A. guitar', 'E. guitar', 'white noise', 'pink noise', 'brownian noise', 'microphone', 'MIDI']}
+        values={['oscillator', 'piano', 'guitar', 'electric-guitar', 'orgel', 'whitenoise', 'pinknoise', 'browniannoise', 'stream', 'midi']}
+        texts={['oscillator', 'piano', 'A. guitar', 'E. guitar', 'orgel (music box)', 'white noise', 'pink noise', 'brownian noise', 'microphone', 'MIDI']}
         disabled={false}
         width='20%'
         onChange={onChangeSoundSourceCallback}

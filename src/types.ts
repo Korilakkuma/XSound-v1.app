@@ -7,7 +7,7 @@ declare global {
   }
 }
 
-export type SoundSource = 'oscillator' | 'piano' | 'guitar' | 'electric-guitar' | 'whitenoise' | 'pinknoise' | 'browniannoise' | 'stream' | 'midi';
+export type SoundSource = 'oscillator' | 'piano' | 'guitar' | 'electric-guitar' | 'orgel' | 'whitenoise' | 'pinknoise' | 'browniannoise' | 'stream' | 'midi';
 
 export type VisualizerType = 'bitmap' | 'vector';
 
