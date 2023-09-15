@@ -5,8 +5,8 @@ export type Props = {
   min: number;
   max: number;
   step: number;
-  id?: string;
-  tabIndex?: number;
+  id?: string | undefined;
+  tabIndex?: number | undefined;
   onChange(event: React.ChangeEvent<HTMLInputElement>): void;
 };
 

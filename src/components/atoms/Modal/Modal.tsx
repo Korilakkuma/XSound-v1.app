@@ -9,12 +9,12 @@ export type Props = {
   title: string;
   asAlert: boolean;
   children: React.ReactNode;
-  onClose?(event: React.MouseEvent<HTMLButtonElement | HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>): void;
+  onClose?: ((event: React.MouseEvent<HTMLButtonElement | HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void) | undefined;
 };
 
 type OverlayProps = {
   className: string;
-  onClose?(event: React.MouseEvent<HTMLButtonElement | HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>): void;
+  onClose?: ((event: React.MouseEvent<HTMLButtonElement | HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) => void) | undefined;
 };
 
 const Overlay: React.FC<OverlayProps> = (props: OverlayProps) => {

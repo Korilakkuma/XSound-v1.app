@@ -5,9 +5,9 @@ export type Props = {
   values: string[];
   texts: string[];
   disabled: boolean;
-  width?: string;
-  defaultValue?: string;
-  tabIndex?: number;
+  width?: string | undefined;
+  defaultValue?: string | undefined;
+  tabIndex?: number | undefined;
   onChange(event: React.ChangeEvent<HTMLSelectElement>): void;
 };
 

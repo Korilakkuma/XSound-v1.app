@@ -9,7 +9,7 @@ export default {
 } as Meta<typeof Spinner>;
 
 const SpinnerContainer: React.FC<{
-  id?: string;
+  id?: string | undefined;
   min: number;
   max: number;
   step: number;

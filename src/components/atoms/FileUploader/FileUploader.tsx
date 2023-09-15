@@ -7,7 +7,7 @@ export type Props = {
   filename: string;
   drag: boolean;
   drop: boolean;
-  tabIndex?: number;
+  tabIndex?: number | undefined;
   onChange(event: React.ChangeEvent<HTMLInputElement>): void;
   onDragEnter(event: React.DragEvent<HTMLDivElement>): void;
   onDragOver(event: React.DragEvent<HTMLDivElement>): void;

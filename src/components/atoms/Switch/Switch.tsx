@@ -4,8 +4,8 @@ export type Props = {
   label: string;
   checked: boolean;
   labelAsText: boolean;
-  controls?: string;
-  tabIndex?: number;
+  controls?: string | undefined;
+  tabIndex?: number | undefined;
   onChange(event: React.ChangeEvent<HTMLInputElement>): void;
 };
 

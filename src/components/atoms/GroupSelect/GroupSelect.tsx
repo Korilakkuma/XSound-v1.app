@@ -5,8 +5,8 @@ export type Props = {
   values: { [group: string]: string[] };
   texts: { [group: string]: string[] };
   groups: string[];
-  width?: string;
-  defaultValue?: string;
+  width?: string | undefined;
+  defaultValue?: string | undefined;
   onChange(event: React.ChangeEvent<HTMLSelectElement>): void;
 };
 

@@ -8,7 +8,7 @@ export default {
   component: ProgressBar
 } as Meta<typeof ProgressBar>;
 
-const ProgressBarContainer: React.FC<{ label?: string }> = (args) => {
+const ProgressBarContainer: React.FC<{ label?: string | undefined }> = (args) => {
   const [rate, setRate] = useState<number>(0);
 
   const label = useMemo(() => `Loaded ${rate <= 100 ? rate : 100} %`, [rate]);

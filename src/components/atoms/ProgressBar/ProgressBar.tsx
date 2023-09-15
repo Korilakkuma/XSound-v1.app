@@ -1,8 +1,8 @@
 import React, { useId } from 'react';
 
 export type Props = {
-  label?: string;
-  rate?: number;
+  label?: string | undefined;
+  rate?: number | undefined;
 };
 
 export const ProgressBar: React.FC<Props> = (props: Props) => {

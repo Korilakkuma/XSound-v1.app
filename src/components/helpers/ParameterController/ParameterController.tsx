@@ -10,8 +10,8 @@ export type Props = {
   max: number;
   step: number;
   defaultValue: number;
-  width?: string;
-  tabIndex?: number;
+  width?: string | undefined;
+  tabIndex?: number | undefined;
   onChange(event: React.SyntheticEvent): void;
 };
 

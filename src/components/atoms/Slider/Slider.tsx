@@ -6,7 +6,7 @@ export type Props = {
   min: number;
   max: number;
   step: number;
-  tabIndex?: number;
+  tabIndex?: number | undefined;
   onChange(event: React.ChangeEvent<HTMLInputElement>): void;
 };
 
