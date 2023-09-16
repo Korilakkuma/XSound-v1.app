@@ -292,7 +292,7 @@ export const App: React.FC = () => {
   );
 
   const getBufferIndexCallback = useCallback((pianoIndex: number) => {
-    switch (Math.trunc((pianoIndex + 9) % 12)) {
+    switch (Math.trunc((pianoIndex + 9) % X.EQUAL_TEMPERAMENT)) {
       case 0:
       case 1:
         return 0;
