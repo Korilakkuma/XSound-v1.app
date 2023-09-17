@@ -1,5 +1,5 @@
-import { store } from '../src/store';
-import type { RootState } from '../src/types';
+import { store } from '/src/store';
+import type { RootState } from '/src/store';
 
 export const createStoreMock = (state: RootState) => {
   return {

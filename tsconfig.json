@@ -24,7 +24,8 @@
     "target": "es2022"
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "mock/**/*"
   ],
   "exclude": [
     "src/service-worker.ts"
