@@ -80,7 +80,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.1.2",
-    "xsound": "^3.4.1"
+    "xsound": "^3.4.2"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^7.4.2",
