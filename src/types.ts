@@ -2,7 +2,7 @@ import type { X, RecordType, QuantizationBit, WaveExportType } from 'xsound';
 
 declare global {
   interface Window {
-    X: typeof X;
+    globalXSound: typeof X;
     clonedXSound: ReturnType<typeof X.clone>;
   }
 }
@@ -18,7 +18,7 @@ export type CustomizedParameters = {
   recorder?: {
     channel: RecordType;
     bit: QuantizationBit;
-    type: Pick<WaveExportType, 'dataURL' | 'objectURL'>;
+    type: WaveExportType;
   };
   audio?: {
     playbackRate: boolean;

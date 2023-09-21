@@ -1499,7 +1499,7 @@ export const App: React.FC = () => {
     X('stream').module('recorder').setup(NUMBER_OF_CHANNELS, NUMBER_OF_TRACKS);
     X('noise').module('recorder').setup(NUMBER_OF_CHANNELS, NUMBER_OF_TRACKS);
 
-    window.X = X;
+    window.globalXSound = X;
     window.clonedXSound = clonedX;
   }, [oneshots, rirDescriptors, createOneshotSettingsCallback]);
 
