@@ -20,7 +20,7 @@ You can use the following features.
 - Visualization (Overview in Time Domain / Time Domain / Spectrum)
 - Visual Audio Sprite
 - MML (Music Macro Language)
-- Effectors (Compressor / Wah / Equalizer / Tremolo / Phaser / Chorus / Delay / Reverb ... etc)
+- Effectors (Compressor / Wah / Overdrive /  PreAmp / Tremolo / Phaser / Chorus / Delay / Reverb ... etc)
 
 ## Supported Browsers
   
