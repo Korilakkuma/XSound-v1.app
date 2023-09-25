@@ -12,7 +12,7 @@
 You can use the following features.
 
 - Create Sound (2 Oscillators)
-- Play the One-Shot Audio (Piano, Acoustic Guitar, Electric Guitar, Noises)
+- Play the One-Shot Audio (Piano, Acoustic Guitar, Electric Guitar, Orgel (Music Box), Noises)
 - Play the Audio
 - Streaming (by WebRTC)
 - MIDI (by Web MIDI API)
