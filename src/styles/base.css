@@ -29,6 +29,7 @@ noscript {
   align-items: center;
   justify-content: center;
   height: 100vh;
+  height: 100dvh;
   font-family: Alike, serif;
   font-size: var(--base-font-size);
   color: var(--assort-color);

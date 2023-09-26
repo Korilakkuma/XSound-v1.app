@@ -167,4 +167,5 @@
 .MML.-active .MML__editor,
 .MML.-active .MML__controllers {
   max-height: 100vh;
+  max-height: 100dvh;
 }

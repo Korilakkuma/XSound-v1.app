@@ -40,4 +40,5 @@
 .Analyser.-active .Analyser__viewer,
 .Analyser.-active .Analyser__controllers {
   max-height: 100vh;
+  max-height: 100dvh;
 }
