@@ -67,7 +67,8 @@ module.exports = [
       splitChunks: {
         chunks: 'all',
         name: 'vendor'
-      }
+      },
+      usedExports: true
     },
     devtool: 'source-map',
     devServer: {
@@ -108,7 +109,8 @@ module.exports = [
     },
     optimization: {
       minimize: process.env.NODE_ENV === 'production',
-      minimizer: [terserPlugin]
+      minimizer: [terserPlugin],
+      usedExports: true
     }
   }
 ];
