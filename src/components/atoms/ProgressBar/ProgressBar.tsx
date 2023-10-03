@@ -1,4 +1,4 @@
-import React, { useId } from 'react';
+import React, { useId, useMemo } from 'react';
 
 export type Props = {
   label?: string | undefined;
@@ -13,6 +13,14 @@ export const ProgressBar: React.FC<Props> = (props: Props) => {
 
   const id = useId();
 
+  const value = useMemo(() => {
+    if (!rate) {
+      return 0;
+    }
+
+    return rate > 100 ? 100 : rate;
+  }, [rate]);
+
   return (
     <div className='ProgressBar'>
       {label ? (
@@ -23,7 +31,9 @@ export const ProgressBar: React.FC<Props> = (props: Props) => {
       <div className='ProgressBar__wrapper'>
         <div role='presentation' className='ProgressBar__mask' />
         {manual ? (
-          <div role='progressbar' aria-valuenow={rate} aria-valuemin={0} aria-valuemax={100} aria-labelledby={id} style={style} className='ProgressBar__bar' />
+          <progress value={value} max={100} className='ProgressBar__bar'>
+            {value}%
+          </progress>
         ) : (
           <div role='progressbar' aria-valuemin={0} aria-valuemax={100} style={style} className='ProgressBar__bar -auto' />
         )}
